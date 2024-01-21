@@ -44,7 +44,7 @@ const ProductContainerWithCategory = () => {
             <h1 className='text-[35px] font-extrabold'>NEW ARRIVALS</h1>
             <div className='relative w-full px-2'>
                 <GoChevronLeft onClick={handleScrollLeft} className='hover:scale-110 z-10 absolute top-[120px] bg-black text-white  left-10 rounded-full cursor-pointer' size={40} />
-                <GoChevronRight onClick={handleScrollRight} className='z-10 absolute top-[120px] bg-black text-white right-10 rounded-full cursor-pointer' size={40} />
+                <GoChevronRight onClick={handleScrollRight} className='hover:scale-110 z-10 absolute top-[120px] bg-black text-white right-10 rounded-full cursor-pointer' size={40} />
                 <div ref={scrollContainerRef} className='relative w-full overflow-x-scroll px-4 scrollbar hideScrollBar'>
                     <div className='flex justify-start items-start gap-3'>
                         <ProductCard />

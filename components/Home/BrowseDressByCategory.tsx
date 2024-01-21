@@ -8,21 +8,21 @@ const BrowseDressByCategory = () => {
                 <h1 className='text-center font-extrabold text-black lg:text-[50px] md:text-[30px] text-[20px] mt-5  '>Browse Dress By Category</h1>
                 <div className='flex items-center justify-center flex-col lg:flex-row w-full gap-5'>
                     <div className='bg-emerald-100  lg:flex-row w-full lg:w-2/3 rounded-2xl flex items-center justify-center '>
-                        <h1 className='lg:text-[30px] text-[20px] font-semibold'>Party Wear</h1>
+                        <h1 className='lg:text-[30px] text-[20px] font-semibold text-center'>Party Wear</h1>
                         <Image src={'/greendress.png'} width={150} height={150} alt='Dress' />
                     </div>
                     <div className='bg-emerald-100  lg:flex-row w-full lg:w-1/3 rounded-2xl flex items-center justify-center '>
-                        <h1 className='lg:text-[30px] text-[20px] font-semibold'>Semi Party Wear</h1>
+                        <h1 className='lg:text-[30px] text-[20px] font-semibold text-center'>Semi Party Wear</h1>
                         <Image src={'/greendress.png'} width={150} height={150} alt='Dress' />
                     </div>
                 </div>
                 <div className='flex items-center justify-center flex-col lg:flex-row w-full gap-5'>
                     <div className='bg-emerald-100  lg:flex-row w-full lg:w-2/3 rounded-2xl flex items-center justify-center '>
-                        <h1 className='lg:text-[30px] text-[20px] font-semibold'>Party Wear</h1>
+                        <h1 className='lg:text-[30px] text-[20px] font-semibold text-center'>Wedding</h1>
                         <Image src={'/greendress.png'} width={150} height={150} alt='Dress' />
                     </div>
-                    <div className='bg-emerald-100  lg:flex-row w-full lg:w-2/3 rounded-2xl flex items-center justify-center '>
-                        <h1 className='lg:text-[30px] text-[20px] font-semibold'>Semi Party Wear</h1>
+                    <div className='bg-emerald-100  lg:flex-row w-full lg:w-2/3 rounded-2xl flex items-center justify-center overflow-hidden'>
+                        <h1 className='lg:text-[30px] text-[20px] font-semibold text-center'>Casual</h1>
                         <Image src={'/greendress.png'} width={150} height={150} alt='Dress' />
                     </div>
                 </div>
