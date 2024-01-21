@@ -8,9 +8,9 @@ import Link from 'next/link';
 
 const Header = () => {
     return (
-        <div className='bg-td-secondary h-32 flex items-center justify-between px-10'>
+        <div className='bg-td-secondary flex items-center justify-between px-3 lg:px-10'>
             <Link href={"/"} className=''>
-                <Image src={'/td-white.png'} alt='Threadle Design' height={100} width={100} />
+                <Image src={'/td-white.png'} alt='Threadle Design' height={80} width={80} />
             </Link>
             <div className='flex items-center justify-center gap-2'>
                 <CiSearch onClick={() => { }} className='text-white cursor-pointer' size={24} />
