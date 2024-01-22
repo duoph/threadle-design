@@ -1,7 +1,13 @@
+"use client"
+
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import React from 'react'
 
 const Hero = () => {
+
+    const router = useRouter()
+
     return (
         <div className=" w-full flex md:flex-row flex-col items-center justify-center bg-gray-200">
             <div className='md:w-1/2 w-full flex flex-col items-center justify-center md:py-10 pt-10 lg:px-10 px-5 gap-4 lg:gap-10'>
@@ -12,7 +18,7 @@ const Hero = () => {
                     <p className='text-black break-all'>Browse through our diverse range of meticulously crafted garments, designed to bring out your individuality and cater to your sense of style.</p>
                 </div>
                 <div>
-                    <button className='py-3 px-4 rounded-2xl bg-td-primary text-[18px] text-white font-semibold' >Shop Now</button>
+                    <button onClick={() => router.push('/shop')} className='py-3 px-4 rounded-2xl bg-td-primary text-[18px] text-white font-semibold' >Shop Now</button>
                 </div>
                 <div className='hidden lg:flex items-center justify-center gap-5 lg:text-[28px] md:text-[20px] text-[16px]'>
                     <p className='flex flex-col items-center justify-center font-bold '>2500+ <span className='font-normal'>Brands</span></p>
