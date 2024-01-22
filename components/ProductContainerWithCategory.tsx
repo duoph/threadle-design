@@ -4,10 +4,16 @@ import React, { useRef } from 'react';
 import ProductCard from './ProductCard';
 
 import { GoChevronRight, GoChevronLeft } from "react-icons/go";
+import { useRouter } from 'next/navigation';
 
 
 const ProductContainerWithCategory = () => {
     const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+
+    const router = useRouter()
+
+    const categoryName = "MenOutFits"
 
     const handleScrollRight = () => {
         try {
@@ -43,8 +49,8 @@ const ProductContainerWithCategory = () => {
         <div className='flex flex-col items-center gap-4 justify-center mt-10 w-full mb-5'>
             <h1 className='text-[35px] font-extrabold'>NEW ARRIVALS</h1>
             <div className='relative w-full px-2'>
-                <GoChevronLeft onClick={handleScrollLeft} className='hover:scale-110 z-10 absolute top-[120px] bg-black text-white  left-10 rounded-full cursor-pointer' size={40} />
-                <GoChevronRight onClick={handleScrollRight} className='hover:scale-110 z-10 absolute top-[120px] bg-black text-white right-10 rounded-full cursor-pointer' size={40} />
+                <GoChevronLeft onClick={handleScrollLeft} className='md:hover:scale-110 z-10 absolute top-[120px] bg-black text-white  left-8 rounded-full cursor-pointer' size={30} />
+                <GoChevronRight onClick={handleScrollRight} className='md:hover:scale-110 z-10 absolute top-[120px] bg-black text-white right-8 rounded-full cursor-pointer' size={30} />
                 <div ref={scrollContainerRef} className='relative w-full overflow-x-scroll px-4 scrollbar hideScrollBar'>
                     <div className='flex justify-start items-start gap-3'>
                         <ProductCard />
@@ -58,9 +64,11 @@ const ProductContainerWithCategory = () => {
                     </div>
                 </div>
             </div>
-            <button className='text-lg border rounded-2xl px-5 py-2 relative z-10'>
-                View All
-            </button>
+            <div className='px-5 w-full flex items-center justify-center'>
+                <button onClick={() => router.push(`/shop/${categoryName}`)} className='text-lg border md:w-auto w-full rounded-2xl px-5 py-2 relative z-10'>
+                    View All
+                </button>
+            </div>
         </div>
     );
 };

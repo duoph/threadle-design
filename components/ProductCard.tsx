@@ -1,11 +1,32 @@
+"use client"
+
 import Image from 'next/image'
+import { useRouter } from 'next/navigation';
 import React from 'react'
 import { CiStar } from 'react-icons/ci'
 import { FaStar } from "react-icons/fa6";
 
 const ProductCard = () => {
+
+
+    const router = useRouter()
+
+
+    const category = "dress"
+    const productId = "123"
+
+
+    const onclick = async () => {
+        try {
+            router.push(`/shop/${category}/${productId}`)
+        } catch (error) {
+
+        }
+    }
+
+
     return (
-        <div className='flex flex-col items-center justify-center min-w-[300px] cursor-pointer'>
+        <div onClick={onclick} className='flex flex-col items-center justify-center min-w-[300px] cursor-pointer'>
             <div className='flex items-center justify-center w-full bg-gray-200 rounded-2xl'>
                 <Image src={'/reddress3.png'} height={150} width={200} alt='Red-Dress' />
             </div>
