@@ -1,4 +1,4 @@
-"use client"
+"use client4"
 
 import Image from 'next/image'
 import { useRouter } from 'next/navigation';
@@ -42,6 +42,9 @@ const ProductCard = () => {
                 </span>
                 <p className='text-start break-all'>&#8377;3000</p>
             </div>
+            {/* <div className='w-full '>
+                <button className='bg-black text-white w-full px-3 py-3 rounded-2xl'>Add To Cart</button>
+            </div> */}
 
         </div>
     )
