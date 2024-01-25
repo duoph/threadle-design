@@ -7,7 +7,7 @@ import { IoMdArrowBack } from "react-icons/io";
 
 
 
-const page = () => {
+const AddProduct = () => {
 
   const router = useRouter()
 
@@ -99,4 +99,4 @@ const page = () => {
   )
 }
 
-export default page
+export default AddProduct;
