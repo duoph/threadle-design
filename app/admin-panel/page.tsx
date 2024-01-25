@@ -2,6 +2,9 @@
 
 import { useRouter } from "next/navigation";
 import { IoMdArrowBack } from "react-icons/io";
+import { CiSquarePlus } from "react-icons/ci";
+import Image from "next/image";
+import { useState } from "react";
 
 
 
@@ -11,6 +14,23 @@ const AddProduct = () => {
 
   const router = useRouter()
 
+
+  const [coverImage, setCoverImage] = useState<string | null>(null);
+
+  const handleCoverImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+
+    if (file) {
+      // Read the file and create a URL
+      const imageUrl = URL.createObjectURL(file);
+
+      // Update the state with the generated URL
+      setCoverImage(imageUrl);
+    }
+  };
+
+  console.log(coverImage)
+
   return (
     <div className='flex flex-col gap-3 py-5 md:px-10 px-5'>
       <div className='flex gap-2 items-center justify-start'>
@@ -19,19 +39,19 @@ const AddProduct = () => {
       </div>
       {/* Product Details */}
       <div className='flex flex-col w-full gap-4'>
-        <h1 className='font-bold'>Product Details</h1>
-        <label htmlFor="tile">Product Title</label>
+        <h1 className='text-[20px] font-bold'>Product Details</h1>
+        <h1 className=" font-bold">Product Title</h1>
         <input type="text" name='title' className='bg-gray-200 rounded-2xl px-5 py-3' />
         <div className='flex items-center justify-center w-full gap-3'>
           <div className='flex flex-col w-full gap-2'>
-            <h1 className="Text-[25px] font-bold">Category</h1>
+            <h1 className=" font-bold">Category</h1>
             <select className='bg-gray-200 rounded-2xl px-5 py-3'>
               <option value="someOption">Some option</option>
               <option value="otherOption">Other option</option>
             </select>
           </div>
           <div className='flex flex-col w-full gap-2'>
-            <h1 className="Text-[25px] font-bold">In Stock</h1>
+            <h1 className=" font-bold">In Stock</h1>
             <select className='bg-gray-200 rounded-2xl px-5 py-3'>
               <option value="someOption">Yes</option>
               <option value="otherOption">No</option>
@@ -39,7 +59,7 @@ const AddProduct = () => {
           </div>
         </div>
         <div className='flex flex-col gap-2'>
-          <h1 className="Text-[25px] font-bold">Description</h1>
+          <h1 className=" font-bold">Description</h1>
           <textarea rows={10} className='bg-gray-200 rounded-2xl px-5 py-3' minLength={100} name="desc" id="desc" >
             fsef
           </textarea>
@@ -47,7 +67,7 @@ const AddProduct = () => {
 
         {/* Sizes */}
         <div className=' gap-3'>
-          <h1 className="Text-[25px] font-bold">Available Sizes</h1>
+          <h1 className=" font-bold">Available Sizes</h1>
           <div className='flex gap-3'>
             <input type="checkbox" />
             <span>Small</span>
@@ -67,7 +87,7 @@ const AddProduct = () => {
       {/* Pricing */}
 
       <div className='w-full flex gap-3 flex-col'>
-        <h1>Pricing</h1>
+        <h1 className=" font-bold">Pricing</h1>
         <div className='flex gap-3 w-full'>
           <div className='flex flex-col gap-3 w-1/2'>
             <span >Regular Price</span>
@@ -81,7 +101,7 @@ const AddProduct = () => {
       </div>
 
       <div className="flex flex-col gap-3">
-        <h1 className="Text-[25px] font-bold">Available Colors</h1>
+        <h1 className=" font-bold">Available Colors</h1>
         <label htmlFor="tile">Add Color Code</label>
         <div className="flex gap-3">
           <input type="text" name='title' className='bg-gray-200 rounded-2xl px-5 py-3' />
@@ -95,6 +115,34 @@ const AddProduct = () => {
         </div>
       </div>
 
+
+      {/* Images */}
+
+      <div className="h-[50vh] flex flex-col gap-3">
+        <h1 className=" font-bold">Images</h1>
+        <div className="flex flex-col gap-2">
+          <span className="font-semibold">Cover Image</span>
+          <div className="flex border px-5 flex-col items-center justify-center gap-3 md:w-[400px]  w-full h-[200px]">
+            <label htmlFor="coverImage" className="w-full h-full flex flex-col items-center justify-center">
+              {coverImage ? (
+                <img src={coverImage} alt="Cover" className="w-full h-full object-cover" />
+              ) : (
+                <>
+                  <span className="font-bold">Add Image</span>
+                  <CiSquarePlus size={24} />
+                </>
+              )}
+            </label>
+            <input
+              id="coverImage"
+              type="file"
+              onChange={handleCoverImageChange}
+              className="hidden"
+              accept="image/*"
+            />
+          </div>
+        </div>
+      </div>
     </div >
   )
 }
