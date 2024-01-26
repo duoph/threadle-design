@@ -9,27 +9,34 @@ import { useState } from "react";
 
 
 
-
 const AddProduct = () => {
-
-  const router = useRouter()
-
+  const router = useRouter();
 
   const [coverImage, setCoverImage] = useState<string | null>(null);
+  const [moreImages, setMoreImages] = useState<string[]>([]);
 
   const handleCoverImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-
     if (file) {
-      // Read the file and create a URL
       const imageUrl = URL.createObjectURL(file);
-
-      // Update the state with the generated URL
       setCoverImage(imageUrl);
     }
   };
 
-  console.log(coverImage)
+  const handleMoreImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (files) {
+      const imageUrls = Array.from(files).map(file => URL.createObjectURL(file));
+      setMoreImages((prev) => [...prev, ...imageUrls]);
+    }
+  };
+
+  const unSelectImage = (indexToRemove: number) => {
+    setMoreImages((prev) => prev.filter((_, index) => index !== indexToRemove));
+  };
+
+  console.log(coverImage);
+  console.log(moreImages);
 
   return (
     <div className='flex flex-col gap-3 py-5 md:px-10 px-5'>
@@ -116,9 +123,10 @@ const AddProduct = () => {
       </div>
 
 
+
       {/* Images */}
 
-      <div className="h-[50vh] flex flex-col gap-3">
+      <div className="flex flex-col gap-3">
         <h1 className=" font-bold">Images</h1>
         <div className="flex flex-col gap-2">
           <span className="font-semibold">Cover Image</span>
@@ -139,12 +147,44 @@ const AddProduct = () => {
               onChange={handleCoverImageChange}
               className="hidden"
               accept="image/*"
+
             />
           </div>
         </div>
+
+        {/* More Images */}
+
+        <div>
+          <span className="font-semibold">More Images</span>
+          <div className="flex px-5 items-center justify-center gap-3 md:w-[400px] w-full h-[200px]">
+            {moreImages.length < 3 ? (
+              <>
+                <label htmlFor="moreImages" className="w-full h-full flex flex-col items-center justify-center">
+                  <span className="font-bold">Add Image</span>
+                  <CiSquarePlus size={24} />
+                </label>
+                <input type="file" multiple className="hidden" id="moreImages" accept="image/*" onChange={handleMoreImageChange} />
+              </>
+            ) : null}
+            {moreImages.map((imageUrl, index) => (
+              <div key={index} className="w-full flex flex-col items-center justify-center gap-2">
+                <img src={imageUrl} alt={`More Image ${index + 1}`} className="w-full h-full object-cover" />
+                <button onClick={() => unSelectImage(index)} className="bg-red-700 px-3 py-2 rounded-2xl text-white">Remove</button>
+              </div>
+            ))}
+
+          </div>
+        </div>
+      </div>
+
+
+      {/* Button */}
+
+      <div className="w-full flex items-center justify-center py-5">
+        <button className="px-5 py-3 bg-td-secondary text-white rounded-2xl font-semibold">Add Product</button>
       </div>
     </div >
-  )
+  );
 }
 
 export default AddProduct;
