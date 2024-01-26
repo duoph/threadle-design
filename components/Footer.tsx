@@ -2,7 +2,6 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import React from 'react'
 
 import { FaFacebook, FaInstagram } from 'react-icons/fa6'
@@ -10,9 +9,6 @@ import { FaFacebook, FaInstagram } from 'react-icons/fa6'
 
 
 const Footer = () => {
-
-    const router = useRouter()
-
     return (
         <div className='py-5 flex flex-col gap-3  bg-slate-200 w-full md:px-20 px-5'>
             <div className='flex md:flex-row flex-col justify-between items-center gap-4 '>
