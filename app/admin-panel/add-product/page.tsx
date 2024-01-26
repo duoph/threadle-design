@@ -22,7 +22,7 @@ const AddProduct = () => {
     const handleAddColors = () => {
         if (colorInput && isValidHex(colorInput)) {
             setColorCode((prev) => [...prev, colorInput]);
-            setColorInput(""); // Clear the input field after adding the color
+            setColorInput("");
         } else {
             toast.error("Invalid Color Code")
             console.error("Invalid color code");
