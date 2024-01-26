@@ -7,7 +7,6 @@ import React from 'react'
 import { FaFacebook, FaInstagram } from 'react-icons/fa6'
 
 
-
 const Footer = () => {
     return (
         <div className='py-5 flex flex-col gap-3  bg-slate-200 w-full md:px-20 px-5'>
