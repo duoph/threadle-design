@@ -126,21 +126,23 @@ const AddProduct = () => {
 
       {/* Images */}
 
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col w-full gap-3">
         <h1 className=" font-bold">Images</h1>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 w-full">
           <span className="font-semibold">Cover Image</span>
-          <div className="flex border px-5 flex-col items-center justify-center gap-3 md:w-[400px]  w-full h-[200px]">
-            <label htmlFor="coverImage" className="w-full h-full flex flex-col items-center justify-center">
-              {coverImage ? (
-                <img src={coverImage} alt="Cover" className="w-full h-full object-cover" />
-              ) : (
-                <>
-                  <span className="font-bold">Add Image</span>
-                  <CiSquarePlus size={24} />
-                </>
-              )}
-            </label>
+          <div className="flex  px-5 flex-col items-center justify-center gap-3 md:w-[400px]  w-full h-[200px]">
+            {!coverImage && (
+              <label htmlFor="coverImage" className="w-full flex flex-col items-center justify-center">
+                <span className="font-bold">Add Image</span>
+                <CiSquarePlus size={24} />
+              </label>
+            )}
+            {coverImage && (
+              <div className="flex flex-col items-center justify-center gap-2 py-5 w-full">
+                <img src={coverImage} alt="Cover" className="object-cover" height={150} width={150} />
+                <button onClick={() => setCoverImage(null)} className="bg-red-700 px-3 py-2 rounded-2xl text-white">Remove</button>
+              </div>
+            )}
             <input
               id="coverImage"
               type="file"
@@ -154,7 +156,7 @@ const AddProduct = () => {
 
         {/* More Images */}
 
-        <div>
+        <div className="w-full">
           <span className="font-semibold">More Images</span>
           <div className="flex px-5 items-center justify-center gap-3 md:w-[400px] w-full h-[200px]">
             {moreImages.length < 3 ? (
@@ -163,7 +165,7 @@ const AddProduct = () => {
                   <span className="font-bold">Add Image</span>
                   <CiSquarePlus size={24} />
                 </label>
-                <input type="file" multiple className="hidden" id="moreImages" accept="image/*" onChange={handleMoreImageChange} />
+                <input type="file" className="hidden" id="moreImages" accept="image/*" onChange={handleMoreImageChange} />
               </>
             ) : null}
             {moreImages.map((imageUrl, index) => (
@@ -175,14 +177,14 @@ const AddProduct = () => {
 
           </div>
         </div>
-      </div>
+      </div >
 
 
       {/* Button */}
 
-      <div className="w-full flex items-center justify-center py-5">
+      < div className="w-full flex items-center justify-center py-5" >
         <button className="px-5 py-3 bg-td-secondary text-white rounded-2xl font-semibold">Add Product</button>
-      </div>
+      </ div>
     </div >
   );
 }
