@@ -6,11 +6,11 @@ interface AdminProps extends Document {
 }
 
 const AdminSchema = new Schema<AdminProps>({
-    email: { type: String, required: true },
+    email: { type: String, unique: true, required: true },
     password: { type: String, required: true },
 });
 
 
-const AdminModal = mongoose.model<AdminProps>('User', AdminSchema);
+const AdminModel = mongoose.model('admin') || mongoose.model<AdminProps>('admin', AdminSchema);
 
-export default AdminModal;
+export default AdminModel;
