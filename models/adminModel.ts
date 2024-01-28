@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document } from "mongoose";
+import mongoose, { Schema, Document, models } from "mongoose";
 
 interface AdminProps extends Document {
     email: string;
@@ -14,6 +14,6 @@ const AdminSchema = new Schema<AdminProps>({
 }, { timestamps: true });
 
 
-const AdminModel = mongoose.model('admin') || mongoose.model<AdminProps>('admin', AdminSchema);
+const AdminModel = models.admin || mongoose.model<AdminProps>('admin', AdminSchema);
 
 export default AdminModel;
