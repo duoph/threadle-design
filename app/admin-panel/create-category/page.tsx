@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { useRouter } from "next/navigation";
 import { IoMdArrowBack } from "react-icons/io";
@@ -7,12 +7,13 @@ import Image from "next/image";
 import { useState } from "react";
 import { MdDelete } from "react-icons/md";
 import toast from "react-hot-toast";
-
+import axios from "axios"; // Import Axios
 
 const CreateCategory = () => {
     const router = useRouter();
 
     const [coverImage, setCoverImage] = useState<string | null>(null);
+    const [categoryTitle, setCategoryTitle] = useState<string>(""); // State to store the category title
 
     const handleCoverImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
@@ -22,15 +23,35 @@ const CreateCategory = () => {
         }
     };
 
-
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         try {
-            toast.error("Check credentials")
+            if (!categoryTitle) {
+                toast.error("Please enter a category title");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append("title", categoryTitle);
+            if (coverImage) {
+                const file = await fetch(coverImage).then((res) => res.blob());
+                formData.append("coverImage", file);
+            }
+            // Make a POST request to your backend endpoint
+           const res = await axios.post("/api/admin-panel/create-category", formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+
+            console.log(res)
+
+            toast.success("Category created successfully");
+            router.push("/");
         } catch (error) {
-
+            console.error("Error creating category:", error);
+            toast.error("Failed to create category");
         }
-    }
-
+    };
 
     return (
         <div className='flex flex-col gap-3 py-5 md:px-10 px-5'>
@@ -44,7 +65,7 @@ const CreateCategory = () => {
             <div className='flex flex-col w-full gap-4'>
                 <h1 className='text-[20px] font-bold'>Category Details</h1>
                 <h1 className=" font-bold">Category Title</h1>
-                <input type="text" name='title' placeholder="Title" className='bg-gray-200 rounded-2xl px-5 py-3' />
+                <input type="text" name='title' onChange={(e) => setCategoryTitle(e.target.value)} value={categoryTitle} placeholder="Title" className='bg-gray-200 rounded-2xl px-5 py-3' />
             </div>
 
             {/* Images */}
