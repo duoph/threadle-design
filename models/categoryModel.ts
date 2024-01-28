@@ -1,4 +1,5 @@
 import mongoose, { Schema, Document } from "mongoose";
+import { models } from "mongoose";
 
 interface CategoryProps extends Document {
     categoryName: string;
@@ -15,6 +16,6 @@ const CategorySchema = new Schema<CategoryProps>({
 }, { timestamps: true });
 
 
-const CategoryModel =  mongoose.model<CategoryProps>('category', CategorySchema);
+const CategoryModel = models.category || mongoose.model<CategoryProps>('category', CategorySchema);
 
 export default CategoryModel;
