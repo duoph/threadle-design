@@ -48,10 +48,16 @@ const AddProduct = () => {
         setMoreImages((prev) => prev.filter((_, index) => index !== indexToRemove));
     };
 
-    console.log(coverImage);
-    console.log(moreImages);
-    console.log(colorCode)
-    console.log(colorInput)
+    const handleSubmit = () => {
+        try {
+            toast.error("Check credentials")
+            console.log("test")
+        } catch (error) {
+            toast.error("Check credentials")
+        }
+    }
+
+
 
     return (
         <div className='flex flex-col gap-3 py-5 md:px-10 px-5'>
@@ -224,7 +230,7 @@ const AddProduct = () => {
             {/* Button */}
 
             < div className="w-full flex items-center justify-center py-5" >
-                <button className="px-5 py-3 bg-td-secondary text-white rounded-2xl font-semibold">Add Product</button>
+                <button onClick={handleSubmit} className="px-5 py-3 hover:bg-td-primary bg-td-secondary text-white rounded-2xl font-semibold">Add Product</button>
             </ div>
         </div >
     );
