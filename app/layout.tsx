@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Toaster } from "react-hot-toast";
+import { AdminProvider } from "@/context/admin";
 
 const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
@@ -22,13 +23,15 @@ export default function RootLayout({
         <link rel="icon" href="/icon.png" />
       </head>
       <body className={inter.className}>
-        <Header />
-        <Toaster
-          position="top-center"
-          reverseOrder={false}
-        />
-        {children}
-        <Footer />
+        <AdminProvider>
+          <Header />
+          <Toaster
+            position="top-center"
+            reverseOrder={false}
+          />
+          {children}
+          <Footer />
+        </AdminProvider>
       </body>
     </html>
   );
