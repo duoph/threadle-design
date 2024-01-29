@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect } from 'react';
-import { useAdmin } from '@/context/admin';
+// import { useAdmin } from '@/context/admin';
 import axios, { AxiosResponse } from 'axios';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
@@ -18,7 +18,7 @@ const LoginPageAdmin: React.FC = () => {
   const [password, setPassword] = useState<string>('');
   const [admin, setAdmin] = useState<AdminData | undefined>();
   const router = useRouter();
-  const { admin: adminDetails } = useAdmin();
+  // const { admin: adminDetails } = useAdmin();
 
   const handleLogin = async () => {
     try {
@@ -41,7 +41,7 @@ const LoginPageAdmin: React.FC = () => {
         };
 
         // Save admin data in local storage
-        localStorage.setItem('admin', JSON.stringify(adminData));
+        // localStorage.setItem('admin', JSON.stringify(adminData));
 
         // Update the state with the admin data
         setAdmin(adminData);
@@ -60,15 +60,15 @@ const LoginPageAdmin: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    if (adminDetails.token) {
-      try {
-        router.push('/admin-panel');
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  }, [adminDetails.token, router]);
+  // useEffect(() => {
+  //   if (adminDetails.token) {
+  //     try {
+  //       router.push('/admin-panel');
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
+  // }, [adminDetails.token, router]);
 
   return (
     <div className='bg-td-secondary h-[70vh] flex items-center justify-center'>
