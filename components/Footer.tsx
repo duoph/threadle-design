@@ -22,9 +22,9 @@ const Footer = () => {
                 </div>
                 <div className='flex flex-col md:items-end items-center md:w-1/2 w-full gap-3'>
                     <span className='font-semibold text-[20px] underline'>Quick Links</span>
-                    <Link href={'/about'}>About</Link>
-                    <Link href={'/terms-condition'}>Terms & Conditions</Link>
-                    <Link href={'/privacy-policy'}>Privacy Policy</Link>
+                    <Link href={'/'}>About</Link>
+                    <Link href={'/'}>Terms & Conditions</Link>
+                    <Link href={'/'}>Privacy Policy</Link>
                     <Link href={'/admin-login'}>Login as admin</Link>
                 </div>
             </div>

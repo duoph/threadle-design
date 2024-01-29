@@ -14,7 +14,7 @@ interface AdminData {
 interface AuthContextType {
   admin: AdminData;
   setAdmin: React.Dispatch<React.SetStateAction<AdminData>>;
-  logOut: () => void;
+  logOut?: () => void;
 }
 
 const AdminContext = createContext<AuthContextType | undefined>(undefined);
@@ -25,10 +25,18 @@ interface AuthProviderProps {
 
 const AdminProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [admin, setAdmin] = useState<AdminData>(() => {
-    const storedAdmin = localStorage.getItem("admin");
-    if (storedAdmin) {
-      return JSON.parse(storedAdmin);
-    }
+
+    useEffect(() => {
+      const storedAdmin = localStorage.getItem('admin')
+      if (storedAdmin) {
+        return JSON.parse(storedAdmin);
+      }
+    }, [])
+
+    // const storedAdmin = localStorage.getItem("admin");
+    // if (storedAdmin) {
+    //   return JSON.parse(storedAdmin);
+    // }
     return {
       name: "",
       userId: "",
@@ -42,23 +50,27 @@ const AdminProvider: React.FC<AuthProviderProps> = ({ children }) => {
     axios.defaults.headers.common["authorization"] = admin.token;
   }, [admin.token]);
 
-  const clear = () => {
-    setAdmin({
-      name: "",
-      userId: "",
-      role: "",
-      email: "",
-      token: "",
-    });
-    localStorage.removeItem("admin");
-  };
+  // const clear: any = () => {
+  //   setAdmin({
+  //     name: "",
+  //     userId: "",
+  //     role: "",
+  //     email: "",
+  //     token: "",
+  //   });
+  //   try {
+  //     localStorage.removeItem("admin");
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
-  const logOut = () => {
-    clear();
-  };
+  // const logOut = () => {
+  //   clear();
+  // };
 
   return (
-    <AdminContext.Provider value={{ admin, setAdmin, logOut }}>
+    <AdminContext.Provider value={{ admin, setAdmin }}>
       {children}
     </AdminContext.Provider>
   );
