@@ -1,24 +1,24 @@
 "use client"
 
-import { useAdmin } from '@/context/admin';
+// import { useAdmin } from '@/context/admin';
 import Link from 'next/link'
 import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react'
 
 const AdminPanel = () => {
 
-    const { admin: adminDetails } = useAdmin();
-    const router = useRouter()
+    // const { admin: adminDetails } = useAdmin();
+    // const router = useRouter()
 
-    useEffect(() => {
-        if (adminDetails.token) {
-            try {
-                router.push('/admin-panel');
-            } catch (error) {
-                console.log(error);
-            }
-        }
-    }, [adminDetails.token, router]);
+    // useEffect(() => {
+    //     if (adminDetails.token) {
+    //         try {
+    //             router.push('/admin-panel');
+    //         } catch (error) {
+    //             console.log(error);
+    //         }
+    //     }
+    // }, [adminDetails.token, router]);
 
     return (
         <div className='h-[50vh] flex flex-col items-center justify-center gap-4 '>
