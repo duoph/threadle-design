@@ -8,12 +8,15 @@ import { useState } from "react";
 import { MdDelete } from "react-icons/md";
 import toast from "react-hot-toast";
 import axios from "axios"; // Import Axios
+import { PulseLoader } from "react-spinners";
 
 const CreateCategory = () => {
     const router = useRouter();
 
     const [coverImage, setCoverImage] = useState<string | null>(null);
-    const [categoryTitle, setCategoryTitle] = useState<string>(""); // State to store the category title
+    const [categoryTitle, setCategoryTitle] = useState<string>("");
+    const [isLoading, setIsLoading] = useState<boolean>(false)
+
 
     const handleCoverImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
@@ -25,11 +28,12 @@ const CreateCategory = () => {
 
     const handleSubmit = async () => {
         try {
+
             if (!categoryTitle) {
                 toast.error("Please enter a category title");
                 return;
             }
-
+            setIsLoading(true)
             const formData = new FormData();
             formData.append("title", categoryTitle);
             if (coverImage) {
@@ -42,12 +46,12 @@ const CreateCategory = () => {
                     "Content-Type": "multipart/form-data",
                 },
             });
-
             console.log(res)
-
+            setIsLoading(false)
             toast.success("Category created successfully");
             router.push("/");
         } catch (error) {
+            setIsLoading(false)
             console.error("Error creating category:", error);
             toast.error("Failed to create category");
         }
@@ -99,7 +103,14 @@ const CreateCategory = () => {
             </div>
             {/* Button */}
             < div className="w-full flex items-center justify-center py-5" >
-                <button onClick={handleSubmit} className="px-5 py-3 bg-td-secondary hover:bg-td-primary text-white rounded-2xl font-semibold">Create Category</button>
+                <button className=" flex items-center justify-center h-10 px-5 py-3 bg-td-secondary hover:bg-td-primary text-white rounded-2xl font-semibold w-full">
+                    {isLoading && (
+                        <PulseLoader color="#ffffff" size={15} />
+                    )}
+                    {!isLoading && (
+                        <span onClick={handleSubmit} className="text-[15px] w-full">Create Product</span>
+                    )}
+                </button>
             </ div>
         </div >
     );
