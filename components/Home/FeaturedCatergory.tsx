@@ -6,6 +6,8 @@ const FeaturedCatergory = () => {
         <div className='flex flex-col gap-3 items-center justify-center mt-10 mb-10 '>
             <ProductContainerWithCategory />
             <ProductContainerWithCategory />
+            <ProductContainerWithCategory />
+            <ProductContainerWithCategory />
         </div>
     )
 }

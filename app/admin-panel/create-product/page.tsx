@@ -14,6 +14,11 @@ import { FaPlus } from "react-icons/fa6";
 const CreateProduct = () => {
     const router = useRouter();
 
+    const [title, setTitle] = useState<string>("")
+    const [desc, setDesc] = useState<string>("")
+    const [category, setCategory] = useState<string>("")
+    const [regularPrice, setRegularPrice] = useState<string>("")
+    const [salePrice, setSalePrice] = useState<string>("")
     const [coverImage, setCoverImage] = useState<string | null>(null);
     const [image1, setImage1] = useState<string | null>(null);
     const [image2, setImage2] = useState<string | null>(null);
@@ -49,6 +54,10 @@ const CreateProduct = () => {
         }
     };
 
+    const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const newValue = event.target.value;
+        setCategory(newValue);
+    };
 
     const handleSubmit = async (e: any) => {
         try {
@@ -58,6 +67,8 @@ const CreateProduct = () => {
         }
     }
 
+
+    console.log(category)
 
     return (
         <div className='flex flex-col gap-3 py-5 md:px-10 px-5'>
@@ -69,17 +80,18 @@ const CreateProduct = () => {
             <form onSubmit={handleSubmit} className="flex flex-col gap-3">
                 <div className="flex flex-col gap-1">
                     <label htmlFor="title" className="font-semibold">Title</label>
-                    <input className="bg-gray-200 px-5 py-3 rounded-2xl" type="text" id="title" />
+                    <input value={title} onChange={(e) => setTitle(e.target.value)} className="bg-gray-200 px-5 py-3 rounded-2xl" type="text" id="title" />
                 </div>
                 <div className="flex flex-col gap-1">
                     <label htmlFor="title" className="font-semibold">Description</label>
-                    <textarea rows={6} className="bg-gray-200 px-5 py-3 rounded-2xl" id="title" />
+                    <textarea value={desc} onChange={(e) => setDesc(e.target.value)} rows={6} className="bg-gray-200 px-5 py-3 rounded-2xl" id="title" />
                 </div>
                 <div className="flex flex-col gap-1">
                     <label htmlFor="category" className="font-semibold">Category</label>
-                    <select id="category" className="bg-gray-200 px-5 py-3 rounded-2xl">
-                        <option value="someOption">Some option</option>
-                        <option value="otherOption">Other option</option>
+                    <select value={desc} onChange={handleSelectChange} id="category" className="bg-gray-200 px-5 py-3 rounded-2xl">
+                        <option value="1">Cat1</option>
+                        <option value="2">Cat2</option>
+                        <option value="3">Cat3 </option>
                     </select>
                 </div>
                 <div className="flex flex-row gap-1 w-full">

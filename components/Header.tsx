@@ -10,7 +10,6 @@ import { useRouter } from 'next/navigation';
 const Header = () => {
 
     const router = useRouter()
-    // const accountId = 12345
 
     return (
         <div className='bg-td-secondary flex items-center justify-between px-3 lg:px-10'>
@@ -20,7 +19,7 @@ const Header = () => {
             <div className='flex items-center justify-center gap-2'>
                 <CiSearch onClick={() => router.push('/search')} className='text-white cursor-pointer' size={24} />
                 <CiShoppingCart onClick={() => router.push('/cart')} className='text-white cursor-pointer' size={24} />
-                {/* <CiUser onClick={() => { }} className='text-white cursor-pointer' size={24} /> */}
+                <CiUser onClick={() => { router.push("/account") }} className='text-white cursor-pointer' size={24} />
             </div>
         </div>
     )
