@@ -1,34 +1,43 @@
+import userModel from '@/models/userModel';
 import connectMongoDB from "@/libs/db";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import JWT from "jsonwebtoken";
-import AdminModel from "@/models/adminModel";
 
 export async function POST(req: NextRequest) {
     try {
-        connectMongoDB();
+        await connectMongoDB();
         const { email, password } = await req.json();
 
         if (!email || !password) {
-            return NextResponse.json({ message: "Enter valid credentials", success: false });
+            return NextResponse.json({ message: 'Enter valid credentials', success: false });
         }
 
-        const admin = await AdminModel.findOne({ email });
+        const user = await userModel.findOne({ email });
 
-        if (!admin) {
-            return NextResponse.json({ message: "Check your email or password", success: false });
+        if (!user) {
+            return NextResponse.json({ message: 'Check your email or password', success: false });
         }
 
-        const passCompare = await bcrypt.compare(password, admin.password);
+        const passCompare = await bcrypt.compare(password, user.password);
 
         if (!passCompare) {
-            return NextResponse.json({ message: "Check your password", success: false });
+            return NextResponse.json({ message: 'Check your password', success: false });
         }
 
-        const token = JWT.sign({ _id: admin._id }, process.env.NEXT_PUBLIC_JWT_SECRET as string, { expiresIn: '7d' });
+        const token = JWT.sign({ _id: user._id }, process.env.NEXT_PUBLIC_JWT_SECRET as string, { expiresIn: '7d' });
 
-        return NextResponse.json({ message: "Logged in successfully", success: true, data: { ...admin._doc, token } });
+        const userDetails = {
+            token: token,
+            name: user.name,
+            userId: user._id,
+            phone: user.phone,
+            email: user.email,
+            isAdmin: user.isAdmin,
+        };
+
+        return NextResponse.json({ message: 'Logged in successfully', success: true, userDetails });
     } catch (error) {
-        return NextResponse.json({ message: "Error in logging as an admin", success: false, error });
+        return NextResponse.json({ message: 'Error in logging in', success: false, error });
     }
 }
