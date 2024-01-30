@@ -12,16 +12,16 @@ export async function POST(request: NextRequest) {
         connectMongoDB();
         const formData = await request.formData();
         const title = formData.get("title");
-        const file = formData.get("file");
-
 
         console.error("2");
   
 
+        const file = formData.get("file");
 
-        if (!file || !(file instanceof File)) {
+        if (!file || !(file instanceof Blob)) {
             throw new Error("File is missing or invalid");
         }
+        
         console.error("3");
 
         const fileBuffer = await file.arrayBuffer();
