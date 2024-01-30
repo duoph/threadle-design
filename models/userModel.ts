@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document, models } from "mongoose";
+import mongoose, { Schema, Document, models, Mongoose } from "mongoose";
 
 interface userProps extends Document {
     email: string;
@@ -8,6 +8,7 @@ interface userProps extends Document {
     phone: number;
     numberVerified: string;
     createdAt: Date;
+    isAdmin: boolean;
 }
 
 const userSchema = new Schema<userProps>({
@@ -16,8 +17,8 @@ const userSchema = new Schema<userProps>({
     name: { type: String, required: true },
     phone: { type: Number, required: true },
     address: { type: String, required: false },
+    isAdmin: { type: Boolean, default: false },
     numberVerified: { type: String }
-
 }, { timestamps: true });
 
 

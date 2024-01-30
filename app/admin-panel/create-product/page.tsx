@@ -198,7 +198,7 @@ const CreateProduct = () => {
                 <div>
 
                 </div>
-                <button type="submit" className="w-full bg-td-secondary text-white px-5 py-3 rounded-2xl ">Create Product</button>
+                <button type="submit" className="w-full bg-td-secondary text-white px-5 py-3 h-10  rounded-2xl ">Create Product</button>
             </form>
         </div >
     );
