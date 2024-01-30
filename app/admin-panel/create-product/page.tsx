@@ -93,8 +93,8 @@ const CreateProduct = () => {
                     </div>
                 </div>
                 <h1 className="text-[15px] font-semibold">Cover Image</h1>
-                <div className="flex items-center justify-center ">
-                    <div className="flex flex-col items-center justify-center gap-1 border rounded-2xl w-[300px] h-[300px] ">
+                <div className="flex flex-col gap-2 items-center justify-center ">
+                    <div className="relative flex flex-col items-center justify-center gap-1 border rounded-2xl w-[300px] h-[300px] overflow-hidden shadow-xl">
                         {!coverImage && (
                             <label htmlFor="coverImage" className="font-semibold w-full h-full flex flex-col items-center justify-center">
                                 <CiSquarePlus size={24} />
@@ -102,14 +102,19 @@ const CreateProduct = () => {
                             </label>
                         )}
                         {coverImage && (
-                            <Image className="rounded-2xl" src={coverImage} alt="Image" height={350} width={350} />
+
+                            <Image className="rounded-2xl -z-10" src={coverImage} alt="Image" height={350} width={350} />
+
                         )}
                         <input type="file" className="hidden" id="coverImage" onChange={(e) => handleDisplayImage(e, 0)} />
+                        {coverImage && (
+                            <MdDelete onClick={() => setCoverImage("")} className="bg-red-500 rounded-2xl z-10 text-white cursor-pointer absolute bottom-3 w-[36px] h-[36px]" size={24} />
+                        )}
                     </div>
                 </div>
                 <h1 className="text-[15px] font-semibold">More Images</h1>
                 <div className="flex md:flex-row flex-row flex-wrap items-center justify-center gap-2">
-                    <div className=" flex flex-col items-center justify-center gap-1 border rounded-2xl w-[300px] h-[300px] overflow-hidden">
+                    <div className="relative flex flex-col items-center justify-center gap-1 border rounded-2xl w-[300px] h-[300px] overflow-hidden shadow-xl">
                         {!image1 && (
                             <label htmlFor="image1" className="font-semibold w-full h-full flex flex-col items-center justify-center cursor-pointer">
                                 <CiSquarePlus size={24} />
@@ -120,10 +125,13 @@ const CreateProduct = () => {
                             <Image className="rounded-2xl" src={image1} alt="Image" height={350} width={350} />
                         )}
                         <input type="file" className="hidden" id="image1" onChange={(e) => handleDisplayImage(e, 1)} />
+                        {image1 && (
+                            <MdDelete onClick={() => setImage1("")} className="bg-red-500 rounded-2xl z-10 text-white cursor-pointer absolute bottom-3 w-[36px] h-[36px]" size={24} />
+                        )}
                     </div>
 
                     {image1 && (
-                        <div className=" flex flex-col items-center justify-center gap-1 border rounded-2xl w-[300px] h-[300px] ">
+                        <div className="relative flex flex-col items-center justify-center gap-1 border rounded-2xl w-[300px] h-[300px] overflow-hidden shadow-xl ">
                             {!image2 && (
                                 <label htmlFor="image2" className="font-semibold w-full h-full flex flex-col items-center justify-center cursor-pointer">
                                     <CiSquarePlus size={24} />
@@ -134,10 +142,13 @@ const CreateProduct = () => {
                                 <Image className="rounded-2xl" src={image2} alt="Image" height={350} width={350} />
                             )}
                             <input type="file" className="hidden" id="image2" onChange={(e) => handleDisplayImage(e, 2)} />
+                            {image2 && (
+                                <MdDelete onClick={() => setImage2("")} className="bg-red-500 rounded-2xl z-10 text-white cursor-pointer absolute bottom-3 w-[36px] h-[36px]" size={24} />
+                            )}
                         </div>
                     )}
                     {image2 && (
-                        <div className=" flex flex-col items-center justify-center gap-1 border rounded-2xl w-[300px] h-[300px] ">
+                        <div className="relative flex flex-col items-center justify-center gap-1 border rounded-2xl w-[300px] h-[300px] overflow-hidden shadow-xlv">
                             {!image3 && (
                                 <label htmlFor="image3" className="font-semibold w-full h-full flex flex-col items-center justify-center cursor-pointer">
                                     <CiSquarePlus size={24} />
@@ -148,12 +159,15 @@ const CreateProduct = () => {
                                 <Image className="rounded-2xl" src={image3} alt="Image" height={350} width={350} />
                             )}
                             <input type="file" className="hidden" id="image3" onChange={(e) => handleDisplayImage(e, 3)} />
+                            {image3 && (
+                                <MdDelete onClick={() => setImage3("")} className="bg-red-500 rounded-2xl z-10 text-white cursor-pointer absolute bottom-3 w-[36px] h-[36px]" size={24} />
+                            )}
                         </div>
                     )}
                     {image3 && (
-                        <div className=" flex flex-col items-center justify-center gap-1 border rounded-2xl w-[300px] h-[300px] ">
+                        <div className="relative flex flex-col items-center justify-center gap-1 border rounded-2xl w-[300px] h-[300px] overflow-hidden shadow-xl">
                             {!image4 && (
-                                <label htmlFor="image4" className="font-semibold w-full h-full flex flex-col items-center justify-center cursor-pointer">
+                                <label htmlFor="image4" className="font-semibold w-full h-full flex flex-col items-center justify-center cursor-pointer ">
                                     <CiSquarePlus size={24} />
                                     <span className="text-sm text-gray-500">Add Image</span>
                                 </label>
@@ -162,6 +176,9 @@ const CreateProduct = () => {
                                 <Image className="rounded-2xl" src={image4} alt="Image" height={350} width={350} />
                             )}
                             <input type="file" className="hidden" id="image4" onChange={(e) => handleDisplayImage(e, 4)} />
+                            {image4 && (
+                                <MdDelete onClick={() => setImage4("")} className="bg-red-500 rounded-2xl z-10 text-white cursor-pointer absolute bottom-3 w-[36px] h-[36px]" size={24} />
+                            )}
                         </div>
                     )}
 

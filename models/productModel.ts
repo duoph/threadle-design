@@ -7,6 +7,8 @@ interface ProductDocument extends Document {
     category: mongoose.Types.ObjectId;
     inStock: string;
     coverImageURL: string;
+    isCustom: boolean;
+    price: string;
     moreImagesURLs: string[];
 }
 
@@ -16,6 +18,8 @@ const productSchema = new Schema<ProductDocument>({
     category: { type: Schema.Types.ObjectId, ref: 'Category', required: true },
     desc: { type: String, required: true },
     coverImageURL: { type: String, required: true },
+    isCustom: { type: Boolean },
+    price: { type: String },
     moreImagesURLs: [{ type: String }],
 });
 

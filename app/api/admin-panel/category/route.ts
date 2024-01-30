@@ -8,12 +8,10 @@ import slugify from "slugify";
 
 export async function POST(request: NextRequest) {
     try {
-        console.error("1");
         connectMongoDB();
         const formData = await request.formData();
         const title = formData.get("title");
 
-        console.error("2");
   
 
         const file = formData.get("file");
@@ -22,21 +20,15 @@ export async function POST(request: NextRequest) {
             throw new Error("File is missing or invalid");
         }
         
-        console.error("3");
 
         const fileBuffer = await file.arrayBuffer();
         const buffer = Buffer.from(fileBuffer);
-        console.error("4");
 
 
         const slugifyCategoryName = slugify(title as string, { lower: true });
 
         const aws = await uploadFileToS3(buffer, title as string);
-        console.error("5");
 
-
-        console.log(aws);
-        console.error("6");
 
         await CategoryModel.create({
             categoryName: title,
