@@ -7,7 +7,7 @@ import { CiSearch } from "react-icons/ci";
 const page = () => {
     return (
         <div className='mt-10 flex flex-col items-center justify-center gap-6 px-5 md:px-10'>
-            <div className='rounded-2xl flex items-center justify-center gap-3 bg-td-secondary pr-6 w-full'>
+            <div className='rounded-2xl flex items-center justify-center cursor-pointer gap-3 bg-td-secondary pr-6 w-full'>
                 <input type="text" placeholder='Search Product' className='border px-4 py-4 rounded-2xl w-full' />
                 <CiSearch className="rounded-2xl text-[30px] cursor-pointer text-white" />
             </div>

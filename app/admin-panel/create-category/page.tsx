@@ -65,16 +65,14 @@ const CreateCategory = () => {
                 <h1 className='font-bold text-[30px]'>Create new Category</h1>
             </div>
 
-
             {/* Product Details */}
             <div className='flex flex-col w-full gap-4'>
                 <h1 className='text-[20px] font-bold'>Category Details</h1>
-                <h1 className=" font-bold">Category Title</h1>
+                <h1 className="font-bold">Category Title</h1>
                 <input type="text" name='title' onChange={(e) => setCategoryTitle(e.target.value)} value={categoryTitle} placeholder="Title" className='bg-gray-200 rounded-2xl px-5 py-3' />
             </div>
 
             {/* Images */}
-
             <h1 className=" font-bold">Cover Image</h1>
             <div className="flex flex-col gap-2 w-full">
                 <div className="flex px-5 items-center justify-center gap-3  w-full  ">
