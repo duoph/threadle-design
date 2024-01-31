@@ -4,12 +4,13 @@ import { useRouter } from "next/navigation";
 import { IoMdArrowBack } from "react-icons/io";
 import { CiSquarePlus } from "react-icons/ci";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MdDelete } from "react-icons/md";
 import toast from "react-hot-toast";
 import axios from "axios"; // Import Axios
 import { PulseLoader } from "react-spinners";
 import { FaPlus } from "react-icons/fa6";
+import { Category } from "@/types";
 
 const CreateProduct = () => {
     const router = useRouter();
@@ -25,6 +26,22 @@ const CreateProduct = () => {
     const [image3, setImage3] = useState<string | null>(null);
     const [image4, setImage4] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [fetchedCategory, setFetchedCategory] = useState<[] | undefined>([])
+
+
+
+
+
+    const getAllCategories = async () => {
+        try {
+            const response = await axios.get('/api/category')
+            console.log(response.data.tdCategory)
+            setFetchedCategory(response.data.tdCategory)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
 
 
     const handleDisplayImage = (event: React.ChangeEvent<HTMLInputElement>, i: number) => {
@@ -68,6 +85,11 @@ const CreateProduct = () => {
     }
 
 
+    useEffect(() => {
+        getAllCategories()
+    }, [])
+
+
     console.log(category)
 
     return (
@@ -88,10 +110,13 @@ const CreateProduct = () => {
                 </div>
                 <div className="flex flex-col gap-1">
                     <label htmlFor="category" className="font-semibold">Category</label>
-                    <select value={desc} onChange={handleSelectChange} id="category" className="bg-gray-200 px-5 py-3 rounded-2xl">
-                        <option value="1">Cat1</option>
-                        <option value="2">Cat2</option>
-                        <option value="3">Cat3 </option>
+
+
+                    <select onChange={handleSelectChange} id="category" className="bg-gray-200 px-5 py-3 rounded-2xl text-black">
+                        <option value={"default"}>select category</option>
+                        {fetchedCategory && fetchedCategory.map((category: Category, i) => (
+                            <option value={category._id}>{category.categoryName}</option>
+                        ))}
                     </select>
                 </div>
                 <div className="flex flex-row gap-1 w-full">
@@ -199,7 +224,7 @@ const CreateProduct = () => {
 
                 </div>
                 <button type="submit" className="w-full bg-td-secondary text-white px-5 py-3 h-10  rounded-2xl ">Create Product</button>
-            </form>
+            </form >
         </div >
     );
 }
