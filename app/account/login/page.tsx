@@ -1,12 +1,10 @@
 "use client"
 
-import { useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 import { PulseLoader } from 'react-spinners';
-import { trusted } from 'mongoose';
 
 interface userDetailsProps {
   token: string;
@@ -50,18 +48,14 @@ const LoginPageAdmin: React.FC = () => {
 
       if (response.data.success === true) {
         setIsLoading(false);
-        toast.error(response.data.message);
+        toast.success(response.data.message);
+        if (response.data.userDetails.isAdmin === true) {
+          router.push('/admin-panel')
+        }
+        if (response.data.userDetails.isAdmin === false) {
+          router.push('/shop')
+        }
       }
-
-      if (response.data.userDetails.isAdmin === true) {
-        router.push('/admin-panel')
-      }
-      if (response.data.userDetails.isAdmin === false) {
-        router.push('/admin-panel')
-      }
-
-
-
       console.log(response);
 
       setIsLoading(false);
@@ -73,8 +67,8 @@ const LoginPageAdmin: React.FC = () => {
   };
 
   return (
-    <div className='bg-td-secondary h-[70vh] flex items-center justify-center'>
-      <div className='flex bg-white flex-col gap-5 items-center justify-center w-[350px] md:px-10 py-10 px-5 rounded-2xl'>
+    <div className='bg-td-secondary h-[70vh] flex items-center justify-center px-5'>
+      <div className='flex bg-white flex-col gap-5 items-center justify-center w-full md:w-[350px] md:px-10 py-10 px-5 rounded-2xl'>
         <div>
           <h1 className='font-bold text-[30px] text-td-secondary'>Login</h1>
         </div>
