@@ -1,35 +1,41 @@
 import connectMongoDB from "@/libs/db";
 import userModel from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
-import { findDOMNode } from "react-dom";
 
+
+// Creating a new admin 
 export async function POST(req: NextRequest) {
     try {
-        await connectMongoDB(); // Make sure to await the connection
+        await connectMongoDB();
 
-        const { email } = await req.json(); // Make sure to await the body parsing
+        const { email } = await req.json();
 
+        const checkEmailisAlreadyAdmin = await userModel.findOne({ email });
 
-        const checkEmailisAlreadyAdmin = await userModel.findOne({ email })
-
-        if (checkEmailisAlreadyAdmin.isAdmin === true) {
+        if (checkEmailisAlreadyAdmin && checkEmailisAlreadyAdmin.isAdmin === true) {
             return NextResponse.json({
-                message: `${email} is already an admin`, success: true
+                message: `${email} is already an admin`,
+                success: true
             });
         }
 
-        await userModel.findOneAndUpdate({
-            email, isAdmin: true
-        })
+        await userModel.findOneAndUpdate(
+            { email },
+            { $set: { isAdmin: true } },
+            { new: true }
+        );
 
         return NextResponse.json({
-            message: `${email} is admin now`, success: true
+            message: `${email} is admin now`,
+            success: true
         });
 
     } catch (error) {
-        console.error(error); // Use console.error for logging errors
+        console.error(error);
         return NextResponse.json({
-            message: "An error occurred while processing your request.", success: false
+            message: "An error occurred while processing your request.",
+            success: false,
+            error
         });
     }
 }
