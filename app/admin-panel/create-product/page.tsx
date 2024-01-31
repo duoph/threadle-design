@@ -76,13 +76,58 @@ const CreateProduct = () => {
         setCategory(newValue);
     };
 
-    const handleSubmit = async (e: any) => {
-        try {
-            e.preventDefault()
-        } catch (error) {
 
-        }
+    const imageFiler = async (e: any) => {
+        const file = await fetch(e).then((res) => res.blob());
     }
+
+
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        try {
+            e.preventDefault();
+
+
+            if (!title || !desc || !regularPrice || !coverImage || !image1 || !image2 || !image3 || !image4) {
+                return toast.error("Some fields are missig");
+            }
+
+
+            setIsLoading(true)
+            const formData = new FormData();
+
+            formData.append("title", title);
+            formData.append("categoryId", category);
+            formData.append("desc", desc);
+            formData.append("regularPrice", regularPrice);
+
+            if (salePrice) {
+                formData.append("salePrice", salePrice);
+            }
+
+            // Handle all images in a loop
+            const imageFields = ["coverImage", "image1", "image2", "image3", "image4"];
+            for (const fieldName of imageFields) {
+                const imageUrl = (fieldName === "coverImage") ? coverImage : (fieldName === "image1") ? image1 : (fieldName === "image2") ? image2 : (fieldName === "image3") ? image3 : image4;
+
+                if (imageUrl) {
+                    const imageFile = await fetch(imageUrl).then((res) => res.blob());
+                    formData.append(fieldName, imageFile);
+                }
+            }
+
+            const response = await axios.post('/api/product', formData);
+
+            toast.success('Product created successfully!');
+
+            // Redirect to the product details page or any other desired page
+            router.push(`/products/${response.data.productId}`);
+        } catch (error) {
+            // Handle error, show toast, or log the error
+            console.error("Error creating product:", error);
+            toast.error('Failed to create product. Please try again.');
+        }
+    };
 
 
     useEffect(() => {
@@ -223,7 +268,14 @@ const CreateProduct = () => {
                 <div>
 
                 </div>
-                <button type="submit" className="w-full bg-td-secondary text-white px-5 py-3 h-10  rounded-2xl ">Create Product</button>
+                <button className=" flex items-center justify-center h-10 px-5 py-3 bg-td-secondary text-white rounded-2xl font-semibold w-full">
+                    {isLoading && (
+                        <PulseLoader color="#ffffff" size={15} />
+                    )}
+                    {!isLoading && (
+                        <span className="text-[15px] w-full">Create Product</span>
+                    )}
+                </button>
             </form >
         </div >
     );

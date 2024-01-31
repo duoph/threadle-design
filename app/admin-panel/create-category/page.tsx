@@ -25,7 +25,7 @@ const CreateCategory = () => {
             setCoverImage(imageUrl);
         }
     };
-    
+
 
     const handleSubmit = async () => {
         try {
@@ -107,7 +107,7 @@ const CreateCategory = () => {
                         <PulseLoader color="#ffffff" size={15} />
                     )}
                     {!isLoading && (
-                        <span onClick={handleSubmit} className="text-[15px] w-full">Create Account</span>
+                        <span onClick={handleSubmit} className="text-[15px] w-full">Create Category</span>
                     )}
                 </button>
             </ div>
