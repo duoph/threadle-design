@@ -75,13 +75,12 @@ const CreateAccount = () => {
 
     return (
         <div className='flex flex-col bg-td-secondary gap-3 py-5 md:px-10 px-5'>
-            <div className='flex text-white gap-2 items-center justify-start'>
+            {/* <div className='flex text-white gap-2 items-center justify-start'>
                 <IoMdArrowBack className="cursor-pointer hover:scale-110" onClick={() => router.push("/shop")} size={24} />
                 <h1 className='font-bold text-[25px]'>Home</h1>
-            </div>
-
+            </div> */}
             <div className='flex items-center justify-center pb-10 w-full'>
-                <form onSubmit={handleSubmit} className='rounded-2xl bg-white flex flex-col gap-3 px-5 py-10 md:w-[400px] w-full '>
+                <form onSubmit={handleSubmit} className='rounded-2xl bg-white flex flex-col gap-3 md:w-[350px] w-full md:px-10 py-10 px-5 '>
                     <h1 className='text-center font-bold text-td-secondary text-[30px]'>Create Account</h1>
                     <div className='flex flex-col'>
                         <input
