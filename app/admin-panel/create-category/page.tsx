@@ -42,7 +42,7 @@ const CreateCategory = () => {
                 formData.append("file", file);
             }
             // Make a POST request to your backend endpoint
-            const res = await axios.post("/api/admin-panel/category", formData, {
+            const res = await axios.post("/api/category", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
