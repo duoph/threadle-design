@@ -8,7 +8,8 @@ interface ProductDocument extends Document {
     inStock: string;
     coverImageURL: string;
     isCustom: boolean;
-    price: string;
+    regularPrice: number;
+    salePrice: number;
     moreImagesURLs: string[];
 }
 
@@ -19,7 +20,8 @@ const productSchema = new Schema<ProductDocument>({
     desc: { type: String, required: true },
     coverImageURL: { type: String, required: true },
     isCustom: { type: Boolean },
-    price: { type: String },
+    regularPrice: { type: Number },
+    salePrice: { type: Number },
     moreImagesURLs: [{ type: String }],
 });
 
