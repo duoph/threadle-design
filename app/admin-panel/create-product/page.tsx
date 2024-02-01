@@ -166,7 +166,7 @@ const CreateProduct = () => {
                     <select onChange={handleSelectChange} id="category" className="bg-gray-200 px-5 py-3 rounded-2xl text-black">
                         <option className="px-5 py-3 " value={"default"}>Select category</option>
                         {fetchedCategory && fetchedCategory.map((category: Category, i) => (
-                            <option value={category._id}>{category.categoryName}</option>
+                            <option key={i} value={category._id}>{category.categoryName}</option>
                         ))}
                     </select>
                 </div>
