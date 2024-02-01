@@ -70,6 +70,7 @@ const CreateProduct = () => {
             }
         }
     };
+    
 
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const newValue = event.target.value;

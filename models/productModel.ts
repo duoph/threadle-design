@@ -10,15 +10,17 @@ interface ProductDocument extends Document {
     isCustom: boolean;
     regularPrice: number;
     salePrice: number;
+    slugifyProductName: string;
     moreImagesURLs: string[];
 }
 
 const productSchema = new Schema<ProductDocument>({
     title: { type: String, required: true },
     inStock: { type: String, required: true },
-    category: { type: Schema.Types.ObjectId, ref: 'Category', required: true },
+    category: { type: Schema.Types.ObjectId, ref: 'category', required: true },
     desc: { type: String, required: true },
     coverImageURL: { type: String, required: true },
+    slugifyProductName: { type: String, required: true },
     isCustom: { type: Boolean },
     regularPrice: { type: Number },
     salePrice: { type: Number },

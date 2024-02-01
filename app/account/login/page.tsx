@@ -41,6 +41,7 @@ const LoginPageAdmin: React.FC = () => {
         password,
       });
 
+      
       if (response.data.success === false) {
         setIsLoading(false);
         toast.error(response.data.message);
@@ -56,8 +57,6 @@ const LoginPageAdmin: React.FC = () => {
           router.push('/shop')
         }
       }
-      console.log(response);
-
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
