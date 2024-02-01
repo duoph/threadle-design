@@ -41,7 +41,7 @@ const LoginPageAdmin: React.FC = () => {
         password,
       });
 
-      
+
       if (response.data.success === false) {
         setIsLoading(false);
         toast.error(response.data.message);
@@ -82,7 +82,7 @@ const LoginPageAdmin: React.FC = () => {
               <span onClick={handleLogin} className="text-[15px] w-full">Login</span>
             )}
           </button>
-          <span className='text-center text-sm'>Don't have an account?<span className='cursor-pointer text-blue-900 underline' onClick={() => router.push('/account/create-account')}>Create Account</span></span>
+          <span className='text-center text-sm'>Don&apos;t have an account?<span className='cursor-pointer text-blue-900 underline' onClick={() => router.push('/account/create-account')}>Create Account</span></span>
         </div>
       </div>
     </div>
