@@ -1,8 +1,6 @@
 import { uploadFileToS3 } from "@/actions/awsS3Upload";
 import connectMongoDB from "@/libs/db";
 import ProductModel from "@/models/productModel";
-import { TIMEOUT } from "dns";
-import mongoose from "mongoose";
 import { NextRequest, NextResponse } from "next/server";
 import slugify from "slugify";
 
