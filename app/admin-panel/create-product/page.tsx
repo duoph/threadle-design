@@ -21,14 +21,13 @@ const CreateProduct = () => {
     const [regularPrice, setRegularPrice] = useState<string>("")
     const [salePrice, setSalePrice] = useState<string>("")
     const [coverImage, setCoverImage] = useState<string | null>(null);
-    const [image1, setImage1] = useState<string | null>(null);
-    const [image2, setImage2] = useState<string | null>(null);
-    const [image3, setImage3] = useState<string | null>(null);
-    const [image4, setImage4] = useState<string | null>(null);
+    const [image1, setImage1] = useState<string | null>("")
+    const [image2, setImage2] = useState<string | null>("");
+    const [image3, setImage3] = useState<string | null>("");
+    const [image4, setImage4] = useState<string | null>("");
     const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [moreImages, setMoreImages] = useState<[] | null>({ image1, image2, image3, image4 })
     const [fetchedCategory, setFetchedCategory] = useState<[] | undefined>([])
-
-
 
 
 
@@ -70,7 +69,7 @@ const CreateProduct = () => {
             }
         }
     };
-    
+
 
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const newValue = event.target.value;
@@ -78,9 +77,6 @@ const CreateProduct = () => {
     };
 
 
-    const imageFiler = async (e: any) => {
-        const file = await fetch(e).then((res) => res.blob());
-    }
 
 
 
@@ -89,16 +85,16 @@ const CreateProduct = () => {
             e.preventDefault();
 
 
-            if (!title || !desc || !regularPrice || !coverImage || !image1 || !image2 || !image3 || !image4) {
-                return toast.error("Some fields are missig");
-            }
+            // if (!title || !desc || !regularPrice || !coverImage || !image1 || !image2 || !image3 || !image4) {
+            //     return toast.error("Some fields are missig");
+            // }
 
 
             setIsLoading(true)
             const formData = new FormData();
 
             formData.append("title", title);
-            formData.append("categoryId", category);
+            formData.append("category", category);
             formData.append("desc", desc);
             formData.append("regularPrice", regularPrice);
 
@@ -118,6 +114,8 @@ const CreateProduct = () => {
             }
 
             const response = await axios.post('/api/product', formData);
+
+            console.log(response)
 
             toast.success('Product created successfully!');
 
