@@ -12,7 +12,7 @@ interface userDetailsProps {
   phone: number;
   userId: string;
   email: string;
-  isAdmin: boolean;
+  isAdmin: string;
 }
 
 const LoginPageAdmin: React.FC = () => {
@@ -26,38 +26,34 @@ const LoginPageAdmin: React.FC = () => {
   const handleLogin = async () => {
     try {
       setIsLoading(true);
+
       if (!email || !password) {
         setIsLoading(false);
-        return toast.error('Enter valid credentials');
+        toast.error('Enter valid credentials');
+        return;
       }
 
-      const response = await axios.post<{
-        success: boolean;
-        userDetails: userDetailsProps;
-        token: string;
-        message: string;
-      }>('/api/login', {
+      const response = await axios.post('/api/login', {
         email,
         password,
       });
 
+      console.log(response)
 
       if (response.data.success === false) {
         setIsLoading(false);
         toast.error(response.data.message);
-      }
-
-      if (response.data.success === true) {
+      } else {
         setIsLoading(false);
-        toast.success(response.data.message);
-        if (response.data.userDetails.isAdmin === true) {
-          router.push('/admin-panel')
-        }
-        if (response.data.userDetails.isAdmin === false) {
-          router.push('/shop')
+
+        if (response.data.userDetails.isAdmin) {
+          router.push('/admin-panel');
+          toast.success(response.data.message);
+        } else {
+          router.push('/shop');
+          toast.success(response.data.message);
         }
       }
-      setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
       console.error('Error during login:', error);
