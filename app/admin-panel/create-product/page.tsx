@@ -127,7 +127,7 @@ const CreateProduct = () => {
             toast.success('Product created successfully!');
 
             // Redirect to the product details page or any other desired page
-            router.push(`/products/${response.data.productId}`);
+            router.push(`/admin-panel`);
         } catch (error) {
             // Handle error, show toast, or log the error
             console.error("Error creating product:", error);

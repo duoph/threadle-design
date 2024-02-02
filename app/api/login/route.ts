@@ -36,7 +36,13 @@ export async function POST(req: NextRequest) {
             isAdmin: user.isAdmin,
         };
 
-        return NextResponse.json({ message: 'Logged in successfully', success: true, userDetails });
+
+        console.log(user)
+
+
+        const userMessage = user.isAdmin === true ? "Admin access granted" : "Logged in successfully"
+
+        return NextResponse.json({ message: userMessage, success: true, userDetails });
     } catch (error) {
         return NextResponse.json({ message: 'Error in logging in', success: false, error });
     }
