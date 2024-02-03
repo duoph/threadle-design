@@ -16,7 +16,7 @@ const userSchema = new Schema<userProps>({
     password: { type: String, required: true },
     name: { type: String, required: true },
     phone: { type: Number, required: true },
-    address: { type: String, required: false },
+    address: { type: String },
     isAdmin: { type: Boolean, default: false },
     numberVerified: { type: String }
 }, { timestamps: true });
