@@ -6,11 +6,8 @@ import slugify from "slugify";
 
 export async function POST(req: NextRequest) {
     try {
-
         connectMongoDB();
-
         const formData = await req.formData();
-
         const title = formData.get("title");
         const desc = formData.get("desc");
         const regularPrice = formData.get("regularPrice");
@@ -23,7 +20,7 @@ export async function POST(req: NextRequest) {
         const salePrice = formData.get("salePrice") || undefined;
 
         if (!coverImage || !(coverImage instanceof File)) {
-            throw new Error("Cover image is missing or invalid");
+            return NextResponse.json({ message: "Add a cover Image", success: false });
         }
 
         const coverImageBuffer = await coverImage.arrayBuffer();
@@ -31,18 +28,32 @@ export async function POST(req: NextRequest) {
 
         const slugifyProductName = slugify(title as string, { lower: true });
 
-        // Upload cover image to S3
         const coverImageURL = await uploadFileToS3(coverImageBufferArray, slugifyProductName);
 
-        // Upload additional images to S3
-        const imageUrls = await Promise.all([
-            uploadFileToS3(Buffer.from(await image1.arrayBuffer()), slugifyProductName + "-image1"),
-            uploadFileToS3(Buffer.from(await image2.arrayBuffer()), slugifyProductName + "-image2"),
-            uploadFileToS3(Buffer.from(await image3.arrayBuffer()), slugifyProductName + "-image3"),
-            uploadFileToS3(Buffer.from(await image4.arrayBuffer()), slugifyProductName + "-image4"),
-        ]);
+        const imageUrls = [];
+        if (image1 instanceof File) {
+            imageUrls.push(
+                await uploadFileToS3(Buffer.from(await image1.arrayBuffer()), slugifyProductName + "-image1")
+            );
+        }
+        if (image2 instanceof File) {
+            imageUrls.push(
+                await uploadFileToS3(Buffer.from(await image2.arrayBuffer()), slugifyProductName + "-image2")
+            );
+        }
+        if (image3 instanceof File) {
+            imageUrls.push(
+                await uploadFileToS3(Buffer.from(await image3.arrayBuffer()), slugifyProductName + "-image3")
+            );
+        }
+        if (image4 instanceof File) {
+            imageUrls.push(
+                await uploadFileToS3(Buffer.from(await image4.arrayBuffer()), slugifyProductName + "-image4")
+            );
+        }
+
         // Create a new product document
-        const newProduct = await ProductModel.create({
+        await ProductModel.create({
             title,
             desc,
             regularPrice,
@@ -60,6 +71,7 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ message: "Unknown error", error });
     }
 }
+
 
 
 
