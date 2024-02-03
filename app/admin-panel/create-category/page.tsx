@@ -7,7 +7,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { MdDelete } from "react-icons/md";
 import toast from "react-hot-toast";
-import axios from "axios"; // Import Axios
+import axios from "axios"; 
 import { PulseLoader } from "react-spinners";
 
 const CreateCategory = () => {
@@ -50,7 +50,7 @@ const CreateCategory = () => {
             console.log(res)
             setIsLoading(false)
             toast.success("Category created successfully");
-            router.push("/");
+            router.push("/admin-panel");
         } catch (error) {
             setIsLoading(false)
             console.error("Error creating category:", error);

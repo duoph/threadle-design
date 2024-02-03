@@ -1,5 +1,4 @@
 
-import { uploadFileToS3 } from '@/actions/awsS3Upload';
 import connectMongoDB from '@/libs/db';
 import ProductModel from '@/models/productModel';
 import { NextRequest, NextResponse } from 'next/server';
@@ -12,7 +11,7 @@ export async function GET({ params }: any) {
     try {
         connectMongoDB();
 
-        const productId = params.singleProduct
+        const productId = params.productId
 
         const product = await ProductModel.findOne({ _id: productId })
 
@@ -30,7 +29,7 @@ export async function PUT(req: NextRequest, { params }: any) {
     try {
         connectMongoDB();
 
-        const pid = params.singleProduct;
+        const pid = params.productId;
 
         const formData = await req.formData();
 
@@ -70,7 +69,7 @@ export async function DELETE(req: NextRequest, { params }: any) {
     try {
         connectMongoDB();
 
-        const productId = params.singleProduct
+        const productId = params.productId
 
         await ProductModel.findByIdAndDelete({ _id: productId })
 
