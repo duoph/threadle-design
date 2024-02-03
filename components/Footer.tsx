@@ -1,5 +1,6 @@
 "use client"
 
+import { useUser } from '@/context/useUser'
 /* eslint-disable react/no-unescaped-entities */
 
 import Image from 'next/image'
@@ -9,6 +10,7 @@ import React from 'react'
 import { FaFacebook, FaInstagram } from 'react-icons/fa6'
 
 const Footer = () => {
+
     return (
         <div className='py-5 flex flex-col gap-3  bg-slate-200 w-full md:px-20 px-5'>
             <div className='flex md:flex-row flex-col justify-between items-center gap-4 '>

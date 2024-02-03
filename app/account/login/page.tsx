@@ -1,5 +1,6 @@
 "use client"
 
+import { useUser } from '@/context/useUser';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
@@ -20,6 +21,8 @@ const LoginPageAdmin: React.FC = () => {
   const [password, setPassword] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  const { setCurrentUser } = useUser()
+
   const router = useRouter();
 
 
@@ -38,13 +41,18 @@ const LoginPageAdmin: React.FC = () => {
         password,
       });
 
-      console.log(response)
 
       if (response.data.success === false) {
         setIsLoading(false);
         toast.error(response.data.message);
       } else {
         setIsLoading(false);
+        console.log(response.data.userDetails)
+
+        setCurrentUser(response.data.userDetails)
+
+        localStorage.setItem('currentUser', JSON.stringify(response.data.userDetails));
+
 
         if (response.data.userDetails.isAdmin) {
           router.push('/admin-panel');
