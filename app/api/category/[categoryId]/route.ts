@@ -1,9 +1,6 @@
 import connectMongoDB from '@/libs/db';
 import CategoryModel from '@/models/categoryModel';
 import ProductModel from '@/models/productModel';
-import { NextPageContext } from 'next';
-import { NextParsedUrlQuery } from 'next/dist/server/request-meta';
-
 import { NextRequest, NextResponse } from 'next/server';
 
 
@@ -41,7 +38,7 @@ export async function DELETE(req: NextRequest, { params }: any) {
 
         const categoryId = params.categoryId;
 
-        
+
         // set null calue to category ids without deleting products
 
         // const products = await ProductModel.updateMany(
@@ -71,4 +68,4 @@ export async function DELETE(req: NextRequest, { params }: any) {
 }
 
 
-
+// edit category 
