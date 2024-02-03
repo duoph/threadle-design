@@ -3,16 +3,6 @@ import userModel from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 
 
-interface updateProps {
-    name: string;
-    email: string;
-    phone: number;
-    address: string
-
-}
-
-
-
 export async function PUT(req: NextRequest, { params }: any) {
 
     try {
@@ -30,7 +20,7 @@ export async function PUT(req: NextRequest, { params }: any) {
 
         if (name || email || phone || address) {
 
-            const updatedUser = await userModel.findByIdAndUpdate(
+            const user = await userModel.findByIdAndUpdate(
                 { _id: userId },
                 {
                     name,
@@ -41,7 +31,7 @@ export async function PUT(req: NextRequest, { params }: any) {
                 { new: true }
             );
 
-            console.log("User updated successfully:", updatedUser);
+            console.log("User updated successfully:", user);
         }
 
         return NextResponse.json({ message: "User updated successfully", success: true });
