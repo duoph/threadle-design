@@ -7,7 +7,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 // fetchig  single product details
 
-export async function GET(req: NextRequest, { params }: any) {
+export async function GET({ params }: any) {
     try {
         connectMongoDB();
 
