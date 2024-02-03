@@ -1,12 +1,10 @@
-import connectMongoDB from "@/libs/db"
 import { NextRequest, NextResponse } from "next/server"
 
-export async function POST(req: NextRequest) {
+export async function GET(req: NextRequest) {
     try {
-        connectMongoDB()
-        return NextResponse.json("Hello")
+        return NextResponse.json(req.nextUrl.searchParams.get("categoryId"))
     } catch (error) {
-        return NextResponse.json({ message: "Error in creating a new admin", success: false, error })
+        console.log(error)
     }
-}
 
+}
