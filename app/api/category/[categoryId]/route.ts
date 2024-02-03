@@ -1,7 +1,9 @@
+import { uploadFileToS3 } from '@/actions/awsS3Upload';
 import connectMongoDB from '@/libs/db';
 import CategoryModel from '@/models/categoryModel';
 import ProductModel from '@/models/productModel';
 import { NextRequest, NextResponse } from 'next/server';
+import slugify from 'slugify';
 
 
 
@@ -68,4 +70,45 @@ export async function DELETE(req: NextRequest, { params }: any) {
 }
 
 
-// edit category 
+// edit category
+
+export async function PUT(req: NextRequest, { params }: any) {
+    try {
+        connectMongoDB(); // Connect to MongoDB (Make sure you have a valid connection function)
+
+        const categoryId = params.categoryId;
+
+        const formdata = await req.formData();
+
+        const title = formdata.get("title");
+        const coverURL = formdata.get("imageURL");
+        const file = formdata.get("file") as File || undefined;
+
+        let imageUrl;
+
+        if (file) { // Change from coverImage to file
+            // If file is provided, upload and get the new imageUrl
+            const fileBuffer = await file.arrayBuffer();
+            const buffer = Buffer.from(fileBuffer);
+            const aws = await uploadFileToS3(buffer, title as string); // Assuming you have an upload function
+            imageUrl = aws?.s3Url;
+        } else {
+            imageUrl = coverURL
+        }
+
+
+        const slugifyCategoryName = slugify(title as string, { lower: true });
+
+
+        // Update the CategoryModel (Assuming you have a CategoryModel with a method like updateCategory)
+        const updatedCategory = await CategoryModel.findByIdAndUpdate({ _id: categoryId }, { categoryName: title, slugifyName: slugifyCategoryName, imageURL: imageUrl }, { new: true });
+
+        return NextResponse.json({ message: 'Category updated successfully', success: true, updatedCategory });
+
+
+    } catch (error) {
+        console.log(error);
+        return NextResponse.json({ error: 'Internal Server Error', success: false });
+
+    }
+}
