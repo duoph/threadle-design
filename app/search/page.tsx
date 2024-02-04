@@ -15,7 +15,7 @@ const page = () => {
                 <span className="text-gray-400 font-light">Showing 1-10 of 100 Products</span>
                 <span>Sort by : Most Popular</span>
             </div>
-            <div className="flex flex-wrap items-center justify-center gap-3">
+            <div className="flex flex-wrap items-center justify-center gap-5">
                 <ProductCard />
                 <ProductCard />
                 <ProductCard />
