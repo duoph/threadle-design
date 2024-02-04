@@ -12,7 +12,7 @@ const Hero = () => {
         <div className=" w-full flex md:flex-row flex-col items-center justify-center bg-gray-200">
             <div className='md:w-1/2 w-full flex flex-col items-center justify-center md:py-10 pt-10 lg:px-10 px-5 gap-4 lg:gap-10'>
                 <div>
-                    <h1 className='font-extrabold lg:text-[50px] text-[25px] '>
+                    <h1 className='text-center font-extrabold text-td-secondary lg:text-[50px] text-[25px] '>
                         DISCOVER ELEGENCE THAT SUITS YOUR TASTE
                     </h1>
                     <p className='text-black break-all'>Browse through our diverse range of meticulously crafted garments, designed to bring out your individuality and cater to your sense of style.</p>
