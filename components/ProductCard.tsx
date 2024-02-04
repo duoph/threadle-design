@@ -1,4 +1,4 @@
-"use client4"
+"use client"
 
 import Image from 'next/image'
 import { useRouter } from 'next/navigation';
@@ -26,11 +26,11 @@ const ProductCard = () => {
 
 
     return (
-        <div onClick={onclick} className='flex flex-col items-center justify-center min-w-[300px] cursor-pointer'>
+        <div onClick={onclick} className='flex flex-col items-center justify-center min-w-[300px] max-w-[300px] cursor-pointer shadow-xl rounded-2xl hover:scale-110 transition-all ease-in-out duration-700'>
             <div className='flex items-center justify-center w-full bg-gray-200 rounded-2xl'>
                 <Image src={'/reddress3.png'} height={150} width={200} alt='Red-Dress' />
             </div>
-            <div className='w-full px-3 py-2 flex flex-col gap-2'>
+            <div className='w-full px-3 py-2 flex flex-col gap-2 '>
                 <p className='text-start break-all'>Red Dress with custom design</p>
                 <span className='text-start break-all flex items-center justify-start'>
                     <FaStar size={24} className='text-yellow-300' />
