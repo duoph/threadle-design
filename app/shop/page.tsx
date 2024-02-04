@@ -1,16 +1,16 @@
-import ProductContainerWithCategory from '@/components/ProductContainerWithCategory'
+import ProductCard from '@/components/ProductCard'
 import React from 'react'
 
-const page = () => {
+const Shop = () => {
   return (
-    <div className='w-full'>
-      <ProductContainerWithCategory />
-      <ProductContainerWithCategory />
-      <ProductContainerWithCategory />
-      <ProductContainerWithCategory />
-      <ProductContainerWithCategory />
+    <div className='flex gap-3 flex-wrap items-center justify-center px-10 py-10'>
+      <ProductCard />
+      <ProductCard />
+      <ProductCard />
+      <ProductCard />
+      <ProductCard />
     </div>
   )
 }
 
-export default page
+export default Shop

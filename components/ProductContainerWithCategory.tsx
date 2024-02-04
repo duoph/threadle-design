@@ -35,10 +35,9 @@ const ProductContainerWithCategory = () => {
             const scrollAmount = 300;
             if (scrollContainerRef.current) {
                 scrollContainerRef.current.scrollBy({
-                    left: -scrollAmount,  // Change the sign to negative
+                    left: -scrollAmount, 
                     behavior: 'smooth',
-                });
-                console.log('Scrolled successfully!');
+                })
             }
         } catch (error) {
             console.error('Error scrolling:', error);
@@ -46,13 +45,13 @@ const ProductContainerWithCategory = () => {
     };
 
     return (
-        <div className='flex flex-col items-center gap-4 justify-center mt-10 w-full mb-5'>
+        <div className='flex flex-col items-center justify-center mt-10 w-full mb-5'>
             <h1 className='text-[35px] font-extrabold'>NEW ARRIVALS</h1>
             <div className='relative w-full px-2'>
-                <GoChevronLeft onClick={handleScrollLeft} className='md:hover:scale-110 z-10 absolute top-[120px] bg-black text-white  left-8 rounded-full cursor-pointer' size={30} />
-                <GoChevronRight onClick={handleScrollRight} className='md:hover:scale-110 z-10 absolute top-[120px] bg-black text-white right-8 rounded-full cursor-pointer' size={30} />
+                <GoChevronLeft onClick={handleScrollLeft} className='md:hover:scale-110 z-10 absolute top-[250px] bg-black text-white  left-8 rounded-full cursor-pointer' size={30} />
+                <GoChevronRight onClick={handleScrollRight} className='md:hover:scale-110 z-10 absolute top-[250px] bg-black text-white right-8 rounded-full cursor-pointer' size={30} />
                 <div ref={scrollContainerRef} className='relative w-full overflow-x-scroll px-4 scrollbar hideScrollBar'>
-                    <div className='flex justify-start items-start gap-3'>
+                    <div className='flex justify-start items-center gap-5 h-[550px]'>
                         <ProductCard />
                         <ProductCard />
                         <ProductCard />
@@ -65,7 +64,7 @@ const ProductContainerWithCategory = () => {
                 </div>
             </div>
             <div className='px-5 w-full flex items-center justify-center'>
-                <button onClick={() => router.push(`/shop/${categoryName}`)} className='text-lg border md:w-auto w-full rounded-2xl px-5 py-2 relative z-10'>
+                <button onClick={() => router.push(`/shop/${categoryName}`)} className='text-lg border md:w-auto w-full rounded-2xl px-5  relative z-10'>
                     View All
                 </button>
             </div>

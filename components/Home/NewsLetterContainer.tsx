@@ -3,7 +3,7 @@ import React from 'react'
 const NewsLetterContainer = () => {
     return (
         <div className='lg:px-10 px-5 w-full mb-10'>
-            <div className='bg-td-primary flex md:flex-row flex-col gap-3 md:gap-0items-center justify-between rounded-2xl w-full lg:px-10 px-5 py-10  '>
+            <div className='bg-td-secondary flex md:flex-row flex-col gap-3 md:gap-0items-center justify-between rounded-2xl w-full lg:px-10 px-5 py-10  '>
                 <div className='md:w-1/2 flex items-center justify-center w-full'>
                     <h1 className='font-bold text-white text-[30px]'>STAY UPTO DATE ABOUT OUR LATEST OFFERS</h1>
                 </div>

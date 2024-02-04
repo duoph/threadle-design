@@ -10,7 +10,6 @@ const UserProfile = () => {
     const { LogOut, currentUser } = useUser()
 
 
-
     if (currentUser?.token && currentUser.isAdmin === true) {
         return router.push('/admin-panel')
     }
