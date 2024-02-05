@@ -62,7 +62,7 @@ export async function POST(req: NextRequest) {
             category,
             slugifyProductName,
             inStock: true,
-            moreImagesURLs: imageUrls.map((result: any) => result.s3Url),
+            moreImagesURLs: imageUrls?.map((result: any) => result.s3Url),
         });
 
         return NextResponse.json({ message: "Product created successfully", success: true });
