@@ -21,9 +21,10 @@ const LoginPageAdmin = () => {
   const [password, setPassword] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const { setCurrentUser } = useUser()
+  const { setCurrentUser, currentUser } = useUser()
 
   const router = useRouter();
+
 
 
   const handleLogin = async () => {
@@ -70,9 +71,6 @@ const LoginPageAdmin = () => {
   };
 
 
-
-
-  const { currentUser } = useUser()
 
   if (currentUser?.token && currentUser.isAdmin === true) {
     return router.push('/admin-panel')
