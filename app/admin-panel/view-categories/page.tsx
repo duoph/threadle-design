@@ -50,7 +50,7 @@ const ViewAllCategories = () => {
             </div>
             <div className='flex flex-wrap items-center justify-center gap-5'>                {categories?.map((cat: Category, i) => (
                 <div key={i} className='w-[300px] pb-10 flex flex-col bg-td-secondary rounded-2xl'>
-                    <Image src={cat.imageURL} style={{ objectFit: "cover" }} alt='Image' className='rounded-2xl min-h-[300px]' height={400} width={400} />
+                    <Image src={cat.imageURL} style={{ objectFit: "cover", background: "/public/noImage.jpg" }} alt='Image' className='rounded-2xl min-h-[300px]  max-h-[300px]' height={400} width={400} />
                     <span className='w-full  text-white px-5 py-5 text-center rounded-2xl cursor-pointer'>{cat.categoryName}</span>
                     <div className='flex flex-col w-full gap-4 items-center justify-evenly text-white px-5'>
                         <button className='bg-td-primary w-full px-4 py-3 rounded-xl font-medium'>Edit</button>
