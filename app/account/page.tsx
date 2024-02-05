@@ -7,19 +7,12 @@ import React from 'react'
 const Account = () => {
 
 
-    const { currentUser } = useUser()
+    // const { currentUser } = useUser()
 
 
     const router = useRouter()
 
 
-    if (currentUser?.token && currentUser.isAdmin === true) {
-        return router.push('/admin-panel')
-    }
-
-    if (currentUser?.token && currentUser.isAdmin === false) {
-        return router.push(`/account/${currentUser.userId}`)
-    }
 
 
     return (
