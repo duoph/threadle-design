@@ -60,8 +60,8 @@ export async function POST(req: NextRequest) {
             coverImageURL: coverImageURL?.s3Url,
             salePrice,
             category,
-            slugifyProductName,
             inStock: true,
+            slugifyProductName,
             moreImagesURLs: imageUrls?.map((result: any) => result.s3Url),
         });
 
