@@ -12,13 +12,16 @@ const ProductCard = () => {
     const router = useRouter()
 
 
+    const category = "dress"
+    const productId = "123"
+
 
     const onclick = async () => {
-        // try {
-        //     router.push(`/shop/${category}/${productId}`)
-        // } catch (error) {
+        try {
+            router.push(`/shop/${category}/${productId}`)
+        } catch (error) {
 
-        // }
+        }
     }
 
 
