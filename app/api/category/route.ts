@@ -14,38 +14,41 @@ export async function POST(request: NextRequest) {
         const formData = await request.formData();
         const title = formData.get("title");
 
-        const file = formData.get("file");
+        const file = formData?.get("file");
+        console.error("1");
 
-        if (!file || !(file instanceof Blob)) {
-            throw new Error("File is missing or invalid");
+        console.error("2");
+
+        let aws; // Declare aws variable outside the if block
+
+        if (file instanceof Blob) {
+            const fileBuffer = await file.arrayBuffer();
+            const buffer = Buffer.from(fileBuffer);
+            aws = await uploadFileToS3(buffer, title as string);
         }
 
-
-        const fileBuffer = await file.arrayBuffer();
-        const buffer = Buffer.from(fileBuffer);
-
+        console.error("3");
 
         const slugifyCategoryName = slugify(title as string, { lower: true });
 
-        const aws = await uploadFileToS3(buffer, title as string);
-
+        console.error("4");
 
         await CategoryModel.create({
             categoryName: title,
             slugifyName: slugifyCategoryName,
-            imageURL: aws?.s3Url
+            imageURL: aws?.s3Url || undefined
         });
+
         console.error("7");
-
-
         console.log("Category created successfully");
 
         return NextResponse.json({ data: title, message: slugifyCategoryName });
     } catch (error) {
         console.error("Error creating new category:", error);
-        return NextResponse.json({ message: "Error in creating new category", success: false, error });
+        return NextResponse.json({ message: "Error in creating a new category", success: false, error });
     }
 }
+
 
 
 // Getting all categories from database
