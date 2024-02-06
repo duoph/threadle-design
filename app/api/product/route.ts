@@ -12,23 +12,25 @@ export async function POST(req: NextRequest) {
         const desc = formData.get("desc");
         const regularPrice = formData.get("regularPrice");
         const category = formData.get("category");
-        const coverImage = formData.get("coverImage") as File;
+        const file = formData.get("coverImage") as File;
         const image1 = formData.get("image1") as File;
         const image2 = formData.get("image2") as File;
         const image3 = formData.get("image3") as File;
         const image4 = formData.get("image4") as File;
         const salePrice = formData.get("salePrice") || undefined;
 
-        if (!coverImage || !(coverImage instanceof File)) {
-            return NextResponse.json({ message: "Add a cover Image", success: false });
+        let aws; // Declare aws variable outside the if block
+
+        if (file instanceof Blob) {
+            const fileBuffer = await file.arrayBuffer();
+            const buffer = Buffer.from(fileBuffer);
+            aws = await uploadFileToS3(buffer, title as string);
         }
 
-        const coverImageBuffer = await coverImage.arrayBuffer();
-        const coverImageBufferArray = Buffer.from(coverImageBuffer);
 
         const slugifyProductName = slugify(title as string, { lower: true });
 
-        const coverImageURL = await uploadFileToS3(coverImageBufferArray, slugifyProductName);
+        // const coverImageURL = await uploadFileToS3(coverImageBufferArray, slugifyProductName);
 
         const imageUrls = [];
         if (image1 instanceof File) {
@@ -57,7 +59,7 @@ export async function POST(req: NextRequest) {
             title,
             desc,
             regularPrice,
-            coverImageURL: coverImageURL?.s3Url,
+            coverImageURL: aws?.s3Url,
             salePrice,
             category,
             inStock: true,
@@ -80,9 +82,9 @@ export async function GET(request: NextRequest) {
     try {
         connectMongoDB();
 
-        const tdCategory = await ProductModel.find({})
+        const tdProduct = await ProductModel.find({})
 
-        return NextResponse.json({ tdCategory, success: true });
+        return NextResponse.json({ tdProduct, success: true });
     } catch (error) {
         console.error("error fetching all products:", error);
         return NextResponse.json({ message: "Error fetching all categories", success: false, error });

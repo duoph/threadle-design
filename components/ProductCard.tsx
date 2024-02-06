@@ -1,12 +1,13 @@
 "use client"
 
+import { Product } from '@/types';
 import Image from 'next/image'
 import { useRouter } from 'next/navigation';
 import React from 'react'
 import { CiStar } from 'react-icons/ci'
 import { FaCartPlus, FaStar } from "react-icons/fa6";
 
-const ProductCard = () => {
+const ProductCard = ({ product }: any) => {
 
 
     const router = useRouter()
@@ -28,10 +29,15 @@ const ProductCard = () => {
     return (
         <div onClick={onclick} className='flex flex-col items-center justify-center min-w-[300px] max-w-[300px] cursor-pointer shadow-xl rounded-2xl md:hover:scale-110 transition-all ease-in-out duration-700'>
             <div className='relative flex items-center justify-center h-[250px] w-full bg-gray-200 rounded-2xl'>
-                <Image src={'/greendress.png'} style={{ objectFit: "contain" }} fill alt='Red-Dress' />
+                {!product?.coverImageURL && (
+                    <Image src={"/noImage.jpg"} style={{ objectFit: "cover" }} alt='Image' className='rounded-2xl' fill />
+                )}
+                {product?.coverImageURL && (
+                    <Image src={product?.coverImageURL} style={{ objectFit: "cover" }} className='rounded-2xl' fill alt='Red-Dress' />
+                )}
             </div>
             <div className='w-full px-3 py-2 flex flex-col gap-2 '>
-                <p className='text-start break-all'>Red Dress with custom design</p>
+                <p className='text-start break-all'>{product?.title}</p>
                 <span className='text-start break-all flex items-center justify-start'>
                     <FaStar size={24} className='text-yellow-300' />
                     <FaStar size={24} className='text-yellow-300' />

@@ -19,7 +19,7 @@ const productSchema = new Schema<ProductDocument>({
     inStock: { type: String, required: true },
     category: { type: Schema.Types.ObjectId, ref: 'category', required: true },
     desc: { type: String, required: true },
-    coverImageURL: { type: String, required: true },
+    coverImageURL: { type: String, required: false },
     slugifyProductName: { type: String, required: true },
     isCustom: { type: Boolean },
     regularPrice: { type: Number },
