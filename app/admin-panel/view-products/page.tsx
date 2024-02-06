@@ -50,7 +50,7 @@ const ViewAllProducts = () => {
             </div>
             <div className='flex items-center justify-center gap-5 flex-wrap md:px-10 px-5'>
                 {products.map((product) => (
-                    <ProductCard product={product} />
+                    <ProductCard key={product._id} product={product} />
                 ))}
             </div>
         </div>
