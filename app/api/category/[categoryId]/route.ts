@@ -16,7 +16,7 @@ export async function GET(req: NextRequest, { params }: any) {
         const categoryId = params.categoryId
 
 
-        const category = await CategoryModel.find({ _id: categoryId })
+        const category = await CategoryModel.findOne({ _id: categoryId })
 
         const products = await ProductModel.find({
             category: categoryId

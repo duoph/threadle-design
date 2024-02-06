@@ -36,7 +36,7 @@ const BrowseDressByCategory = () => {
 
 
     return (
-        <div className=' lg:px-10 px-5'>
+        <div className='lg:px-10 px-5'>
             <div className='h-full rounded-2xl bg-td-secondary gap-5 flex flex-col pb-10 lg:px-20 px-5'>
                 <h1 className='text-center font-extrabold text-white lg:text-[50px] md:text-[30px] text-[20px] mt-5  '>Browse Dress By Category</h1>
                 <div className='flex flex-wrap items-center justify-center w-full gap-2 font-medium text-sm'>
