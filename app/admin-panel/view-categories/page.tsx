@@ -19,9 +19,9 @@ const ViewAllCategories = () => {
         try {
             const response = await axios.get('/api/category')
 
-            console.log(response.data.tdCategory)
+            console.log(response?.data?.tdCategory)
 
-            setCategories(response.data.tdCategory)
+            setCategories(response?.data?.tdCategory)
 
         } catch (error) {
             console.log(error)
@@ -34,7 +34,7 @@ const ViewAllCategories = () => {
 
 
     // on loading of categories
-    if (categories.length === 0) {
+    if (categories?.length === 0) {
         return (
             <div className='min-h-[80vh] md:px-10 px-5 py-10 flex flex-col items-center justify-center gap-3'>
                 <div>
@@ -55,8 +55,8 @@ const ViewAllCategories = () => {
                     {!cat?.imageURL && (
                         <Image src={"/noImage.jpg"} style={{ objectFit: "cover" }} alt='Image' className='absolute rounded-2xl min-h-[300px]  max-h-[300px]' height={400} width={400} />
                     )}
-                    <Image src={cat.imageURL} style={{ objectFit: "cover" }} alt='Image' className='rounded-2xl min-h-[300px]  max-h-[300px]' height={400} width={400} />
-                    <span className='w-full  text-white px-5 py-5 text-center rounded-2xl cursor-pointer'>{cat.categoryName}</span>
+                    <Image src={cat?.imageURL} style={{ objectFit: "cover" }} alt='Image' className='rounded-2xl min-h-[300px]  max-h-[300px]' height={400} width={400} />
+                    <span className='w-full  text-white px-5 py-5 text-center rounded-2xl cursor-pointer'>{cat?.categoryName}</span>
                     <div className='flex flex-col w-full gap-4 items-center justify-evenly text-white px-5'>
                         <button className='bg-td-primary w-full px-4 py-3 rounded-xl font-medium' onClick={() => router.push(`/admin-panel/edit-category/${cat._id}`)}>Edit</button>
                         <button className='bg-td-primary w-full px-4 py-3 rounded-xl font-medium'>View Products</button>
