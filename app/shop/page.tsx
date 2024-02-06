@@ -28,8 +28,7 @@ const Shop = () => {
     }
   }
 
-
-
+  
   useEffect(() => {
     fetchProducts()
   }, [])
@@ -38,7 +37,7 @@ const Shop = () => {
 
 
   return (
-    <div className='flex flex-col gap-3  items-center justify-center px-10 py-10'>
+    <div className='flex flex-col gap-5  items-center justify-center px-10 py-10'>
       <div className="w-full flex items-center justify-between">
         <span className="text-gray-400 font-light">Showing 1-10 of {products?.length} Products</span>
         <span>Sort by : Most Popular</span>
