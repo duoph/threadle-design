@@ -12,14 +12,14 @@ export async function POST(req: NextRequest) {
         const desc = formData.get("desc");
         const regularPrice = formData.get("regularPrice");
         const category = formData.get("category");
-        const file = formData.get("coverImage") as File;
-        const image1 = formData.get("image1") as File;
-        const image2 = formData.get("image2") as File;
-        const image3 = formData.get("image3") as File;
-        const image4 = formData.get("image4") as File;
+        const file = formData.get("coverImage") as Blob; // Change to Blob
+        const image1 = formData.get("image1") as Blob; // Change to Blob
+        const image2 = formData.get("image2") as Blob; // Change to Blob
+        const image3 = formData.get("image3") as Blob; // Change to Blob
+        const image4 = formData.get("image4") as Blob; // Change to Blob
         const salePrice = formData.get("salePrice") || undefined;
 
-        let aws; // Declare aws variable outside the if block
+        let aws;
 
         if (file instanceof Blob) {
             const fileBuffer = await file.arrayBuffer();
@@ -27,39 +27,35 @@ export async function POST(req: NextRequest) {
             aws = await uploadFileToS3(buffer, title as string);
         }
 
-
         const slugifyProductName = slugify(title as string, { lower: true });
 
-        // const coverImageURL = await uploadFileToS3(coverImageBufferArray, slugifyProductName);
-
         const imageUrls = [];
-        if (image1 instanceof File) {
+        if (image1 instanceof Blob) { // Check if it's Blob
             imageUrls.push(
                 await uploadFileToS3(Buffer.from(await image1.arrayBuffer()), slugifyProductName + "-image1")
             );
         }
-        if (image2 instanceof File) {
+        if (image2 instanceof Blob) {
             imageUrls.push(
                 await uploadFileToS3(Buffer.from(await image2.arrayBuffer()), slugifyProductName + "-image2")
             );
         }
-        if (image3 instanceof File) {
+        if (image3 instanceof Blob) {
             imageUrls.push(
                 await uploadFileToS3(Buffer.from(await image3.arrayBuffer()), slugifyProductName + "-image3")
             );
         }
-        if (image4 instanceof File) {
+        if (image4 instanceof Blob) {
             imageUrls.push(
                 await uploadFileToS3(Buffer.from(await image4.arrayBuffer()), slugifyProductName + "-image4")
             );
         }
 
-        // Create a new product document
         await ProductModel.create({
             title,
             desc,
             regularPrice,
-            coverImageURL: aws?.s3Url,
+            coverImageURL: aws?.s3Url || undefined,
             salePrice,
             category,
             inStock: true,
@@ -73,7 +69,6 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ message: "Unknown error", error });
     }
 }
-
 
 
 
