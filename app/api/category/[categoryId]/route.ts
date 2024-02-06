@@ -82,7 +82,7 @@ export async function PUT(req: NextRequest, { params }: any) {
 
         const title = formdata.get("title");
         const coverURL = formdata.get("imageURL");
-        const file = formdata.get("file") as File || undefined;
+        const file = formdata.get("file") as Blob || undefined;
 
         let imageUrl;
 
@@ -101,8 +101,10 @@ export async function PUT(req: NextRequest, { params }: any) {
 
 
         // Update the CategoryModel (Assuming you have a CategoryModel with a method like updateCategory)
+
         const updatedCategory = await CategoryModel.findByIdAndUpdate({ _id: categoryId }, { categoryName: title, slugifyName: slugifyCategoryName, imageURL: imageUrl }, { new: true });
 
+        
         return NextResponse.json({ message: 'Category updated successfully', success: true, updatedCategory });
 
 

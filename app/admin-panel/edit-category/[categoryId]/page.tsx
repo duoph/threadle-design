@@ -18,6 +18,7 @@ const EditCategory = () => {
 
 
     const [coverImage, setCoverImage] = useState<string | null>(null);
+    const [fetchedImageURL, setFetchedImageURL] = useState<string | null>(null);
     const [categoryTitle, setCategoryTitle] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -27,7 +28,7 @@ const EditCategory = () => {
             const response = await axios.get(`/api/category/${categoryId}`)
             console.log(response.data.category)
             setCategoryTitle(response.data.category.categoryName)
-            setCoverImage(response.data.category.imageURL)
+            setFetchedImageURL(response.data.category.imageURL)
         } catch (error) {
             console.log(error)
         }
@@ -71,11 +72,11 @@ const EditCategory = () => {
             });
             console.log(res)
             setIsLoading(false)
-            toast.success("Category created successfully");
+            toast.success("Category updating successfully");
             router.push("/admin-panel");
         } catch (error) {
             setIsLoading(false)
-            console.error("Error creating category:", error);
+            console.error("Error updating category:", error);
             toast.error("Failed to create category");
         }
     };
@@ -107,6 +108,16 @@ const EditCategory = () => {
                     {coverImage && (
                         <div className="w-full flex flex-col items-center justify-center gap-2">
                             <Image src={coverImage} alt="Cover" className="w-[290px] h-[290px] object-cover rounded-2xl" height={150} width={150} />
+
+                            <button onClick={() => setCoverImage(null)} className="bg-red-700 px-3 py-2 rounded-2xl text-white">
+                                <MdDelete size={24} />
+                            </button>
+                        </div>
+                    )}
+                    {!coverImage && fetchedImageURL && (
+                        <div className="w-full flex flex-col items-center justify-center gap-2">
+                            <Image src={fetchedImageURL} alt="Cover" className="w-[290px] h-[290px] object-cover rounded-2xl" height={150} width={150} />
+
                             <button onClick={() => setCoverImage(null)} className="bg-red-700 px-3 py-2 rounded-2xl text-white">
                                 <MdDelete size={24} />
                             </button>
@@ -129,7 +140,7 @@ const EditCategory = () => {
                         <PulseLoader color="#ffffff" size={15} />
                     )}
                     {!isLoading && (
-                        <span onClick={handleSubmit} className="text-[15px] w-full">Create Category</span>
+                        <span onClick={handleSubmit} className="text-[15px] w-full">Update Category</span>
                     )}
                 </button>
             </ div>
