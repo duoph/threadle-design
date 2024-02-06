@@ -15,9 +15,7 @@ export async function POST(request: NextRequest) {
         const title = formData.get("title");
 
         const file = formData?.get("file");
-        console.error("1");
 
-        console.error("2");
 
         let aws; // Declare aws variable outside the if block
 
@@ -27,11 +25,9 @@ export async function POST(request: NextRequest) {
             aws = await uploadFileToS3(buffer, title as string);
         }
 
-        console.error("3");
 
         const slugifyCategoryName = slugify(title as string, { lower: true });
 
-        console.error("4");
 
         await CategoryModel.create({
             categoryName: title,
@@ -39,7 +35,6 @@ export async function POST(request: NextRequest) {
             imageURL: aws?.s3Url || undefined
         });
 
-        console.error("7");
         console.log("Category created successfully");
 
         return NextResponse.json({ data: title, message: slugifyCategoryName });
