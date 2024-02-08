@@ -134,7 +134,6 @@ const EditCategory = () => {
                         onChange={handleCoverImageChange}
                         className="hidden"
                         accept="image/*"
-
                     />
                 </div>
             </div>
