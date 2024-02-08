@@ -16,6 +16,7 @@ export async function POST(request: NextRequest) {
 
         const file = formData?.get("file");
 
+        const imgURL = formData.get('imageURL')
 
         let aws; // Declare aws variable outside the if block
 
@@ -32,7 +33,7 @@ export async function POST(request: NextRequest) {
         await CategoryModel.create({
             categoryName: title,
             slugifyName: slugifyCategoryName,
-            imageURL: aws?.s3Url || undefined
+            imageURL: aws?.s3Url || imgURL
         });
 
         console.log("Category created successfully");
@@ -52,7 +53,7 @@ export async function GET(request: NextRequest) {
     try {
         connectMongoDB();
 
-        const tdCategory = await CategoryModel.find({})
+        const tdCategory = await CategoryModel.find({}).sort({ updatedAt: -1 })
 
         return NextResponse.json({ tdCategory, success: true });
     } catch (error) {

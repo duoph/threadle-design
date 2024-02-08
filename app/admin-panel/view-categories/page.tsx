@@ -54,6 +54,7 @@ const ViewAllCategories = () => {
                 {categories.map((cat: Category, i) => (
                     <div key={i} className='relative w-[300px] pb-10 flex flex-col bg-td-secondary rounded-2xl'>
                         <Image
+                            quality={50}
                             src={cat.imageURL || "/noImage.jpg"}
                             alt='Image'
                             className='rounded-2xl min-h-[300px] max-h-[300px]'
