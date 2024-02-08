@@ -52,7 +52,6 @@ const EditCategory = () => {
 
     const handleSubmit = async () => {
         try {
-
             if (!categoryTitle) {
                 toast.error("Please enter a category title");
                 return;
@@ -60,6 +59,11 @@ const EditCategory = () => {
             setIsLoading(true)
             const formData = new FormData();
             formData.append("title", categoryTitle);
+
+            if (fetchedImageURL) {
+                formData.append("imageURL", fetchedImageURL);
+            }
+
             if (coverImage) {
                 const file = await fetch(coverImage).then((res) => res.blob());
                 formData.append("file", file);
@@ -81,6 +85,7 @@ const EditCategory = () => {
         }
     };
 
+
     return (
         <div className='flex flex-col gap-3 py-5 md:px-10 px-5'>
             <div className='flex gap-2 items-center justify-start'>
@@ -99,7 +104,7 @@ const EditCategory = () => {
             <h1 className=" font-bold">Cover Image</h1>
             <div className="flex flex-col gap-2 w-full">
                 <div className="flex px-5 items-center justify-center gap-3  w-full  ">
-                    {!coverImage && (
+                    {!coverImage && !fetchedImageURL && (
                         <label htmlFor="coverImage" className="w-[290px] rounded-2xl border flex flex-col items-center justify-center h-[290px]">
                             <span className="font-bold">Add Image</span>
                             <CiSquarePlus size={24} />
@@ -118,7 +123,7 @@ const EditCategory = () => {
                         <div className="w-full flex flex-col items-center justify-center gap-2">
                             <Image src={fetchedImageURL} alt="Cover" className="w-[290px] h-[290px] object-cover rounded-2xl" height={150} width={150} />
 
-                            <button onClick={() => setCoverImage(null)} className="bg-red-700 px-3 py-2 rounded-2xl text-white">
+                            <button onClick={() => setFetchedImageURL(null)} className="bg-red-700 px-3 py-2 rounded-2xl text-white">
                                 <MdDelete size={24} />
                             </button>
                         </div>
