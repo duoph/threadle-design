@@ -221,8 +221,9 @@ const CreateProduct = () => {
                     {/* {image1 && ( */}
                     <div className="relative flex flex-col items-center justify-center gap-1 border rounded-2xl w-[300px] h-[300px] overflow-hidden shadow-xl ">
                         {!image2 && (
-                            <label htmlFor="image2" className="font-semibold w-full h-full flex flex-col items-center justify-center cursor-pointer">
+                            <label htmlFor="image3" className="font-semibold w-full h-full flex flex-col items-center justify-center cursor-pointer">
                                 <CiSquarePlus size={24} />
+                                <span className="text-sm text-gray-500">Add Image</span>
                             </label>
                         )}
                         {image2 && (
