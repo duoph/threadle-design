@@ -77,7 +77,7 @@ export async function GET(request: NextRequest) {
     try {
         connectMongoDB();
 
-        const tdProduct = await ProductModel.find({})
+        const tdProduct = await ProductModel.find({}).sort({ createdAt: -1 })
 
         return NextResponse.json({ tdProduct, success: true });
     } catch (error) {

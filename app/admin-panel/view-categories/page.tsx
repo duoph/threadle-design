@@ -58,7 +58,7 @@ const ViewAllCategories = () => {
     return (
         <div className='min-h-screen flex items-center justify-center md:px-10 px-5'>
             {deleteConfirm && (
-                <div className=' fixed top-0 left-0 w-full h-full flex items-center justify-center z-10 md:px-10 px-5'>
+                <div className=' fixed top-0 bg-black bg-opacity-50 left-0 w-full h-full flex items-center justify-center z-10 md:px-10 px-5'>
                     <div className='bg-white p-6 rounded-md shadow-2xl py-10 px-10'>
                         <h1 className='text-xl font-bold'>Are you sure?</h1>
                         {/* <p className='text-gray-700'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae, vero.</p> */}
