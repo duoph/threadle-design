@@ -25,7 +25,7 @@ const productSchema = new Schema<ProductDocument>({
     regularPrice: { type: Number },
     salePrice: { type: Number || undefined },
     moreImagesURLs: [{ type: String }],
-});
+}, { timestamps: true });
 
 const ProductModel = models.product || mongoose.model<ProductDocument>('product', productSchema);
 
