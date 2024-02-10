@@ -72,7 +72,7 @@ const ViewAllCategories = () => {
 
             <div className='min-h-[80vh] md:px-10 px-5 py-10 flex flex-col items-center justify-center gap-3 '>
                 <div>
-                    <h1 className='text-[30px] font-bold text-td-secondary'>All Categories</h1>
+                    <h1 className='text-[30px] font-bold text-td-secondary'>Categories</h1>
                 </div>
 
                 <div className='flex flex-wrap items-center justify-center gap-5'>
