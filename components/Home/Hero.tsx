@@ -15,7 +15,7 @@ const Hero = () => {
                     <h1 className='text-center font-extrabold text-td-secondary lg:text-[50px] text-[25px] '>
                         DISCOVER ELEGENCE THAT SUITS YOUR TASTE
                     </h1>
-                    <p className='text-black break-all'>Browse through our diverse range of meticulously crafted garments, designed to bring out your individuality and cater to your sense of style.</p>
+                    <p className='text-black break-all text-center px-4'>Browse through our diverse range of meticulously crafted garments, designed to bring out your individuality and cater to your sense of style.</p>
                 </div>
                 <div>
                     <button onClick={() => router.push('/shop')} className='py-3 px-4 rounded-2xl bg-td-secondary text-[18px] text-white font-semibold' >Shop Now</button>
