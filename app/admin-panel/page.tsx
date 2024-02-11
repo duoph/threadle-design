@@ -4,7 +4,7 @@ import { useUser } from '@/context/useUser';
 // import { useAdmin } from '@/context/admin';
 import Link from 'next/link'
 import { useRouter } from 'next/navigation';
-import React from 'react'
+import React, { useEffect } from 'react'
 
 const AdminPanel = () => {
 
@@ -13,9 +13,11 @@ const AdminPanel = () => {
     const router = useRouter()
 
 
-    if (!currentUser?.token || currentUser?.isAdmin === false) {
-        return router.push('/account/login')
-    }
+    useEffect(() => {
+        if (!currentUser?.token || currentUser?.isAdmin === false) {
+          router.push('/account/login');
+        }
+      }, [currentUser]);
 
 
     return (
