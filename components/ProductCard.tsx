@@ -1,16 +1,21 @@
 "use client"
 
+import { useUser } from '@/context/useUser';
 import { Product } from '@/types';
 import Image from 'next/image'
 import { useRouter } from 'next/navigation';
 import React from 'react'
 import { CiHeart, CiStar } from 'react-icons/ci'
 import { FaCartPlus, FaStar } from "react-icons/fa6";
+import { MdDelete } from 'react-icons/md';
 
 const ProductCard = ({ product }: any) => {
 
 
     const router = useRouter()
+
+
+    const { currentUser } = useUser()
 
 
     const category = "dress"
@@ -27,7 +32,7 @@ const ProductCard = ({ product }: any) => {
 
 
     return (
-        <div className='flex flex-col items-center justify-center min-w-[300px] max-w-[300px] cursor-pointer shadow-xl rounded-2xl transition-all ease-in-out duration-700 py-4 px-3'>
+        <div className='flex gap-2 flex-col items-center justify-center min-w-[300px] max-w-[300px] cursor-pointer shadow-xl rounded-2xl transition-all ease-in-out duration-700 py-4 px-3'>
             <div onClick={onclick} className='w-full'>
                 <div className='relative flex items-center justify-center h-[250px] w-full bg-gray-200 rounded-2xl'>
                     {!product?.coverImageURL && (
@@ -51,14 +56,23 @@ const ProductCard = ({ product }: any) => {
                 </div>
 
             </div>
-            <div className='flex gap-2 w-full items-center justify-between'>
-                <button className='flex  w-full border rounded-2xl py-3 items-center justify-center bg-white text-white '>
-                    <CiHeart className='text-center w-full text-td-secondary hover:scale-110' size={24} />
+
+            {!currentUser?.isAdmin && (
+                <div className='flex gap-2 w-full items-center justify-between'>
+                    <button className='flex  w-full border rounded-2xl py-3 items-center justify-center bg-white text-white '>
+                        <CiHeart className='text-center w-full text-td-secondary hover:scale-110' size={24} />
+                    </button>
+                    <button className='flex w-full border rounded-2xl py-3 items-center justify-center bg-white text-white '>
+                        <FaCartPlus className='text-center w-full text-td-secondary hover:scale-110' size={24} />
+                    </button>
+                </div>
+            )}
+
+            {currentUser?.isAdmin && (
+                <button className='flex w-full border rounded-2xl py-3 items-center justify-center bg-red-600'>
+                    <MdDelete className='text-center w-full text-white hover:scale-110' size={24} />
                 </button>
-                <button className='flex w-full border rounded-2xl py-3 items-center justify-center bg-white text-white '>
-                    <FaCartPlus className='text-center w-full text-td-secondary hover:scale-110' size={24} />
-                </button>
-            </div>
+            )}
 
         </div>
     )
