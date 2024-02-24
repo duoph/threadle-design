@@ -1,7 +1,6 @@
 "use client"
 
 import { useUser } from '@/context/useUser';
-// import { useAdmin } from '@/context/admin';
 import Link from 'next/link'
 import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react'
