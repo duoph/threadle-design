@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import React from 'react'
 import { CiHeart, CiStar } from 'react-icons/ci'
 import { FaCartPlus, FaStar } from "react-icons/fa6";
-import { MdDelete } from 'react-icons/md';
+import { MdDelete, MdEdit } from 'react-icons/md';
 
 const ProductCard = ({ product }: any) => {
 
@@ -69,9 +69,14 @@ const ProductCard = ({ product }: any) => {
             )}
 
             {currentUser?.isAdmin && (
-                <button className='flex w-full border rounded-2xl py-3 items-center justify-center bg-red-600'>
-                    <MdDelete className='text-center w-full text-white hover:scale-110' size={24} />
-                </button>
+                <div className="flex items-center justify-center w-full gap-2">
+                    <button className='flex w-full border rounded-2xl py-3 items-center justify-center bg-gray-600'>
+                        <MdEdit className='text-center w-full text-white hover:scale-110' size={24} />
+                    </button>
+                    <button className='flex w-full border rounded-2xl py-3 items-center justify-center bg-red-600'>
+                        <MdDelete className='text-center w-full text-white hover:scale-110' size={24} />
+                    </button>
+                </div>
             )}
 
         </div>

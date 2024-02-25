@@ -30,7 +30,6 @@ const page = () => {
 
 
 
-
     return (
         <div className='md:px-10 px-5 py-10'>
             <div className='flex items-center justify-center'>
