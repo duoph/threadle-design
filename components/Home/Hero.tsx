@@ -21,8 +21,8 @@ const Hero = () => {
                     <button onClick={() => router.push('/shop')} className='py-3 px-4 rounded-2xl bg-td-secondary text-[18px] text-white font-semibold' >Shop Now</button>
                 </div>
                 <div className='hidden lg:flex items-center justify-center gap-5 lg:text-[28px] md:text-[20px] text-[16px]'>
-                    <p className='flex flex-col items-center justify-center font-bold '>2500+ <span className='font-normal'>Brands</span></p>
-                    <span className='text-gray-600'>|</span>
+                    {/* <p className='flex flex-col items-center justify-center font-bold '>2500+ <span className='font-normal'>Brands</span></p>
+                    <span className='text-gray-600'>|</span> */}
                     <p className='flex flex-col items-center justify-center font-bold '>2000+ <span className='font-normal'>Products</span></p>
                     <span className='text-gray-600'>|</span>
                     <p className='flex flex-col items-center justify-center font-bold '>10000+ <span className='font-normal'>Customers</span></p>
@@ -35,8 +35,8 @@ const Hero = () => {
                     <Image src={"/greendress.png"} width={500} height={400} alt='GreenDress' />
                 </div>
                 <div className='lg:hidden flex items-center justify-center gap-5 lg:text-[28px] md:text-[20px] text-[16px]'>
-                    <p className='flex flex-col items-center justify-center font-bold '>2500+ <span className='font-normal'>Brands</span></p>
-                    <span className='text-gray-600'>|</span>
+                    {/* <p className='flex flex-col items-center justify-center font-bold '>2500+ <span className='font-normal'>Brands</span></p>
+                    <span className='text-gray-600'>|</span> */}
                     <p className='flex flex-col items-center justify-center font-bold '>2000+ <span className='font-normal'>Products</span></p>
                     <span className='text-gray-600'>|</span>
                     <p className='flex flex-col items-center justify-center font-bold '>10000+ <span className='font-normal'>Customers</span></p>
