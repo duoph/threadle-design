@@ -30,6 +30,15 @@ const ProductCard = ({ product }: any) => {
         }
     }
 
+    const handleDelete = async () => {
+        try {
+
+        } catch (error) {
+
+        }
+    }
+
+
 
     return (
         <div className='flex gap-2 flex-col items-center justify-center min-w-[300px] max-w-[300px] cursor-pointer shadow-xl rounded-2xl transition-all ease-in-out duration-700 py-4 px-3'>
@@ -70,10 +79,10 @@ const ProductCard = ({ product }: any) => {
 
             {currentUser?.isAdmin && (
                 <div className="flex items-center justify-center w-full gap-2">
-                    <button className='flex w-full border rounded-2xl py-3 items-center justify-center bg-gray-600'>
+                    <button onClick={() => router.push(`edit-product/${product._id}`)} className='flex w-full border rounded-2xl py-3 items-center justify-center bg-gray-600'>
                         <MdEdit className='text-center w-full text-white hover:scale-110' size={24} />
                     </button>
-                    <button className='flex w-full border rounded-2xl py-3 items-center justify-center bg-red-600'>
+                    <button onClick={() => { }} className='flex w-full border rounded-2xl py-3 items-center justify-center bg-red-600'>
                         <MdDelete className='text-center w-full text-white hover:scale-110' size={24} />
                     </button>
                 </div>
@@ -83,4 +92,4 @@ const ProductCard = ({ product }: any) => {
     )
 }
 
-export default ProductCard
+export default ProductCard;

@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document, models, Mongoose } from "mongoose";
+import mongoose, { Schema, Document, models } from "mongoose";
 
 interface userProps extends Document {
     email: string;
@@ -9,6 +9,7 @@ interface userProps extends Document {
     numberVerified: string;
     createdAt: Date;
     isAdmin: boolean;
+    wishList: mongoose.Types.ObjectId[]
 }
 
 const userSchema = new Schema<userProps>({
@@ -18,7 +19,8 @@ const userSchema = new Schema<userProps>({
     phone: { type: Number, required: true },
     address: { type: String },
     isAdmin: { type: Boolean, default: false },
-    numberVerified: { type: String }
+    numberVerified: { type: String },
+    wishList: [{ type: mongoose.Types.ObjectId }]
 }, { timestamps: true });
 
 
