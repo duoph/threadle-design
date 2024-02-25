@@ -8,6 +8,6 @@ interface CartItemProps {
     price: number
 }
 
-const cartItemSchema = new Schema({
+const cartItemSchema = new Schema<CartItemProps>({
 
 })
