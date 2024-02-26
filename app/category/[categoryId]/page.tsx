@@ -65,4 +65,4 @@ const SigleCategoryPage = () => {
     )
 }
 
-export default SigleCategoryPage
+export default SigleCategoryPage;
