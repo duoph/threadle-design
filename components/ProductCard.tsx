@@ -2,47 +2,39 @@
 
 import { useUser } from '@/context/useUser';
 import { Product } from '@/types';
+import axios from 'axios';
 import Image from 'next/image'
 import { useRouter } from 'next/navigation';
-import React from 'react'
+import React, { useState } from 'react'
 import { CiHeart, CiStar } from 'react-icons/ci'
 import { FaCartPlus, FaStar } from "react-icons/fa6";
 import { MdDelete, MdEdit } from 'react-icons/md';
 
-const ProductCard = ({ product }: any) => {
+const ProductCard = ({ product, getProducts }: any) => {
 
 
     const router = useRouter()
+    const [deleteConfirm, setDeleteConfirm] = useState<boolean>(false)
 
+    console.log(product)
 
     const { currentUser } = useUser()
 
-
-    const category = "dress"
-    const productId = "123"
-
-
-    const onclick = async () => {
-        try {
-            router.push(`/shop/${category}/${productId}`)
-        } catch (error) {
-
-        }
-    }
-
     const handleDelete = async () => {
         try {
-
+            const res = await axios.delete(`/api/product/${product._id}`)
         } catch (error) {
-
+            console.log(error)
         }
+        setDeleteConfirm(false)
+        getProducts()
     }
 
 
 
     return (
         <div className='flex gap-2 flex-col items-center justify-center min-w-[300px] max-w-[300px] cursor-pointer shadow-xl rounded-2xl transition-all ease-in-out duration-700 py-4 px-3'>
-            <div onClick={onclick} className='w-full'>
+            <div onClick={() => router.push(`/shop/${product._id}`)} className='w-full'>
                 <div className='relative flex items-center justify-center h-[250px] w-full bg-gray-200 rounded-2xl'>
                     {!product?.coverImageURL && (
                         <Image src={"/noImage.jpg"} style={{ objectFit: "cover" }} alt='Image' className='rounded-2xl' fill />
@@ -82,9 +74,22 @@ const ProductCard = ({ product }: any) => {
                     <button onClick={() => router.push(`edit-product/${product._id}`)} className='flex w-full border rounded-2xl py-3 items-center justify-center bg-gray-600'>
                         <MdEdit className='text-center w-full text-white hover:scale-110' size={24} />
                     </button>
-                    <button onClick={() => { }} className='flex w-full border rounded-2xl py-3 items-center justify-center bg-red-600'>
+                    <button onClick={() => setDeleteConfirm(true)} className='flex w-full border rounded-2xl py-3 items-center justify-center bg-red-600'>
                         <MdDelete className='text-center w-full text-white hover:scale-110' size={24} />
                     </button>
+                </div>
+            )}
+
+            {deleteConfirm && (
+                <div className=' fixed top-0 bg-black bg-opacity-50 left-0 w-full h-full flex items-center justify-center z-10 md:px-10 px-5'>
+                    <div className='bg-white p-6 rounded-md shadow-2xl py-10 px-10'>
+                        <h1 className='text-xl font-bold'>Are you sure?</h1>
+                        {/* <p className='text-gray-700'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae, vero.</p> */}
+                        <div className='mt-4 flex justify-center'>
+                            <button className='bg-red-600 text-white px-4 py-2 rounded-2xl mr-2' onClick={handleDelete}>Delete</button>
+                            <button className='bg-gray-300 text-gray-800 px-4 py-2 rounded-2xl' onClick={() => setDeleteConfirm(false)}>Cancel</button>
+                        </div>
+                    </div>
                 </div>
             )}
 
