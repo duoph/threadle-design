@@ -64,7 +64,7 @@ const ProductContainerWithCategory = () => {
                 </div>
             </div>
             <div className='px-5 w-full flex items-center justify-center'>
-                <button onClick={() => router.push(`/shop/${categoryName}`)} className='text-lg border md:w-auto w-full rounded-2xl px-5 py-2  relative z-10'>
+                <button onClick={() => router.push(`/category/${categoryName}`)} className='text-lg border md:w-auto w-full rounded-2xl px-5 py-2  relative z-10'>
                     View All
                 </button>
             </div>

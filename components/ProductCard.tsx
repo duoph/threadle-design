@@ -1,7 +1,6 @@
 "use client"
 
 import { useUser } from '@/context/useUser';
-import { Product } from '@/types';
 import axios from 'axios';
 import Image from 'next/image'
 import { useRouter } from 'next/navigation';
@@ -10,8 +9,8 @@ import { CiHeart, CiStar } from 'react-icons/ci'
 import { FaCartPlus, FaStar } from "react-icons/fa6";
 import { MdDelete, MdEdit } from 'react-icons/md';
 
-const ProductCard = ({ product, getProducts }: any) => {
 
+const ProductCard = ({ product, getProducts }: any) => {
 
     const router = useRouter()
     const [deleteConfirm, setDeleteConfirm] = useState<boolean>(false)
@@ -71,7 +70,7 @@ const ProductCard = ({ product, getProducts }: any) => {
 
             {currentUser?.isAdmin && (
                 <div className="flex items-center justify-center w-full gap-2">
-                    <button onClick={() => router.push(`edit-product/${product._id}`)} className='flex w-full border rounded-2xl py-3 items-center justify-center bg-gray-600'>
+                    <button onClick={() => router.push(`/admin-panel/edit-product/${product._id}`)} className='flex w-full border rounded-2xl py-3 items-center justify-center bg-gray-600'>
                         <MdEdit className='text-center w-full text-white hover:scale-110' size={24} />
                     </button>
                     <button onClick={() => setDeleteConfirm(true)} className='flex w-full border rounded-2xl py-3 items-center justify-center bg-red-600'>
