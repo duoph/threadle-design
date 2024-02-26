@@ -34,7 +34,7 @@ const SigleCategoryPage = () => {
     console.log(category)
 
 
-    if (products.length === 0) {
+    if (products?.length === 0) {
         return (
             <div className='min-h-[80vh] md:px-10 px-5 py-10 flex flex-col items-center justify-center gap-3'>
                 <div>

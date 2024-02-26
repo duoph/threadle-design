@@ -17,7 +17,7 @@ export async function GET(req: NextRequest, { params }: any) {
 
         console.log(productId)
 
-        const product = await ProductModel.find({ _id: productId }).populate('category')
+        const product = await ProductModel.find({ _id: productId })
 
         return NextResponse.json({ product, message: "single Product Fetched", success: true })
     } catch (error) {
