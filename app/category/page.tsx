@@ -5,7 +5,7 @@ import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
-const page = () => {
+const CategoryPage = () => {
     const [categories, setCategories] = useState<Category[]>([])
 
 
@@ -51,4 +51,4 @@ const page = () => {
     )
 }
 
-export default page
+export default CategoryPage

@@ -42,7 +42,9 @@ const Header = () => {
             </Link>
             <div className='flex items-center justify-center gap-2'>
                 <CiSearch onClick={() => router.push('/search')} className='text-white cursor-pointer' size={24} />
-                <CiShoppingCart onClick={() => router.push('/cart')} className='text-white cursor-pointer' size={24} />
+                {currentUser?.isAdmin === false && (
+                    <CiShoppingCart onClick={() => router.push('/cart')} className='text-white cursor-pointer' size={24} />
+                )}
                 <CiUser onClick={onAccountClick} className='text-white cursor-pointer' size={24} />
             </div>
         </div>
