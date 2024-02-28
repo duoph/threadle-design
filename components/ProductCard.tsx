@@ -52,7 +52,7 @@ const ProductCard = ({ product, getProducts }: any) => {
                         <CiStar size={24} className='text-yellow-300' />
                         <span className='font-thin text-sm px-1'>4/5</span>
                     </span>
-                    <p className='text-start break-all'>&#8377;3000</p>
+                    <p className='text-start break-all'>&#8377;{product?.regularPrice}</p>
                 </div>
 
             </div>

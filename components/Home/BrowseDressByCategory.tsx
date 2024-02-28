@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react'
 
 const BrowseDressByCategory = () => {
 
-    const [categories, setCategories] = useState<Category[]>([])
+    const [categories, setCategories] = useState<Category[] | []>()
 
 
     const router = useRouter()
@@ -36,7 +36,7 @@ const BrowseDressByCategory = () => {
             <div className='h-full rounded-2xl bg-td-secondary gap-5 flex flex-col pb-10 lg:px-20 px-5'>
                 <h1 className='text-center font-extrabold text-white md:text-[30px] text-[20px] mt-5 '>Browse Dress By Category</h1>
                 <div className='flex flex-wrap items-center justify-center w-full gap-2 font-medium text-sm'>
-                    {categories.slice(0, 6).map((category: Category, i) => (
+                    {categories?.slice(0, 6).map((category: Category, i) => (
                         <div key={i} onClick={() => router.push(`/category/${category._id}`)} className='bg-emerald-50 md:w-1/3 w-full  rounded-2xl py-2 flex items-center justify-center overflow-hidden cursor-pointer'>
                             <h1 className=' text-[20px] text-center'>{category.categoryName}</h1>
                         </div>
