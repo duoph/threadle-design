@@ -32,7 +32,7 @@ const ProductCard = ({ product, getProducts }: any) => {
 
 
     return (
-        <div className='flex gap-2 flex-col items-center justify-center min-w-[300px] max-w-[300px] cursor-pointer shadow-xl rounded-2xl transition-all ease-in-out duration-700 py-4 px-3'>
+        <div className='relative flex gap-2 flex-col items-center justify-center min-w-[300px] max-w-[300px] cursor-pointer shadow-xl rounded-2xl transition-all ease-in-out duration-700 px-4 py-4 bg-gray-100 md:hover:scale-105'>
             <div onClick={() => router.push(`/shop/${product._id}`)} className='w-full'>
                 <div className='relative flex items-center justify-center h-[250px] w-full bg-gray-200 rounded-2xl'>
                     {!product?.coverImageURL && (
@@ -43,7 +43,7 @@ const ProductCard = ({ product, getProducts }: any) => {
                     )}
                 </div>
                 <div className='w-full px-3 py-2 flex flex-col gap-2 '>
-                    <p className='text-start break-all'>{product?.title}</p>
+                    <p className='text-start break-all font-light'>{product?.title}</p>
                     <span className='text-start break-all flex items-center justify-start'>
                         <FaStar size={24} className='text-yellow-300' />
                         <FaStar size={24} className='text-yellow-300' />
@@ -54,17 +54,16 @@ const ProductCard = ({ product, getProducts }: any) => {
                     </span>
                     <p className='text-start break-all'>&#8377;{product?.regularPrice}</p>
                 </div>
-
             </div>
 
             {!currentUser?.isAdmin && (
-                <div className='flex gap-2 w-full items-center justify-between'>
-                    <button className='flex  w-full border rounded-2xl py-3 items-center justify-center bg-white text-white '>
+                <div className='absolute flex gap-2 bottom-4 right-3 items-center justify-between'>
+                    <button className='flex  w-full border rounded-2xl py-3 items-center justify-center px-2 bg-white text-white '>
                         <CiHeart className='text-center w-full text-td-secondary hover:scale-110' size={24} />
                     </button>
-                    <button className='flex w-full border rounded-2xl py-3 items-center justify-center bg-white text-white '>
+                    {/* <button className='flex w-full border rounded-2xl py-3 items-center justify-center bg-white text-white '>
                         <FaCartPlus className='text-center w-full text-td-secondary hover:scale-110' size={24} />
-                    </button>
+                    </button> */}
                 </div>
             )}
 
