@@ -5,6 +5,7 @@ import { Product } from '@/types'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
+import { CiSearch } from 'react-icons/ci'
 import { PulseLoader } from 'react-spinners'
 
 const Shop = () => {
@@ -28,7 +29,7 @@ const Shop = () => {
     }
   }
 
-  
+
   useEffect(() => {
     fetchProducts()
   }, [])
@@ -38,8 +39,12 @@ const Shop = () => {
 
   return (
     <div className='flex flex-col gap-5  items-center justify-center px-10 py-10'>
+      <div className='rounded-2xl flex items-center justify-center cursor-pointer gap-3 bg-td-secondary pr-6 w-full'>
+        <input type="text" placeholder='Search Product' className='border px-4 py-4 rounded-2xl w-full' />
+        <CiSearch className="rounded-2xl text-[30px] cursor-pointer text-white" />
+      </div>
       <div className="w-full flex items-center justify-between">
-        <span className="text-gray-400 font-light">Showing 1-10 of {products?.length} Products</span>
+        <span className="text-gray-400 font-light">Showing 1-{products?.length} of 100 Products</span>
         <span>Sort by : Most Popular</span>
       </div>
       {products && (<div className='flex items-center justify-center gap-5 flex-wrap md:px-10 px-5'>

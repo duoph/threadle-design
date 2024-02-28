@@ -41,9 +41,12 @@ const Header = () => {
                 <Image src={'/td-white.png'} alt='Threadle Design' height={80} width={80} />
             </Link>
             <div className='flex items-center justify-center gap-2'>
-                <CiSearch onClick={() => router.push('/search')} className='text-white cursor-pointer' size={24} />
+                <CiSearch onClick={() => router.push('/shop')} className='text-white cursor-pointer' size={24} />
                 {currentUser?.isAdmin === false && (
-                    <CiShoppingCart onClick={() => router.push('/cart')} className='text-white cursor-pointer' size={24} />
+                    <div className='relative cursor-pointer'>
+                        <span className='absolute p-1 px-2 text-xs bg-red-800 rounded-full -right-2 -top-2 text-white'>0</span>
+                        <CiShoppingCart onClick={() => router.push('/cart')} className='text-white ' size={24} />
+                    </div>
                 )}
                 <CiUser onClick={onAccountClick} className='text-white cursor-pointer' size={24} />
             </div>
