@@ -32,7 +32,7 @@ const ProductCard = ({ product, getProducts }: any) => {
 
 
     return (
-        <div className='relative flex gap-2 flex-col items-center justify-center min-w-[300px] max-w-[300px] cursor-pointer shadow-xl rounded-2xl transition-all ease-in-out duration-700 px-4 py-4 bg-gray-100 md:hover:scale-105'>
+        <div className='relative flex gap-2 flex-col items-center justify-center min-w-[300px] max-w-[300px] cursor-pointer shadow-xl rounded-2xl transition-all ease-in-out duration-700 px-4 py-4 bg-gray-200 md:hover:scale-105'>
             <div onClick={() => router.push(`/shop/${product._id}`)} className='w-full'>
                 <div className='relative flex items-center justify-center h-[250px] w-full bg-gray-200 rounded-2xl'>
                     {!product?.coverImageURL && (
@@ -59,7 +59,10 @@ const ProductCard = ({ product, getProducts }: any) => {
             {!currentUser?.isAdmin && (
                 <div className='absolute flex gap-2 bottom-4 right-3 items-center justify-between'>
                     <button className='flex  w-full border rounded-2xl py-3 items-center justify-center px-2 bg-white text-white '>
-                        <CiHeart className='text-center w-full text-td-secondary hover:scale-110' size={24} />
+                        <CiHeart className='text-center w-full text-td-secondary hover:scale-110' size={20} />
+                    </button>
+                    <button className='flex  w-full border rounded-2xl py-3 items-center justify-center px-2 bg-white text-white '>
+                        <FaCartPlus className='text-center w-full text-td-secondary hover:scale-110' size={20} />
                     </button>
                     {/* <button className='flex w-full border rounded-2xl py-3 items-center justify-center bg-white text-white '>
                         <FaCartPlus className='text-center w-full text-td-secondary hover:scale-110' size={24} />
