@@ -57,7 +57,7 @@ const ProductCard = ({ product, getProducts }: any) => {
             </div>
 
             {!currentUser?.isAdmin && (
-                <div className='absolute flex gap-2 bottom-4 right-3 items-center justify-between'>
+                <div className='absolute flex gap-2 bottom-4 right-3'>
                     <button className='flex  w-full border rounded-2xl py-3 items-center justify-center px-2 bg-white text-white '>
                         <CiHeart className='text-center w-full text-td-secondary hover:scale-110' size={20} />
                     </button>
