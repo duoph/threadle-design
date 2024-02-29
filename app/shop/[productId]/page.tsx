@@ -1,25 +1,61 @@
+"use client"
+
 import ProductContainerWithCategory from '@/components/ProductContainerWithCategory'
+import { Product } from '@/types'
+import axios from 'axios'
 import Image from 'next/image'
+import { useParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
 import { CiStar } from 'react-icons/ci'
 import { FaStar } from 'react-icons/fa6'
 
 
-const page = () => {
+const ProductPage = () => {
+
+
+  const { productId } = useParams()
+  const [product, setProduct] = useState<Product>()
+
+
+  const router = useRouter()
+
+  const fetchProduct = async () => {
+    try {
+      const response = await axios.get(`/api/product/${productId}`)
+
+      console.log(response.data.product)
+
+      setProduct(response.data.product[0])
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+
+  useEffect(() => {
+    fetchProduct()
+  }, [])
+
+  console.log(product)
+
+
   return (
     <div className='w-full px-5 py-3 md:px-10 flex flex-col gap-3 mb-5'>
       <div className=''>
         <h1 >Shop -  Categoy  - 123</h1>
       </div>
       <div className='flex flex-col w-full gap-3'>
-        <div className='flex lg:flex-row flex-col gap-2 items-center justify-center bg-slate-200 '>
+        <div className='flex flex-row w-full gap-2 items-center justify-center bg-slate-200 '>
           <div>
-            <Image src={"/greendress.png"} alt='greenDress' width={300} height={300} />
+            <Image src={product?.coverImageURL || "/greendress.png"} alt='greenDress' width={300} height={300} />
           </div>
-          <div className='flex gap-2'>
-            <Image src={"/greendress.png"} alt='greenDress' width={100} height={100} />
-            <Image src={"/greendress.png"} alt='greenDress' width={100} height={100} />
-            <Image src={"/greendress.png"} alt='greenDress' width={100} height={100} />
-          </div>
+          <div className='flex gap-2 flex-wrap'>
+            <Image src={product?.moreImagesURLs[0] || "/greendress.png"} alt='greenDress' width={100} height={100} />
+            <Image src={product?.moreImagesURLs[1] || "/greendress.png"} alt='greenDress' width={100} height={100} />
+            <Image src={product?.moreImagesURLs[2] || "/greendress.png"} alt='greenDress' width={100} height={100} />
+            <Image src={product?.moreImagesURLs[3] || "/greendress.png"} alt='greenDress' width={100} height={100} />         </div>
         </div>
         <div className='flex flex-col gap-5 items-start justify-start md:w-1/2'>
           <h1 className='text-lg font-bold'>Green Dress</h1>
@@ -63,12 +99,12 @@ const page = () => {
 
       </div>
 
-      <div>
+      {/* <div>
         <ProductContainerWithCategory />
-      </div>
+      </div> */}
 
     </div >
   )
 }
 
-export default page
+export default ProductPage
