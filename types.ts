@@ -11,7 +11,7 @@ export interface Product {
     categoryId: string;
     inStock: boolean;
     coverImageURL: string;
-    moreImagesURLs: [];
+    moreImagesURLs: string[];
     _id: string;
     createdAt: Date;
     updatedAt: Date;

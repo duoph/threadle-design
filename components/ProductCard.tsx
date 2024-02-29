@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 import { CiHeart, CiStar } from 'react-icons/ci'
-import { FaCartPlus, FaStar } from "react-icons/fa6";
+import {  FaStar } from "react-icons/fa6";
 import { MdDelete, MdEdit } from 'react-icons/md';
 
 
@@ -58,12 +58,12 @@ const ProductCard = ({ product, getProducts }: any) => {
 
             {!currentUser?.isAdmin && (
                 <div className='absolute flex gap-2 bottom-4 right-3'>
-                    <button className='flex  w-full border rounded-2xl py-3 items-center justify-center px-2 bg-white text-white '>
-                        <CiHeart className='text-center w-full text-td-secondary hover:scale-110' size={20} />
+                    <button className='flex  w-full border rounded-full py-2 items-center justify-center px-2 bg-white text-white '>
+                        <CiHeart className='text-center w-full text-td-secondary hover:scale-110' size={24} />
                     </button>
-                    <button className='flex  w-full border rounded-2xl py-3 items-center justify-center px-2 bg-white text-white '>
+                    {/* <button className='flex  w-full border rounded-2xl py-3 items-center justify-center px-2 bg-white text-white '>
                         <FaCartPlus className='text-center w-full text-td-secondary hover:scale-110' size={20} />
-                    </button>
+                    </button> */}
                     {/* <button className='flex w-full border rounded-2xl py-3 items-center justify-center bg-white text-white '>
                         <FaCartPlus className='text-center w-full text-td-secondary hover:scale-110' size={24} />
                     </button> */}
