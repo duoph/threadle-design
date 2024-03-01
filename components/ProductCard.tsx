@@ -1,19 +1,25 @@
 "use client"
 
 import { useUser } from '@/context/useUser';
+import { Product } from '@/types';
 import axios from 'axios';
 import Image from 'next/image'
 import { useRouter } from 'next/navigation';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { CiHeart, CiStar } from 'react-icons/ci'
-import {  FaStar } from "react-icons/fa6";
+import { FaHeart, FaStar } from "react-icons/fa6";
 import { MdDelete, MdEdit } from 'react-icons/md';
 
+interface ProductCardProps {
+    product: Product;
+    getProducts: () => void; // Assuming getProducts is a function
+}
 
-const ProductCard = ({ product, getProducts }: any) => {
+const ProductCard = ({ product, getProducts }: ProductCardProps) => {
 
     const router = useRouter()
     const [deleteConfirm, setDeleteConfirm] = useState<boolean>(false)
+    const [wishlistIds, setWishListIds] = useState<string[]>([])
 
     console.log(product)
 
@@ -27,6 +33,47 @@ const ProductCard = ({ product, getProducts }: any) => {
         }
         setDeleteConfirm(false)
         getProducts()
+    }
+
+    const productId = product?._id
+
+    const config = {
+        headers: {
+            'Authorization': `${currentUser?.token} ` as string
+        }
+    };
+
+    const userWishlist = async () => {
+        try {
+
+            const res = await axios.get('/api/wishlist', config)
+            setWishListIds(res?.data?.wishlist)
+            console.log(res)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+
+    useEffect(() => {
+        userWishlist()
+    }, [])
+    
+
+    const handleDislike = async () => {
+        try {
+
+        } catch (error) {
+
+        }
+    }
+
+    const handleLike = async () => {
+        try {
+
+        } catch (error) {
+
+        }
     }
 
 
@@ -57,10 +104,19 @@ const ProductCard = ({ product, getProducts }: any) => {
             </div>
 
             {!currentUser?.isAdmin && (
+
                 <div className='absolute flex gap-2 bottom-4 right-3'>
-                    <button className='flex  w-full border rounded-full py-2 items-center justify-center px-2 bg-white text-white '>
+
+                    {wishlistIds?.includes(productId) ? (
+                        <button onClick={handleDislike} className='flex w-full border rounded-full py-2 items-center justify-center px-2 bg-white text-white '>
+                            <FaHeart className='text-center w-full text-td-secondary hover:scale-110' size={24} />
+                        </button>
+                    ) : (<button onClick={handleLike} className='flex  w-full border rounded-full py-2 items-center justify-center px-2 bg-white text-white '>
                         <CiHeart className='text-center w-full text-td-secondary hover:scale-110' size={24} />
-                    </button>
+                    </button>)}
+
+
+
                     {/* <button className='flex  w-full border rounded-2xl py-3 items-center justify-center px-2 bg-white text-white '>
                         <FaCartPlus className='text-center w-full text-td-secondary hover:scale-110' size={20} />
                     </button> */}
@@ -68,33 +124,38 @@ const ProductCard = ({ product, getProducts }: any) => {
                         <FaCartPlus className='text-center w-full text-td-secondary hover:scale-110' size={24} />
                     </button> */}
                 </div>
-            )}
+            )
+            }
 
-            {currentUser?.isAdmin && (
-                <div className="flex items-center justify-center w-full gap-2">
-                    <button onClick={() => router.push(`/admin-panel/edit-product/${product._id}`)} className='flex w-full border rounded-2xl py-3 items-center justify-center bg-gray-600'>
-                        <MdEdit className='text-center w-full text-white hover:scale-110' size={24} />
-                    </button>
-                    <button onClick={() => setDeleteConfirm(true)} className='flex w-full border rounded-2xl py-3 items-center justify-center bg-red-600'>
-                        <MdDelete className='text-center w-full text-white hover:scale-110' size={24} />
-                    </button>
-                </div>
-            )}
+            {
+                currentUser?.isAdmin && (
+                    <div className="flex items-center justify-center w-full gap-2">
+                        <button onClick={() => router.push(`/admin-panel/edit-product/${product._id}`)} className='flex w-full border rounded-2xl py-3 items-center justify-center bg-gray-600'>
+                            <MdEdit className='text-center w-full text-white hover:scale-110' size={24} />
+                        </button>
+                        <button onClick={() => setDeleteConfirm(true)} className='flex w-full border rounded-2xl py-3 items-center justify-center bg-red-600'>
+                            <MdDelete className='text-center w-full text-white hover:scale-110' size={24} />
+                        </button>
+                    </div>
+                )
+            }
 
-            {deleteConfirm && (
-                <div className=' fixed top-0 bg-black bg-opacity-50 left-0 w-full h-full flex items-center justify-center z-10 md:px-10 px-5'>
-                    <div className='bg-white p-6 rounded-md shadow-2xl py-10 px-10'>
-                        <h1 className='text-xl font-bold'>Are you sure?</h1>
-                        {/* <p className='text-gray-700'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae, vero.</p> */}
-                        <div className='mt-4 flex justify-center'>
-                            <button className='bg-red-600 text-white px-4 py-2 rounded-2xl mr-2' onClick={handleDelete}>Delete</button>
-                            <button className='bg-gray-300 text-gray-800 px-4 py-2 rounded-2xl' onClick={() => setDeleteConfirm(false)}>Cancel</button>
+            {
+                deleteConfirm && (
+                    <div className=' fixed top-0 bg-black bg-opacity-50 left-0 w-full h-full flex items-center justify-center z-10 md:px-10 px-5'>
+                        <div className='bg-white p-6 rounded-md shadow-2xl py-10 px-10'>
+                            <h1 className='text-xl font-bold'>Are you sure?</h1>
+                            {/* <p className='text-gray-700'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae, vero.</p> */}
+                            <div className='mt-4 flex justify-center'>
+                                <button className='bg-red-600 text-white px-4 py-2 rounded-2xl mr-2' onClick={handleDelete}>Delete</button>
+                                <button className='bg-gray-300 text-gray-800 px-4 py-2 rounded-2xl' onClick={() => setDeleteConfirm(false)}>Cancel</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            )}
+                )
+            }
 
-        </div>
+        </div >
     )
 }
 

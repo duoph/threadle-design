@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 // adding product to the wishlist
 
-export async function GET(req: NextRequest, { params }: any) {
+export async function POST(req: NextRequest, { params }: any) {
     try {
         const userId = getDataFromToken(req);
         const productId = params.productId;
