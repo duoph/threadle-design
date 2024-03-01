@@ -53,7 +53,7 @@ const SigleCategoryPage = () => {
             <div className='flex items-center justify-center'>
                 {products && (<div className='flex items-center justify-center gap-5 flex-wrap md:px-10 px-5'>
                     {products?.map((product: Product) => (
-                        <ProductCard key={product._id} product={product} />
+                        <ProductCard getProducts={fetchCategory} key={product._id} product={product} />
                     ))}
                 </div>)}
                 {/* {!products && (<div className='flex min-h-[60vh] items-center justify-center gap-5 flex-wrap md:px-10 px-5'>
