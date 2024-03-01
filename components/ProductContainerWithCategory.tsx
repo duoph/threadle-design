@@ -35,7 +35,7 @@ const ProductContainerWithCategory = () => {
             const scrollAmount = 300;
             if (scrollContainerRef.current) {
                 scrollContainerRef.current.scrollBy({
-                    left: -scrollAmount, 
+                    left: -scrollAmount,
                     behavior: 'smooth',
                 })
             }
@@ -52,14 +52,8 @@ const ProductContainerWithCategory = () => {
                 <GoChevronRight onClick={handleScrollRight} className='md:hover:scale-110 z-10 absolute top-[250px] bg-black text-white right-8 rounded-full cursor-pointer' size={30} />
                 <div ref={scrollContainerRef} className='relative w-full overflow-x-scroll px-4 scrollbar hideScrollBar'>
                     <div className='flex justify-start items-center gap-5 h-[550px]'>
-                        <ProductCard />
-                        <ProductCard />
-                        <ProductCard />
-                        <ProductCard />
-                        <ProductCard />
-                        <ProductCard />
-                        <ProductCard />
-                        <ProductCard />
+                        {/* <ProductCard /> */}
+
                     </div>
                 </div>
             </div>
