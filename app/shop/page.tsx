@@ -49,7 +49,7 @@ const Shop = () => {
       </div>
       {products && (<div className='flex items-center justify-center gap-5 flex-wrap md:px-10 px-5'>
         {products.map((product) => (
-          <ProductCard key={product._id} product={product} />
+          <ProductCard getProducts={fetchProducts} key={product._id} product={product} />
         ))}
       </div>)}
       {products.length === 0 && (<div className='flex min-h-[60vh] items-center justify-center gap-5 flex-wrap md:px-10 px-5'>
