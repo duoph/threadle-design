@@ -52,7 +52,7 @@ const CategoryProducts = () => {
             </div>
             <div className='flex items-center justify-center gap-5 flex-wrap md:px-10 px-5'>
                 {products.map((product: Product) => (
-                    <ProductCard key={product._id} product={product} />
+                    <ProductCard getProducts={categoryProductFetch} key={product._id} product={product} />
                 ))}
             </div>
         </div>
