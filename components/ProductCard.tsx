@@ -6,13 +6,14 @@ import axios from 'axios';
 import Image from 'next/image'
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
+import toast from 'react-hot-toast';
 import { CiHeart, CiStar } from 'react-icons/ci'
 import { FaHeart, FaStar } from "react-icons/fa6";
 import { MdDelete, MdEdit } from 'react-icons/md';
 
 interface ProductCardProps {
     product: Product;
-    getProducts: () => void; // Assuming getProducts is a function
+    getProducts: () => any; // Assuming getProducts is a function
 }
 
 const ProductCard = ({ product, getProducts }: ProductCardProps) => {
@@ -21,7 +22,6 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
     const [deleteConfirm, setDeleteConfirm] = useState<boolean>(false)
     const [wishlistIds, setWishListIds] = useState<string[]>([])
 
-    console.log(product)
 
     const { currentUser } = useUser()
 
@@ -35,7 +35,6 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
         getProducts()
     }
 
-    const productId = product?._id
 
     const config = {
         headers: {
@@ -55,27 +54,44 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
     }
 
 
-    useEffect(() => {
-        userWishlist()
-    }, [])
-    
+
+
 
     const handleDislike = async () => {
         try {
+            const res = await axios.put(`/api/wishlist/${product?._id}`, config)
+            if (res.data.success === true) {
+                toast.success("Removed from wishlist")
+            }
+            if (res.data.success === false) {
+                toast.error("error")
+            }
+            getProducts()
 
         } catch (error) {
-
+            console.log(error)
         }
     }
 
     const handleLike = async () => {
         try {
+            const res = await axios.post(`/api/wishlist/${product?._id}`, config)
+            if (res.data.success === true) {
+                toast.success("Added to wishlist")
+            }
+            if (res.data.success === false) {
+                toast.error("error")
+            }
+            getProducts()
 
         } catch (error) {
-
+            console.log(error)
         }
     }
 
+    useEffect(() => {
+        userWishlist()
+    }, [handleDislike, handleLike])
 
 
     return (
@@ -107,7 +123,7 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
 
                 <div className='absolute flex gap-2 bottom-4 right-3'>
 
-                    {wishlistIds?.includes(productId) ? (
+                    {wishlistIds?.includes(product?._id) ? (
                         <button onClick={handleDislike} className='flex w-full border rounded-full py-2 items-center justify-center px-2 bg-white text-white '>
                             <FaHeart className='text-center w-full text-td-secondary hover:scale-110' size={24} />
                         </button>
