@@ -14,3 +14,4 @@ export async function GET() {
         return NextResponse.json({ message: error.message, success: false })
     }
 }
+
