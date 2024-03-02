@@ -44,7 +44,6 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
 
     const userWishlist = async () => {
         try {
-
             const res = await axios.get('/api/wishlist', config)
             setWishListIds(res?.data?.wishlist)
             console.log(res)
@@ -52,9 +51,6 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
             console.log(error)
         }
     }
-
-
-
 
 
     const handleDislike = async () => {
@@ -95,7 +91,7 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
 
 
     return (
-        <div className='relative flex gap-2 flex-col items-center justify-center min-w-[300px] max-w-[300px] cursor-pointer shadow-xl rounded-2xl transition-all ease-in-out duration-700 px-4 py-4 bg-gray-200 md:hover:scale-105'>
+        <div className='relative flex gap-2 flex-col items-center justify-center min-w-[300px] max-w-[300px] cursor-pointer shadow-xl rounded-2xl transition-all ease-in-out duration-700 px-4 py-4 bg-gray-200 lg:hover:scale-105'>
             <div onClick={() => router.push(`/shop/${product._id}`)} className='w-full'>
                 <div className='relative flex items-center justify-center h-[250px] w-full bg-gray-200 rounded-2xl'>
                     {!product?.coverImageURL && (

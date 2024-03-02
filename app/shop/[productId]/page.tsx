@@ -67,7 +67,7 @@ const ProductPage = () => {
             <CiStar size={24} className='text-yellow-300' />
             <span className='font-thin text-sm px-1'>4/5</span>
           </span>
-          <p className='text-lg font-bold'>Rs 30000</p>
+          <p className='text-lg font-semibold'>&#8377;{product?.regularPrice}</p>
           <div className='flex flex-col gap-5 w-full'>
             <p>Select Colors</p>
             <div className='flex gap-3'>
@@ -75,10 +75,13 @@ const ProductPage = () => {
               <span className='h-[25px] bg-green-700 w-[25px] rounded-[50%] inline-block'></span>
               <span className='h-[25px] bg-blue-700 w-[25px] rounded-[50%] inline-block'></span>
             </div>
-            <div className='flex gap-3 font-semibold'>
-              <button className=' px-4 py-2 bg-gray-200 rounded-2xl '>Small</button>
-              <button className='bg-td-primary text-white px-4 py-2  rounded-2xl '>Medium</button>
-              <button className=' px-4 py-2 bg-gray-200 rounded-2xl '>Large</button>
+            <div className='flex gap-3 font-light'>
+              <button className=' px-4 py-2 bg-gray-200 rounded-2xl '>S</button>
+              <button className='bg-td-primary text-white px-4 py-2  rounded-2xl '>M</button>
+              <button className=' px-4 py-2 bg-gray-200 rounded-2xl '>L</button>
+              <button className=' px-4 py-2 bg-gray-200 rounded-2xl '>XL</button>
+              <button className=' px-4 py-2 bg-gray-200 rounded-2xl '>2XL</button>
+              <button className=' px-4 py-2 bg-gray-200 rounded-2xl '>3XL</button>
             </div>
             <div className='flex gap-3 font-semibold w-full'>
               <span className='bg-gray-200 flex items-center justify-between gap-4 px-8 py-2 rounded-2xl w-1/2'>

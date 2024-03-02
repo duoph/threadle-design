@@ -25,7 +25,15 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ message: 'Check your password', success: false });
         }
 
-        const token = JWT.sign({ _id: user._id }, process.env.NEXT_PUBLIC_JWT_SECRET as string, { expiresIn: '7d' });
+
+        const tokenData = {
+            userId: user._id,
+            phone: user.phone,
+            email: user.email,
+            isAdmin: user.isAdmin,
+        }
+
+        const token = JWT.sign(tokenData, process.env.NEXT_PUBLIC_JWT_SECRET as string, { expiresIn: '3d' });
 
         const userDetails = {
             token: token,
@@ -39,10 +47,14 @@ export async function POST(req: NextRequest) {
 
         console.log(user)
 
-
         const userMessage = user.isAdmin === true ? "Admin access granted" : "Logged in successfully"
 
-        return NextResponse.json({ message: userMessage, success: true, userDetails });
+        const response = NextResponse.json({ message: userMessage, success: true, userDetails });
+
+        response.cookies.set("token", token, { httpOnly: true })
+
+        return response
+
     } catch (error) {
         return NextResponse.json({ message: 'Error in logging in', success: false, error });
     }
