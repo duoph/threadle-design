@@ -9,7 +9,6 @@ interface MyToken extends JwtPayload {
 export const getDataFromToken = (req: NextRequest) => {
     try {
         const token = req.headers.get("Authorization");
-        console.log(token)
         const decodedToken = jwt.verify(token as string, process.env.NEXT_PUBLIC_JWT_SECRET as string) as MyToken;
 
         return decodedToken._id

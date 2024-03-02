@@ -28,7 +28,8 @@ const UserProfile = () => {
             <h1 className='px-5 py-3 text-center rounded-2xl text-[20px] text-td-secondary font-bold'>This is user {userId}</h1>
             <input type="text" value={currentUser.email} disabled className='border px-5 py-2 rounded-2xl bg-slate-200' />
             <input type="text" value={currentUser.phone} disabled className='border px-5 py-2 rounded-2xl bg-slate-200' />
-           
+
+            <button onClick={() => router.push(`/account/${userId}/wishlist`)} className='px-5 rounded-2xl py-3 border bg-red-700 text-white font-bold'>WishList</button>
             <button onClick={LogOut} className='px-5 rounded-2xl py-3 border bg-red-700 text-white font-bold'>LogOutt</button>
         </div>
     )
