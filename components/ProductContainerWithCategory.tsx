@@ -1,19 +1,37 @@
 "use client"
 
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ProductCard from './ProductCard';
 
 import { GoChevronRight, GoChevronLeft } from "react-icons/go";
 import { useRouter } from 'next/navigation';
+import { Category, Product } from '@/types';
+import axios from 'axios';
 
 
-const ProductContainerWithCategory = () => {
+const ProductContainerWithCategory = ({ category }: any) => {
+
     const scrollContainerRef = useRef<HTMLDivElement>(null);
-
+    const [product, setProducts] = useState<Product[]>([]);
 
     const router = useRouter()
 
-    const categoryName = "MenOutFits"
+
+
+    const fetchCategoryProducts = async () => {
+        try {
+            const response = await axios.get("/api/category/" + category._id);
+            console.log(response?.data?.products);
+            setProducts(response?.data?.products);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+
+    useEffect(() => {
+        fetchCategoryProducts();
+    }, []);
 
     const handleScrollRight = () => {
         try {
@@ -46,19 +64,21 @@ const ProductContainerWithCategory = () => {
 
     return (
         <div className='flex flex-col items-center justify-center mt-10 w-full mb-5'>
-            <h1 className='text-[35px] font-extrabold'>NEW ARRIVALS</h1>
+            <h1 className='text-[35px] font-extrabold'>{category.categoryName}</h1>
             <div className='relative w-full px-2'>
                 <GoChevronLeft onClick={handleScrollLeft} className='md:hover:scale-110 z-10 absolute top-[250px] bg-black text-white  left-8 rounded-full cursor-pointer' size={30} />
                 <GoChevronRight onClick={handleScrollRight} className='md:hover:scale-110 z-10 absolute top-[250px] bg-black text-white right-8 rounded-full cursor-pointer' size={30} />
                 <div ref={scrollContainerRef} className='relative w-full overflow-x-scroll px-4 scrollbar hideScrollBar'>
-                    <div className='flex justify-start items-center gap-5 h-[550px]'>
-                        {/* <ProductCard /> */}
+                    <div className='flex justify-center items-center gap-5 h-[550px]'>
+                        {product.map((product) => (
+                            <ProductCard key={product._id} product={product} getProducts={fetchCategoryProducts} />
 
+                        ))}
                     </div>
                 </div>
             </div>
             <div className='px-5 w-full flex items-center justify-center'>
-                <button onClick={() => router.push(`/category/${categoryName}`)} className='text-lg border md:w-auto w-full rounded-2xl px-5 py-2  relative z-10'>
+                <button onClick={() => router.push(`/category/${category._id}`)} className='text-lg border md:w-auto w-full rounded-2xl px-5 py-2  relative z-10'>
                     View All
                 </button>
             </div>

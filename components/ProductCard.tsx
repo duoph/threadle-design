@@ -102,7 +102,7 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
                     )}
                 </div>
                 <div className='w-full px-3 py-2 flex flex-col gap-2 '>
-                    <p className='text-start break-all font-light'>{product?.title}</p>
+                    <p className='text-start break-all font-light truncate '>{product?.title}</p>
                     <span className='text-start break-all flex items-center justify-start'>
                         <FaStar size={24} className='text-yellow-300' />
                         <FaStar size={24} className='text-yellow-300' />

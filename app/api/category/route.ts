@@ -1,6 +1,7 @@
 import { uploadFileToS3 } from "@/actions/awsS3Upload";
 import connectMongoDB from "@/libs/db";
 import CategoryModel from "@/models/categoryModel";
+import ProductModel from "@/models/productModel";
 import { NextRequest, NextResponse } from "next/server";
 import slugify from "slugify";
 

@@ -9,10 +9,9 @@ export function middleware(request: NextRequest) {
     const path = request.nextUrl.pathname
 
     const token = request.cookies.get("token")?.value || ""
+    const isAdmin = request.cookies.get("isAdmin")?.value || false
 
-    const decodedToken: any = getDataFromToken(request)
-
-    console.log("This is the token data", decodedToken.isAdmin)
+    console.log("This is the token data", isAdmin)
 
     const isPublicPath = path === "/account/login" || "/account/create-account"
 
@@ -20,7 +19,8 @@ export function middleware(request: NextRequest) {
         return NextResponse.redirect(new URL('/account', request.url))
     }
 
-    if (path.startsWith("/admin-panel/") && decodedToken?.isAdmin === false) {
+
+    if (path.startsWith("/admin-panel/*path:") && isAdmin === false) {
         return NextResponse.redirect(new URL('/account', request.url))
     }
 }

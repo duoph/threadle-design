@@ -45,6 +45,7 @@ const BrowseDressByCategory = () => {
                 <div className='flex items-center justify-center'>
                     <div className=' cursor-pointer flex items-center justify-center text-white border border-white md:w-1/4 w-full rounded-full py-3'>
                         <span onClick={() => router.push('category')}>View All</span>
+                        
                     </div>
                 </div>
             </div >
