@@ -1,20 +1,15 @@
-import jwt, { JwtPayload } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import { NextRequest, NextResponse } from "next/server";
 
-interface MyToken extends JwtPayload {
-    _id: string; // Assuming _id is of type string
-    // Add other properties if they exist in your token
-}
-
-export const getDataFromToken = (req: NextRequest) => {
+export const getDataFromToken = async (req: NextRequest) => {
     try {
-        const token = req.headers.get("Authorization");
-        const decodedToken = jwt.verify(token as string, process.env.NEXT_PUBLIC_JWT_SECRET as string) as MyToken;
+        const token = req.cookies.get("token")?.value || ""
+        console.log("this is the cookies", req.cookies.get("token")?.value)
+        const decodedToken: any = jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET!);
 
-        return decodedToken._id
-
+        return decodedToken;
     } catch (error) {
         console.error("Error decoding JWT token:", error);
+        return null; // Return null or handle the error as appropriate in your application
     }
 };
-
