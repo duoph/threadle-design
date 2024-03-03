@@ -1,11 +1,11 @@
 import jwt from 'jsonwebtoken';
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 
 export const getDataFromToken = async (req: NextRequest) => {
     try {
-        const token = req.cookies.get("token")?.value || ""
-        console.log("this is the cookies", req.cookies.get("token")?.value)
-        const decodedToken: any = jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET!);
+        const token = req.cookies.get("token")?.value
+
+        const decodedToken = jwt.verify(token as string, process.env.NEXT_PUBLIC_JWT_SECRET!);
 
         return decodedToken;
     } catch (error) {

@@ -20,3 +20,12 @@ export interface Product {
     salePrice?: number;
     desc: string
 }
+
+export interface Category {
+    _id: string
+    categoryName: string;
+    imageURLs?: string;
+    slugifyName: string;
+    name: string;
+    createdAt: Date;
+}

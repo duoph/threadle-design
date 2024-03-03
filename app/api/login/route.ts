@@ -52,6 +52,7 @@ export async function POST(req: NextRequest) {
         const response = NextResponse.json({ message: userMessage, success: true, userDetails });
 
         response.cookies.set("token", token, { httpOnly: true })
+        response.cookies.set("isAdmin", user.isAdmin, { httpOnly: true })
 
         return response
 
