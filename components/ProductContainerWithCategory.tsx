@@ -1,33 +1,24 @@
 "use client"
-
 import React, { useEffect, useRef, useState } from 'react';
 import ProductCard from './ProductCard';
-
 import { GoChevronRight, GoChevronLeft } from "react-icons/go";
 import { useRouter } from 'next/navigation';
 import { Category, Product } from '@/types';
 import axios from 'axios';
 
-
 const ProductContainerWithCategory = ({ category }: any) => {
-
     const scrollContainerRef = useRef<HTMLDivElement>(null);
-    const [product, setProducts] = useState<Product[]>([]);
-
-    const router = useRouter()
-
-
+    const [products, setProducts] = useState<Product[]>([]);
+    const router = useRouter();
 
     const fetchCategoryProducts = async () => {
         try {
             const response = await axios.get("/api/category/" + category._id);
-            console.log(response?.data?.products);
             setProducts(response?.data?.products);
         } catch (error) {
             console.log(error);
         }
     };
-
 
     useEffect(() => {
         fetchCategoryProducts();
@@ -41,7 +32,6 @@ const ProductContainerWithCategory = ({ category }: any) => {
                     left: +scrollAmount,
                     behavior: 'smooth',
                 });
-                console.log('Scrolled successfully!');
             }
         } catch (error) {
             console.error('Error scrolling:', error);
@@ -55,7 +45,7 @@ const ProductContainerWithCategory = ({ category }: any) => {
                 scrollContainerRef.current.scrollBy({
                     left: -scrollAmount,
                     behavior: 'smooth',
-                })
+                });
             }
         } catch (error) {
             console.error('Error scrolling:', error);
@@ -68,13 +58,10 @@ const ProductContainerWithCategory = ({ category }: any) => {
             <div className='relative w-full px-2'>
                 <GoChevronLeft onClick={handleScrollLeft} className='md:hover:scale-110 z-10 absolute top-[250px] bg-black text-white  left-8 rounded-full cursor-pointer' size={30} />
                 <GoChevronRight onClick={handleScrollRight} className='md:hover:scale-110 z-10 absolute top-[250px] bg-black text-white right-8 rounded-full cursor-pointer' size={30} />
-                <div ref={scrollContainerRef} className='relative w-full overflow-x-scroll px-4 scrollbar hideScrollBar'>
-                    <div className='flex justify-center items-center gap-5 h-[550px]'>
-                        {product.map((product) => (
-                            <ProductCard key={product._id} product={product} getProducts={fetchCategoryProducts} />
-
-                        ))}
-                    </div>
+                <div ref={scrollContainerRef} className='flex justify-center items-center gap-5 h-[550px]'>
+                    {products.map((product) => (
+                        <ProductCard key={product._id} product={product} getProducts={fetchCategoryProducts} />
+                    ))}
                 </div>
             </div>
             <div className='px-5 w-full flex items-center justify-center'>

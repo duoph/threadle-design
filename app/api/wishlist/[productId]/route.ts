@@ -1,3 +1,4 @@
+import jwt from 'jsonwebtoken';
 import { getDataFromToken } from "@/helpers/getDataFromToken";
 import userModel from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
@@ -7,18 +8,21 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest, { params }: any) {
     try {
-        const userId = getDataFromToken(req);
+        const tokenData: any = getDataFromToken(req);
+
+        console.log("This is the Id", tokenData._id)
+
         const productId = params.productId;
 
-        console.log(userId)
+        console.log(tokenData)
 
-        if (!userId) {
+        if (!tokenData._id) {
             // Token is missing or invalid
             return NextResponse.json({ message: "Token is missing or invalid", success: false });
         }
 
         // Find the user based on userId from the token
-        const user = await userModel.findById({ _id: userId });
+        const user = await userModel.findById({ _id: tokenData._id });
 
         if (!user) {
             // User not found
