@@ -9,6 +9,8 @@ import axios from 'axios';
 const ProductContainerWithCategory = ({ category }: any) => {
     const scrollContainerRef = useRef<HTMLDivElement>(null);
     const [products, setProducts] = useState<Product[]>([]);
+
+
     const router = useRouter();
 
     const fetchCategoryProducts = async () => {
@@ -20,9 +22,11 @@ const ProductContainerWithCategory = ({ category }: any) => {
         }
     };
 
+
     useEffect(() => {
         fetchCategoryProducts();
     }, []);
+
 
     const handleScrollRight = () => {
         try {
@@ -54,7 +58,7 @@ const ProductContainerWithCategory = ({ category }: any) => {
 
     return (
         <div className='flex flex-col items-center justify-center mt-10 w-full mb-5'>
-            <h1 className='text-[35px] font-extrabold'>{category.categoryName}</h1>
+            <h1 className='text-[35px] font-extrabold'>{category?.categoryName}</h1>
             <div className='relative w-full px-2'>
                 <GoChevronLeft onClick={handleScrollLeft} className='md:hover:scale-110 z-10 absolute top-[250px] bg-black text-white  left-8 rounded-full cursor-pointer' size={30} />
                 <GoChevronRight onClick={handleScrollRight} className='md:hover:scale-110 z-10 absolute top-[250px] bg-black text-white right-8 rounded-full cursor-pointer' size={30} />
