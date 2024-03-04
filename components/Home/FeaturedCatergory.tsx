@@ -2,15 +2,15 @@
 
 import React, { useState, useEffect } from "react";
 import ProductContainerWithCategory from "../ProductContainerWithCategory";
-import { Category, Product } from "@/types";
-import axios from "axios";
+import { Category } from "@/types";
+import axios, { AxiosResponse } from "axios";
 
 const FeaturedCategory = () => {
-    const [categories, setCategories] = useState<Category>();
+    const [categories, setCategories] = useState<Category[]>([]); // Initialize with an empty array of categories
 
     const fetchCategory = async () => {
         try {
-            const response = await axios.get("/api/category");
+            const response: AxiosResponse<{ tdCategory: Category[] }> = await axios.get("/api/category");
             console.log(response.data.tdCategory);
             setCategories(response.data.tdCategory);
         } catch (error) {
@@ -18,11 +18,9 @@ const FeaturedCategory = () => {
         }
     };
 
-
     useEffect(() => {
         fetchCategory();
     }, []);
-
 
     return (
         <div className="flex flex-col gap-3 items-center justify-center mt-10 mb-10">
