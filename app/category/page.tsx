@@ -1,5 +1,7 @@
 "use client"
 
+import BrowseDressByCategory from '@/components/Home/BrowseDressByCategory'
+import ProductContainerWithCategory from '@/components/ProductContainerWithCategory'
 import { Category } from '@/types'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
@@ -36,7 +38,7 @@ const CategoryPage = () => {
                 <h1 className='text-[30px] font-bold text-td-secondary'>All Categories</h1>
             </div>
             <div className='min-h-[60vh]'>
-                <div>
+                {/* <div>
                     <div className='flex flex-wrap items-center justify-center w-full gap-2 font-medium text-sm'>
                         {categories.slice(0, 6).map((category: Category, i) => (
                             <div key={i} onClick={() => router.push(`/category/${category._id}`)} className='bg-td-secondary text-white md:w-2/5 w-full  rounded-2xl py-2 flex items-center justify-center overflow-hidden cursor-pointer'>
@@ -44,7 +46,10 @@ const CategoryPage = () => {
                             </div>
                         ))}
                     </div>
-                </div>
+                </div> */}
+                {categories?.map((category, index) => (
+                    <ProductContainerWithCategory key={index} category={category} />
+                ))}
             </div>
 
         </div>

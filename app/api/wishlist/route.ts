@@ -2,11 +2,12 @@ import { getDataFromToken } from "@/helpers/getDataFromToken";
 import userModel from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest) {
+export async function GET(req: NextRequest, { params }: any) {
     try {
-        const userId = getDataFromToken(req)
 
-        const user = await userModel.findById({ _id: userId })
+        const tokenDecoded: any = getDataFromToken(req)
+
+        const user = await userModel.findById({ _id: tokenDecoded._id })
 
         return NextResponse.json({ message: "Fetched user wishlist", success: true, wishlist: user.wishList })
     } catch (error) {

@@ -76,7 +76,7 @@ const EditCategory = () => {
             });
             console.log(res)
             setIsLoading(false)
-            toast.success("Category updating successfully");
+            toast.success("Category updated successfully");
             router.push("/admin-panel/view-categories");
         } catch (error) {
             setIsLoading(false)
