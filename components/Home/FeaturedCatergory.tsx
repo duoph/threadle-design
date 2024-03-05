@@ -24,7 +24,7 @@ const FeaturedCategory = () => {
 
     return (
         <div className="flex flex-col gap-3 items-center justify-center mt-10 mb-10">
-            {categories?.map((category, index) => (
+            {categories && categories.map((category, index) => (
                 <ProductContainerWithCategory key={index} category={category} />
             ))}
         </div>
