@@ -58,7 +58,7 @@ const ProductPage = () => {
 
 
   const handleQuantity = (action: string) => {
-    if (action === "increment") {
+    if (action === "increment" && quantity < 10) {
       setQuantity(quantity + 1);
     } else if (action === "decrement" && quantity > 1) {
       setQuantity(quantity - 1);
@@ -126,7 +126,7 @@ const ProductPage = () => {
               </span>
 
 
-            
+
             </div>
             <div className='flex gap-3 font-light'>
               {size?.map((size, i) => (
