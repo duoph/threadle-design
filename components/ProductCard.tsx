@@ -103,15 +103,18 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
                 </div>
                 <div className='w-full px-3 py-2 flex flex-col gap-2 '>
                     <p className='text-start break-all font-light truncate '>{product?.title}</p>
-                    <span className='text-start break-all flex items-center justify-start'>
+                    {/* <span className='text-start break-all flex items-center justify-start'>
                         <FaStar size={24} className='text-yellow-300' />
                         <FaStar size={24} className='text-yellow-300' />
                         <FaStar size={24} className='text-yellow-300' />
                         <FaStar size={24} className='text-yellow-300' />
                         <CiStar size={24} className='text-yellow-300' />
                         <span className='font-thin text-sm px-1'>4/5</span>
-                    </span>
-                    <p className='text-start break-all'>&#8377;{product?.regularPrice}</p>
+                    </span> */}
+                    <div className='flex gap-3'>
+                        <p className={` font-medium ${product?.salePrice && "line-through"}`}>&#8377;{product?.regularPrice}</p>
+                        {product?.salePrice && <p className={` text-red-600 font-medium`}>&#8377;{product?.salePrice}</p>}
+                    </div>
                 </div>
             </div>
 
