@@ -90,7 +90,10 @@ const ProductPage = () => {
             <CiStar size={24} className='text-yellow-300' />
             <span className='font-thin text-sm px-1'>4/5</span>
           </span>
-          <p className='text-lg font-medium'>&#8377;{product?.regularPrice}</p>
+          <div className='flex gap-3'>
+            <p className={`text-lg font-medium ${product?.salePrice && "line-through"}`}>&#8377;{product?.regularPrice}</p>
+            <p className={`text-lg text-red-600 font-medium`}>&#8377;{product?.salePrice}</p>
+          </div>
           <div className='flex flex-col gap-4 w-full'>
             <p>Select Colors</p>
             <div className='flex gap-3'>
