@@ -117,7 +117,7 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
 
             {!currentUser?.isAdmin && (
 
-                <div className='absolute flex gap-2 bottom-4 right-3'>
+                <div className='absolute w-[42px] flex gap-2 bottom-4 right-3'>
 
                     {wishlistIds?.includes(product?._id) ? (
                         <button onClick={handleDislike} className='flex w-full border rounded-full py-2 items-center justify-center px-2 bg-white text-white '>

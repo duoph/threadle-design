@@ -58,29 +58,32 @@ const Shop = () => {
         <CiSearch className='rounded-2xl text-[30px] cursor-pointer text-white' />
       </div>
       <div className='w-full flex items-center justify-between'>
-        <span className='text-gray-400 font-light'>
-          Showing 1-{searchProducts.length} of {products?.length} Products
+        <span className='text-gray-400 font-light text-[12px] md:text-[15px]'>
+          {searchProducts?.length
+            ? `Showing ${Math.min(searchProducts.length, 20)} of ${searchProducts?.length} Products`
+            : `Showing ${Math.min(products.length, 20)} of ${products.length} Products`}
         </span>
-        <span>Sort by : Most Popular</span>
+
+        <select className='rounded-2xl text-gray-400 font-light text-[12px] md:text-[15px] px-2 py-2'>
+          <option value="lowToHigh">Sort By</option>
+          <option value="lowToHigh">Price Low-To-High</option>
+          <option value="highToLow">Price High-To-Low</option>
+          <option value="newAdded">Newly Added</option>
+        </select>
+
       </div>
-      {search.trim() !== '' ? (
-        <div className='flex items-center justify-center gap-5 flex-wrap md:px-10 px-5'>
-          {searchProducts.map((product) => (
+      <div className='flex min-h-[60vh] items-center justify-center gap-5 flex-wrap md:px-10 px-5'>
+        {search.trim() !== ''
+          ? searchProducts.map((product) => (
             <ProductCard getProducts={fetchProducts} key={product._id} product={product} />
-          ))}
-        </div>
-      ) : (
-        <div className='flex min-h-[60vh] items-center justify-center gap-5 flex-wrap md:px-10 px-5'>
-          {products.length > 0 ? (
-            products.map((product) => (
+          ))
+          : products.length > 0
+            ? products.map((product) => (
               <ProductCard getProducts={fetchProducts} key={product._id} product={product} />
             ))
-          ) : (
-            <PulseLoader />
-          )}
-        </div>
-      )}
-    </div>
+            : <PulseLoader />}
+      </div>
+    </div >
   );
 };
 

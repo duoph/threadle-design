@@ -27,7 +27,6 @@ const Footer = () => {
                     <Link href={'/'}>About</Link>
                     <Link href={'/'}>Terms & Conditions</Link>
                     <Link href={'/'}>Privacy Policy</Link>
-                    <Link href={'/account/login'}>Login</Link>
                 </div>
             </div>
             <hr className='h-[1px] bg-gray-300 border-none' />
