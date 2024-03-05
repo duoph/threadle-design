@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { CiStar } from 'react-icons/ci'
 import { FaStar } from 'react-icons/fa6'
+import { IoIosCheckmark } from 'react-icons/io'
 
 
 const ProductPage = () => {
@@ -18,6 +19,7 @@ const ProductPage = () => {
   const [product, setProduct] = useState<Product>()
   const [selectedSize, setSelectedSize] = useState<string>()
   const [quantity, setQuantity] = useState<number>(1)
+  const [selectedColor, setSelectedColor] = useState<string>("red")
   const [categories, setCategories] = useState<Category[] | []>([]);
 
 
@@ -89,12 +91,42 @@ const ProductPage = () => {
             <span className='font-thin text-sm px-1'>4/5</span>
           </span>
           <p className='text-lg font-medium'>&#8377;{product?.regularPrice}</p>
-          <div className='flex flex-col gap-5 w-full'>
+          <div className='flex flex-col gap-4 w-full'>
             <p>Select Colors</p>
             <div className='flex gap-3'>
-              <span className='h-[35px] bg-red-700 w-[35px] rounded-[50%] inline-block'></span>
-              <span className='h-[35px] bg-green-700 w-[35px] rounded-[50%] inline-block'></span>
-              <span className='h-[35px] bg-blue-700 w-[35px] rounded-[50%] inline-block'></span>
+
+              {/* Color hardcode */}
+
+              <span onClick={() => setSelectedColor("red")} className='relative cursor-pointer h-[35px] bg-red-700 w-[35px] rounded-[50%] flex items-center justify-center shadow-lg'>
+                {selectedColor === "red" && (
+                  <>
+                    <div className='w-[35px] absolute h-[35px] rounded-[50%]  bg-black bg-opacity-30'></div>
+                    <IoIosCheckmark className='text-white z-10 bg-opacity-35' size={24} />
+                  </>
+
+                )}
+              </span>
+              <span onClick={() => setSelectedColor("blue")} className='relative cursor-pointer h-[35px] bg-blue-700 w-[35px] rounded-[50%] flex items-center justify-center shadow-lg'>
+                {selectedColor === "blue" && (
+                  <>
+                    <div className='w-[35px] absolute h-[35px] rounded-[50%]  bg-black bg-opacity-30'></div>
+                    <IoIosCheckmark className='text-white z-10 bg-opacity-35' size={24} />
+                  </>
+
+                )}
+              </span>
+              <span onClick={() => setSelectedColor("green")} className='relative cursor-pointer h-[35px] bg-green-700 w-[35px] rounded-[50%] flex items-center justify-center shadow-lg'>
+                {selectedColor === "green" && (
+                  <>
+                    <div className='w-[35px] absolute h-[35px] rounded-[50%]  bg-black bg-opacity-30'></div>
+                    <IoIosCheckmark className='text-white z-10 bg-opacity-35' size={24} />
+                  </>
+
+                )}
+              </span>
+
+
+            
             </div>
             <div className='flex gap-3 font-light'>
               {size?.map((size, i) => (
@@ -112,7 +144,6 @@ const ProductPage = () => {
           </div>
         </div>
       </div>
-
 
       <div className='mt-5'>
 
