@@ -19,8 +19,8 @@ const ProductPage = () => {
   const [product, setProduct] = useState<Product>()
   const [selectedSize, setSelectedSize] = useState<string>()
   const [quantity, setQuantity] = useState<number>(1)
-  const [selectedColor, setSelectedColor] = useState<string>("red")
-  const [categories, setCategories] = useState<Category[] | []>([]);
+  const [selectedColor, setSelectedColor] = useState<string>("")
+  const [c, setCategories] = useState<Category[] | []>([]);
 
 
 
