@@ -60,8 +60,8 @@ const ProductContainerWithCategory = ({ category }: any) => {
         <div className='flex flex-col items-center justify-center mt-10 w-full mb-5'>
             <h1 className='text-[35px] font-extrabold'>{category?.categoryName}</h1>
             <div className='relative w-full px-2'>
-                <GoChevronLeft onClick={handleScrollLeft} className='md:hover:scale-110 z-10 absolute top-[240px] bg-black text-white  left-8 rounded-full cursor-pointer' size={30} />
-                <GoChevronRight onClick={handleScrollRight} className='md:hover:scale-110 z-10 absolute top-[240px] bg-black text-white right-8 rounded-full cursor-pointer' size={30} />
+                <GoChevronLeft onClick={handleScrollLeft} className='md:hover:scale-110 z-10 absolute top-[230px] bg-black text-white  left-8 rounded-full cursor-pointer' size={30} />
+                <GoChevronRight onClick={handleScrollRight} className='md:hover:scale-110 z-10 absolute top-[230px] bg-black text-white right-8 rounded-full cursor-pointer' size={30} />
                 <div ref={scrollContainerRef} className='flex hideScrollBar hideScrollBar overflow-x-scroll justify-start items-center gap-5 h-[500px]'>
                     {products.map((product) => (
                         <ProductCard key={product._id} product={product} getProducts={fetchCategoryProducts} />
