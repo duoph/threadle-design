@@ -128,7 +128,7 @@ const ProductPage = () => {
 
 
             </div>
-            <div className='flex gap-3 font-light'>
+            <div className='flex flex-wrap gap-3 font-light'>
               {size?.map((size, i) => (
                 <button key={i} onClick={() => setSelectedSize(size)} className={`px-4 py-2  rounded-2xl ${selectedSize === size ? "bg-td-primary text-white" : "bg-gray-200"}`}>{size}</button>
               ))}

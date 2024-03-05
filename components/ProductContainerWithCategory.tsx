@@ -62,7 +62,7 @@ const ProductContainerWithCategory = ({ category }: any) => {
             <div className='relative w-full px-2'>
                 <GoChevronLeft onClick={handleScrollLeft} className='md:hover:scale-110 z-10 absolute top-[250px] bg-black text-white  left-8 rounded-full cursor-pointer' size={30} />
                 <GoChevronRight onClick={handleScrollRight} className='md:hover:scale-110 z-10 absolute top-[250px] bg-black text-white right-8 rounded-full cursor-pointer' size={30} />
-                <div ref={scrollContainerRef} className='flex justify-center items-center gap-5 h-[550px]'>
+                <div ref={scrollContainerRef} className='flex hideScrollBar hideScrollBar overflow-x-scroll justify-center items-center gap-5 h-[550px]'>
                     {products.map((product) => (
                         <ProductCard key={product._id} product={product} getProducts={fetchCategoryProducts} />
                     ))}
