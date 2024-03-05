@@ -80,7 +80,7 @@ const ProductPage = () => {
             <Image src={product?.moreImagesURLs[2] || "/greendress.png"} alt='greenDress' width={100} height={100} />
             <Image src={product?.moreImagesURLs[3] || "/greendress.png"} alt='greenDress' width={100} height={100} />         </div>
         </div>
-        <div className='flex flex-col gap-5 items-start justify-start md:w-1/2'>
+        <div className='flex flex-col gap-5 items-start justify-start w-full '>
           <h1 className='text-lg font-medium'>{product?.title}</h1>
           <span className='text-start break-all flex items-center justify-start'>
             <FaStar size={24} className='text-yellow-300' />
@@ -92,7 +92,7 @@ const ProductPage = () => {
           </span>
           <div className='flex gap-3'>
             <p className={`text-lg font-medium ${product?.salePrice && "line-through"}`}>&#8377;{product?.regularPrice}</p>
-            <p className={`text-lg text-red-600 font-medium`}>&#8377;{product?.salePrice}</p>
+            {product?.salePrice && <p className={`text-lg text-red-600 font-medium`}>&#8377;{product?.salePrice}</p>}
           </div>
           <div className='flex flex-col gap-4 w-full'>
             <p>Select Colors</p>
