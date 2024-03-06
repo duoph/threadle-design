@@ -8,7 +8,7 @@ export interface Category {
 }
 
 export interface Product {
-    categoryId: string;
+    category: string;
     inStock: boolean;
     coverImageURL: string;
     moreImagesURLs: string[];

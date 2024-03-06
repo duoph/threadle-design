@@ -6,7 +6,16 @@ import { useRouter } from 'next/navigation';
 import { Category, Product } from '@/types';
 import axios from 'axios';
 
-const ProductContainerWithCategory = ({ category }: any) => {
+
+interface ProductContainerProps {
+    category?: any
+    categoryId?: string
+    title?: string
+
+}
+
+
+const ProductContainerWithCategory = ({ category, categoryId, title }: ProductContainerProps) => {
     const scrollContainerRef = useRef<HTMLDivElement>(null);
     const [products, setProducts] = useState<Product[]>([]);
 
@@ -15,7 +24,8 @@ const ProductContainerWithCategory = ({ category }: any) => {
 
     const fetchCategoryProducts = async () => {
         try {
-            const response = await axios.get("/api/category/" + category._id);
+            const response = await axios.get(`/api/category/${categoryId || category._id}`);
+            console.log(response)
             setProducts(response?.data?.products);
         } catch (error) {
             console.log(error);
@@ -25,7 +35,7 @@ const ProductContainerWithCategory = ({ category }: any) => {
 
     useEffect(() => {
         fetchCategoryProducts();
-    }, []);
+    }, [category, categoryId]);
 
 
     const handleScrollRight = () => {
@@ -58,12 +68,12 @@ const ProductContainerWithCategory = ({ category }: any) => {
 
     return (
         <div className='flex flex-col items-center justify-center mt-10 w-full mb-5'>
-            <h1 className='text-[35px] font-extrabold'>{category?.categoryName}</h1>
+            <h1 className='text-[35px] font-extrabold'>{title || category?.categoryName}</h1>
             <div className='relative w-full px-2'>
-                <GoChevronLeft onClick={handleScrollLeft} className='md:hover:scale-110 z-10 absolute top-[230px] bg-black text-white  left-8 rounded-full cursor-pointer' size={30} />
-                <GoChevronRight onClick={handleScrollRight} className='md:hover:scale-110 z-10 absolute top-[230px] bg-black text-white right-8 rounded-full cursor-pointer' size={30} />
-                <div ref={scrollContainerRef} className='flex hideScrollBar hideScrollBar overflow-x-scroll justify-start items-center gap-5 h-[500px]'>
-                    {products.map((product) => (
+                <GoChevronLeft onClick={handleScrollLeft} className='md:hover:scale-110 z-10 absolute top-[180px] bg-black text-white  left-8 rounded-full cursor-pointer' size={30} />
+                <GoChevronRight onClick={handleScrollRight} className='md:hover:scale-110 z-10 absolute top-[180px] bg-black text-white right-8 rounded-full cursor-pointer' size={30} />
+                <div ref={scrollContainerRef} className='flex hideScrollBar hideScrollBar overflow-x-scroll justify-start items-center gap-5 h-[400px]'>
+                    {products?.map((product) => (
                         <ProductCard key={product._id} product={product} getProducts={fetchCategoryProducts} />
                     ))}
                 </div>
