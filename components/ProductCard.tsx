@@ -95,7 +95,7 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
             <div onClick={() => router.push(`/shop/${product._id}`)} className='w-full'>
                 <div className='relative flex items-center justify-center h-[250px] w-full bg-gray-200 rounded-2xl'>
                     {!product?.coverImageURL && (
-                        <Image src={"/noImage.jpg"} style={{ objectFit: "cover" }} alt='Image' className='rounded-2xl' quality={60} fill />
+                        <Image src={"/noImage.jpg"} style={{ objectFit: "cover" }} alt='Image' className='rounded-2xl' quality={50} fill />
                     )}
                     {product?.coverImageURL && (
                         <Image src={product?.coverImageURL} style={{ objectFit: "cover" }} className='rounded-2xl' fill alt='Red-Dress' />
