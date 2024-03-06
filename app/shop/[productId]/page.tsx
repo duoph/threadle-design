@@ -14,7 +14,7 @@ const ProductPage = () => {
   const [product, setProduct] = useState<Product>()
   const [selectedSize, setSelectedSize] = useState<string>()
   const [quantity, setQuantity] = useState<number>(1)
-  const [selectedColor, setSelectedColor] = useState<string>("")
+  const [selectedColor, setSelectedColor] = useState<string>()
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -39,7 +39,7 @@ const ProductPage = () => {
     }
   };
 
-  const sizes: any = ["S", "M", "L", "XL", "2XL", "3XL"]
+  const sizes = ["S", "M", "L", "XL", "2XL", "3XL"]
 
 
   return (
@@ -77,9 +77,8 @@ const ProductPage = () => {
               </div>
 
               <div className='flex flex-wrap gap-3 font-light'>
-                {sizes?.map(({ s, i }: any) => (
-                  <button key={i} onClick={() => setSelectedSize(s)} className={`px-4 py-2 rounded-2xl ${selectedSize === s ? "bg-td-primary text-white" : "bg-gray-200"}`}>{s}
-                    M</button>
+                {sizes?.map(({ size, i }: any) => (
+                  <button key={i} onClick={() => setSelectedSize(size)} className={`px-4 py-2  rounded-2xl ${selectedSize === size ? "bg-td-primary text-white" : "bg-gray-200"}`}>{size}</button>
                 ))}
               </div>
 
