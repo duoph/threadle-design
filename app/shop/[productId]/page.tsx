@@ -12,19 +12,24 @@ const ProductPage = () => {
 
   const { productId } = useParams()
   const [product, setProduct] = useState<Product>()
-  const [selectedSize, setSelectedSize] = useState<string>()
+  const [selectedSize, setSelectedSize] = useState<string>("")
   const [quantity, setQuantity] = useState<number>(1)
   const [selectedColor, setSelectedColor] = useState<string>()
 
-  useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const response = await axios.get(`/api/product/${productId}`)
-        setProduct(response.data.product[0])
-      } catch (error) {
-        console.log(error)
-      }
+
+  const sizes = ["S", "M", "L", "XL", "2XL", "3XL"]
+
+
+  const fetchProduct = async () => {
+    try {
+      const response = await axios.get(`/api/product/${productId}`)
+      setProduct(response.data.product[0])
+    } catch (error) {
+      console.log(error)
     }
+  }
+
+  useEffect(() => {
     fetchProduct()
   }, [productId])
 
@@ -39,7 +44,6 @@ const ProductPage = () => {
     }
   };
 
-  const sizes = ["S", "M", "L", "XL", "2XL", "3XL"]
 
 
   return (
@@ -77,10 +81,11 @@ const ProductPage = () => {
               </div>
 
               <div className='flex flex-wrap gap-3 font-light'>
-                {sizes?.map(({ size, i }: any) => (
-                  <button key={i} onClick={() => setSelectedSize(size)} className={`px-4 py-2  rounded-2xl ${selectedSize === size ? "bg-td-primary text-white" : "bg-gray-200"}`}>{size}</button>
+                {sizes.map((size) => (
+                  <button key={size} onClick={() => setSelectedSize(size)} className={`px-4 py-2 rounded-2xl ${selectedSize === size ? "bg-td-primary text-white" : "bg-gray-200"}`}>{size}</button>
                 ))}
               </div>
+
 
               <div className='flex gap-3 font-semibold w-full'>
                 <span className='bg-gray-200 flex items-center justify-between gap-4 px-8 py-2 rounded-2xl w-1/2'>
