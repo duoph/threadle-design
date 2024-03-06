@@ -6,6 +6,7 @@ import { Category } from "@/types";
 import axios, { AxiosResponse } from "axios";
 
 const FeaturedCategory = () => {
+
     const [categories, setCategories] = useState<Category[]>([]); // Initialize with an empty array of categories
 
     const fetchCategory = async () => {
@@ -23,7 +24,7 @@ const FeaturedCategory = () => {
     }, []);
 
     return (
-        <div className="flex flex-col gap-3 items-center justify-center mt-10 mb-10">
+        <div className="flex flex-col gap-3 items-center justify-center mt-10 mb-10 px-5 ">
             {categories && categories.map((category, index) => (
                 <ProductContainerWithCategory key={index} category={category} />
             ))}
