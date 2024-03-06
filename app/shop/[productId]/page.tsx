@@ -29,7 +29,6 @@ const ProductPage = () => {
   }, [productId])
 
 
-  const size: any = ["S", "M", "L", "XL", "2XL", "3XL"]
 
 
   const handleQuantity = (action: string) => {
@@ -39,6 +38,8 @@ const ProductPage = () => {
       setQuantity(quantity - 1);
     }
   };
+
+  const sizes: any = ["S", "M", "L", "XL", "2XL", "3XL"]
 
 
   return (
@@ -74,9 +75,11 @@ const ProductPage = () => {
                   {selectedColor === "green" && <IoIosCheckmark className='text-white z-10 bg-opacity-35' size={24} />}
                 </span>
               </div>
+
               <div className='flex flex-wrap gap-3 font-light'>
-                {size?.map((size, i) => (
-                  <button key={i} onClick={() => setSelectedSize(size)} className={`px-4 py-2  rounded-2xl ${selectedSize === size ? "bg-td-primary text-white" : "bg-gray-200"}`}>{size}</button>
+                {sizes?.map(({ s, i }: any) => (
+                  <button key={i} onClick={() => setSelectedSize(s)} className={`px-4 py-2 rounded-2xl ${selectedSize === s ? "bg-td-primary text-white" : "bg-gray-200"}`}>{s}
+                    M</button>
                 ))}
               </div>
 
@@ -97,7 +100,7 @@ const ProductPage = () => {
       </div>
       {product?.category && (
         <div className='py-3'>
-          <ProductContainerWithCategory title='You Might Like' categoryId={product?.category} />
+          <ProductContainerWithCategory productNotToshow={product._id} title='You Might Like' categoryId={product?.category} />
         </div>
       )}
     </div>

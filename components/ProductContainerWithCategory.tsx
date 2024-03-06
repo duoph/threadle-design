@@ -11,11 +11,12 @@ interface ProductContainerProps {
     category?: any
     categoryId?: string
     title?: string
+    productNotToshow?: string
 
 }
 
 
-const ProductContainerWithCategory = ({ category, categoryId, title }: ProductContainerProps) => {
+const ProductContainerWithCategory = ({ category, categoryId, title, productNotToshow }: ProductContainerProps) => {
     const scrollContainerRef = useRef<HTMLDivElement>(null);
     const [products, setProducts] = useState<Product[]>([]);
 
@@ -73,9 +74,9 @@ const ProductContainerWithCategory = ({ category, categoryId, title }: ProductCo
                 <GoChevronLeft onClick={handleScrollLeft} className='md:hover:scale-110 z-10 absolute top-[180px] bg-black text-white  left-8 rounded-full cursor-pointer' size={30} />
                 <GoChevronRight onClick={handleScrollRight} className='md:hover:scale-110 z-10 absolute top-[180px] bg-black text-white right-8 rounded-full cursor-pointer' size={30} />
                 <div ref={scrollContainerRef} className='flex hideScrollBar hideScrollBar overflow-x-scroll justify-start items-center gap-5 h-[400px]'>
-                    {products?.map((product) => (
-                        <ProductCard key={product._id} product={product} getProducts={fetchCategoryProducts} />
-                    ))}
+                    {products?.map((product) => (<>
+                        {productNotToshow === product._id ? null : (<ProductCard key={product._id} product={product} getProducts={fetchCategoryProducts} />)}
+                    </>))}
                 </div>
             </div>
             <div className='px-5 w-full flex items-center justify-center'>
