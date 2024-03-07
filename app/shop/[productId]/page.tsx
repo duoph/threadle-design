@@ -23,7 +23,7 @@ const ProductPage = () => {
   const fetchProduct = async () => {
     try {
       const response = await axios.get(`/api/product/${productId}`)
-      setProduct(response.data.product[0])
+      setProduct(response.data.product)
     } catch (error) {
       console.log(error)
     }
@@ -44,6 +44,10 @@ const ProductPage = () => {
     }
   };
 
+
+  // if(!product){
+
+  // }
 
 
   return (
