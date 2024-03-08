@@ -33,27 +33,20 @@ export async function GET(req: NextRequest, { params }: any) {
 
 // deleting a category will also delete all its products
 
-
 export async function DELETE(req: NextRequest, { params }: any) {
     try {
         connectMongoDB();
 
         const categoryId = params.categoryId;
 
-
-        // set null calue to category ids without deleting products
-
-        // const products = await ProductModel.updateMany(
-        //     { category: categoryId },
-        //     { $set: { category: null } }
-        // );
-
+        // set null value to category ids without deleting products
+        const products = await ProductModel.updateMany(
+            { categoryId: categoryId },
+            { $set: { categoryId: null, categoryName: null } } // Set categoryId and category to null
+        );
 
         // delete all the products in the category
-
-        await ProductModel.deleteMany({
-            category: categoryId
-        })
+        await ProductModel.deleteMany({ category: categoryId });
 
         // Delete the category
         const category = await CategoryModel.findByIdAndDelete(categoryId);
@@ -104,7 +97,7 @@ export async function PUT(req: NextRequest, { params }: any) {
 
         const updatedCategory = await CategoryModel.findByIdAndUpdate({ _id: categoryId }, { categoryName: title, slugifyName: slugifyCategoryName, imageURL: imageUrl }, { new: true });
 
-        
+
         return NextResponse.json({ message: 'Category updated successfully', success: true, updatedCategory });
 
 

@@ -17,7 +17,7 @@ const CreateProduct = () => {
 
     const [title, setTitle] = useState<string>("")
     const [desc, setDesc] = useState<string>("")
-    const [category, setCategory] = useState<string>("")
+    const [categoryId, setCategoryId] = useState<string>("")
     const [regularPrice, setRegularPrice] = useState<string>("")
     const [salePrice, setSalePrice] = useState<string>("")
     const [coverImage, setCoverImage] = useState<string | null>(null);
@@ -80,7 +80,8 @@ const CreateProduct = () => {
 
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const newValue = event.target.value;
-        setCategory(newValue);
+        setCategoryId(newValue);
+
     };
 
 
@@ -100,10 +101,26 @@ const CreateProduct = () => {
             setIsLoading(true)
             const formData = new FormData();
 
+            // Find the category based on categoryId
+
+
             formData.append("title", title);
-            formData.append("category", category);
+            formData.append("categoryId", categoryId);
             formData.append("desc", desc);
             formData.append("regularPrice", regularPrice);
+
+            const selectedCategory = fetchedCategory?.find((category: any) => category._id === categoryId);
+
+            // Check if category is found
+            if (selectedCategory) {
+                // If category is found, get categoryName
+                const { categoryName } = selectedCategory;
+                formData.append("categoryName", categoryName);
+            } else {
+                // If category is not found, set categoryName as an empty string or handle it according to your requirement
+                formData.append("categoryName", "");
+            }
+
 
             if (salePrice) {
                 formData.append("salePrice", salePrice);
@@ -141,7 +158,7 @@ const CreateProduct = () => {
     }, [])
 
 
-    console.log(category)
+    // console.log(category)
 
     return (
         <div className='flex flex-col gap-3 py-5 md:px-10 px-5'>
