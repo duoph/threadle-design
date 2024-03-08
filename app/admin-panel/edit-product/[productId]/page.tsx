@@ -26,20 +26,21 @@ const EditProduct = () => {
     const [productDesc, setProductDesc] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [fetchedCategory, setFetchedCategory] = useState<[] | undefined>([])
-    const [category, setCategory] = useState<string>("")
+    const [categoryId, setCategoryId] = useState<string>("")
+    const [fetchedCategoryId, setFetchedCategoryId] = useState<string>("")
 
 
     const fetchProduct = async () => {
         try {
             const response = await axios.get(`/api/product/${productId}`)
             console.log(response.data.product)
-            const { title, desc, regularPrice, salePrice, inStock, category } = response.data.product;
+            const { title, desc, regularPrice, salePrice, inStock, categoryId } = response.data.product;
             setProductTitle(title);
             setProductDesc(desc);
             setRegularPrice(regularPrice);
             setSalePrice(salePrice);
             setInStock(inStock);
-            setCategory(category);
+            setFetchedCategoryId(categoryId);
         } catch (error) {
             console.log(error)
         }
@@ -55,17 +56,7 @@ const EditProduct = () => {
         }
     }
 
-    const categoryNameFromId = (id: string) => {
-        try {
-            if (id && fetchedCategory) {
-                const categoryFind: any = fetchedCategory.find(category: any => category._id === id);
-                return categoryFind ? categoryFind.categoryName : "Category Not Found";
-            }
-        } catch (error) {
-            console.error("Error in categoryNameFromId:", error);
-            return "Error";
-        }
-    }
+
     useEffect(() => {
         getAllCategories()
         fetchProduct()
@@ -91,6 +82,7 @@ const EditProduct = () => {
     //         setIsLoading(true)
     //         const formData = new FormData();
     //         formData.append("title", categoryTitle);
+    //         formData.append("categoryId", categoryId);
 
     //         if (fetchedImageURL) {
     //             formData.append("imageURL", fetchedImageURL);
@@ -121,7 +113,7 @@ const EditProduct = () => {
 
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const newValue = event.target.value;
-        setCategory(newValue);
+        setCategoryId(newValue);
     };
 
 
@@ -153,16 +145,20 @@ const EditProduct = () => {
                     <input value={salePrice} onChange={(e) => setSalePrice(e.target.value)} className="bg-gray-200 px-5 py-3 rounded-2xl" id="title" />
                 </div>
             </div>
-            <div className="flex flex-col gap-1">
-                <label htmlFor="category" className="font-semibold">Category</label>
 
-                <select onChange={handleSelectChange} id="category" className="bg-gray-200 px-5 py-3 rounded-2xl text-black">
-                    <option className="px-5 py-3 " value={category}>{category}</option>
-                    {fetchedCategory && fetchedCategory.map((category: Category, i) => (
-                        <option key={i} value={category._id}>{category.categoryName}</option>
-                    ))}
-                </select>
-            </div>
+            {!fetchedCategoryId && (
+                <div className="flex flex-col gap-1">
+                    <label htmlFor="category" className="font-semibold">Category</label>
+
+                    <select onChange={handleSelectChange} id="category" className="bg-gray-200 px-5 py-3 rounded-2xl text-black">
+                        <option className="px-5 py-3 ">Select Category</option>
+                        {fetchedCategory && fetchedCategory.map((category: Category, i) => (
+                            <option key={i} value={category._id}>{category.categoryName}</option>
+                        ))}
+                    </select>
+                </div>
+            )}
+
 
             < div className="w-full flex items-center justify-center py-5" >
                 <button className=" flex items-center justify-center h-10 px-5 py-3 bg-td-secondary hover:bg-td-primary text-white rounded-2xl font-semibold w-full">
