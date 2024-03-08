@@ -19,8 +19,10 @@ export async function GET(req: NextRequest, { params }: any) {
         const category = await CategoryModel.findOne({ _id: categoryId })
 
         const products = await ProductModel.find({
-            category: categoryId
+            categoryId: categoryId
         })
+
+
         return NextResponse.json({ category, products, message: "fetched all products by category", success: true })
     } catch (error) {
         console.log(error)
