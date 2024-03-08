@@ -41,17 +41,21 @@ export async function PUT(req: NextRequest, { params }: any) {
         const desc = formData.get('desc');
         const salePrice = formData.get('salePrice') || undefined;
         const regularPrice = formData.get('regularPrice');
+        const categoryId = formData.get('categoryId');
+        const categoryName = formData.get('categoryName');
         const inStock = formData.get('inStock');
 
         // Update the product document
         const updatedProduct = await ProductModel.findByIdAndUpdate(
             { _id: pid },
             {
-                title: title,
-                desc: desc,
-                salePrice: salePrice,
-                regularPrice: regularPrice,
-                inStock: inStock,
+                title,
+                desc,
+                salePrice, 
+                regularPrice,
+                categoryName,
+                categoryId,
+                inStock
             },
             { new: true }
         );
