@@ -156,12 +156,11 @@ const CreateProduct = () => {
                     <input value={title} onChange={(e) => setTitle(e.target.value)} className="bg-gray-200 px-5 py-3 rounded-2xl" type="text" id="title" />
                 </div>
                 <div className="flex flex-col gap-1">
-                    <label htmlFor="title" className="font-semibold">Description</label>
-                    <textarea value={desc} onChange={(e) => setDesc(e.target.value)} rows={6} className="bg-gray-200 px-5 py-3 rounded-2xl" id="title" />
+                    <label htmlFor="desc" className="font-semibold">Description</label>
+                    <textarea value={desc} onChange={(e) => setDesc(e.target.value)} rows={6} className="bg-gray-200 px-5 py-3 rounded-2xl" id="desc" />
                 </div>
                 <div className="flex flex-col gap-1">
                     <label htmlFor="category" className="font-semibold">Category</label>
-
 
                     <select onChange={handleSelectChange} id="category" className="bg-gray-200 px-5 py-3 rounded-2xl text-black">
                         <option className="px-5 py-3 " value={"default"}>Select category</option>

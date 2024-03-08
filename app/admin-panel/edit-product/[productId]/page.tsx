@@ -9,6 +9,7 @@ import { MdDelete } from "react-icons/md";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { PulseLoader } from "react-spinners";
+import { Category } from "@/types";
 
 const EditProduct = () => {
 
@@ -19,26 +20,55 @@ const EditProduct = () => {
 
     // const [fetchedImageURL, setFetchedImageURL] = useState<string | null>(null);
     const [inStock, setInStock] = useState<string | null>(null);
-    const [category, setCategory] = useState<string | null>(null);
+    const [regularPrice, setRegularPrice] = useState<string>("");
+    const [salePrice, setSalePrice] = useState<string>("");
     const [productTitle, setProductTitle] = useState<string>("");
+    const [productDesc, setProductDesc] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [fetchedCategory, setFetchedCategory] = useState<[] | undefined>([])
+    const [category, setCategory] = useState<string>("")
 
 
-    const fetchCategory = async () => {
+    const fetchProduct = async () => {
         try {
             const response = await axios.get(`/api/product/${productId}`)
             console.log(response.data.product)
-            setProductTitle(response.data.product.title)
-            setInStock(response.data.product.inStock)
-            setCategory(response.data.product.category)
+            const { title, desc, regularPrice, salePrice, inStock, category } = response.data.product;
+            setProductTitle(title);
+            setProductDesc(desc);
+            setRegularPrice(regularPrice);
+            setSalePrice(salePrice);
+            setInStock(inStock);
+            setCategory(category);
         } catch (error) {
             console.log(error)
         }
     }
 
+    const getAllCategories = async () => {
+        try {
+            const response = await axios.get('/api/category')
+            console.log(response.data.tdCategory)
+            setFetchedCategory(response.data.tdCategory)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
+    const categoryNameFromId = (id: string) => {
+        try {
+            if (id && fetchedCategory) {
+                const categoryFind: any = fetchedCategory.find(category: any => category._id === id);
+                return categoryFind ? categoryFind.categoryName : "Category Not Found";
+            }
+        } catch (error) {
+            console.error("Error in categoryNameFromId:", error);
+            return "Error";
+        }
+    }
     useEffect(() => {
-        fetchCategory()
+        getAllCategories()
+        fetchProduct()
     }, [])
 
 
@@ -88,6 +118,13 @@ const EditProduct = () => {
     // };
 
 
+
+    const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const newValue = event.target.value;
+        setCategory(newValue);
+    };
+
+
     return (
         <div className='flex flex-col gap-3 py-5 md:px-10 px-5'>
             <div className='flex gap-2 items-center justify-start'>
@@ -100,6 +137,31 @@ const EditProduct = () => {
                 <h1 className='text-[20px] font-bold'>Product Details</h1>
                 <h1 className="font-bold">Product Title</h1>
                 <input type="text" name='title' onChange={(e) => setProductTitle(e.target.value)} value={productTitle} placeholder="Title" className='bg-gray-200 rounded-2xl px-5 py-3' />
+            </div>
+
+            <div className="flex flex-col gap-1">
+                <label htmlFor="desc" className="font-semibold">Description</label>
+                <textarea value={productDesc} onChange={(e) => setProductDesc(e.target.value)} rows={6} className="bg-gray-200 px-5 py-3 rounded-2xl" id="desc" />
+            </div>
+            <div className="flex flex-row gap-1 w-full">
+                <div className="flex flex-col w-1/2">
+                    <label htmlFor="title" className="font-semibold">Regular Price</label>
+                    <input value={regularPrice} onChange={(e) => setRegularPrice(e.target.value)} className="bg-gray-200 px-5 py-3 rounded-2xl" id="title" />
+                </div>
+                <div className="flex flex-col w-1/2">
+                    <label htmlFor="title" className="font-semibold">Sale Price(Optional)</label>
+                    <input value={salePrice} onChange={(e) => setSalePrice(e.target.value)} className="bg-gray-200 px-5 py-3 rounded-2xl" id="title" />
+                </div>
+            </div>
+            <div className="flex flex-col gap-1">
+                <label htmlFor="category" className="font-semibold">Category</label>
+
+                <select onChange={handleSelectChange} id="category" className="bg-gray-200 px-5 py-3 rounded-2xl text-black">
+                    <option className="px-5 py-3 " value={category}>{category}</option>
+                    {fetchedCategory && fetchedCategory.map((category: Category, i) => (
+                        <option key={i} value={category._id}>{category.categoryName}</option>
+                    ))}
+                </select>
             </div>
 
             < div className="w-full flex items-center justify-center py-5" >
