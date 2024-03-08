@@ -19,15 +19,16 @@ const EditProduct = () => {
 
 
     // const [fetchedImageURL, setFetchedImageURL] = useState<string | null>(null);
-    const [inStock, setInStock] = useState<string | null>(null);
+    const [inStock, setInStock] = useState("");
     const [regularPrice, setRegularPrice] = useState<string>("");
     const [salePrice, setSalePrice] = useState<string>("");
     const [productTitle, setProductTitle] = useState<string>("");
     const [productDesc, setProductDesc] = useState<string>("");
-    const [isLoading, setIsLoading] = useState<boolean>(false)
     const [fetchedCategory, setFetchedCategory] = useState<[] | undefined>([])
     const [categoryId, setCategoryId] = useState<string>("")
     const [fetchedCategoryId, setFetchedCategoryId] = useState<string>("")
+
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
 
     const fetchProduct = async () => {
@@ -64,50 +65,63 @@ const EditProduct = () => {
 
 
 
-    // const handleCoverImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    //     const file = event.target.files?.[0];
-    //     if (file) {
-    //         const imageUrl = URL.createObjectURL(file);
-    //         setCoverImage(imageUrl);
-    //     }
-    // };
+    const handleSubmit = async () => {
+        setIsLoading(true)
+        try {
+            if (!productTitle) {
+                toast.error("Please enter a category title");
+                setIsLoading(false)
+                return;
+            }
+            if (!categoryId) {
+                toast.error("Please select a category");
+                setIsLoading(false)
+                return;
+            }
+            if (!regularPrice) {
+                toast.error("Please add a regular Price");
+                setIsLoading(false)
+                return;
+            }
+            const formData = new FormData();
+            formData.append("title", productTitle);
+            formData.append("categoryId", categoryId);
+            formData.append("inStock", inStock);
+            formData.append("regularPrice", regularPrice);
+            if (salePrice) {
+                formData.append("salePrice", salePrice);
+            }
 
 
-    // const handleSubmit = async () => {
-    //     try {
-    //         if (!categoryTitle) {
-    //             toast.error("Please enter a category title");
-    //             return;
-    //         }
-    //         setIsLoading(true)
-    //         const formData = new FormData();
-    //         formData.append("title", categoryTitle);
-    //         formData.append("categoryId", categoryId);
+            const selectedCategory = fetchedCategory?.find((category: any) => category._id === categoryId);
 
-    //         if (fetchedImageURL) {
-    //             formData.append("imageURL", fetchedImageURL);
-    //         }
+            // Check if category is found
+            if (selectedCategory) {
+                // If category is found, get categoryName
+                const { categoryName } = selectedCategory;
+                formData.append("categoryName", categoryName);
+            } else {
+                // If category is not found, set categoryName as an empty string or handle it according to your requirement
+                formData.append("categoryName", "");
+            }
 
-    //         if (coverImage) {
-    //             const file = await fetch(coverImage).then((res) => res.blob());
-    //             formData.append("file", file);
-    //         }
-    //         // Make a POST request to your backend endpoint
-    //         const res = await axios.put(`/api/category/${categoryId}`, formData, {
-    //             headers: {
-    //                 "Content-Type": "multipart/form-data",
-    //             },
-    //         });
-    //         console.log(res)
-    //         setIsLoading(false)
-    //         toast.success("Category updated successfully");
-    //         router.push("/admin-panel/view-categories");
-    //     } catch (error) {
-    //         setIsLoading(false)
-    //         console.error("Error updating category:", error);
-    //         toast.error("Failed to create category");
-    //     }
-    // };
+
+            // Make a POST request to your backend endpoint
+            const res = await axios.put(`/api/product/${productId}`, formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+            console.log(res)
+            setIsLoading(false)
+            toast.success("Product updated successfully");
+            router.push("/admin-panel/view-products");
+        } catch (error) {
+            setIsLoading(false)
+            console.error("Error updating category:", error);
+            toast.error("Failed to create category");
+        }
+    };
 
 
 
@@ -115,6 +129,8 @@ const EditProduct = () => {
         const newValue = event.target.value;
         setCategoryId(newValue);
     };
+
+    console.log(inStock)
 
 
     return (
@@ -160,8 +176,17 @@ const EditProduct = () => {
             )}
 
 
+            <div className="flex flex-col gap-1">
+                <label htmlFor="inStock" className="font-semibold">In Stock</label>
+                <select onChange={(e) => { setInStock(e.target.value) }} id="inStock" className="bg-gray-200 px-5 py-3 rounded-2xl text-black">
+                    <option value="yes" selected={inStock === 'yes'}>Yes</option>
+                    <option value="no" selected={inStock === 'no'}>No</option>
+                </select>
+            </div>
+
+
             < div className="w-full flex items-center justify-center py-5" >
-                <button className=" flex items-center justify-center h-10 px-5 py-3 bg-td-secondary hover:bg-td-primary text-white rounded-2xl font-semibold w-full">
+                <button onClick={handleSubmit} className=" flex items-center justify-center h-10 px-5 py-3 bg-td-secondary hover:bg-td-primary text-white rounded-2xl font-semibold w-full">
                     {isLoading && (
                         <PulseLoader color="#ffffff" size={15} />
                     )}
