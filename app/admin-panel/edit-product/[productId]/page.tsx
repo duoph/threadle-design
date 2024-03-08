@@ -27,6 +27,7 @@ const EditProduct = () => {
     const [fetchedCategory, setFetchedCategory] = useState<[] | undefined>([])
     const [categoryId, setCategoryId] = useState<string>("")
     const [fetchedCategoryId, setFetchedCategoryId] = useState<string>("")
+    const [categoryName, setCategoryName] = useState<string>("")
 
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -35,12 +36,13 @@ const EditProduct = () => {
         try {
             const response = await axios.get(`/api/product/${productId}`)
             console.log(response.data.product)
-            const { title, desc, regularPrice, salePrice, inStock, categoryId } = response.data.product;
+            const { title, desc, regularPrice, salePrice, inStock, categoryId, categoryName } = response.data.product;
             setProductTitle(title);
             setProductDesc(desc);
             setRegularPrice(regularPrice);
             setSalePrice(salePrice);
             setInStock(inStock);
+            setCategoryName(categoryName)
             setFetchedCategoryId(categoryId);
         } catch (error) {
             console.log(error)
@@ -56,6 +58,10 @@ const EditProduct = () => {
             console.log(error)
         }
     }
+
+    const selectedCategory = fetchedCategory?.find((category: any) => category._id === categoryId);
+
+    console.log(selectedCategory)
 
 
     useEffect(() => {
@@ -88,10 +94,11 @@ const EditProduct = () => {
             formData.append("categoryId", categoryId);
             formData.append("inStock", inStock);
             formData.append("regularPrice", regularPrice);
+            formData.append("categoryId", categoryId);
+            formData.append("regularPrice", categoryName);
             if (salePrice) {
                 formData.append("salePrice", salePrice);
             }
-
 
             const selectedCategory = fetchedCategory?.find((category: any) => category._id === categoryId);
 
@@ -154,26 +161,28 @@ const EditProduct = () => {
             <div className="flex flex-row gap-1 w-full">
                 <div className="flex flex-col w-1/2">
                     <label htmlFor="title" className="font-semibold">Regular Price</label>
-                    <input value={regularPrice} onChange={(e) => setRegularPrice(e.target.value)} className="bg-gray-200 px-5 py-3 rounded-2xl" id="title" />
+                    <input type="number" value={regularPrice} onChange={(e) => setRegularPrice(e.target.value)} className="bg-gray-200 px-5 py-3 rounded-2xl" id="title" />
                 </div>
                 <div className="flex flex-col w-1/2">
                     <label htmlFor="title" className="font-semibold">Sale Price(Optional)</label>
-                    <input value={salePrice} onChange={(e) => setSalePrice(e.target.value)} className="bg-gray-200 px-5 py-3 rounded-2xl" id="title" />
+                    <input type="number" value={salePrice} onChange={(e) => setSalePrice(e.target.value)} className="bg-gray-200 px-5 py-3 rounded-2xl" id="title" />
                 </div>
             </div>
 
-            {!fetchedCategoryId && (
-                <div className="flex flex-col gap-1">
-                    <label htmlFor="category" className="font-semibold">Category</label>
-
-                    <select onChange={handleSelectChange} id="category" className="bg-gray-200 px-5 py-3 rounded-2xl text-black">
-                        <option className="px-5 py-3 ">Select Category</option>
-                        {fetchedCategory && fetchedCategory.map((category: Category, i) => (
-                            <option key={i} value={category._id}>{category.categoryName}</option>
-                        ))}
-                    </select>
-                </div>
-            )}
+            <div className="flex flex-col gap-1">
+                <label htmlFor="category" className="font-semibold">Category</label>
+                <select onChange={handleSelectChange} id="category" className="bg-gray-200 px-5 py-3 rounded-2xl text-black" value={categoryId}>
+                    {categoryName && !categoryId ? (
+                        <option value={categoryId}>{categoryName}</option>
+                    ) : (
+                        <option value="" disabled>Select Category</option>
+                    )}
+                    {fetchedCategory && fetchedCategory.map((category: Category) => (
+                        // categoryName === category.categoryName ? null : 
+                        <option key={category._id} value={category._id}>{category.categoryName}</option>
+                    ))}
+                </select>
+            </div>
 
 
             <div className="flex flex-col gap-1">
