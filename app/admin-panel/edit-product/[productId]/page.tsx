@@ -27,6 +27,7 @@ const EditProduct = () => {
     const [fetchedCategory, setFetchedCategory] = useState<[] | undefined>([])
     const [categoryId, setCategoryId] = useState<string>("")
     const [fetchedCategoryId, setFetchedCategoryId] = useState<string>("")
+    const [fetchedCategoryName, setFetchedCategoryName] = useState<string>("")
     const [categoryName, setCategoryName] = useState<string>("")
 
     const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -42,7 +43,7 @@ const EditProduct = () => {
             setRegularPrice(regularPrice);
             setSalePrice(salePrice);
             setInStock(inStock);
-            setCategoryName(categoryName)
+            setFetchedCategoryName(categoryName)
             setFetchedCategoryId(categoryId);
         } catch (error) {
             console.log(error)
@@ -79,7 +80,7 @@ const EditProduct = () => {
                 setIsLoading(false)
                 return;
             }
-            if (!categoryId || !fetchedCategoryId) {
+            if (!categoryId && !fetchedCategoryName) {
                 toast.error("Please select a category");
                 setIsLoading(false)
                 return;
@@ -168,11 +169,11 @@ const EditProduct = () => {
                     <input type="number" value={salePrice} onChange={(e) => setSalePrice(e.target.value)} className="bg-gray-200 px-5 py-3 rounded-2xl" id="title" />
                 </div>
             </div>
-            
+
             <div className="flex flex-col gap-1">
                 <label htmlFor="category" className="font-semibold">Category</label>
-                <select onChange={handleSelectChange} id="category" className="bg-gray-200 px-5 py-3 rounded-2xl text-black" value={categoryId}>
-                    {!categoryId && <option value="" disabled>Select Category</option>}
+                <select onChange={handleSelectChange} id="category" className="bg-gray-200 px-5 py-3 rounded-2xl text-black">
+                    {!fetchedCategoryName && <option value={fetchedCategoryId}>{fetchedCategoryName}</option>}
                     {fetchedCategory && fetchedCategory.map((category: Category) => (
                         <option key={category._id} value={category._id} selected={category._id === fetchedCategoryId}>
                             {category.categoryName}

@@ -1,73 +1,80 @@
-// import jwt from 'jsonwebtoken';
-// // import { getDataFromToken } from "@/helpers/getDataFromToken";
-// import userModel from "@/models/userModel";
-// import { NextRequest, NextResponse } from "next/server";
+import jwt from 'jsonwebtoken';
+import { getDataFromToken } from "@/helpers/getDataFromToken";
+import userModel from "@/models/userModel";
+import { NextRequest, NextResponse } from "next/server";
+import connectMongoDB from '@/libs/db';
 
 
-// // adding product to the wishlist
-
-// export async function POST(req: NextRequest, { params }: any) {
-//     try {
-//         const tokenData: any = getDataFromToken(req);
-
-//         console.log("This is the Id", tokenData._id)
-
-//         const productId = params.productId;
-
-//         console.log(tokenData)
-
-//         if (!tokenData._id) {
-//             // Token is missing or invalid
-//             return NextResponse.json({ message: "Token is missing or invalid", success: false });
-//         }
-
-//         // Find the user based on userId from the token
-//         const user = await userModel.findById({ _id: tokenData._id });
-
-//         if (!user) {
-//             // User not found
-//             return NextResponse.json({ message: "User not found", success: false });
-//         }
-
-//         // Update user's wishlist by adding productId to the array
-//         await userModel.findByIdAndUpdate(user._id, { $addToSet: { wishList: productId } });
-
-//         return NextResponse.json({ message: "Product added to wishlist", success: true });
-//     } catch (error) {
-//         console.error("Error:", error);
-//         return NextResponse.json({ message: "Internal Server Error", success: false });
-//     }
-// }
+// adding product to the wishlist
 
 
-// // Remove product from the wishlist
 
-// export async function PUT(req: NextRequest, { params }: any) {
-//     try {
-//         const userId = getDataFromToken(req);
-//         const productId = params.productId;
 
-//         console.log(userId)
 
-//         if (!userId) {
-//             // Token is missing or invalid
-//             return NextResponse.json({ message: "Token is missing or invalid", success: false });
-//         }
+export async function POST(req: NextRequest, { params }: any) {
+    try {
+        await connectMongoDB();
 
-//         // Find the user based on userId from the token
-//         const user = await userModel.findById(userId);
+        const { userId, email }: any = await getDataFromToken(req);
+        // console.log(email, userId)
+        // return NextResponse.json("Token :", userId)
 
-//         if (!user) {
-//             // User not found
-//             return NextResponse.json({ message: "User not found", success: false });
-//         }
+        const productId = params.productId;
 
-//         // Update user's wishlist by removing productId from the array
-//         await userModel.findByIdAndUpdate(userId, { $pull: { wishList: productId } });
+        // console.log(tokenData)
 
-//         return NextResponse.json({ message: "Product removed from wishlist", success: true });
-//     } catch (error) {
-//         console.error("Error:", error);
-//         return NextResponse.json({ message: "Internal Server Error", success: false });
-//     }
-// }
+        if (!userId) {
+            // Token is missing or invalid
+            return NextResponse.json({ message: "Token is missing or invalid", success: false });
+        }
+
+        // Find the user based on userId from the token
+        const user = await userModel.findById({ _id: userId });
+
+        if (!user) {
+            return NextResponse.json({ message: "User not found", success: false });
+        }
+
+        // Update user's wishlist by adding productId to the array
+        await userModel.findByIdAndUpdate(user._id, { $addToSet: { wishList: productId } });
+
+        return NextResponse.json({ message: "Product added to wishlist", success: true });
+    } catch (error) {
+        console.error("Error:", error);
+        return NextResponse.json({ message: "Internal Server Error", success: false });
+    }
+}
+
+
+// Remove product from the wishlist
+
+export async function PUT(req: NextRequest, { params }: any) {
+    try {
+        await connectMongoDB();
+
+        const productId = params.productId;
+        const { userId }: any = await getDataFromToken(req);
+
+        console.log(userId)
+
+        if (!userId) {
+            return NextResponse.json({ message: "Token is missing or invalid", success: false });
+        }
+
+        // Find the user based on userId from the token
+        const user = await userModel.findById(userId);
+
+        if (!user) {
+            // User not found
+            return NextResponse.json({ message: "User not found", success: false });
+        }
+
+        // Update user's wishlist by removing productId from the array
+        await userModel.findByIdAndUpdate(userId, { $pull: { wishList: productId } });
+
+        return NextResponse.json({ message: "Product removed from wishlist", success: true });
+    } catch (error) {
+        console.error("Error:", error);
+        return NextResponse.json({ message: "Internal Server Error", success: false });
+    }
+}

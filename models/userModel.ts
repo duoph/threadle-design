@@ -20,7 +20,7 @@ const userSchema = new Schema<userProps>({
     address: { type: String },
     isAdmin: { type: Boolean, default: false },
     numberVerified: { type: String },
-    wishList: [{ type: mongoose.Types.ObjectId }]
+    wishList: [{ type: Schema.Types.ObjectId, ref: "product" }]
 }, { timestamps: true });
 
 
