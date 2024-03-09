@@ -1,30 +1,29 @@
 "use client"
 
 import ProductCard from '@/components/ProductCard';
-import { useUser } from '@/context/useUser';
 import { Product } from '@/types';
 import axios from 'axios';
 import { useParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
 const WishList = () => {
-    const [products, setProducts] = useState<Product[]>([]);
-    const { currentUser } = useUser();
-    const { userId } = useParams();
+    const [products, setProducts] = useState<Product[]>([]); // Initialize as an empty array
 
     const fetchWishlist = async () => {
         try {
-            const res = await axios.get('/api/wishlist/' + userId,);
-            setProducts(res?.data?.wishlist);
+            const res = await axios.get('/api/wishlist');
+            setProducts(res?.data?.wishList);
             console.log(res);
         } catch (error) {
             console.log(error);
         }
     };
 
+
     useEffect(() => {
         fetchWishlist();
     }, []);
+
 
     return (
         <div className="px-5 lg:px-10 flex flex-col min-h-[70vh] py-10">
@@ -35,7 +34,7 @@ const WishList = () => {
                 {products?.map((product) => (
                     <ProductCard getProducts={fetchWishlist} key={product._id} product={product} />
                 ))}
-                {products.length === 0 && <span>No products in Wishlist</span>}
+                {products?.length === 0 && <span>No products in Wishlist</span>}
             </div>
         </div>
     );
