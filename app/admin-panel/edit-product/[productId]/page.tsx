@@ -79,7 +79,7 @@ const EditProduct = () => {
                 setIsLoading(false)
                 return;
             }
-            if (!categoryId) {
+            if (!categoryId || !fetchedCategoryId) {
                 toast.error("Please select a category");
                 setIsLoading(false)
                 return;
@@ -91,7 +91,7 @@ const EditProduct = () => {
             }
             const formData = new FormData();
             formData.append("title", productTitle);
-            formData.append("categoryId", categoryId);
+            formData.append("categoryId", categoryId || fetchedCategoryId);
             formData.append("inStock", inStock);
             formData.append("regularPrice", regularPrice);
             formData.append("categoryId", categoryId);
@@ -168,21 +168,19 @@ const EditProduct = () => {
                     <input type="number" value={salePrice} onChange={(e) => setSalePrice(e.target.value)} className="bg-gray-200 px-5 py-3 rounded-2xl" id="title" />
                 </div>
             </div>
-
+            
             <div className="flex flex-col gap-1">
                 <label htmlFor="category" className="font-semibold">Category</label>
                 <select onChange={handleSelectChange} id="category" className="bg-gray-200 px-5 py-3 rounded-2xl text-black" value={categoryId}>
-                    {categoryName && !categoryId ? (
-                        <option value={categoryId}>{categoryName}</option>
-                    ) : (
-                        <option value="" disabled>Select Category</option>
-                    )}
+                    {!categoryId && <option value="" disabled>Select Category</option>}
                     {fetchedCategory && fetchedCategory.map((category: Category) => (
-                        // categoryName === category.categoryName ? null : 
-                        <option key={category._id} value={category._id}>{category.categoryName}</option>
+                        <option key={category._id} value={category._id} selected={category._id === fetchedCategoryId}>
+                            {category.categoryName}
+                        </option>
                     ))}
                 </select>
             </div>
+
 
 
             <div className="flex flex-col gap-1">
