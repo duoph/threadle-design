@@ -13,6 +13,7 @@ import toast from 'react-hot-toast'
 import { CiHeart } from 'react-icons/ci'
 import { FaWhatsappSquare } from 'react-icons/fa'
 import Head from 'next/head'
+import Link from 'next/link'
 
 
 
@@ -98,14 +99,9 @@ const ProductPage = () => {
     }
   };
 
+  const wpLink = `https://api.whatsapp.com/send?phone=919074063723&text=Hello%20I%20want%20to%20know%20more%20about%20this%20product...%20https://www.threadledesigns.com/shop/${productId}`
 
-  const handleWhatsapp = async () => {
-    try {
-      router.push(`https://api.whatsapp.com/send?phone=919074063723&text=Hello%20I%20want%20to%20know%20more%20about%20this%20product...%20https://www.threadledesigns.com/shop/${productId}`)
-    } catch (error) {
-      console.log(error)
-    }
-  }
+
 
 
   return (
@@ -142,11 +138,11 @@ const ProductPage = () => {
             </div>
             <div className='flex gap-3'>
 
-              {!product?.isCustom && (<div>
-                <button onClick={handleWhatsapp} className='bg-black px-4 py-4 rounded-full flex gap-2'>
+              {product?.isCustom && (<div>
+                <Link target='_blank' href={wpLink} className='bg-black px-4 py-4 rounded-full flex gap-2'>
                   <FaWhatsappSquare className='text-green-500' size={24} />
                   <p className='text-white'>Contact us for pricing</p>
-                </button>
+                </Link>
               </div>)}
               {!product?.isCustom && (<div className="flex gap-3">
                 <p className={`text-lg font-medium ${product?.salePrice && "line-through"}`}>&#8377;{product?.regularPrice}</p>
