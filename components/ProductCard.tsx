@@ -3,6 +3,7 @@
 import { useUser } from '@/context/useUser';
 import { Product } from '@/types';
 import axios from 'axios';
+import { cookies } from 'next/headers';
 import Image from 'next/image'
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
@@ -54,7 +55,9 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
 
     const handleDislike = async () => {
         try {
+
             const res = await axios.put(`/api/wishlist/${product?._id}`)
+
             if (res.data.success === true) {
                 toast.success("Removed from wishlist")
             }

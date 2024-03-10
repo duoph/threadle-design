@@ -4,7 +4,7 @@ import mongoose, { Document, Schema } from 'mongoose';
 interface ProductDocument extends Document {
     title: string;
     desc: string
-    categoryId: mongoose.Types.ObjectId;
+    categoryId: Schema.Types.ObjectId;
     inStock: string;
     coverImageURL: string | undefined;
     categoryName: string;
@@ -13,6 +13,7 @@ interface ProductDocument extends Document {
     salePrice: number | undefined;
     slugifyProductName: string;
     moreImagesURLs: string[];
+    isFeatured: boolean;
 }
 
 const productSchema = new Schema<ProductDocument>({
@@ -27,6 +28,7 @@ const productSchema = new Schema<ProductDocument>({
     regularPrice: { type: Number },
     salePrice: { type: Number || undefined },
     moreImagesURLs: [{ type: String }],
+    isFeatured: { type: Boolean },
 }, { timestamps: true });
 
 const ProductModel = models.product || mongoose.model<ProductDocument>('product', productSchema);
