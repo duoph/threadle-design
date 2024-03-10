@@ -7,6 +7,9 @@ import { IoIosCheckmark } from 'react-icons/io'
 import { PulseLoader } from 'react-spinners'
 import { useParams } from 'next/navigation'
 import { Product } from '@/types'
+import { FaHeart } from 'react-icons/fa6'
+import toast from 'react-hot-toast'
+import { CiHeart } from 'react-icons/ci'
 
 const ProductPage = () => {
 
@@ -15,6 +18,8 @@ const ProductPage = () => {
   const [selectedSize, setSelectedSize] = useState<string>("")
   const [quantity, setQuantity] = useState<number>(1)
   const [selectedColor, setSelectedColor] = useState<string>()
+  const [wishlistIds, setWishListIds] = useState<string[]>([])
+
 
 
   const sizes = ["S", "M", "L", "XL", "2XL", "3XL"]
@@ -34,6 +39,46 @@ const ProductPage = () => {
   }, [productId])
 
 
+  const userWishlist = async () => {
+    try {
+      const res = await axios.get('/api/wishlist')
+      setWishListIds(res?.data?.wishListIds)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleDislike = async () => {
+    try {
+      const res = await axios.put(`/api/wishlist/${productId}`)
+      if (res.data.success === true) {
+        toast.success("Removed from wishlist")
+      }
+      if (res.data.success === false) {
+        toast.error("error")
+      }
+      userWishlist()
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleLike = async () => {
+    try {
+      const res = await axios.post(`/api/wishlist/${productId}`)
+      if (res.data.success === true) {
+        toast.success("Added to wishlist")
+      }
+      if (res.data.success === false) {
+        toast.error("error")
+      }
+      userWishlist()
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
 
   const handleQuantity = (action: string) => {
@@ -64,7 +109,18 @@ const ProductPage = () => {
             </div>
           </div>
           <div className='flex flex-col gap-5 items-start justify-start w-full '>
-            <h1 className='text-lg font-medium'>{product?.title}</h1>
+            <div className="flex items-center w-full justify-between">
+              <h1 className='text-lg font-medium'>{product?.title}</h1>
+              <div>
+              {wishlistIds?.includes(product?._id) ? (
+                <button onClick={handleDislike} className='flex border rounded-full py-2 items-center justify-center px-2 bg-white text-white '>
+                  <FaHeart className='text-center w-full text-td-secondary hover:scale-110' size={24} />
+                </button>
+              ) : (<button onClick={handleLike} className='flex  w-full border rounded-full py-2 items-center justify-center px-2 bg-white text-white '>
+                <CiHeart className='text-center w-full text-td-secondary hover:scale-110' size={24} />
+              </button>)}
+              </div>
+            </div>
             <div className='flex gap-3'>
               <p className={`text-lg font-medium ${product?.salePrice && "line-through"}`}>&#8377;{product?.regularPrice}</p>
               {product?.salePrice && <p className={`text-lg text-red-600 font-medium`}>&#8377;{product?.salePrice}</p>}
