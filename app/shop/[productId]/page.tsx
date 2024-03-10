@@ -36,6 +36,7 @@ const ProductPage = () => {
 
   useEffect(() => {
     fetchProduct()
+    userWishlist()
   }, [productId])
 
 
