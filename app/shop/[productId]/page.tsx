@@ -116,7 +116,7 @@ const ProductPage = () => {
         <meta property="og:title" content={product?.title} />
         <meta property="og:description" content={product?.desc} />
         <meta property="og:image" content={product?.coverImageURL || "/greendress.png"} />
-        <meta property="og:url" content={`Your URL here`} />
+        <meta property="og:url" content={`https://www.threadledesigns.com/`} />
         <meta name="twitter:card" content="summary_large_image" />
         {/* You may add more meta tags for social sharing as needed */}
       </Head>
