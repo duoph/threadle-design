@@ -1,11 +1,12 @@
 "use client"
+
 import ProductContainerWithCategory from '@/components/ProductContainerWithCategory'
 import axios from 'axios'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { IoIosCheckmark } from 'react-icons/io'
 import { PulseLoader } from 'react-spinners'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import { Product } from '@/types'
 import { FaHeart } from 'react-icons/fa6'
 import toast from 'react-hot-toast'
@@ -14,9 +15,9 @@ import { FaWhatsappSquare } from 'react-icons/fa'
 import Head from 'next/head'
 
 
+
+
 const ProductPage = () => {
-
-
 
 
   const { productId } = useParams()
@@ -26,7 +27,7 @@ const ProductPage = () => {
   const [selectedColor, setSelectedColor] = useState<string>()
   const [wishlistIds, setWishListIds] = useState<string[]>([])
 
-
+  const router = useRouter()
 
   const sizes = ["S", "M", "L", "XL", "2XL", "3XL"]
 
@@ -100,25 +101,20 @@ const ProductPage = () => {
 
   const handleWhatsapp = async () => {
     try {
-
+      router.push(`https://api.whatsapp.com/send?phone=919074063723&text=Hello%20I%20want%20to%20know%20more%20about%20this%20product...%20https://www.threadledesigns.com/shop/${productId}`)
     } catch (error) {
-
+      console.log(error)
     }
   }
-
-
 
 
   return (
     <div className='w-full px-5 py-3 md:px-10 flex flex-col gap-3 mb-5 '>
       <Head>
-        {/* Meta tags for social sharing */}
-        <meta property="title" content={product?.title} />
-        <meta property="description" content={product?.desc} />
-        <meta property="image" content={product?.coverImageURL || "/greendress.png"} />
-        <meta property="url" content={`https://www.threadledesigns.com/`} />
-        <meta name="twitter:card" content="summary_large_image" />
-        {/* You may add more meta tags for social sharing as needed */}
+        <title property='og:title'>My page title</title>
+        <meta property="og:description" content={product?.desc} />
+        <meta property="og:image" content={product?.coverImageURL || "/greendress.png"} />
+        <meta property="og:url" content={`https://www.threadledesigns.com/`} />
       </Head>
       {!product ? (
         <div className="w-full h-[70vh] flex items-center justify-center px-5 py-3 md:px-10 gap-3 mb-5 ">
@@ -146,7 +142,7 @@ const ProductPage = () => {
             </div>
             <div className='flex gap-3'>
 
-              {product?.isCustom && (<div>
+              {!product?.isCustom && (<div>
                 <button onClick={handleWhatsapp} className='bg-black px-4 py-4 rounded-full flex gap-2'>
                   <FaWhatsappSquare className='text-green-500' size={24} />
                   <p className='text-white'>Contact us for pricing</p>
