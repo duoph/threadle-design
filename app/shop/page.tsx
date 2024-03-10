@@ -38,8 +38,8 @@ const Shop = () => {
       setSearchProducts([]);
     } else {
       const filtered = products.filter((product: Product) =>
-        product.title.toLowerCase().includes(search.toLowerCase()) ||
-        product.desc.toLowerCase().includes(search.toLowerCase())
+        product?.title?.toLowerCase().includes(search?.toLowerCase()) ||
+        product?.desc?.toLowerCase().includes(search?.toLowerCase())
       );
       setSearchProducts(filtered);
     }
