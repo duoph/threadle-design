@@ -113,10 +113,10 @@ const ProductPage = () => {
     <div className='w-full px-5 py-3 md:px-10 flex flex-col gap-3 mb-5 '>
       <Head>
         {/* Meta tags for social sharing */}
-        <meta property="og:title" content={product?.title} />
-        <meta property="og:description" content={product?.desc} />
-        <meta property="og:image" content={product?.coverImageURL || "/greendress.png"} />
-        <meta property="og:url" content={`https://www.threadledesigns.com/`} />
+        <meta property="title" content={product?.title} />
+        <meta property="description" content={product?.desc} />
+        <meta property="image" content={product?.coverImageURL || "/greendress.png"} />
+        <meta property="url" content={`https://www.threadledesigns.com/`} />
         <meta name="twitter:card" content="summary_large_image" />
         {/* You may add more meta tags for social sharing as needed */}
       </Head>
