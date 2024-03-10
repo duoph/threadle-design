@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
             isAdmin: user.isAdmin,
         }
 
-        const token = JWT.sign(tokenData, process.env.NEXT_PUBLIC_JWT_SECRET as string, { expiresIn: '3d' });
+        const token = JWT.sign(tokenData, process.env.NEXT_PUBLIC_JWT_SECRET as string, { expiresIn: '7d'});
 
         const userDetails = {
             token: token,

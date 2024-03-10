@@ -46,6 +46,7 @@ const ProductPage = () => {
   }, [])
 
 
+
   const userWishlist = async () => {
     try {
       const res = await axios.get('/api/wishlist')
@@ -97,7 +98,15 @@ const ProductPage = () => {
     }
   };
 
-  
+  const addToCart = async () => {
+    try {
+      toast.success("Added to cart")
+    } catch (error) {
+
+    }
+  }
+
+
   const wpLink = `https://api.whatsapp.com/send?phone=919074063723&text=Hello%20I%20want%20to%20know%20more%20about%20this%20product...%20https://www.threadledesigns.com/shop/${productId}`
 
 
@@ -150,8 +159,9 @@ const ProductPage = () => {
 
             </div>
             <div className='flex flex-col gap-4 w-full'>
-              <p>Select Colors</p>
+              <p>{!product?.isCustom ? "Select Color" : "Available Colors"}</p>
               <div className='flex gap-3'>
+
                 {/* Color hardcode */}
                 <span onClick={() => setSelectedColor("red")} className={`relative cursor-pointer h-[35px] bg-red-700 w-[35px] rounded-[50%] flex items-center justify-center shadow-lg ${selectedColor === "red" && "bg-opacity-80"}`}>
                   {selectedColor === "red" && <IoIosCheckmark className='text-white z-10 bg-opacity-35' size={24} />}
@@ -177,7 +187,7 @@ const ProductPage = () => {
                   <span>{quantity}</span>
                   <span className='cursor-pointer' onClick={() => handleQuantity("increment")}>+</span>
                 </span>
-                <button className='w-1/2 py-2 bg-td-primary rounded-2xl text-white'> Add to Cart </button>
+                <button onClick={addToCart} className='w-1/2 py-2 bg-td-primary rounded-2xl text-white'> Add to Cart </button>
               </div>
             </div>
           </div>
