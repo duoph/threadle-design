@@ -36,15 +36,15 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
     }
 
 
-    const config = {
-        headers: {
-            'Authorization': `${currentUser?.token} ` as string
-        }
-    };
+    // const config = {
+    //     headers: {
+    //         'Authorization': `${currentUser?.token} ` as string
+    //     }
+    // };
 
     const userWishlist = async () => {
         try {
-            const res = await axios.get('/api/wishlist', config)
+            const res = await axios.get('/api/wishlist')
             setWishListIds(res?.data?.wishListIds)
         } catch (error) {
             console.log(error)
@@ -54,7 +54,7 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
 
     const handleDislike = async () => {
         try {
-            const res = await axios.put(`/api/wishlist/${product?._id}`, config)
+            const res = await axios.put(`/api/wishlist/${product?._id}`)
             if (res.data.success === true) {
                 toast.success("Removed from wishlist")
             }
@@ -70,7 +70,7 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
 
     const handleLike = async () => {
         try {
-            const res = await axios.post(`/api/wishlist/${product?._id}`, config)
+            const res = await axios.post(`/api/wishlist/${product?._id}`)
             if (res.data.success === true) {
                 toast.success("Added to wishlist")
             }
@@ -122,21 +122,12 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
                 <div className='absolute w-[42px] flex gap-2 bottom-4 right-3'>
 
                     {wishlistIds?.includes(product?._id) ? (
-                        <button onClick={handleDislike} className='flex w-full border rounded-full py-2 items-center justify-center px-2 bg-white text-white '>
+                        <button onClick={handleDislike} className='flex border rounded-full py-2 items-center justify-center px-2 bg-white text-white '>
                             <FaHeart className='text-center w-full text-td-secondary hover:scale-110' size={24} />
                         </button>
                     ) : (<button onClick={handleLike} className='flex  w-full border rounded-full py-2 items-center justify-center px-2 bg-white text-white '>
                         <CiHeart className='text-center w-full text-td-secondary hover:scale-110' size={24} />
                     </button>)}
-
-
-
-                    {/* <button className='flex  w-full border rounded-2xl py-3 items-center justify-center px-2 bg-white text-white '>
-                        <FaCartPlus className='text-center w-full text-td-secondary hover:scale-110' size={20} />
-                    </button> */}
-                    {/* <button className='flex w-full border rounded-2xl py-3 items-center justify-center bg-white text-white '>
-                        <FaCartPlus className='text-center w-full text-td-secondary hover:scale-110' size={24} />
-                    </button> */}
                 </div>
             )
             }

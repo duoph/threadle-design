@@ -49,10 +49,9 @@ export async function POST(req: NextRequest) {
 
         const userMessage = user.isAdmin === true ? "Admin access granted" : "Logged in successfully"
 
-        const response = NextResponse.json({ message: userMessage, success: true, userDetails });
+        const response = NextResponse.json({ message: "Logged In Succesfully", success: true, userDetails });
 
         response.cookies.set("token", token, { httpOnly: true })
-        response.cookies.set("isAdmin", user.isAdmin, { httpOnly: true })
 
         return response
 
