@@ -10,8 +10,14 @@ import { Product } from '@/types'
 import { FaHeart } from 'react-icons/fa6'
 import toast from 'react-hot-toast'
 import { CiHeart } from 'react-icons/ci'
+import { FaWhatsappSquare } from 'react-icons/fa'
+import Head from 'next/head'
+
 
 const ProductPage = () => {
+
+
+
 
   const { productId } = useParams()
   const [product, setProduct] = useState<Product>()
@@ -37,12 +43,13 @@ const ProductPage = () => {
   useEffect(() => {
     fetchProduct()
     userWishlist()
-  }, [productId])
+  }, [])
 
 
   const userWishlist = async () => {
     try {
       const res = await axios.get('/api/wishlist')
+      console.log(res)
       setWishListIds(res?.data?.wishListIds)
     } catch (error) {
       console.log(error)
@@ -91,13 +98,28 @@ const ProductPage = () => {
   };
 
 
-  // if(!product){
+  const handleWhatsapp = async () => {
+    try {
 
-  // }
+    } catch (error) {
+
+    }
+  }
+
+
 
 
   return (
     <div className='w-full px-5 py-3 md:px-10 flex flex-col gap-3 mb-5 '>
+      <Head>
+        {/* Meta tags for social sharing */}
+        <meta property="og:title" content={product?.title} />
+        <meta property="og:description" content={product?.desc} />
+        <meta property="og:image" content={product?.coverImageURL || "/greendress.png"} />
+        <meta property="og:url" content={`Your URL here`} />
+        <meta name="twitter:card" content="summary_large_image" />
+        {/* You may add more meta tags for social sharing as needed */}
+      </Head>
       {!product ? (
         <div className="w-full h-[70vh] flex items-center justify-center px-5 py-3 md:px-10 gap-3 mb-5 ">
           <PulseLoader />
@@ -113,18 +135,28 @@ const ProductPage = () => {
             <div className="flex items-center w-full justify-between">
               <h1 className='text-lg font-medium'>{product?.title}</h1>
               <div>
-              {wishlistIds?.includes(product?._id) ? (
-                <button onClick={handleDislike} className='flex border rounded-full py-2 items-center justify-center px-2 bg-white text-white '>
-                  <FaHeart className='text-center w-full text-td-secondary hover:scale-110' size={24} />
-                </button>
-              ) : (<button onClick={handleLike} className='flex  w-full border rounded-full py-2 items-center justify-center px-2 bg-white text-white '>
-                <CiHeart className='text-center w-full text-td-secondary hover:scale-110' size={24} />
-              </button>)}
+                {wishlistIds?.includes(`${productId}`) ? (
+                  <button onClick={handleDislike} className='flex  w-[43px] border rounded-full py-2 items-center justify-center px-2 bg-white text-white '>
+                    <FaHeart className='text-center   text-td-secondary hover:scale-110' size={24} />
+                  </button>
+                ) : (<button onClick={handleLike} className='flex  w-[43px] border rounded-full py-2 items-center justify-center px-2 bg-white text-white '>
+                  <CiHeart className='text-center   text-td-secondary hover:scale-110' size={24} />
+                </button>)}
               </div>
             </div>
             <div className='flex gap-3'>
-              <p className={`text-lg font-medium ${product?.salePrice && "line-through"}`}>&#8377;{product?.regularPrice}</p>
-              {product?.salePrice && <p className={`text-lg text-red-600 font-medium`}>&#8377;{product?.salePrice}</p>}
+
+              {product?.isCustom && (<div>
+                <button onClick={handleWhatsapp} className='bg-black px-4 py-4 rounded-full flex gap-2'>
+                  <FaWhatsappSquare className='text-green-500' size={24} />
+                  <p className='text-white'>Contact us for pricing</p>
+                </button>
+              </div>)}
+              {!product?.isCustom && (<div className="flex gap-3">
+                <p className={`text-lg font-medium ${product?.salePrice && "line-through"}`}>&#8377;{product?.regularPrice}</p>
+                {product?.salePrice && <p className={`text-lg text-red-600 font-medium`}>&#8377;{product?.salePrice}</p>}
+              </div>)}
+
             </div>
             <div className='flex flex-col gap-4 w-full'>
               <p>Select Colors</p>
