@@ -100,9 +100,15 @@ const ProductPage = () => {
 
   const addToCart = async () => {
     try {
-      toast.success("Added to cart")
+      const res = await axios.post("/api/cart", {
+        productId, color: selectedColor, size: selectedSize, quantity, price: product?.salePrice || product?.regularPrice
+      })
+      if (res.data.success === true) {
+        toast.success("Added to cart")
+      }
+      toast.error("Error")
     } catch (error) {
-
+      console.log(error)
     }
   }
 
