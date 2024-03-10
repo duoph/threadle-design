@@ -19,6 +19,7 @@ export interface Product {
     regularPrice: number;
     salePrice?: number;
     desc: string
+    isCustom: boolean
 }
 
 export interface Category {
