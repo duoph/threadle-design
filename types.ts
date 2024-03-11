@@ -30,3 +30,13 @@ export interface Category {
     name: string;
     createdAt: Date;
 }
+
+export interface Cart {
+    _id: string
+    userId: string;
+    productId: string;
+    size: string;
+    title: string;
+    quantity: number;
+    createdAt: Date;
+}

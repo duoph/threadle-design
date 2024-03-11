@@ -1,18 +1,24 @@
 "use client"
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image';
 import { CiSearch, CiUser, CiShoppingCart } from "react-icons/ci";
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useUser } from '@/context/useUser';
+import axios from 'axios';
+import { Cart } from '@/types';
 
 
 const Header = () => {
 
+
+    const [cart, setCart] = useState<Cart[]>()
+
     const { LogOut, currentUser } = useUser()
 
     const router = useRouter()
+
 
     const onAccountClick = () => {
         try {
@@ -35,6 +41,28 @@ const Header = () => {
         }
     }
 
+
+    const cartItemsFetch = async () => {
+        try {
+
+            const res = await axios.get("/api/cart")
+
+            if (res?.data?.success === true) {
+                setCart(res?.data?.cartItems)
+            }
+
+            console.log(res)
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+
+    useEffect(() => {
+        cartItemsFetch()
+    }, [])
+
     return (
         <div className='bg-td-secondary flex items-center justify-between px-3 lg:px-10'>
             <Link href={"/"} className=''>
@@ -44,7 +72,7 @@ const Header = () => {
                 <CiSearch onClick={() => router.push('/shop')} className='text-white cursor-pointer' size={24} />
                 {currentUser?.isAdmin === false && (
                     <div className='relative cursor-pointer'>
-                        <span className='absolute p-1 px-2 text-xs bg-red-800 rounded-full -right-2 -top-2 text-white'>0</span>
+                        <span className='absolute p-1 px-2 text-xs bg-red-800 rounded-full -right-2 -top-2 text-white'>{cart?.length || "0"}</span>
                         <CiShoppingCart onClick={() => router.push('/cart')} className='text-white ' size={24} />
                     </div>
                 )}
