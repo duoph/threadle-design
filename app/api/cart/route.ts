@@ -12,10 +12,10 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ message: "UnAuthenticated Access Error", success: false })
         }
 
-        const { productId, price, quantity, size, color, imageUrl } = await req.json()
+        const { productId, price, quantity, size, color, imageURL, title } = await req.json()
 
         const cart = await CartModel.create({
-            userId, productId, price, quantity, size, color
+            userId, productId, price, quantity, size, color, imageURL, title
         })
 
         return NextResponse.json({ message: "Cart created successfully", success: true, cart })
