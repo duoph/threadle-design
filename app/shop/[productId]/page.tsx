@@ -101,7 +101,7 @@ const ProductPage = () => {
   const addToCart = async () => {
     try {
       const res = await axios.post("/api/cart", {
-        productId, color: selectedColor, size: selectedSize, quantity, price: product?.salePrice || product?.regularPrice
+        productId, color: selectedColor, size: selectedSize, quantity, price: product?.salePrice || product?.regularPrice, imageUrl: product?.coverImageURL
       })
       if (res.data.success === true) {
         toast.success("Added to cart")
@@ -204,7 +204,7 @@ const ProductPage = () => {
       </div>
       {product?.category && (
         <div className='py-3'>
-          <ProductContainerWithCategory productNotToshow={product._id} title='You Might Like' categoryId={product?.category} />
+          <ProductContainerWithCategory productNotToshow={product._id} title='You may also like' categoryId={product?.category} />
         </div>
       )}
     </div>
