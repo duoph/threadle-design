@@ -1,17 +1,17 @@
-import { NextResponse } from "next/server";
+// import { NextResponse } from "next/server";
 
-export async function GET() {
+// export async function GET() {
 
-    try {
-        const response = NextResponse.json({ message: "LogOut successful", success: true })
+//     try {
+//         const response = NextResponse.json({ message: "LogOut successful", success: true })
 
-        response.cookies.set("token", "", { httpOnly: true, expires: new Date(0) })
+//         response.cookies.set("token", "", { httpOnly: true, expires: new Date(0) })
 
-        return response
+//         return response
 
-    } catch (error: any) {
-        console.log(error)
-        return NextResponse.json({ message: error.message, success: false })
-    }
-}
+//     } catch (error: any) {
+//         console.log(error)
+//         return NextResponse.json({ message: error.message, success: false })
+//     }
+// }
 

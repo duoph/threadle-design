@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
             isAdmin: user.isAdmin,
         }
 
-        const token = JWT.sign(tokenData, process.env.NEXT_PUBLIC_JWT_SECRET as string, { expiresIn: '7d'});
+        const token = JWT.sign(tokenData, process.env.NEXT_PUBLIC_JWT_SECRET as string, { expiresIn: '7d' });
 
         const userDetails = {
             token: token,
@@ -49,10 +49,12 @@ export async function POST(req: NextRequest) {
 
         const userMessage = user.isAdmin === true ? "Admin access granted" : "Logged in successfully"
 
-        const response = NextResponse.json({ message: "Logged In Succesfully", success: true, userDetails });
+        const response = NextResponse.json({ message: userMessage, success: true, userDetails });
 
-        response.cookies.set("token", token, { httpOnly: true })
-
+        response.cookies.set('token', token, {
+            httpOnly: true,
+            expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days
+        });
         return response
 
     } catch (error) {
