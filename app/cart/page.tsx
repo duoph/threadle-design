@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import CartProductCard from '@/components/CartProductCard'
 import { Cart } from '@/types'
 import axios from 'axios'
+import { FaLongArrowAltRight } from 'react-icons/fa'
 
 const CartPage = () => {
 
@@ -33,14 +34,15 @@ const CartPage = () => {
 
   return (
     <div className="flex flex-col items-center justify-center lg:px-10 px-5 py-5 ">
-      <div className='flex items-center justify-center'>
-        <h1 className='text-[30px] font-bold text-td-secondary'>Cart</h1>
+      <div className='flex items-center justify-center pb-5'>
+        <h1 className='text-[30px] font-bold text-td-secondary'>My Cart</h1>
       </div>
       <div className='flex gap-5 md:flex-row flex-col w-full'>
-        <div className=' w-full flex flex-col items-center justify-center border rounded-2xl '>
+        <div className=' w-full flex flex-col items-center justify-center border rounded-2xl min-h-[100px]'>
+          {cart?.length === 0 && <span className='font-light'>Your cart is empty</span>}
           {cart?.map((item: Cart) => (
             <>
-              <CartProductCard key={item._id} product={item} />
+              <CartProductCard cartItemsFetch={cartItemsFetch} key={item._id} product={item} />
               <div className=' border-b w-2/3'></div>
             </>
 
@@ -48,8 +50,10 @@ const CartPage = () => {
 
           {/* <div className=' border-b w-2/3'></div> */}
         </div>
-        <div className=' w-full h-[20vh] border rounded-2xl p-5'>
-          <span>CheckOut</span>
+        <div className='flex items-center justify-center  w-full h-[20vh] border rounded-2xl p-5'>
+          <button className='flex items-center justify-center gap-3 w-2/3 rounded-2xl px-3 py-3 text-white bg-td-primary hover:scale-105 transition-all duration-300 ease-in-out'>
+            CheckOut <FaLongArrowAltRight color='white' size={20} />
+          </button>
         </div>
       </div>
 
