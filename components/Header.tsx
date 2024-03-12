@@ -15,7 +15,7 @@ const Header = () => {
 
     const [cart, setCart] = useState<Cart[]>()
 
-    const { LogOut, currentUser } = useUser()
+    const { LogOut, currentUser, setCartCount, cartCount } = useUser()
 
     const router = useRouter()
 
@@ -49,6 +49,7 @@ const Header = () => {
 
             if (res?.data?.success === true) {
                 setCart(res?.data?.cartItems)
+                setCartCount(res?.data?.cartItems?.length)
             }
 
             console.log(res)
@@ -72,7 +73,7 @@ const Header = () => {
                 <CiSearch onClick={() => router.push('/shop')} className='text-white cursor-pointer' size={24} />
                 {currentUser?.isAdmin === false && (
                     <div className='relative cursor-pointer'>
-                        <span className='absolute p-1 px-2 text-xs bg-red-800 rounded-full -right-2 -top-2 text-white'>{cart?.length || "0"}</span>
+                        <span className='absolute p-1 px-2 text-xs bg-red-800 rounded-full -right-2 -top-2 text-white'>{cartCount || "0"}</span>
                         <CiShoppingCart onClick={() => router.push('/cart')} className='text-white ' size={24} />
                     </div>
                 )}

@@ -12,6 +12,8 @@ const Shop = () => {
   const [searchProducts, setSearchProducts] = useState<Product[]>([]);
   const [search, setSearch] = useState<string>('');
 
+
+
   const fetchProducts = async () => {
     try {
       const response = await axios.get('/api/product');
@@ -29,9 +31,20 @@ const Shop = () => {
     }
   };
 
+  const handleSort = (sortBy: string) => {
+    try {
+
+    } catch (error) {
+      console.log(error);
+
+    }
+  }
+
+
   useEffect(() => {
     fetchProducts();
   }, []);
+
 
   useEffect(() => {
     if (search.trim() === '') {
@@ -44,6 +57,7 @@ const Shop = () => {
       setSearchProducts(filtered);
     }
   }, [search, products]);
+
 
   return (
     <div className='flex flex-col gap-5 items-center justify-center px-5 lg:px-10 py-10'>
