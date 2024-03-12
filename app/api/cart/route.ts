@@ -43,3 +43,4 @@ export async function GET(req: NextRequest) {
         return NextResponse.json({ message: "Error while getting cart items ", success: false, error })
     }
 }
+
