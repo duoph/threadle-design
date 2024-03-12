@@ -14,6 +14,7 @@ import { CiHeart } from 'react-icons/ci'
 import { FaWhatsappSquare } from 'react-icons/fa'
 import Head from 'next/head'
 import Link from 'next/link'
+import { useUser } from '@/context/useUser'
 
 
 
@@ -27,6 +28,10 @@ const ProductPage = () => {
   const [quantity, setQuantity] = useState<number>(1)
   const [selectedColor, setSelectedColor] = useState<string>()
   const [wishlistIds, setWishListIds] = useState<string[]>([])
+
+
+  const { cartItemsFetch } = useUser()
+
 
   const sizes = ["S", "M", "L", "XL", "2XL", "3XL"]
 
@@ -105,6 +110,7 @@ const ProductPage = () => {
       })
       if (res.data.success === true) {
         toast.success("Added to cart")
+        cartItemsFetch()
       }
       toast.error("Error")
     } catch (error) {

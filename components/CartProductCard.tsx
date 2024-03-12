@@ -55,8 +55,8 @@ const CartProductCard = ({ product, cartItemsFetch }: any) => {
 
         } else if (action === "decrement" && quantity > 1) {
             setQuantity(quantity - 1);
-
         }
+
     };
 
     useEffect(() => {

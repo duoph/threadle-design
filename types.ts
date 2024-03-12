@@ -36,6 +36,7 @@ export interface Cart {
     userId: string;
     productId: string;
     size: string;
+    price: number;
     title: string;
     quantity: number;
     createdAt: Date;

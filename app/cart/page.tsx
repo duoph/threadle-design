@@ -9,6 +9,7 @@ import { FaLongArrowAltRight } from 'react-icons/fa'
 const CartPage = () => {
 
   const [cart, setCart] = useState<Cart[]>()
+  const [total, setTotal] = useState<number>(0)
 
 
   const cartItemsFetch = async () => {
@@ -27,10 +28,25 @@ const CartPage = () => {
     }
   }
 
+  const subTotal = () => {
+    try {
+      let sum = 0;
+      cart?.forEach(item => {
+        sum += item?.price * item.quantity;
+      });
+      return sum;
+    } catch (error) {
+      console.log(error);
+      return 0;
+    }
+  };
   useEffect(() => {
     cartItemsFetch()
   }, [])
 
+  useEffect(() => {
+    setTotal(subTotal());
+  }, [cart]);
 
   return (
     <div className="flex flex-col items-center justify-center lg:px-10 px-5 py-5 ">
@@ -42,16 +58,28 @@ const CartPage = () => {
           {cart?.length === 0 || !cart && <span className='font-light'>Your cart is empty</span>}
           {cart?.map((item: Cart) => (
             <>
-              <CartProductCard cartItemsFetch={cartItemsFetch} key={item._id} product={item} />
+              <CartProductCard subTotal={subTotal} cartItemsFetch={cartItemsFetch} key={item._id} product={item} />
               <div className=' border-b w-2/3'></div>
             </>
-
           ))}
 
-          {/* <div className=' border-b w-2/3'></div> */}
         </div>
-        <div className='flex items-center justify-center  w-full h-[20vh] border rounded-2xl p-5'>
-          <button className='flex items-center justify-center gap-3 w-2/3 rounded-2xl px-3 py-3 text-white bg-td-primary hover:scale-105 transition-all duration-300 ease-in-out'>
+        <div className='flex flex-col items-center justify-around  w-full max-h-[40vh] border rounded-2xl p-5'>
+          <div className='flex flex-col items-center justify-center'>
+            <span className='text-[18px] font-medium'>Oder Summary</span>
+
+            <span>Sub Total : <span className='text-red-600'> &#8377;{total}</span></span>
+            <span>Delivery Charge : <span className='text-red-600'> &#8377;0</span></span>
+
+
+            <div>
+              <span> Total :<span className='text-red-600'> &#8377;{total}</span></span>
+            </div>
+
+
+            <span className='border-b-8 flex h-2'></span>
+          </div>
+          <button className='flex items-center justify-center gap-3 w-2/3 rounded-2xl px-3 py-3 text-white bg-td-primary hover:scale-95 transition-all duration-300 ease-in-out'>
             CheckOut <FaLongArrowAltRight color='white' size={20} />
           </button>
         </div>
