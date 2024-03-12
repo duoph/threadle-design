@@ -39,7 +39,7 @@ const CartPage = () => {
       </div>
       <div className='flex gap-5 md:flex-row flex-col w-full'>
         <div className=' w-full flex flex-col items-center justify-center border rounded-2xl min-h-[100px]'>
-          {cart?.length === 0 && <span className='font-light'>Your cart is empty</span>}
+          {cart?.length === 0 || !cart && <span className='font-light'>Your cart is empty</span>}
           {cart?.map((item: Cart) => (
             <>
               <CartProductCard cartItemsFetch={cartItemsFetch} key={item._id} product={item} />

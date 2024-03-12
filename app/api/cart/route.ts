@@ -36,7 +36,15 @@ export async function GET(req: NextRequest) {
 
         const cartItems = await CartModel.find({ userId: userId })
 
-        return NextResponse.json({ message: "fetched cart items", success: true, cartItems })
+        let message;
+
+        if (cartItems.length === 0) {
+            let message = "Your cart is empty"
+        } else {
+            let message = " fetched cart items"
+        }
+
+        return NextResponse.json({ message: message, success: true, cartItems })
 
     } catch {
         console.log(error)
