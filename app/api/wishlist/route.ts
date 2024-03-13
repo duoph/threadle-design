@@ -4,15 +4,13 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
     try {
-        const { userId }: any = await getDataFromToken(req);
+        const { userId } = await getDataFromToken(req);
 
-        const user = await userModel.findById(userId);
+        const user = await userModel.findById(userId).populate('wishList')
 
         if (!user) {
             throw new Error('User not found');
-        }
-
-        await user.populate('wishList')
+        } 
 
         const wishList = user.wishList || [];
         const wishListIds = user.wishList.map((item: any) => item._id);
