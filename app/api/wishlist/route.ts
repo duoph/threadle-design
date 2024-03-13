@@ -20,8 +20,8 @@ export async function GET(req: NextRequest) {
         const wishListIds = user.wishList.map((item: any) => item._id);
 
         return NextResponse.json({ message: "Fetched user wishlist", success: true, wishList, wishListIds });
-    } catch (error) {
+    } catch (error: any) {
         console.error('Error while fetching wishlist:', error);
-        return NextResponse.json({ message: "Error while fetching wishlist", success: false, error });
+        return NextResponse.json({ message: "Error while fetching wishlist", success: false, error: error.message });
     }
 }
