@@ -3,45 +3,43 @@ import { getDataFromToken } from "@/helpers/getDataFromToken";
 import userModel from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 import connectMongoDB from '@/libs/db';
+import { AnyARecord } from 'dns';
 
 
 // adding product to the wishlist
-
-
-
 
 
 export async function POST(req: NextRequest, { params }: any) {
     try {
         await connectMongoDB();
 
-        const { userId, email }: any = await getDataFromToken(req);
-        // console.log(email, userId)
-        // return NextResponse.json("Token :", userId)
+        const { userId }: any = await getDataFromToken(req);
 
         const productId = params.productId;
 
-        // console.log(tokenData)
-
         if (!userId) {
-            // Token is missing or invalid
             return NextResponse.json({ message: "Token is missing or invalid", success: false });
         }
 
         // Find the user based on userId from the token
-        const user = await userModel.findById({ _id: userId });
+        const user = await userModel.findById(userId);
+        console.log(user)
 
         if (!user) {
             return NextResponse.json({ message: "User not found", success: false });
         }
 
         // Update user's wishlist by adding productId to the array
-        await userModel.findByIdAndUpdate(user._id, { $addToSet: { wishList: productId } });
+        await userModel.findByIdAndUpdate(
+            userId,
+            { $addToSet: { wishList: productId } },
+            { new: true }
+        );
 
         return NextResponse.json({ message: "Product added to wishlist", success: true });
-    } catch (error) {
+    } catch (error: any) {
         console.error("Error:", error);
-        return NextResponse.json({ message: "Internal Server Error", success: false });
+        return NextResponse.json({ message: "Internal Server Error", success: false, error: error.message });
     }
 }
 
