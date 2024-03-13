@@ -52,7 +52,6 @@ const CartProductCard = ({ product, cartItemsFetch }: any) => {
     const handleQuantity = (action: string) => {
         if (action === "increment" && quantity < 10) {
             setQuantity(quantity + 1);
-
         } else if (action === "decrement" && quantity > 1) {
             setQuantity(quantity - 1);
         }

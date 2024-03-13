@@ -40,12 +40,14 @@ const CartPage = () => {
       return 0;
     }
   };
+
+
   useEffect(() => {
     cartItemsFetch()
   }, [])
 
   useEffect(() => {
-    setTotal(subTotal());
+    setTotal(subTotal())
   }, [cart]);
 
   return (

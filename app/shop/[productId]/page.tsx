@@ -138,9 +138,15 @@ const ProductPage = () => {
         </div>
       ) : (
         <div className='flex flex-col w-full gap-3'>
-          <div className='flex flex-row w-full gap-2 items-center justify-center bg-slate-200 '>
+          <div className='flex flex-col w-full gap-1 items-center justify-center bg-slate-200 '>
             <div>
-              <Image src={product?.coverImageURL || "/greendress.png"} alt='greenDress' width={300} height={300} />
+              <Image src={product?.coverImageURL || "/greendress.png"} alt='greenDress' width={200} height={200} />
+            </div>
+            <div className='h-[5rem] bg-gray-700 w-full flex items-center justify-center gap-1' >
+              <Image src={product?.moreImagesURLs[0] || "/greendress.png"} className='h-[4.7rem]' style={{ objectFit: 'cover' }} alt='greenDress' width={65} height={65} />
+              <Image src={product?.moreImagesURLs[1] || "/greendress.png"} className='h-[4.7rem]' style={{ objectFit: 'cover' }} alt='greenDress' width={65} height={65} />
+              <Image src={product?.moreImagesURLs[2] || "/greendress.png"} className='h-[4.7rem]' style={{ objectFit: 'cover' }} alt='greenDress' width={65} height={65} />
+              <Image src={product?.moreImagesURLs[3] || "/greendress.png"} className='h-[4.7rem]' style={{ objectFit: 'cover' }} alt='greenDress' width={65} height={65} />
             </div>
           </div>
           <div className='flex flex-col gap-5 items-start justify-start w-full '>
