@@ -1,12 +1,16 @@
 import { getDataFromToken } from "@/helpers/getDataFromToken";
+import connectMongoDB from "@/libs/db";
 import userModel from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
     try {
+
+        connectMongoDB()
+
         const { userId } = await getDataFromToken(req);
 
-        const user = await userModel.findById({ _id: userId }).populate('wishList')
+        const user: any = await userModel.find(userId).populate('wishList')
 
         if (!user) {
             throw new Error('User not found');
