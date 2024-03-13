@@ -20,6 +20,6 @@ export async function GET(req: NextRequest) {
         return NextResponse.json({ message: "Fetched user wishlist", success: true, wishList, wishListIds });
     } catch (error) {
         console.error('Error while fetching wishlist:', error);
-        return NextResponse.json({ message: "Error while fetching wishlist", success: false });
+        return NextResponse.json({ message: "Error while fetching wishlist", success: false, error });
     }
 }
