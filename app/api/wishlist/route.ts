@@ -6,11 +6,11 @@ export async function GET(req: NextRequest) {
     try {
         const { userId } = await getDataFromToken(req);
 
-        const user = await userModel.findById(userId).populate('wishList')
+        const user = await userModel.findById({ _id: userId }).populate('wishList')
 
         if (!user) {
             throw new Error('User not found');
-        } 
+        }
 
         const wishList = user.wishList || [];
         const wishListIds = user.wishList.map((item: any) => item._id);
