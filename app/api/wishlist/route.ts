@@ -16,7 +16,6 @@ export async function GET(req: NextRequest) {
             throw new Error('User not found');
         }
 
-
         const wishList = await user?.wishList || [];
         console.log(wishList)
         const wishListIds = await user?.wishList?.map((item: any) => item._id);
