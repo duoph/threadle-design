@@ -19,7 +19,7 @@ interface ProductDocument extends Document {
 const productSchema = new Schema<ProductDocument>({
     title: { type: String, required: true },
     inStock: { type: String, required: true },
-    categoryId: { type: Schema.Types.ObjectId, ref: 'category', required: true },
+    categoryId: { type: mongoose.Types.ObjectId, ref: 'category', required: true },
     categoryName: { type: String, required: true },
     desc: { type: String, required: true },
     coverImageURL: { type: String || undefined, required: false },

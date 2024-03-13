@@ -12,7 +12,7 @@ const WishList = () => {
     const fetchWishlist = async () => {
         try {
             const res = await axios.get('/api/wishlist');
-            setProducts(res?.data?.wishList);
+            setProducts(res?.data?.user?.wishList);
             console.log(res);
         } catch (error) {
             console.log(error);
