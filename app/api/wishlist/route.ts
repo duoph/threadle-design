@@ -17,8 +17,8 @@ export async function GET(req: NextRequest) {
         }
 
 
-        const wishList = user?.wishList || [];
-        const wishListIds = user?.wishList?.map((item: any) => item._id);
+        const wishList = await user?.wishList || [];
+        const wishListIds = await user?.wishList?.map((item: any) => item._id);
 
         return NextResponse.json({ message: "Fetched user wishlist", success: true, wishList, wishListIds });
     } catch (error: any) {
