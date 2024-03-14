@@ -140,14 +140,17 @@ const ProductPage = () => {
         <div className='flex flex-col w-full gap-3'>
           <div className='flex flex-col w-full gap-1 items-center justify-center bg-slate-200 '>
             <div>
-              <Image src={product?.coverImageURL || "/greendress.png"} alt='greenDress' width={200} height={200} />
+
+              <Image src={product?.coverImageURL || product?.moreImagesURLs[0] || product?.moreImagesURLs[1] || product?.moreImagesURLs[2] || product?.moreImagesURLs[3]} alt='greenDress' width={200} height={200} />
             </div>
-            <div className='h-[5rem] bg-gray-700 w-full flex items-center justify-center gap-1' >
-              <Image src={product?.moreImagesURLs[0] || "/greendress.png"} className='h-[4.7rem]' style={{ objectFit: 'cover' }} alt='greenDress' width={65} height={65} />
-              <Image src={product?.moreImagesURLs[1] || "/greendress.png"} className='h-[4.7rem]' style={{ objectFit: 'cover' }} alt='greenDress' width={65} height={65} />
-              <Image src={product?.moreImagesURLs[2] || "/greendress.png"} className='h-[4.7rem]' style={{ objectFit: 'cover' }} alt='greenDress' width={65} height={65} />
-              <Image src={product?.moreImagesURLs[3] || "/greendress.png"} className='h-[4.7rem]' style={{ objectFit: 'cover' }} alt='greenDress' width={65} height={65} />
-            </div>
+
+            {product?.moreImagesURLs?.length !== 0 && <div className='h-[5rem] bg-gray-700 w-full flex items-center justify-center gap-1' >
+              {product?.moreImagesURLs[0] && <Image src={product?.moreImagesURLs[0]} className='h-[4.7rem] cursor-pointer' style={{ objectFit: 'cover' }} alt='greenDress' width={65} height={65} />}
+              {product?.moreImagesURLs[1] && <Image src={product?.moreImagesURLs[1]} className='h-[4.7rem] cursor-pointer' style={{ objectFit: 'cover' }} alt='greenDress' width={65} height={65} />}
+              {product?.moreImagesURLs[2] && <Image src={product?.moreImagesURLs[2]} className='h-[4.7rem] cursor-pointer' style={{ objectFit: 'cover' }} alt='greenDress' width={65} height={65} />}
+              {product?.moreImagesURLs[3] && <Image src={product?.moreImagesURLs[3]} className='h-[4.7rem] cursor-pointer' style={{ objectFit: 'cover' }} alt='greenDress' width={65} height={65} />}
+            </div>}
+
           </div>
           <div className='flex flex-col gap-5 items-start justify-start w-full '>
             <div className="flex items-center w-full justify-between">
@@ -210,16 +213,19 @@ const ProductPage = () => {
             </div>
           </div>
         </div>
-      )}
+      )
+      }
       <div className='mt-5'>
         <p>{product?.desc}</p>
       </div>
-      {product?.category && (
-        <div className='py-3'>
-          <ProductContainerWithCategory productNotToshow={product._id} title='You may also like' categoryId={product?.category} />
-        </div>
-      )}
-    </div>
+      {
+        product?.category && (
+          <div className='py-3'>
+            <ProductContainerWithCategory productNotToshow={product._id} title='You may also like' categoryId={product?.category} />
+          </div>
+        )
+      }
+    </div >
   )
 }
 
