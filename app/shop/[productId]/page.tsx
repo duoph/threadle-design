@@ -142,7 +142,7 @@ const ProductPage = () => {
           <div className='flex flex-col w-full gap-1 items-center justify-center bg-slate-200 '>
             <div>
 
-              <Image src={product?.coverImageURL || product?.moreImagesURLs[0] || product?.moreImagesURLs[1] || product?.moreImagesURLs[2] || product?.moreImagesURLs[3] || "/noImage.jpg"} alt='greenDress' width={200} height={200} />
+              <Image src={product?.coverImageURL || product?.moreImagesURLs[0] || product?.moreImagesURLs[1] || product?.moreImagesURLs[2] || product?.moreImagesURLs[3] || "/noImage.jpg"} alt='greenDress' width={300} height={200} />
             </div>
 
             {product?.moreImagesURLs?.length !== 0 && <div className='h-[5rem] bg-gray-700 w-full flex items-center justify-center gap-1' >
