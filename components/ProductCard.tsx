@@ -38,8 +38,7 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
 
     const userWishlist = async () => {
         try {
-            const userId = currentUser?.userId;
-            const res = await axios.get(`/api/get-wishlist/${userId}`)
+            const res = await axios.get(`/api/wishlist`)
             setWishListIds(res?.data?.user?.wishList?.map((item: any) => item._id))
         } catch (error) {
             console.log(error)
