@@ -160,14 +160,13 @@ const ProductPage = () => {
             {product?.moreImagesURLs?.length !== 0 && <div className='h-[5rem] bg-gray-700 w-full flex items-center justify-center gap-1'>
               {product?.moreImagesURLs?.map((imageUrl, index) => (
                 imageUrl && (
-                  <div className='relative' key={index}>
+                  <div key={index} className='relative'>
                     {imageUrl === previewImage && (
                       <div onClick={() => handlePreviewImageLink(product?.coverImageURL)} className='absolute cursor-pointer flex items-center justify-center bg-gray-500 bg-opacity-50 w-full h-full'>
                         <FaCheck className='text-white' />
                       </div>
                     )}
                     <Image
-
                       onClick={() => handlePreviewImageLink(imageUrl)}
                       src={imageUrl}
                       className='h-[4.7rem] cursor-pointer'
