@@ -8,7 +8,7 @@ import { IoIosCheckmark } from 'react-icons/io'
 import { PulseLoader } from 'react-spinners'
 import { useParams, useRouter } from 'next/navigation'
 import { Product } from '@/types'
-import { FaHeart } from 'react-icons/fa6'
+import { FaCheck, FaHeart } from 'react-icons/fa6'
 import toast from 'react-hot-toast'
 import { CiHeart } from 'react-icons/ci'
 import { FaWhatsappSquare } from 'react-icons/fa'
@@ -119,6 +119,16 @@ const ProductPage = () => {
     }
   }
 
+  const handlePreviewImageLink = (link?: string) => {
+    try {
+      if (link) {
+        setPreviewImage(link)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
 
   const wpLink = `https://api.whatsapp.com/send?phone=919074063723&text=Hello%20I%20want%20to%20know%20more%20about%20this%20product...%20https://www.threadledesigns.com/shop/${productId}`
 
@@ -142,15 +152,35 @@ const ProductPage = () => {
           <div className='flex flex-col w-full gap-1 items-center justify-center bg-slate-200 '>
             <div>
 
-              <Image src={product?.coverImageURL || product?.moreImagesURLs[0] || product?.moreImagesURLs[1] || product?.moreImagesURLs[2] || product?.moreImagesURLs[3] || "/noImage.jpg"} alt='greenDress' width={300} height={200} />
+              <Image src={previewImage || product?.coverImageURL || product?.moreImagesURLs[0] || product?.moreImagesURLs[1] || product?.moreImagesURLs[2] || product?.moreImagesURLs[3] || "/noImage.jpg"} alt='greenDress' width={300} height={200} />
             </div>
 
-            {product?.moreImagesURLs?.length !== 0 && <div className='h-[5rem] bg-gray-700 w-full flex items-center justify-center gap-1' >
-              {product?.moreImagesURLs[0] && <Image src={product?.moreImagesURLs[0]} className='h-[4.7rem] cursor-pointer' style={{ objectFit: 'cover' }} alt='greenDress' width={65} height={65} />}
-              {product?.moreImagesURLs[1] && <Image src={product?.moreImagesURLs[1]} className='h-[4.7rem] cursor-pointer' style={{ objectFit: 'cover' }} alt='greenDress' width={65} height={65} />}
-              {product?.moreImagesURLs[2] && <Image src={product?.moreImagesURLs[2]} className='h-[4.7rem] cursor-pointer' style={{ objectFit: 'cover' }} alt='greenDress' width={65} height={65} />}
-              {product?.moreImagesURLs[3] && <Image src={product?.moreImagesURLs[3]} className='h-[4.7rem] cursor-pointer' style={{ objectFit: 'cover' }} alt='greenDress' width={65} height={65} />}
+
+
+            {product?.moreImagesURLs?.length !== 0 && <div className='h-[5rem] bg-gray-700 w-full flex items-center justify-center gap-1'>
+              {product?.moreImagesURLs?.map((imageUrl, index) => (
+                imageUrl && (
+                  <div className='relative'>
+                    {imageUrl === previewImage && (
+                      <div onClick={() => handlePreviewImageLink(product?.coverImageURL)} className='absolute cursor-pointer flex items-center justify-center bg-gray-500 bg-opacity-50 w-full h-full'>
+                        <FaCheck className='text-white' />
+                      </div>
+                    )}
+                    <Image
+                      key={index}
+                      onClick={() => handlePreviewImageLink(imageUrl)}
+                      src={imageUrl}
+                      className='h-[4.7rem] cursor-pointer'
+                      style={{ objectFit: 'cover' }}
+                      alt={`Image ${index}`}
+                      width={65}
+                      height={65}
+                    />
+                  </div>
+                )
+              ))}
             </div>}
+
 
           </div>
           <div className='flex flex-col gap-5 items-start justify-start w-full '>
