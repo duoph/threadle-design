@@ -52,7 +52,6 @@ const Header = () => {
                 setCartCount(res?.data?.cartItems?.length)
             }
 
-            console.log(res)
 
         } catch (error) {
             console.log(error)
@@ -62,7 +61,7 @@ const Header = () => {
 
     useEffect(() => {
         cartItemsFetch()
-    }, [])
+    })
 
     return (
         <div className='bg-td-secondary flex items-center justify-between px-3 lg:px-10'>

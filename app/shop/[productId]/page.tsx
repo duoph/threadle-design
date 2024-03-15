@@ -49,7 +49,7 @@ const ProductPage = () => {
   useEffect(() => {
     fetchProduct()
     userWishlist()
-  }, [])
+  })
 
 
 
@@ -57,7 +57,7 @@ const ProductPage = () => {
     try {
       const res = await axios.get('/api/wishlist')
       console.log(res)
-      setWishListIds(res?.data?.wishListIds)
+      setWishListIds(res?.data?.user?.wishList?.map((item: any) => item._id))
     } catch (error) {
       console.log(error)
     }
@@ -149,15 +149,15 @@ const ProductPage = () => {
         </div>
       ) : (
         <div className='flex flex-col w-full gap-3'>
-          <div className='flex flex-col w-full gap-1 items-center justify-center bg-slate-200 '>
+          <div className='flex flex-col w-full gap-1 items-center justify-center bg-slate-100 '>
             <div>
 
-              <Image src={previewImage || product?.coverImageURL || product?.moreImagesURLs[0] || product?.moreImagesURLs[1] || product?.moreImagesURLs[2] || product?.moreImagesURLs[3] || "/noImage.jpg"} alt='greenDress' width={300} height={200} />
+              <Image src={previewImage || product?.coverImageURL || product?.moreImagesURLs[0] || product?.moreImagesURLs[1] || product?.moreImagesURLs[2] || product?.moreImagesURLs[3] || "/noImage.jpg"} alt='greenDress' className='h-[350px]' width={300} height={200} />
             </div>
 
 
 
-            {product?.moreImagesURLs?.length !== 0 && <div className='h-[5rem] bg-gray-700 w-full flex items-center justify-center gap-1'>
+            {product?.moreImagesURLs?.length !== 0 && <div className='h-[5rem] bg-gray-300 w-full flex items-center justify-center gap-1'>
               {product?.moreImagesURLs?.map((imageUrl, index) => (
                 imageUrl && (
                   <div key={index} className='relative'>
