@@ -23,7 +23,6 @@ export async function POST(req: NextRequest, { params }: any) {
 
         // Find the user based on userId from the token
         const user = await userModel.findById(userId);
-        console.log(user)
 
         if (!user) {
             return NextResponse.json({ message: "User not found", success: false });
