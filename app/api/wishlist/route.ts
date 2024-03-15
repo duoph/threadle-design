@@ -3,11 +3,13 @@ import userModel from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 
 
-export async function GET(req: NextRequest, { params }: any) {
+export async function GET(req: NextRequest) {
     try {
-        const { userId } = await getDataFromToken(req)
+        // const { userId } = await getDataFromToken(req)
 
-        console.log(userId)
+        const userId = "65b940daa4ccca3b73c70ef4"
+
+        // console.log(userId)
 
         if (!userId) {
             console.log("user id not found")

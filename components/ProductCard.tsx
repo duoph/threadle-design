@@ -36,13 +36,6 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
         getProducts()
     }
 
-
-    // const config = {
-    //     headers: {
-    //         'Authorization': `${currentUser?.token} ` as string
-    //     }
-    // };
-
     const userWishlist = async () => {
         try {
             const res = await axios.get('/api/wishlist')
