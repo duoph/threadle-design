@@ -13,7 +13,7 @@ export async function GET(req: NextRequest) {
             return NextResponse.json({ message: "User Id not found", success: false });
         }
 
-        const user = await userModel.find({ email: email }).populate('wishList');
+        const user = await userModel.findOne({ email: email }).populate('wishList');
 
         if (!user) {
             return NextResponse.json({ message: "User not found", success: false });
