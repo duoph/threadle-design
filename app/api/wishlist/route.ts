@@ -5,11 +5,8 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
     try {
-        // const { userId } = await getDataFromToken(req)
 
-        const userId = "65b940daa4ccca3b73c70ef4"
-
-        // console.log(userId)
+        const { userId } = await getDataFromToken(req)
 
         if (!userId) {
             console.log("user id not found")
