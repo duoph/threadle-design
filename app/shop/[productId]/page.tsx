@@ -160,14 +160,14 @@ const ProductPage = () => {
             {product?.moreImagesURLs?.length !== 0 && <div className='h-[5rem] bg-gray-700 w-full flex items-center justify-center gap-1'>
               {product?.moreImagesURLs?.map((imageUrl, index) => (
                 imageUrl && (
-                  <div className='relative'>
+                  <div className='relative' key={index}>
                     {imageUrl === previewImage && (
                       <div onClick={() => handlePreviewImageLink(product?.coverImageURL)} className='absolute cursor-pointer flex items-center justify-center bg-gray-500 bg-opacity-50 w-full h-full'>
                         <FaCheck className='text-white' />
                       </div>
                     )}
                     <Image
-                      key={index}
+
                       onClick={() => handlePreviewImageLink(imageUrl)}
                       src={imageUrl}
                       className='h-[4.7rem] cursor-pointer'
@@ -227,8 +227,8 @@ const ProductPage = () => {
               </div>
 
               <div className='flex flex-wrap gap-3 font-light'>
-                {sizes.map((size) => (
-                  <button key={size} onClick={() => setSelectedSize(size)} className={`px-4 py-2 rounded-2xl ${selectedSize === size ? "bg-td-primary text-white" : "bg-gray-200"}`}>{size}</button>
+                {sizes.map((size, i) => (
+                  <button key={i} onClick={() => setSelectedSize(size)} className={`px-4 py-2 rounded-2xl ${selectedSize === size ? "bg-td-primary text-white" : "bg-gray-200"}`}>{size}</button>
                 ))}
               </div>
 
