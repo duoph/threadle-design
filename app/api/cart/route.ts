@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
         const { userId } = await getDataFromToken(req)
 
         if (!userId) {
-            return NextResponse.json({ message: "UnAuthenticated Access Error", success: false })
+            return NextResponse.json({ message: "Login to use cart", success: false })
         }
 
         const { productId, price, quantity, size, color, imageURL, title } = await req.json()

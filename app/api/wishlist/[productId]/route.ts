@@ -18,7 +18,7 @@ export async function POST(req: NextRequest, { params }: any) {
         const productId = params.productId;
 
         if (!userId) {
-            return NextResponse.json({ message: "Token is missing or invalid", success: false });
+            return NextResponse.json({ message: "Login with your account", success: false });
         }
 
         // Find the user based on userId from the token
@@ -55,7 +55,7 @@ export async function PUT(req: NextRequest, { params }: any) {
         console.log(userId)
 
         if (!userId) {
-            return NextResponse.json({ message: "Token is missing or invalid", success: false });
+            return NextResponse.json({ message: "Login with your account", success: false });
         }
 
         // Find the user based on userId from the token
