@@ -6,16 +6,19 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function PUT(req: NextRequest, { params }: any) {
     try {
-        connectMongoDB();
 
-        const { userId } = getDataFromToken(req);
+        const userId = params.userId
+        
+        const { name, email, phone, address }: any = await req.json()
+
+
+        console.log(name, email, phone, address)
 
         if (!userId) {
             console.log("user id not found")
             return NextResponse.json({ message: "User Id not found", success: false });
         }
 
-        const { name, email, phone, address }: any = req.body; // Assuming you're using Next.js 12+ or using body-parser middleware
 
         if (name || email || phone || address) {
             const user = await userModel.findByIdAndUpdate(
