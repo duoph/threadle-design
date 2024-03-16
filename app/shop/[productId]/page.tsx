@@ -49,7 +49,7 @@ const ProductPage = () => {
   useEffect(() => {
     fetchProduct()
     userWishlist()
-  })
+  }, [])
 
 
 
@@ -86,7 +86,7 @@ const ProductPage = () => {
         toast.success("Added to wishlist")
       }
       if (res.data.success === false) {
-        toast.error("error")
+        toast.error(res.data?.message)
       }
       userWishlist()
 
@@ -154,7 +154,7 @@ const ProductPage = () => {
           <div className='flex flex-col w-full gap-1 items-center justify-center bg-slate-100 '>
             <div>
 
-              <Image style={{objectFit:"contain"}} src={previewImage || product?.coverImageURL || product?.moreImagesURLs[0] || product?.moreImagesURLs[1] || product?.moreImagesURLs[2] || product?.moreImagesURLs[3] || "/noImage.jpg"} alt='greenDress' className='h-[350px]' width={300} height={200} />
+              <Image style={{ objectFit: "contain" }} src={previewImage || product?.coverImageURL || product?.moreImagesURLs[0] || product?.moreImagesURLs[1] || product?.moreImagesURLs[2] || product?.moreImagesURLs[3] || "/noImage.jpg"} alt='greenDress' className='h-[350px]' width={300} height={200} />
             </div>
 
 
@@ -176,6 +176,7 @@ const ProductPage = () => {
                       alt={`Image ${index}`}
                       width={65}
                       height={65}
+                      quality={50}
                     />
                   </div>
                 )

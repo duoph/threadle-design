@@ -52,8 +52,6 @@ export async function PUT(req: NextRequest, { params }: any) {
         const productId = params.productId;
         const { userId }: any = await getDataFromToken(req);
 
-        console.log(userId)
-
         if (!userId) {
             return NextResponse.json({ message: "Login with your account", success: false });
         }
