@@ -6,6 +6,7 @@ import React, { createContext, useContext, useState, ReactNode, useEffect } from
 interface User {
   name: string;
   userId: string;
+  address: string;
   email: string;
   phone: number
   isAdmin: boolean;

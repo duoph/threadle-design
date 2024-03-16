@@ -41,11 +41,10 @@ export async function POST(req: NextRequest) {
             userId: user._id,
             phone: user.phone,
             email: user.email,
+            address: user.address,
             isAdmin: user.isAdmin,
         };
 
-
-        console.log(user)
 
         const userMessage = user.isAdmin === true ? "Admin access granted" : "Logged in successfully"
 
