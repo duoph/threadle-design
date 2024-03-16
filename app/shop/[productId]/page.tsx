@@ -113,7 +113,9 @@ const ProductPage = () => {
         toast.success("Added to cart")
         cartItemsFetch()
       }
-      toast.error("Error")
+      if (res.data.success === false) {
+        toast.error(res?.data?.message)
+      }
     } catch (error) {
       console.log(error)
     }
@@ -152,7 +154,7 @@ const ProductPage = () => {
           <div className='flex flex-col w-full gap-1 items-center justify-center bg-slate-100 '>
             <div>
 
-              <Image src={previewImage || product?.coverImageURL || product?.moreImagesURLs[0] || product?.moreImagesURLs[1] || product?.moreImagesURLs[2] || product?.moreImagesURLs[3] || "/noImage.jpg"} alt='greenDress' className='h-[350px]' width={300} height={200} />
+              <Image style={{objectFit:"contain"}} src={previewImage || product?.coverImageURL || product?.moreImagesURLs[0] || product?.moreImagesURLs[1] || product?.moreImagesURLs[2] || product?.moreImagesURLs[3] || "/noImage.jpg"} alt='greenDress' className='h-[350px]' width={300} height={200} />
             </div>
 
 

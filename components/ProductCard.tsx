@@ -48,14 +48,13 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
 
     const handleDislike = async () => {
         try {
-
             const res = await axios.put(`/api/wishlist/${product?._id}`)
 
             if (res.data.success === true) {
                 toast.success("Removed from wishlist")
             }
             if (res.data.success === false) {
-                toast.error("error")
+                toast.error(res?.data?.message)
             }
             getProducts()
 
@@ -71,7 +70,7 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
                 toast.success("Added to wishlist")
             }
             if (res.data.success === false) {
-                toast.error("error")
+                toast.error(res?.data?.message)
             }
             getProducts()
 
