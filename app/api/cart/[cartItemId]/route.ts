@@ -31,8 +31,6 @@ export async function PUT(req: NextRequest, { params }: any) {
         const { quantity } = await req.json()
 
 
-         console.log(cartItemId)
-
         const cart = await CartModel.find({ _id: cartItemId })
 
         const updateCart = await CartModel.findByIdAndUpdate({ _id: cartItemId }, { quantity }, { new: true })
