@@ -5,12 +5,12 @@ import React, { createContext, useContext, useState, ReactNode, useEffect } from
 
 interface User {
   name: string;
-  userId: string;
+  userId?: string;
   address: string;
   email: string;
   phone: number
-  isAdmin: boolean;
-  token: string
+  isAdmin?: boolean;
+  token?: string
 }
 
 interface UserContextProps {
@@ -31,6 +31,11 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [cartCount, setCartCount] = useState<number>(0);
   const [isLoading, setIsLoading] = useState(true);
 
+
+  useEffect(() => {
+    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+
+  }, [currentUser, setCurrentUser])
 
 
   const cartItemsFetch = async () => {
@@ -53,7 +58,6 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     if (storedUser) {
       const parsedUser: User = JSON.parse(storedUser);
       setCurrentUser(parsedUser);
-      axios.defaults.headers.common['Authorization'] = parsedUser.token;
     } else {
       setIsLoading(false);
     }
