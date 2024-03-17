@@ -1,92 +1,94 @@
 "use client"
 
-import { useUser } from '@/context/useUser'
-import axios from 'axios'
-import { useParams, useRouter } from 'next/navigation'
-import React, { useState } from 'react'
-import toast from 'react-hot-toast'
-import { FaPhoneAlt } from 'react-icons/fa'
-import { FaAddressCard } from 'react-icons/fa6'
-import { MdEmail } from 'react-icons/md'
-import { RiAccountCircleFill } from 'react-icons/ri'
+import { useUser } from '@/context/useUser';
+import axios from 'axios';
+import { useRouter, useSearchParams } from 'next/navigation';
+import React, { useState, useEffect } from 'react';
+import toast from 'react-hot-toast';
+import { FaPhoneAlt, FaAddressCard } from 'react-icons/fa';
+import { MdEmail } from 'react-icons/md';
+import { RiAccountCircleFill } from 'react-icons/ri';
 
 const UserProfile = () => {
-    const router = useRouter()
-    const { LogOut, currentUser } = useUser()
-    const { userId } = useParams()
+
+
+
+    const router = useRouter();
+
+    // const { userId } = useSearchParams()
+
+
+    const { LogOut, currentUser, setCurrentUser } = useUser();
+
+
     const [formData, setFormData] = useState({
         name: currentUser?.name,
         email: currentUser?.email,
         phone: currentUser?.phone,
         address: currentUser?.address,
-    })
+    });
 
 
+    const fetchUser = async () => {
+        try {
 
-    const handleChange = (e: any) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value })
+        } catch (error) {
+
+        }
     }
 
 
+    const handleChange = (e: any) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
 
     const handleSubmit = async (e: any) => {
-        e.preventDefault()
+        e.preventDefault();
         try {
-            const res = await axios.put(`/api/user/${currentUser?.userId}`, {
-                name: formData.name,
-                email: formData.email,
-                phone: formData.phone,
-                address: formData.address,
-            })
+            const res = await axios.put(`/api/user/${currentUser?.userId}`, formData);
 
-            if (res.data.success === true) {
-                const userData = res.data.user
-                setFormData({
+            if (res.data?.success === true) {
+                const userData = res.data?.user;
+                setCurrentUser({
                     name: userData.name,
                     email: userData.email,
                     phone: userData.phone,
                     address: userData.address,
-                })
-                toast.success("Profile Updated Successfully")
+                    isAdmin: userData.isAdmin,
+                    userId: userData.userId,
+                    token: currentUser?.token,
+                });
+                toast.success('Profile Updated Successfully');
             }
-
-            if (res.data.success === false) {
-                toast.error("Failed to update profile")
-
+            if (res.data?.success === false) {
+                toast.error('Profile Updated Successfully');
             }
-
         } catch (error) {
-            console.log(error)
-            toast.error("Failed to update profile")
+            console.log(error);
+            toast.error('Failed to update profile');
         }
-
-    }
-
+    };
 
     const logOut = async () => {
         try {
-            LogOut()
-            await axios.get("/api/logout")
-            toast.success("Logout Success")
-            router.push(`/account/login`)
+            await axios.get('/api/logout');
+            LogOut();
+            toast.success('Logout Success');
+            router.push('/account/login');
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
-    }
-
-
-    if (currentUser?.token && currentUser.isAdmin === true) {
-        return router.push('/admin-panel')
-    }
+    };
 
     if (!currentUser?.token) {
-        return router.push(`/account/login`)
+        router.push('/account/login');
+        return null;
     }
 
     return (
         <div className='flex flex-col items-center justify-center gap-3 py-2 px-5'>
             <h1 className='text-[30px] text-td-secondary font-bold'>Profile</h1>
-            <div className="flex  md:flex-row flex-col w-full h-full gap-2">
+            <div className="flex md:flex-row flex-col w-full h-full gap-2">
                 <form onSubmit={handleSubmit} className='flex flex-col items-center justify-center gap-3 border px-5 py-8 rounded-2xl lg:w-1/2 w-full bg-slate-100'>
                     <div className='flex items-center justify-center gap-2 w-full'>
                         <RiAccountCircleFill size={30} />
@@ -107,15 +109,14 @@ const UserProfile = () => {
                     <button className={`px-5 rounded-2xl py-3 border bg-td-secondary text-white font-bold`} type='submit'>Save</button>
                 </form>
                 <div className='flex items-center justify-center flex-col lg:w-1/2 w-full border px-5 py-8 gap-1 rounded-2xl bg-slate-100'>
-                    <button onClick={() => router.push(`/account/${userId}/wishlist`)} className='px-5 rounded-2xl py-3 border  bg-td-secondary text-white font-bold w-[200px]'>WishList</button>
-                    <button onClick={() => router.push(`/account/${userId}/orders`)} className='px-5 rounded-2xl py-3 border bg-td-secondary text-white font-bold w-[200px]'>Orders</button>
-                    <button onClick={() => router.push(`/account/${userId}/changePassword`)} className='px-5 rounded-2xl py-3 border  bg-td-secondary text-white font-bold w-[200px]'>Change Password</button>
+                    <button onClick={() => router.push(`/account/${currentUser.userId}/wishlist`)} className='px-5 rounded-2xl py-3 border  bg-td-secondary text-white font-bold w-[200px]'>WishList</button>
+                    <button onClick={() => router.push(`/account/${currentUser.userId}/orders`)} className='px-5 rounded-2xl py-3 border bg-td-secondary text-white font-bold w-[200px]'>Orders</button>
+                    <button onClick={() => router.push(`/account/${currentUser.userId}/changePassword`)} className='px-5 rounded-2xl py-3 border  bg-td-secondary text-white font-bold w-[200px]'>Change Password</button>
                     <button onClick={logOut} className='px-5 rounded-2xl py-3 border  bg-red-700 text-white font-bold w-[200px]'>LogOut</button>
                 </div>
             </div>
-
         </div>
-    )
-}
+    );
+};
 
-export default UserProfile
+export default UserProfile;
