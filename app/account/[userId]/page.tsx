@@ -49,15 +49,6 @@ const UserProfile = () => {
 
             if (res.data?.success === true) {
                 const userData = res.data?.user;
-                setCurrentUser({
-                    name: userData.name,
-                    email: userData.email,
-                    phone: userData.phone,
-                    address: userData.address,
-                    isAdmin: userData.isAdmin,
-                    userId: userData.userId,
-                    token: currentUser?.token,
-                });
                 toast.success('Profile Updated Successfully');
             }
             if (res.data?.success === false) {
