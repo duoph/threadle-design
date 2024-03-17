@@ -51,7 +51,7 @@ const SigleCategoryPage = () => {
             </div>
 
             <div className='flex items-center justify-center'>
-                {products && (<div className='flex items-center justify-center gap-5 flex-wrap md:px-10 px-5'>
+                {products && (<div className='flex items-center justify-center gap-1 flex-wrap md:px-10 px-5'>
                     {products?.map((product: Product) => (
                         <ProductCard getProducts={fetchCategory} key={product._id} product={product} />
                     ))}

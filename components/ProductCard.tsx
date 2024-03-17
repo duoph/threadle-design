@@ -85,14 +85,14 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
 
 
     return (
-        <div className='relative flex gap-2 flex-col items-center justify-center w-[175px] cursor-pointer  transition-all ease-in-out duration-700 bg-gray-200'>
+        <div className='relative border flex gap-2 flex-col items-center justify-center w-[175px] cursor-pointer rounded-lg  transition-all ease-in-out duration-700 bg-gray-200'>
             <div onClick={() => router.push(`/shop/${product._id}`)} className='w-full'>
                 <div className='relative flex items-center justify-center h-[250px] w-full'>
                     {!product?.coverImageURL && (
-                        <Image src={"/noImage.jpg"} style={{ objectFit: "cover" }} alt='Image' className='' quality={50} fill />
+                        <Image src={"/noImage.jpg"} style={{ objectFit: "cover" }} alt='Image' className='rounded-lg' quality={50} fill />
                     )}
                     {product?.coverImageURL && (
-                        <Image src={product?.coverImageURL} style={{ objectFit: "cover" }} className='' fill alt='Red-Dress' />
+                        <Image src={product?.coverImageURL} style={{ objectFit: "cover" }} className='rounded-lg' fill alt='Red-Dress' />
                     )}
                 </div>
                 <div className='w-full px-3 py-2 flex flex-col gap-2 '>

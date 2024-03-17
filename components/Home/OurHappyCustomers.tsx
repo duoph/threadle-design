@@ -5,6 +5,7 @@ import React, { useRef } from 'react'
 import CustomerReviewCard from './CustomerReviewCard'
 
 import { GoChevronRight, GoChevronLeft } from "react-icons/go";
+import { review } from '@/data/reviewData';
 
 
 const OurHappyCustomers = () => {
@@ -50,11 +51,9 @@ const OurHappyCustomers = () => {
                 </div>
             </div>
             <div ref={scrollContainerRef} className='w-full flex gap-2 overflow-x-scroll hideScrollBar'>
-                <CustomerReviewCard />
-                <CustomerReviewCard />
-                <CustomerReviewCard />
-                <CustomerReviewCard />
-                <CustomerReviewCard />
+                {review.map((item: any) => (
+                    <CustomerReviewCard item={item} />
+                ))}
                 <CustomerReviewCard />
                 <CustomerReviewCard />
             </div>
