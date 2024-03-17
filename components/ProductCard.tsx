@@ -85,7 +85,7 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
 
 
     return (
-        <div className='relative flex gap-2 flex-col items-center justify-center w-[190px]  cursor-pointer shadow-xl rounded-2xl transition-all ease-in-out duration-700 px-4 py-4 bg-gray-200 lg:hover:scale-105'>
+        <div className='relative flex gap-2 flex-col items-center justify-center w-[175px] cursor-pointer  transition-all ease-in-out duration-700 bg-gray-200 lg:hover:scale-105'>
             <div onClick={() => router.push(`/shop/${product._id}`)} className='w-full'>
                 <div className='relative flex items-center justify-center h-[250px] w-full bg-gray-200 rounded-2xl'>
                     {!product?.coverImageURL && (
@@ -97,14 +97,6 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
                 </div>
                 <div className='w-full px-3 py-2 flex flex-col gap-2 '>
                     <p className='text-start break-all font-light truncate '>{product?.title}</p>
-                    {/* <span className='text-start break-all flex items-center justify-start'>
-                        <FaStar size={24} className='text-yellow-300' />
-                        <FaStar size={24} className='text-yellow-300' />
-                        <FaStar size={24} className='text-yellow-300' />
-                        <FaStar size={24} className='text-yellow-300' />
-                        <CiStar size={24} className='text-yellow-300' />
-                        <span className='font-thin text-sm px-1'>4/5</span>
-                    </span> */}
                     <div className='flex gap-3'>
                         <p className={` font-medium ${product?.salePrice && "line-through"}`}>&#8377;{product?.regularPrice}</p>
                         {product?.salePrice && <p className={` text-red-600 font-medium`}>&#8377;{product?.salePrice}</p>}
