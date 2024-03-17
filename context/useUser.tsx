@@ -31,13 +31,6 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [cartCount, setCartCount] = useState<number>(0);
   const [isLoading, setIsLoading] = useState(true);
 
-
-  useEffect(() => {
-    localStorage.setItem('currentUser', JSON.stringify(currentUser));
-
-  }, [currentUser, setCurrentUser])
-
-
   const cartItemsFetch = async () => {
     try {
       const res = await axios.get("/api/cart")
