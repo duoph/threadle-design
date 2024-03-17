@@ -18,15 +18,19 @@ const Footer = () => {
                     <Image src={'/td-green.png'} alt='Logo' width={100} height={100} />
                     <p className='break-all'>We have clothes that suits your style and which you're proud to wear.</p>
                     <span className='flex gap-3'>
-                        <FaFacebook className='cursor-pointer' size={24} />
-                        <FaInstagram className='cursor-pointer' size={24} />
+                        <Link target='_blank' href={"https://www.facebook.com/profile.php?id=100066335059109"}>
+                            <FaFacebook className='cursor-pointer' size={24} />
+                        </Link>
+                        <Link target='_blank' href={"https://www.instagram.com/threadle_designs/"}>
+                            <FaInstagram className='cursor-pointer' size={24} />
+                        </Link>
                     </span>
                 </div>
                 <div className='flex flex-col md:items-end items-center md:w-1/2 w-full gap-3'>
                     <span className='font-semibold text-[20px] underline'>Quick Links</span>
-                    <Link href={'/'}>About</Link>
-                    <Link href={'/'}>Terms & Conditions</Link>
-                    <Link href={'/'}>Privacy Policy</Link>
+                    <Link href={'/about'}>About</Link>
+                    <Link href={'/terms&condition'}>Terms & Conditions</Link>
+                    <Link href={'/privacy-policy'}>Privacy Policy</Link>
                 </div>
             </div>
             <hr className='h-[1px] bg-gray-300 border-none' />
