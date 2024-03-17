@@ -51,11 +51,9 @@ const OurHappyCustomers = () => {
                 </div>
             </div>
             <div ref={scrollContainerRef} className='w-full flex gap-2 overflow-x-scroll hideScrollBar'>
-                {review.map((item: any) => (
-                    <CustomerReviewCard item={item} />
+                {review.map((item: any, i: number) => (
+                    <CustomerReviewCard key={i} item={item} />
                 ))}
-                <CustomerReviewCard />
-                <CustomerReviewCard />
             </div>
         </div>
     )
