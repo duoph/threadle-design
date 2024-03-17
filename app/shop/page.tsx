@@ -60,7 +60,7 @@ const Shop = () => {
 
 
   return (
-    <div className='flex flex-col gap-5 items-center justify-center px-3 lg:px-10 py-10'>
+    <div className='flex flex-col gap-5 items-center justify-center px-2 lg:px-10 py-10'>
       <div className='rounded-2xl flex items-center justify-center cursor-pointer gap-3 bg-td-secondary pr-6 w-full'>
         <input
           type='text'
@@ -86,7 +86,7 @@ const Shop = () => {
         </select>
 
       </div>
-      <div className='flex min-h-[60vh] items-center justify-center gap-1 flex-wrap'>
+      <div className='flex min-h-[60vh] items-center gap-[4px] justify-center flex-wrap'>
         {search.trim() !== ''
           ? searchProducts.map((product) => (
             <ProductCard getProducts={fetchProducts} key={product._id} product={product} />
