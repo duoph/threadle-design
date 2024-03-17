@@ -1,15 +1,15 @@
 "use client"
 
+
 import { useUser } from '@/context/useUser';
 import { Product } from '@/types';
 import axios from 'axios';
-import { cookies } from 'next/headers';
 import Image from 'next/image'
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
-import { CiHeart, CiStar } from 'react-icons/ci'
-import { FaHeart, FaStar } from "react-icons/fa6";
+import { CiHeart } from 'react-icons/ci'
+import { FaHeart } from "react-icons/fa6";
 import { MdDelete, MdEdit } from 'react-icons/md';
 
 interface ProductCardProps {
@@ -121,7 +121,7 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
 
             {
                 currentUser?.isAdmin && (
-                    <div className="flex items-center justify-center w-full gap-2">
+                    <div className="flex items-center justify-center w-full gap-1 p-1">
                         <button onClick={() => router.push(`/admin-panel/edit-product/${product._id}`)} className='flex w-full border rounded-2xl py-3 items-center justify-center bg-gray-600'>
                             <MdEdit className='text-center w-full text-white hover:scale-110' size={24} />
                         </button>
@@ -146,7 +146,6 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
                     </div>
                 )
             }
-
         </div >
     )
 }
