@@ -64,7 +64,7 @@ const Header = () => {
     }, [])
 
     return (
-        <div className='bg-td-secondary flex items-center justify-between px-3 lg:px-10'>
+        <div className='bg-td-secondary flex items-center justify-between px-3 lg:px-10 w-full'>
             <Link href={"/"} className=''>
                 <Image src={'/td-white.png'} alt='Threadle Design' height={80} width={80} />
             </Link>
