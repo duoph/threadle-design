@@ -17,6 +17,7 @@ const CreateProduct = () => {
 
     const [title, setTitle] = useState<string>("")
     const [desc, setDesc] = useState<string>("")
+    const [isCustom, setIsCustom] = useState<boolean>(true)
     const [categoryId, setCategoryId] = useState<string>("")
     const [regularPrice, setRegularPrice] = useState<string>("")
     const [salePrice, setSalePrice] = useState<string>("")
@@ -103,11 +104,12 @@ const CreateProduct = () => {
 
             // Find the category based on categoryId
 
-
             formData.append("title", title);
             formData.append("categoryId", categoryId);
             formData.append("desc", desc);
             formData.append("regularPrice", regularPrice);
+            formData.append("isCustom", isCustom ? "true" : "false");
+
 
             const selectedCategory = fetchedCategory?.find((category: any) => category._id === categoryId);
 
