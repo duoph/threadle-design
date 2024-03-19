@@ -7,12 +7,15 @@ import slugify from "slugify";
 export async function POST(req: NextRequest) {
     try {
         connectMongoDB();
+
+
         const formData = await req.formData();
         const title = formData.get("title");
         const desc = formData.get("desc");
         const regularPrice = formData.get("regularPrice");
         const categoryId = formData.get("categoryId");
         const categoryName = formData.get("categoryName");
+        const isCustom = formData.get("isCustom");
         const file = formData.get("coverImage") as Blob; // Change to Blob
         const image1 = formData.get("image1") as Blob; // Change to Blob
         const image2 = formData.get("image2") as Blob; // Change to Blob
@@ -63,6 +66,7 @@ export async function POST(req: NextRequest) {
             categoryId,
             inStock: true,
             categoryName,
+            isCustom: isCustom === "true" ? true : false,
             slugifyProductName,
             moreImagesURLs: imageUrls?.map((result: any) => result.s3Url),
         });
