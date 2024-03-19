@@ -86,7 +86,7 @@ const Shop = () => {
         </select>
 
       </div>
-      <div className='flex min-h-[60vh] items-center gap-[4px] justify-center flex-wrap'>
+      <div className='flex min-h-[60vh] items-start gap-[4px] justify-center flex-wrap md:gap-5'>
         {search.trim() !== ''
           ? searchProducts.map((product) => (
             <ProductCard getProducts={fetchProducts} key={product._id} product={product} />
@@ -95,7 +95,11 @@ const Shop = () => {
             ? products.map((product) => (
               <ProductCard getProducts={fetchProducts} key={product._id} product={product} />
             ))
-            : <PulseLoader />}
+            : (
+              <div className="pt-32">
+                <PulseLoader />
+              </div>
+            )}
       </div>
     </div >
   );
