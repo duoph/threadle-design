@@ -9,7 +9,7 @@ const Hero = () => {
     const router = useRouter()
 
     return (
-        <div className=" w-full flex md:flex-row flex-col items-center justify-center bg-gray-200">
+        <div className=" w-full flex flex-col md:flex-row  items-center justify-center bg-gray-200">
             <div className='md:w-1/2 w-full flex flex-col items-center justify-center md:py-10 pt-10 lg:px-10 px-5 gap-4 lg:gap-10'>
                 <div>
                     <h1 className='text-center font-extrabold text-td-secondary lg:text-[50px] text-[25px] '>
