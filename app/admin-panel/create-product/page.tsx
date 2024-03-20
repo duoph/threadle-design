@@ -159,6 +159,7 @@ const CreateProduct = () => {
         getAllCategories()
     }, [])
 
+    console.log(isCustom)
 
     // console.log(category)
 
@@ -188,16 +189,30 @@ const CreateProduct = () => {
                         ))}
                     </select>
                 </div>
-                <div className="flex flex-row gap-1 w-full">
-                    <div className="flex flex-col w-1/2">
-                        <label htmlFor="title" className="font-semibold">Regular Price</label>
-                        <input value={regularPrice} onChange={(e) => setRegularPrice(e.target.value)} className="bg-gray-200 px-5 py-3 rounded-2xl" id="title" />
-                    </div>
-                    <div className="flex flex-col w-1/2">
-                        <label htmlFor="title" className="font-semibold">Sale Price(Optional)</label>
-                        <input value={salePrice} onChange={(e) => setSalePrice(e.target.value)} className="bg-gray-200 px-5 py-3 rounded-2xl" id="title" />
-                    </div>
+
+                <div className="flex flex-row items-center justify-start gap-3">
+                    <label htmlFor="isCustom" className="font-semibold">Product has custom pricing</label>
+                    <input
+                        type="checkbox"
+                        id="isCustom"
+                        checked={isCustom}
+                        onChange={(e) => setIsCustom(!isCustom)}
+                    />
                 </div>
+
+                {!isCustom && (
+                    <div className="flex flex-row gap-1 w-full">
+                        <div className="flex flex-col w-1/2">
+                            <label htmlFor="title" className="font-semibold">Regular Price</label>
+                            <input value={regularPrice} onChange={(e) => setRegularPrice(e.target.value)} className="bg-gray-200 px-5 py-3 rounded-2xl" id="title" />
+                        </div>
+                        <div className="flex flex-col w-1/2">
+                            <label htmlFor="title" className="font-semibold">Sale Price(Optional)</label>
+                            <input value={salePrice} onChange={(e) => setSalePrice(e.target.value)} className="bg-gray-200 px-5 py-3 rounded-2xl" id="title" />
+                        </div>
+                    </div>
+                )}
+
                 <h1 className="text-[15px] font-semibold">Cover Image</h1>
                 <div className="flex flex-col gap-2 items-center justify-center ">
                     <div className="relative flex flex-col items-center justify-center gap-1 border rounded-2xl w-[300px] h-[300px] overflow-hidden shadow-xl">
