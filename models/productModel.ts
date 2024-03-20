@@ -5,7 +5,7 @@ interface ProductDocument extends Document {
     title: string;
     desc: string
     categoryId: Schema.Types.ObjectId;
-    inStock: string;
+    inStock: boolean;
     coverImageURL: string | undefined;
     categoryName: string;
     isCustom: boolean;
@@ -18,7 +18,7 @@ interface ProductDocument extends Document {
 
 const productSchema = new Schema<ProductDocument>({
     title: { type: String, required: true },
-    inStock: { type: String, required: true },
+    inStock: { type: Boolean, required: true },
     categoryId: { type: mongoose.Types.ObjectId, ref: 'category', required: true },
     categoryName: { type: String, required: true },
     desc: { type: String, required: true },
