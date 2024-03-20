@@ -97,6 +97,7 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
                 </div>
                 <div className='w-full px-3 py-2 flex flex-col gap-2 '>
                     <p className='text-start break-all font-light truncate '>{product?.title}</p>
+                    {!product.inStock && <p className='font-semibold text-red-600'>Out Of Stock</p>}
                     <div className='flex gap-3'>
                         <p className={` font-medium ${product?.salePrice && "line-through"}`}>&#8377;{product?.regularPrice}</p>
                         {product?.salePrice && <p className={` text-red-600 font-medium`}>&#8377;{product?.salePrice}</p>}

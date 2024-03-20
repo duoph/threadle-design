@@ -159,7 +159,7 @@ const CreateProduct = () => {
         getAllCategories()
     }, [])
 
-    console.log(isCustom)
+    // console.log(isCustom)
 
     // console.log(category)
 
