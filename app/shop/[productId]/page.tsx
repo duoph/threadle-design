@@ -228,21 +228,27 @@ const ProductPage = () => {
                 </span>
               </div>
 
-              <div className='flex flex-wrap gap-3 font-light'>
-                {sizes.map((size, i) => (
-                  <button key={i} onClick={() => setSelectedSize(size)} className={`px-4 py-2 rounded-2xl ${selectedSize === size ? "bg-td-primary text-white" : "bg-gray-200"}`}>{size}</button>
-                ))}
+              <div className='flex flex-col flex-wrap gap-3'>
+                <p>{!product?.isCustom ? "Select Size" : "Available Size's"}</p>
+                <div className='flex gap-2 flex-wrap font-light'>
+                  {sizes.map((size, i) => (
+                    <button key={i} onClick={() => setSelectedSize(size)} className={`px-4 py-2 rounded-2xl ${selectedSize === size ? "bg-td-primary text-white" : "bg-gray-200"}`}>{size}</button>
+                  ))}
+                </div>
               </div>
 
 
-              <div className='flex gap-3 font-semibold w-full'>
-                <span className='bg-gray-200 flex items-center justify-between gap-4 px-8 py-2 rounded-2xl w-1/2'>
-                  <span className='cursor-pointer' onClick={() => handleQuantity("decrement")}>-</span>
-                  <span>{quantity}</span>
-                  <span className='cursor-pointer' onClick={() => handleQuantity("increment")}>+</span>
-                </span>
-                <button onClick={addToCart} className='w-1/2 py-2 bg-td-primary rounded-2xl text-white'> Add to Cart </button>
-              </div>
+              {!product?.isCustom && (
+                <div className='flex gap-3 font-semibold w-full'>
+                  <span className='bg-gray-200 flex items-center justify-between gap-4 px-8 py-2 rounded-2xl w-1/2'>
+                    <span className='cursor-pointer' onClick={() => handleQuantity("decrement")}>-</span>
+                    <span>{quantity}</span>
+                    <span className='cursor-pointer' onClick={() => handleQuantity("increment")}>+</span>
+                  </span>
+                  <button onClick={addToCart} className='w-1/2 py-2 bg-td-primary rounded-2xl text-white'> Add to Cart </button>
+                </div>
+              )}
+
             </div>
           </div>
         </div>
