@@ -51,11 +51,11 @@ export async function PUT(req: NextRequest, { params }: any) {
             {
                 title,
                 desc,
-                salePrice, 
+                salePrice,
                 regularPrice,
                 categoryName,
                 categoryId,
-                inStock
+                inStock: inStock === "yes" ? true : false
             },
             { new: true }
         );
