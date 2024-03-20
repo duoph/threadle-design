@@ -132,6 +132,17 @@ const ProductPage = () => {
   }
 
 
+  const handleSize = (size: any) => {
+    try {
+      if (product?.isCustom) {
+        return null
+      }
+      setSelectedColor(size)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const wpLink = `https://api.whatsapp.com/send?phone=919074063723&text=Hello%20I%20want%20to%20know%20more%20about%20this%20product...%20https://www.threadledesigns.com/shop/${productId}`
 
 
@@ -201,7 +212,7 @@ const ProductPage = () => {
             <div className='flex gap-3'>
 
               {product?.isCustom && (<div>
-                <Link target='_blank' href={wpLink} className='bg-black px-4 py-4 rounded-full flex gap-2'>
+                <Link target='_blank' href={wpLink} className='bg-black px-3 py-2 rounded-full flex gap-2'>
                   <FaWhatsappSquare className='text-green-500' size={24} />
                   <p className='text-white'>Contact us for pricing</p>
                 </Link>
@@ -232,7 +243,7 @@ const ProductPage = () => {
                 <p>{!product?.isCustom ? "Select Size" : "Available Size's"}</p>
                 <div className='flex gap-2 flex-wrap font-light'>
                   {sizes.map((size, i) => (
-                    <button key={i} onClick={() => setSelectedSize(size)} className={`px-4 py-2 rounded-2xl ${selectedSize === size ? "bg-td-primary text-white" : "bg-gray-200"}`}>{size}</button>
+                    <button key={i} onClick={() => handleSize(size)} className={`px-4 py-2 rounded-2xl ${selectedSize === size ? "bg-td-primary text-white" : "bg-gray-200"}`}>{size}</button>
                   ))}
                 </div>
               </div>
