@@ -81,7 +81,7 @@ export async function POST(req: NextRequest) {
 
 
 // get all products from db
-export async function GET(request: NextRequest) {
+export async function GET(req: NextRequest) {
     try {
         connectMongoDB();
 
