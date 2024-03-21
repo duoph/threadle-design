@@ -48,7 +48,7 @@ const ViewAllProducts = () => {
             <div>
                 <h1 className='text-[30px] font-bold text-td-secondary'>All Products</h1>
             </div>
-            <div className='flex items-center justify-center gap-5 flex-wrap md:px-10 px-5'>
+            <div className='flex  justify-center gap-5 flex-wrap md:px-10 px-5'>
                 {products.map((product) => (
                     <ProductCard key={product._id} getProducts={fetchProducts} product={product} />
                 ))}
