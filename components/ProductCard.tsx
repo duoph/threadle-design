@@ -88,6 +88,9 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
         <div className='relative border flex gap-2 flex-col items-center justify-between  w-[calc(100vw-10px)] xs:w-[175px] md:w-[300px]  cursor-pointer rounded-lg  transition-all ease-in-out duration-700 bg-gray-200'>
             <div onClick={() => router.push(`/shop/${product._id}`)} className='w-full'>
                 <div className='relative flex items-center justify-center h-[200px] md:h-[250px] w-full'>
+                    {!product.inStock && <div className='absolute top-0 z-20 right-0 w-full h-full bg-black bg-opacity-30 rounded-lg flex items-center justify-center'>
+                        <span className='text-white'>Out of stock</span>
+                    </div>}
                     {!product?.coverImageURL && (
                         <Image src={"/noImage.jpg"} style={{ objectFit: "cover" }} alt='Image' className='rounded-lg' quality={50} fill />
                     )}
@@ -96,9 +99,7 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
                     )}
                 </div>
                 <div className='w-full px-3 py-2 flex flex-col gap-2 '>
-                    <p className='text-start break-all font-light truncate '>{product?.title}</p>
-                    {!product.inStock && <p className='font-medium text-[13px] text-red-600'>Out Of Stock</p>}
-                    <div className='flex gap-3'>
+                    <p className='text-start break-all font-light truncate '>{product?.title}</p>                    <div className='flex gap-3'>
                         <p className={` font-medium ${product?.salePrice && "line-through"}`}>&#8377;{product?.regularPrice}</p>
                         {product?.salePrice && <p className={` text-red-600 font-medium`}>&#8377;{product?.salePrice}</p>}
                     </div>

@@ -86,7 +86,7 @@ const Shop = () => {
         </select>
 
       </div>
-      <div className='flex min-h-[60vh] items-start gap-[4px] justify-center flex-wrap md:gap-5'>
+      <div className='flex min-h-[60vh] items-start justify-center gap-[4px]  flex-wrap md:gap-5'>
         {search.trim() !== ''
           ? searchProducts.map((product) => (
             <ProductCard getProducts={fetchProducts} key={product._id} product={product} />
