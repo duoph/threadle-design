@@ -196,9 +196,17 @@ const ProductPage = () => {
 
 
           </div>
-          <div className='flex flex-col gap-5 items-start justify-start w-full '>
-            <div className="flex items-center w-full justify-between">
-              <h1 className='text-lg font-medium'>{product?.title}</h1>
+          <div className='flex flex-col gap-3 items-start justify-start w-full '>
+            <div className="flex items-center  w-full justify-between">
+              <div className='flex flex-col gap-3'>
+                <h1 className='text-lg font-medium'>{product?.title}</h1>
+
+                {!product.inStock && (
+                  <span className='text-lg font-medium text-red-600'>Out of stock</span>
+                )}
+              </div>
+
+
               <div>
                 {wishlistIds?.includes(`${productId}`) ? (
                   <button onClick={handleDislike} className='flex  w-[43px] border rounded-full py-2 items-center justify-center px-2 bg-white text-white '>
@@ -249,7 +257,7 @@ const ProductPage = () => {
               </div>
 
 
-              {!product?.isCustom && (
+              {!product?.isCustom && product?.inStock ? (
                 <div className='flex gap-3 font-semibold w-full'>
                   <span className='bg-gray-200 flex items-center justify-between gap-4 px-8 py-2 rounded-2xl w-1/2'>
                     <span className='cursor-pointer' onClick={() => handleQuantity("decrement")}>-</span>
@@ -258,6 +266,8 @@ const ProductPage = () => {
                   </span>
                   <button onClick={addToCart} className='w-1/2 py-2 bg-td-primary rounded-2xl text-white'> Add to Cart </button>
                 </div>
+              ) : (
+                null
               )}
 
             </div>
