@@ -28,6 +28,7 @@ export interface Category {
     imageURLs?: string;
     slugifyName: string;
     name: string;
+    UpdatedAt: Date;
     createdAt: Date;
 }
 
@@ -39,5 +40,18 @@ export interface Cart {
     price: number;
     title: string;
     quantity: number;
+    UpdatedAt: Date;
     createdAt: Date;
+}
+
+
+export interface User {
+    __id: string;
+    email: string;
+    phone: number;
+    address?: string;
+    name: string;
+    wishListIds: [];
+    createdAt: Date;
+    UpdatedAt: Date;
 }

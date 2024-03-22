@@ -3,6 +3,7 @@ import connectMongoDB from "@/libs/db";
 import { NextRequest, NextResponse } from "next/server";
 import userModel from '@/models/userModel';
 
+
 export async function POST(req: NextRequest) {
     try {
         // Connect to MongoDB

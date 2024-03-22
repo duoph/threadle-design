@@ -1,6 +1,7 @@
 "use client"
 
 import { useUser } from '@/context/useUser';
+import { User } from '@/types';
 import axios from 'axios';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
@@ -11,32 +12,39 @@ import { RiAccountCircleFill } from 'react-icons/ri';
 
 const UserProfile = () => {
 
-
-
     const router = useRouter();
-
-    // const { userId } = useSearchParams()
-
-
     const { LogOut, currentUser, setCurrentUser } = useUser();
-
-
+    const [user, setUser] = useState<User>();
     const [formData, setFormData] = useState({
-        name: currentUser?.name,
-        email: currentUser?.email,
-        phone: currentUser?.phone,
-        address: currentUser?.address,
+        name: '',
+        email: '',
+        phone: '',
+        address: '',
     });
-
 
     const fetchUser = async () => {
         try {
+            const res = await axios.get(`/api/user/${currentUser?.userId}`)
+            setUser(res?.data?.user);
+            // Set formData using user data if available
+            if (res?.data?.user) {
+                setFormData({
+                    name: res.data.user.name,
+                    email: res.data.user.email,
+                    phone: res.data.user.phone,
+                    address: res.data.user.address,
+                });
+            }
 
+            console.log(res)
         } catch (error) {
-
+            console.log(error);
         }
     }
 
+    useEffect(() => {
+        fetchUser()
+    }, []);
 
     const handleChange = (e: any) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -58,6 +66,8 @@ const UserProfile = () => {
             console.log(error);
             toast.error('Failed to update profile');
         }
+        fetchUser()
+
     };
 
     const logOut = async () => {
@@ -87,7 +97,7 @@ const UserProfile = () => {
                     </div>
                     <div className='flex items-center justify-center gap-2 w-full'>
                         <MdEmail size={30} />
-                        <input type="email" name="email" placeholder='Email' value={formData.email} onChange={handleChange} className='border px-5 w-full py-2 rounded-2xl bg-slate-200' />
+                        <input type="email" name="email" disabled placeholder='Email' value={formData.email} onChange={handleChange} className='border px-5 w-full py-2 rounded-2xl bg-slate-200' />
                     </div>
                     <div className='flex items-center justify-center gap-2 w-full'>
                         <FaPhoneAlt size={30} />
@@ -97,8 +107,10 @@ const UserProfile = () => {
                         <FaAddressCard size={30} />
                         <textarea id="address" name="address" className='border px-5  py-2 w-full rounded-2xl bg-slate-200 min-h-[150px]' placeholder='Address' value={formData.address} onChange={handleChange} />
                     </div>
+                
                     <button className={`px-5 rounded-2xl py-3 border bg-td-secondary text-white font-bold`} type='submit'>Save</button>
                 </form>
+
                 <div className='flex items-center justify-center flex-col lg:w-1/2 w-full border px-5 py-8 gap-1 rounded-2xl bg-slate-100'>
                     <button onClick={() => router.push(`/account/${currentUser.userId}/wishlist`)} className='px-5 rounded-2xl py-3 border  bg-td-secondary text-white font-bold w-[200px]'>WishList</button>
                     <button onClick={() => router.push(`/account/${currentUser.userId}/orders`)} className='px-5 rounded-2xl py-3 border bg-td-secondary text-white font-bold w-[200px]'>Orders</button>
