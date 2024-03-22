@@ -21,7 +21,6 @@ import { useUser } from '@/context/useUser'
 
 const ProductPage = () => {
 
-
   const { productId } = useParams()
   const [product, setProduct] = useState<Product>()
   const [selectedSize, setSelectedSize] = useState<string>("")
@@ -132,20 +131,21 @@ const ProductPage = () => {
   }
 
 
-  const handleSize = (size: any) => {
+  const handleSize = (size: string) => {
     try {
-      if (product?.isCustom) {
-        return null
+      if (product?.isCustom === false) {
+        console.log(product?.isCustom)
+        setSelectedSize(size) // Change this line to setSelectedSize
+      } else {
+        setSelectedSize("") // Change this line to setSelectedSize
       }
-      setSelectedColor(size)
     } catch (error) {
       console.log(error)
     }
   }
 
+
   const wpLink = `https://api.whatsapp.com/send?phone=919074063723&text=Hello%20I%20want%20to%20know%20more%20about%20this%20product...%20https://www.threadledesigns.com/shop/${productId}`
-
-
 
 
   return (
