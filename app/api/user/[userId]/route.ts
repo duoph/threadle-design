@@ -42,10 +42,11 @@ export async function PUT(req: NextRequest, { params }: any) {
 
 export async function GET(req: NextRequest, { params }: any) {
     try {
+
         connectMongoDB();
 
-        const { userId } = getDataFromToken(req);
-
+        const userId = params.userId
+        
         if (!userId) {
             console.log("user id not found")
             return NextResponse.json({ message: "User Id not found", success: false });
