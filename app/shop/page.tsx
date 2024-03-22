@@ -89,11 +89,15 @@ const Shop = () => {
       <div className='flex min-h-[60vh] items-start justify-center gap-[4px]  flex-wrap md:gap-5'>
         {search.trim() !== ''
           ? searchProducts.map((product) => (
-            <ProductCard getProducts={fetchProducts} key={product._id} product={product} />
+            product.inStock && (
+              <ProductCard getProducts={fetchProducts} key={product._id} product={product} />
+            )
           ))
           : products.length > 0
             ? products.map((product) => (
-              <ProductCard getProducts={fetchProducts} key={product._id} product={product} />
+              product.inStock && (
+                <ProductCard getProducts={fetchProducts} key={product._id} product={product} />
+              )
             ))
             : (
               <div className="pt-32">
