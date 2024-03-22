@@ -133,11 +133,10 @@ const ProductPage = () => {
 
   const handleSize = (size: string) => {
     try {
-      if (product?.isCustom === false) {
-        console.log(product?.isCustom)
-        setSelectedSize(size) // Change this line to setSelectedSize
+      if (!product?.isCustom) {
+        setSelectedSize(size)
       } else {
-        setSelectedSize("") // Change this line to setSelectedSize
+        setSelectedSize("")
       }
     } catch (error) {
       console.log(error)
