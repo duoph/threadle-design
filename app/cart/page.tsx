@@ -26,6 +26,8 @@ const CartPage = () => {
         setCart(res?.data?.cartItems)
       }
 
+      console.log(res?.data?.cartItems)
+
       console.log(res)
 
     } catch (error) {
@@ -74,7 +76,7 @@ const CartPage = () => {
           ))}
 
         </div>
-        <div className='flex flex-col items-center justify-around  w-full max-h-[40vh] border rounded-2xl p-5'>
+        <div className='flex flex-col items-center justify-around  w-full border rounded-2xl p-5'>
           <div className='flex flex-col items-center justify-center'>
             <span className='text-[18px] font-medium'>Oder Summary</span>
 
