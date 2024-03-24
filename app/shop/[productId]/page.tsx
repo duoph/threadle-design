@@ -30,7 +30,7 @@ const ProductPage = () => {
   const [previewImage, setPreviewImage] = useState<string>()
 
 
-  const { cartItemCountFetch } = useUser()
+  const { cartItemCountFetch, currentUser } = useUser()
 
 
   const sizes = ["S", "M", "L", "XL", "2XL", "3XL"]
@@ -52,9 +52,11 @@ const ProductPage = () => {
 
 
 
+
   const userWishlist = async () => {
+    const userId = currentUser?.userId
     try {
-      const res = await axios.get('/api/wishlist')
+      const res = await axios.get(`/api/wishlistFetch/${userId}`)
       console.log(res)
       setWishListIds(res?.data?.wishList)
     } catch (error) {
