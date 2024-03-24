@@ -57,6 +57,7 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
             if (res.data.success === false) {
                 toast.error(res?.data?.message)
             }
+            userWishlist()
             getProducts()
 
         } catch (error) {
@@ -73,6 +74,7 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
             if (res.data.success === false) {
                 toast.error(res?.data?.message)
             }
+            userWishlist()
             getProducts()
 
         } catch (error) {
