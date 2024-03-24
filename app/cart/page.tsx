@@ -85,7 +85,7 @@ const CartPage = () => {
           <button className='flex items-center justify-center gap-3 w-2/3 rounded-2xl px-3 py-3 text-white bg-td-primary hover:scale-95 transition-all duration-300 ease-in-out'>
             CheckOut <FaLongArrowAltRight color='white' size={20} />
           </button>
-          <span className='opacity-40 text-sm'>Placed orders can't be cancelled</span>
+          <span className='opacity-40 text-sm'>Placed orders can&#39;t be cancelled</span>
         </div>
       </div>
 
