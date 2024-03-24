@@ -38,6 +38,7 @@ export interface Cart {
     productId: string;
     size: string;
     price: number;
+    totalPrice: number;
     title: string;
     quantity: number;
     UpdatedAt: Date;

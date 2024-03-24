@@ -71,7 +71,7 @@ const CartProductCard = ({ product, cartItemsFetch }: any) => {
         <div className='flex w-full px-2 py-3'>
             <div className='flex items-center justify-center cursor-pointer'>
                 <div className='flex-shrink-0 w-24' onClick={() => router.push(`/shop/${product.productId}`)}>
-                    <Image style={{ objectFit: "cover" }} className='rounded-2xl w-[100px] h-[110px]' src={product?.imageURL} alt='Green' width={100} height={100} />
+                    <Image style={{ objectFit: "cover" }} className='rounded-2xl w-[100px] h-[110px]' src={product?.imageURL || '/noImage.jpg'} alt='Green' width={100} height={100} />
                 </div>
             </div>
             <div className='w-full flex flex-col px-2'>
@@ -79,8 +79,10 @@ const CartProductCard = ({ product, cartItemsFetch }: any) => {
                     <p className='text-[18px] font-semibold overflow-hidden overflow-ellipsis'>{truncateText(product?.title || '', 50)}</p>
                     <MdDelete onClick={handleRemove} size={24} className='hover:scale-110 min-w-[40px] cursor-pointer text-red-600  transition-all duration-300 ease-in-out' />
                 </div>
-                <span className='text-[13px] font-normal'>Size : {product?.size}</span>
-                <span className='text-[13px] font-normal'>Color : {product?.color}</span>
+                <span className='text-[13px]  font-normal'>Size : {product?.size}</span>
+                <span className='text-[13px]  font-normal'>Color : {product?.color}</span>
+                <span className='text-[13px]  font-normal'>Quantity : {product?.quantity}</span>
+                <span className='text-[13px]  font-normal'>Total : {product?.totalPrice}</span>
                 <div className='flex items-center justify-between w-full'>
                     <span className='text-red-600'>&#8377; {product?.price} </span>
                     <span className='bg-gray-200 flex items-center justify-center gap-4 px-8 py-2 rounded-2xl w-[100px]'>

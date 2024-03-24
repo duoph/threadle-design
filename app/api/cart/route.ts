@@ -1,10 +1,13 @@
 import { getDataFromToken } from "@/helpers/getDataFromToken";
+import connectMongoDB from "@/libs/db";
 import CartModel from "@/models/cartItemModel";
 import { error } from "console";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
     try {
+
+        connectMongoDB()
 
         const { userId } = await getDataFromToken(req)
 
@@ -14,7 +17,9 @@ export async function POST(req: NextRequest) {
 
         const { productId, price, quantity, size, color, imageURL, title } = await req.json()
 
-        const totalPrice = quantity * price
+        const totalPrice = await quantity * price
+
+        console.log(totalPrice)
 
         const cart = await CartModel.create({
             userId, productId, price, quantity, size, color, imageURL, title, totalPrice

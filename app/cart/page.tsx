@@ -38,9 +38,15 @@ const CartPage = () => {
   const subTotal = () => {
     try {
       let sum = 0;
-      cart?.forEach(item => {
-        sum += item?.price * item.quantity;
-      });
+      // Check if cart exists before attempting to map over it
+      if (cart) {
+        cart.forEach(item => {
+          // Ensure item and item.totalPrice exist before adding to sum
+          if (item && item.totalPrice) {
+            sum += item.totalPrice;
+          }
+        });
+      }
       return sum;
     } catch (error) {
       console.log(error);
@@ -49,10 +55,6 @@ const CartPage = () => {
   };
 
 
-  useEffect(() => {
-    cartFetch()
-    cartItemCountFetch()
-  }, [])
 
   useEffect(() => {
     cartFetch()
