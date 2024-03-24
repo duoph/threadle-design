@@ -26,7 +26,6 @@ const UserProfile = () => {
         try {
             const res = await axios.get(`/api/user/${currentUser?.userId}`)
             setUser(res?.data?.user);
-            // Set formData using user data if available
             if (res?.data?.user) {
                 setFormData({
                     name: res.data.user.name,
@@ -107,14 +106,14 @@ const UserProfile = () => {
                         <FaAddressCard size={30} />
                         <textarea id="address" name="address" className='border px-5  py-2 w-full rounded-2xl bg-slate-200 min-h-[150px]' placeholder='Address' value={formData.address} onChange={handleChange} />
                     </div>
-                
+
                     <button className={`px-5 rounded-2xl py-3 border bg-td-secondary text-white font-bold`} type='submit'>Save</button>
                 </form>
 
                 <div className='flex items-center justify-center flex-col lg:w-1/2 w-full border px-5 py-8 gap-1 rounded-2xl bg-slate-100'>
                     <button onClick={() => router.push(`/account/${currentUser.userId}/wishlist`)} className='px-5 rounded-2xl py-3 border  bg-td-secondary text-white font-bold w-[200px]'>WishList</button>
                     <button onClick={() => router.push(`/account/${currentUser.userId}/orders`)} className='px-5 rounded-2xl py-3 border bg-td-secondary text-white font-bold w-[200px]'>Orders</button>
-                    <button onClick={() => router.push(`/account/${currentUser.userId}/changePassword`)} className='px-5 rounded-2xl py-3 border  bg-td-secondary text-white font-bold w-[200px]'>Change Password</button>
+                    <button onClick={() => router.push(`/account/${currentUser.userId}/change-password`)} className='px-5 rounded-2xl py-3 border  bg-td-secondary text-white font-bold w-[200px]'>Change Password</button>
                     <button onClick={logOut} className='px-5 rounded-2xl py-3 border  bg-red-700 text-white font-bold w-[200px]'>LogOut</button>
                 </div>
             </div>
