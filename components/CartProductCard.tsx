@@ -70,7 +70,7 @@ const CartProductCard = ({ product, cartItemsFetch }: any) => {
     return (
         <div className='flex w-full px-2 py-3'>
             <div className='flex items-center justify-center cursor-pointer'>
-                <div className='flex-shrink-0 w-24' onClick={() => router.push(`/ shop / ${product.productId}`)}>
+                <div className='flex-shrink-0 w-24' onClick={() => router.push(`/shop/${product.productId}`)}>
                     <Image style={{ objectFit: "cover" }} className='rounded-2xl w-[100px] h-[110px]' src={product?.imageURL} alt='Green' width={100} height={100} />
                 </div>
             </div>
