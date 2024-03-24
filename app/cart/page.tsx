@@ -9,7 +9,7 @@ import { useUser } from '@/context/useUser'
 
 const CartPage = () => {
 
-  const { cartItemsFetch } = useUser()
+  const { cartItemCountFetch } = useUser()
 
   const [cart, setCart] = useState<Cart[]>()
   const [total, setTotal] = useState<number>(0)
@@ -18,7 +18,7 @@ const CartPage = () => {
   const cartFetch = async () => {
     try {
 
-      cartItemsFetch()
+      cartItemCountFetch()
 
       const res = await axios.get("/api/cart")
 
@@ -49,12 +49,12 @@ const CartPage = () => {
 
   useEffect(() => {
     cartFetch()
-    cartItemsFetch()
+    cartItemCountFetch()
   }, [])
 
   useEffect(() => {
     cartFetch()
-    cartItemsFetch()
+    cartItemCountFetch()
     setTotal(subTotal())
   }, [cart]);
 
