@@ -53,9 +53,8 @@ export async function GET(req: NextRequest, { params }: any) {
         }
 
         const user = await userModel.findById(userId);
-        const userWishList = await userModel.findById(userId).populate("wishList")
 
-        return NextResponse.json({ message: "User found", success: true, user, userWishList });
+        return NextResponse.json({ message: "User found", success: true, user });
 
     } catch (error) {
         console.error(error);

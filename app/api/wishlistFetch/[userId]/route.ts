@@ -1,16 +1,12 @@
-import { getDataFromToken } from "@/helpers/getDataFromToken";
 import userModel from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 
 
-export async function GET(req: NextRequest) {
+export async function GET(req: NextRequest, { params }: any) {
     try {
 
-        // const { userId } = await getDataFromToken(req)
-        
-        const { userId } = await req.json()
 
-
+        const userId = await params.userId;
 
 
         if (!userId) {
