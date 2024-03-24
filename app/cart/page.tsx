@@ -47,6 +47,7 @@ const CartPage = () => {
   }, [])
 
   useEffect(() => {
+    cartItemsFetch()
     setTotal(subTotal())
   }, [cart]);
 
