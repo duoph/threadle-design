@@ -56,7 +56,7 @@ const ProductPage = () => {
     try {
       const res = await axios.get('/api/wishlist')
       console.log(res)
-      setWishListIds(res?.data?.user?.wishList?.map((item: any) => item._id))
+      setWishListIds(res?.data?.wishList)
     } catch (error) {
       console.log(error)
     }

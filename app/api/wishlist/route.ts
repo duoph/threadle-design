@@ -6,20 +6,21 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(req: NextRequest) {
     try {
 
-        const { email } = await getDataFromToken(req)
+        const { userId } = await getDataFromToken(req)
 
-        if (!email) {
+
+        if (!userId) {
             console.log("user id not found")
             return NextResponse.json({ message: "User Id not found", success: false });
         }
 
-        const user = await userModel.findOne({ email: email }).populate('wishList');
+        const user = await userModel.findOne({ _id: userId })
 
         if (!user) {
             return NextResponse.json({ message: "User not found", success: false });
         }
 
-        return NextResponse.json({ message: "Fetched user wishlist", success: true, user });
+        return NextResponse.json({ message: "Fetched user wishlist", success: true, wishList: user?.wishList });
 
     } catch (error: any) {
         console.error('Error while fetching wishlist:', error);
