@@ -46,15 +46,16 @@ export async function GET(req: NextRequest, { params }: any) {
         connectMongoDB();
 
         const userId = params.userId
-        
+
         if (!userId) {
             console.log("user id not found")
             return NextResponse.json({ message: "User Id not found", success: false });
         }
 
         const user = await userModel.findById(userId);
+        const userWishList = await userModel.findById(userId).populate("wishList")
 
-        return NextResponse.json({ message: "User found", success: true, user });
+        return NextResponse.json({ message: "User found", success: true, user, userWishList });
 
     } catch (error) {
         console.error(error);
