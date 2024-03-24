@@ -30,7 +30,7 @@ const ProductPage = () => {
   const [previewImage, setPreviewImage] = useState<string>()
 
 
-  const { cartItemsFetch } = useUser()
+  const { cartItemCountFetch } = useUser()
 
 
   const sizes = ["S", "M", "L", "XL", "2XL", "3XL"]
@@ -110,7 +110,7 @@ const ProductPage = () => {
       })
       if (res.data.success === true) {
         toast.success("Added to cart")
-        cartItemsFetch()
+        cartItemCountFetch()
       }
       if (res.data.success === false) {
         toast.error(res?.data?.message)
