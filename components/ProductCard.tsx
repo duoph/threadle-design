@@ -37,14 +37,15 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
     }
 
     const userWishlist = async () => {
+        const userId = currentUser?.userId
         try {
-            const res = await axios.get(`/api/wishlist`)
-            setWishListIds(res?.data?.user?.wishList?.map((item: any) => item._id))
+            const res = await axios.get(`/api/wishlistFetch/${userId}`)
+            console.log(res)
+            setWishListIds(res?.data?.wishList)
         } catch (error) {
             console.log(error)
         }
     }
-
 
     const handleDislike = async () => {
         try {
