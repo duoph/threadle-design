@@ -5,15 +5,20 @@ import CartProductCard from '@/components/CartProductCard'
 import { Cart } from '@/types'
 import axios from 'axios'
 import { FaLongArrowAltRight } from 'react-icons/fa'
+import { useUser } from '@/context/useUser'
 
 const CartPage = () => {
+
+  const { cartItemsFetch } = useUser()
 
   const [cart, setCart] = useState<Cart[]>()
   const [total, setTotal] = useState<number>(0)
 
 
-  const cartItemsFetch = async () => {
+  const cartFetch = async () => {
     try {
+
+      cartItemsFetch()
 
       const res = await axios.get("/api/cart")
 
@@ -43,10 +48,12 @@ const CartPage = () => {
 
 
   useEffect(() => {
+    cartFetch()
     cartItemsFetch()
   }, [])
 
   useEffect(() => {
+    cartFetch()
     cartItemsFetch()
     setTotal(subTotal())
   }, [cart]);
@@ -61,7 +68,7 @@ const CartPage = () => {
           {cart?.length === 0 || !cart && <span className='font-light'>Your cart is empty</span>}
           {cart?.map((item: Cart) => (
             <>
-              <CartProductCard subTotal={subTotal} cartItemsFetch={cartItemsFetch} key={item._id} product={item} />
+              <CartProductCard subTotal={subTotal} cartItemsFetch={cartFetch} key={item._id} product={item} />
               <div className=' border-b w-2/3'></div>
             </>
           ))}
