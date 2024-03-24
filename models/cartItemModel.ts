@@ -8,8 +8,8 @@ interface CartItemProps extends Document {
     price: number;
     title: string;
     size: string;
+    totalPrice: number;
     imageURL: string | undefined;
-
 }
 
 const cartItemSchema = new Schema<CartItemProps>({
@@ -20,6 +20,7 @@ const cartItemSchema = new Schema<CartItemProps>({
     title: { type: String, required: true },
     size: { type: String, required: true },
     imageURL: { type: String || undefined, required: false },
+    totalPrice: { type: Number, required: true },
     price: { type: Number, required: true }
 }, { timestamps: true });
 

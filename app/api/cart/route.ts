@@ -14,8 +14,10 @@ export async function POST(req: NextRequest) {
 
         const { productId, price, quantity, size, color, imageURL, title } = await req.json()
 
+        const totalPrice = quantity * price
+
         const cart = await CartModel.create({
-            userId, productId, price, quantity, size, color, imageURL, title
+            userId, productId, price, quantity, size, color, imageURL, title, totalPrice
         })
 
         return NextResponse.json({ message: "Cart created successfully", success: true, cart })

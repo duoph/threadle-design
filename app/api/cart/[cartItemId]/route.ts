@@ -31,9 +31,12 @@ export async function PUT(req: NextRequest, { params }: any) {
         const { quantity } = await req.json()
 
 
-        const cart = await CartModel.find({ _id: cartItemId })
+        const cart = await CartModel.findById({ _id: cartItemId })
 
-        const updateCart = await CartModel.findByIdAndUpdate({ _id: cartItemId }, { quantity }, { new: true })
+        const totalPrice = quantity * cart.price
+
+
+        const updateCart = await CartModel.findByIdAndUpdate({ _id: cartItemId }, { quantity, totalPrice }, { new: true })
 
         if (!updateCart) {
             return NextResponse.json({ message: "Cart not found to update", success: false, cart })
