@@ -20,7 +20,7 @@ interface UserContextProps {
   setIsLoading: (isLoading: boolean) => void;
   cartCount: number;
   setCartCount: (cartCount: number) => void;
-  cartItemsFetch: () => void;
+  cartItemCountFetch: () => void;
   LogOut: () => void; // Assuming you have a signOut function
 }
 
@@ -31,7 +31,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [cartCount, setCartCount] = useState<number>(0);
   const [isLoading, setIsLoading] = useState(true);
 
-  const cartItemsFetch = async () => {
+  const cartItemCountFetch = async () => {
     try {
       const res = await axios.get("/api/cart")
 
@@ -63,7 +63,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   return (
-    <UserContext.Provider value={{ currentUser, setCurrentUser, isLoading, setIsLoading, LogOut, setCartCount, cartCount, cartItemsFetch }}>
+    <UserContext.Provider value={{ currentUser, setCurrentUser, isLoading, setIsLoading, LogOut, setCartCount, cartCount, cartItemCountFetch }}>
       {children}
     </UserContext.Provider>
   );

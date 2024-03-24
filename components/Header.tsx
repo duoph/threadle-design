@@ -13,9 +13,8 @@ import { Cart } from '@/types';
 const Header = () => {
 
 
-    const [cart, setCart] = useState<Cart[]>()
 
-    const { LogOut, currentUser, setCartCount, cartCount } = useUser()
+    const { LogOut, currentUser, cartItemCountFetch, cartCount } = useUser()
 
     const router = useRouter()
 
@@ -42,25 +41,9 @@ const Header = () => {
     }
 
 
-    const cartItemsFetch = async () => {
-        try {
-
-            const res = await axios.get("/api/cart")
-
-            if (res?.data?.success === true) {
-                setCart(res?.data?.cartItems)
-                setCartCount(res?.data?.cartItems?.length)
-            }
-
-
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
 
     useEffect(() => {
-        cartItemsFetch()
+        cartItemCountFetch()
     }, [])
 
     return (
