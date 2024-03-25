@@ -11,6 +11,8 @@ import axios from "axios"; // Import Axios
 import { PulseLoader } from "react-spinners";
 import { FaPlus } from "react-icons/fa6";
 import { Category } from "@/types";
+import { Span } from "next/dist/trace";
+import { DiVim } from "react-icons/di";
 
 const CreateProduct = () => {
     const router = useRouter();
@@ -30,7 +32,7 @@ const CreateProduct = () => {
     const [moreImages, setMoreImages] = useState([]);
 
     const [hexCode, setHexCode] = useState("")
-    const [colorCodes, setColorCodes] = useState<[]>([])
+    const [colorCodes, setColorCodes] = useState<string[]>([]);
 
     const [fetchedCategory, setFetchedCategory] = useState<[] | undefined>([])
 
@@ -49,14 +51,20 @@ const CreateProduct = () => {
 
     const handleColorCode = () => {
         try {
-
-            console.log(hexCode)
-            setHexCode("")
-
+            const hexRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
+            if (hexRegex.test(hexCode)) {
+                toast.success("Color Added");
+                setColorCodes(prevColorCodes => [...prevColorCodes, hexCode]);
+                setHexCode(""); // Clear the hexCode if it's valid
+            } else {
+                toast.error("Invalid hex code")
+                // Handle invalid hex code here (e.g., show error message)
+            }
         } catch (error) {
-
+            console.log(error)
         }
     }
+
 
     const handleDisplayImage = (event: React.ChangeEvent<HTMLInputElement>, i: number) => {
         const file = event.target.files?.[0];
@@ -171,6 +179,8 @@ const CreateProduct = () => {
         getAllCategories()
     }, [])
 
+    console.log(colorCodes)
+
     // console.log(isCustom)
 
     // console.log(category)
@@ -213,6 +223,16 @@ const CreateProduct = () => {
                     </div>
                 </div>
 
+                {colorCodes && (
+                    <div className="flex flex-wrap gap-3">
+                        {colorCodes.map((color, i) => (
+                            <span key={i} className={`relative cursor-pointer h-[35px] bg-[${color}] w-[35px] rounded-[50%] flex items-center justify-center shadow-lg`}>
+                            </span>
+                        ))}
+
+                    </div>
+                )}
+
 
                 <h1 className="font-semibold">Pricing</h1>
 
@@ -227,18 +247,20 @@ const CreateProduct = () => {
 
                 </div>
 
-                {!isCustom && (
-                    <div className="flex flex-row gap-1 w-full">
-                        <div className="flex flex-col w-1/2">
-                            <label htmlFor="title" className="font-medium">Regular Price</label>
-                            <input value={regularPrice} onChange={(e) => setRegularPrice(e.target.value)} className="bg-gray-200 px-5 py-3 rounded-2xl" id="title" />
+                {
+                    !isCustom && (
+                        <div className="flex flex-row gap-1 w-full">
+                            <div className="flex flex-col w-1/2">
+                                <label htmlFor="title" className="font-medium">Regular Price</label>
+                                <input value={regularPrice} onChange={(e) => setRegularPrice(e.target.value)} className="bg-gray-200 px-5 py-3 rounded-2xl" id="title" />
+                            </div>
+                            <div className="flex flex-col w-1/2">
+                                <label htmlFor="title" className="font-medium">Offer Price</label>
+                                <input value={salePrice} onChange={(e) => setSalePrice(e.target.value)} className="bg-gray-200 px-5 py-3 rounded-2xl" id="title" />
+                            </div>
                         </div>
-                        <div className="flex flex-col w-1/2">
-                            <label htmlFor="title" className="font-medium">Offer Price</label>
-                            <input value={salePrice} onChange={(e) => setSalePrice(e.target.value)} className="bg-gray-200 px-5 py-3 rounded-2xl" id="title" />
-                        </div>
-                    </div>
-                )}
+                    )
+                }
 
                 <h1 className="text-[15px] font-semibold">Cover Image</h1>
                 <div className="flex flex-col gap-2 items-center justify-center ">
