@@ -29,6 +29,9 @@ const CreateProduct = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [moreImages, setMoreImages] = useState([]);
 
+    const [hexCode, setHexCode] = useState("")
+    const [colorCodes, setColorCodes] = useState<[]>([])
+
     const [fetchedCategory, setFetchedCategory] = useState<[] | undefined>([])
 
 
@@ -44,7 +47,16 @@ const CreateProduct = () => {
     }
 
 
+    const handleColorCode = () => {
+        try {
 
+            console.log(hexCode)
+            setHexCode("")
+
+        } catch (error) {
+
+        }
+    }
 
     const handleDisplayImage = (event: React.ChangeEvent<HTMLInputElement>, i: number) => {
         const file = event.target.files?.[0];
@@ -190,24 +202,39 @@ const CreateProduct = () => {
                     </select>
                 </div>
 
+
+                {/* color code */}
+
+                <div className="flex flex-col gap-1">
+                    <label htmlFor="color" className="font-semibold">Color (enter color code )</label>
+                    <div className="w-full flex bg-gray-200 rounded-2xl items-center justify-center">
+                        <input value={hexCode} onChange={(e) => setHexCode(e.target.value)} className="bg-gray-200 px-5 py-3 rounded-l-2xl w-full" type="text" id="color" placeholder="eg:#495D69" />
+                        <span onClick={handleColorCode} className="bg-td-secondary cursor-pointer px-5 py-3 rounded-2xl text-white">Add</span>
+                    </div>
+                </div>
+
+
+                <h1 className="font-semibold">Pricing</h1>
+
                 <div className="flex flex-row items-center justify-start gap-3">
-                    <label htmlFor="isCustom" className="font-semibold">Product has custom pricing</label>
+                    <label htmlFor="isCustom" className="font-medium">Product has custom pricing</label>
                     <input
                         type="checkbox"
                         id="isCustom"
                         checked={isCustom}
                         onChange={(e) => setIsCustom(!isCustom)}
                     />
+
                 </div>
 
                 {!isCustom && (
                     <div className="flex flex-row gap-1 w-full">
                         <div className="flex flex-col w-1/2">
-                            <label htmlFor="title" className="font-semibold">Regular Price</label>
+                            <label htmlFor="title" className="font-medium">Regular Price</label>
                             <input value={regularPrice} onChange={(e) => setRegularPrice(e.target.value)} className="bg-gray-200 px-5 py-3 rounded-2xl" id="title" />
                         </div>
                         <div className="flex flex-col w-1/2">
-                            <label htmlFor="title" className="font-semibold">Sale Price(Optional)</label>
+                            <label htmlFor="title" className="font-medium">Offer Price</label>
                             <input value={salePrice} onChange={(e) => setSalePrice(e.target.value)} className="bg-gray-200 px-5 py-3 rounded-2xl" id="title" />
                         </div>
                     </div>

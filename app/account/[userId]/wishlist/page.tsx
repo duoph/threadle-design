@@ -7,11 +7,17 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
 const WishList = () => {
+
+    const { currentUser } = useUser()
+
+
     const [products, setProducts] = useState<Product[]>([]); // Initialize as an empty array
 
-    const fetchWishlist = async () => {
+
+    const fetchWishlistedProducts = async () => {
+        const userId = currentUser?.userId
         try {
-            const res = await axios.get(`/api/wishlist`)
+            const res = await axios.get(`/api/wishlistFetch/${userId}`)
             setProducts(res?.data?.user?.wishList);
             console.log(res);
         } catch (error) {
@@ -19,9 +25,12 @@ const WishList = () => {
         }
     };
 
+
     useEffect(() => {
-        fetchWishlist();
+        fetchWishlistedProducts();
     }, []);
+
+
 
 
     return (
@@ -31,7 +40,7 @@ const WishList = () => {
             </div>
             <div className="flex items-center h-full justify-center gap-5 flex-wrap md:px-10 px-5">
                 {products?.map((product) => (
-                    <ProductCard getProducts={fetchWishlist} key={product._id} product={product} />
+                    <ProductCard getProducts={fetchWishlistedProducts} key={product._id} product={product} />
                 ))}
                 {products?.length === 0 && <span>No products in Wishlist</span>}
             </div>
