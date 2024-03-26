@@ -44,6 +44,9 @@ export async function PUT(req: NextRequest, { params }: any) {
         const categoryId = formData.get('categoryId');
         const categoryName = formData.get('categoryName');
         const inStock = formData.get('inStock');
+        const colorCodesString: any = formData.get("colorCodes") || '';
+
+        const colorCodes = colorCodesString.split(',');
 
         // Update the product document
         const updatedProduct = await ProductModel.findByIdAndUpdate(
@@ -55,16 +58,17 @@ export async function PUT(req: NextRequest, { params }: any) {
                 regularPrice,
                 categoryName,
                 categoryId,
+                colors:colorCodes,
                 inStock: inStock === "yes" ? true : false
             },
-            { new: true }
+    { new: true }
         );
 
-        return NextResponse.json({ message: "Product Updated", success: true, updatedProduct });
-    } catch (error) {
-        console.error(error);
-        return NextResponse.json({ message: "Error while editing product", success: false });
-    }
+    return NextResponse.json({ message: "Product Updated", success: true, updatedProduct });
+} catch (error) {
+    console.error(error);
+    return NextResponse.json({ message: "Error while editing product", success: false });
+}
 }
 
 

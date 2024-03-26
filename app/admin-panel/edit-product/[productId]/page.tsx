@@ -30,6 +30,9 @@ const EditProduct = () => {
     const [fetchedCategoryName, setFetchedCategoryName] = useState<string>("")
     const [categoryName, setCategoryName] = useState<string>("")
 
+    const [hexCode, setHexCode] = useState("")
+    const [colorCodes, setColorCodes] = useState<string[]>([]);
+
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
 
@@ -37,7 +40,7 @@ const EditProduct = () => {
         try {
             const response = await axios.get(`/api/product/${productId}`)
             console.log(response.data.product)
-            const { title, desc, regularPrice, salePrice, inStock, categoryId, categoryName } = response.data.product;
+            const { title, desc, regularPrice, salePrice, inStock, categoryId, categoryName, colors } = response.data.product;
             setProductTitle(title);
             setProductDesc(desc);
             setRegularPrice(regularPrice);
@@ -45,6 +48,7 @@ const EditProduct = () => {
             setInStock(inStock);
             setFetchedCategoryName(categoryName)
             setFetchedCategoryId(categoryId);
+            setColorCodes(colors)
         } catch (error) {
             console.log(error)
         }
@@ -69,6 +73,37 @@ const EditProduct = () => {
         getAllCategories()
         fetchProduct()
     }, [])
+
+
+
+    const handleColorCode = () => {
+        try {
+            const hexRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
+            if (hexRegex.test(hexCode)) {
+                toast.success("Color Added");
+                setColorCodes(prevColorCodes => [...prevColorCodes, hexCode]);
+                setHexCode(""); // Clear the hexCode if it's valid
+            } else {
+                toast.error("Invalid hex code")
+                // Handle invalid hex code here (e.g., show error message)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+
+    const handleRemoveColor = (color: string) => {
+        try {
+            const updatedColorCodes = colorCodes.filter(c => c !== color);
+            setColorCodes(updatedColorCodes);
+            toast.success("Color Removed");
+        } catch (error) {
+            console.error("Error removing color:", error);
+            toast.error("Failed to remove color. Please try again.");
+        }
+    }
+
 
 
 
@@ -99,6 +134,10 @@ const EditProduct = () => {
             formData.append("regularPrice", categoryName);
             if (salePrice) {
                 formData.append("salePrice", salePrice);
+            }
+            if (colorCodes) {
+                const colorCodesString = colorCodes.join(',');
+                formData.append("colorCodes", colorCodesString);
             }
 
             const selectedCategory = fetchedCategory?.find((category: any) => category._id === categoryId);
@@ -159,6 +198,31 @@ const EditProduct = () => {
                 <label htmlFor="desc" className="font-semibold">Description</label>
                 <textarea value={productDesc} onChange={(e) => setProductDesc(e.target.value)} rows={6} className="bg-gray-200 px-5 py-3 rounded-2xl" id="desc" />
             </div>
+
+
+            {/* color */}
+
+            <div className="flex flex-col gap-1">
+                <label htmlFor="color" className="font-semibold">Color (enter color code )</label>
+                <div className="w-full flex bg-gray-200 rounded-2xl items-center justify-center">
+                    <input value={hexCode} onChange={(e) => setHexCode(e.target.value)} className="bg-gray-200 px-5 py-3 rounded-l-2xl w-full" type="text" id="color" placeholder="eg:#495D69" />
+                    <span onClick={handleColorCode} className="bg-td-secondary cursor-pointer px-5 py-3 rounded-2xl text-white">Add</span>
+                </div>
+            </div>
+
+            {colorCodes && (
+                <div className="flex flex-wrap items-center gap-3 bg-gray-200 px-4 py-3 rounded-2xl w-full">
+                    <h1>Selected Colors :</h1>
+                    {colorCodes.map((color, i) =>
+                    (
+                        <span onClick={() => handleRemoveColor(color)} key={i} style={{ background: color }} className={`relative cursor-pointer h-[35px] w-[35px] rounded-[50%] flex items-center justify-center shadow-lg`}>
+                            {/* <IoMdClose size={24} /> */}
+                        </span>
+                    ))}
+
+                </div>
+            )}
+
             <div className="flex flex-row gap-1 w-full">
                 <div className="flex flex-col w-1/2">
                     <label htmlFor="title" className="font-semibold">Regular Price</label>
