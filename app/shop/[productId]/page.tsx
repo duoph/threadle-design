@@ -234,23 +234,14 @@ const ProductPage = () => {
             </div>
             <div className='flex flex-col gap-4 w-full'>
               <p>{product?.colors && !product?.isCustom ? "Select Color" : "Available Colors"}</p>
-              <div className='flex gap-3'>
 
-                {/* Color hardcode */}
-                {product?.colors?.map((color) => (
-                  <span onClick={() => setSelectedColor(color)} style={{ background: color }} className={`relative cursor-pointer h-[35px]w-[35px] rounded-[50%] flex items-center justify-center shadow-lg ${selectedColor === "red" && "bg-opacity-80"}`}>
+              <div className='flex gap-3'>
+                {/* Colors display */}
+                {product?.colors?.map((color, i) => (
+                  <span key={i} onClick={() => setSelectedColor(color)} style={{ background: color }} className={`relative cursor-pointer h-[35px]w-[35px] rounded-[50%] flex items-center justify-center shadow-lg ${selectedColor === color && "bg-opacity-80"}`}>
                     {selectedColor === color && <IoIosCheckmark className='text-white z-10 bg-opacity-35' size={24} />}
                   </span>
                 ))}
-                {/* <span onClick={() => setSelectedColor("red")} className={`relative cursor-pointer h-[35px] bg-red-700 w-[35px] rounded-[50%] flex items-center justify-center shadow-lg ${selectedColor === "red" && "bg-opacity-80"}`}>
-                  {selectedColor === "red" && <IoIosCheckmark className='text-white z-10 bg-opacity-35' size={24} />}
-                </span>
-                <span onClick={() => setSelectedColor("blue")} className={`relative cursor-pointer h-[35px] bg-blue-700 w-[35px] rounded-[50%] flex items-center justify-center shadow-lg ${selectedColor === "blue" && "bg-opacity-80"}`}>
-                  {selectedColor === "blue" && <IoIosCheckmark className='text-white z-10 bg-opacity-35' size={24} />}
-                </span>
-                <span onClick={() => setSelectedColor("green")} className={`relative cursor-pointer h-[35px] bg-green-700 w-[35px] rounded-[50%] flex items-center justify-center shadow-lg ${selectedColor === "green" && "bg-opacity-80"}`}>
-                  {selectedColor === "green" && <IoIosCheckmark className='text-white z-10 bg-opacity-35' size={24} />}
-                </span> */}
               </div>
 
               <div className='flex flex-col flex-wrap gap-3'>
