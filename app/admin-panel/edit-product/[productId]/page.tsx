@@ -45,7 +45,7 @@ const EditProduct = () => {
             setProductDesc(desc);
             setRegularPrice(regularPrice);
             setSalePrice(salePrice);
-            setInStock(inStock);
+            setInStock(inStock === true ? 'yes' : 'no');
             setFetchedCategoryName(categoryName)
             setFetchedCategoryId(categoryId);
             setColorCodes(colors)
@@ -250,10 +250,18 @@ const EditProduct = () => {
 
             <div className="flex flex-col gap-1">
                 <label htmlFor="inStock" className="font-semibold">In Stock</label>
-                <select onChange={(e) => { setInStock(e.target.value) }} id="inStock" className="bg-gray-200 px-5 py-3 rounded-2xl text-black">
-                    <option value="yes" selected={inStock === 'yes'}>Yes</option>
-                    <option value="no" selected={inStock === 'no'}>No</option>
-                </select>
+                <div className="flex items-center">
+                    <input
+                        type="checkbox"
+                        id="inStock"
+                        checked={inStock === 'yes'}
+                        onChange={(e) => {
+                            setInStock(e.target.checked ? 'yes' : 'no')
+                        }}
+                        className="mr-2"
+                    />
+                    <label htmlFor="inStock">Yes</label>
+                </div>
             </div>
 
 
