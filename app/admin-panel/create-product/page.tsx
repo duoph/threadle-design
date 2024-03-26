@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from "next/navigation";
-import { IoMdArrowBack } from "react-icons/io";
+import { IoMdArrowBack, IoMdClose } from "react-icons/io";
 import { CiSquarePlus } from "react-icons/ci";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
@@ -9,10 +9,8 @@ import { MdDelete } from "react-icons/md";
 import toast from "react-hot-toast";
 import axios from "axios"; // Import Axios
 import { PulseLoader } from "react-spinners";
-import { FaPlus } from "react-icons/fa6";
 import { Category } from "@/types";
-import { Span } from "next/dist/trace";
-import { DiVim } from "react-icons/di";
+
 
 const CreateProduct = () => {
     const router = useRouter();
@@ -64,6 +62,18 @@ const CreateProduct = () => {
             console.log(error)
         }
     }
+
+    const handleRemoveColor = (color: string) => {
+        try {
+            const updatedColorCodes = colorCodes.filter(c => c !== color);
+            setColorCodes(updatedColorCodes);
+            toast.success("Color Removed");
+        } catch (error) {
+            console.error("Error removing color:", error);
+            toast.error("Failed to remove color. Please try again.");
+        }
+    }
+
 
 
     const handleDisplayImage = (event: React.ChangeEvent<HTMLInputElement>, i: number) => {
@@ -224,9 +234,12 @@ const CreateProduct = () => {
                 </div>
 
                 {colorCodes && (
-                    <div className="flex flex-wrap gap-3">
-                        {colorCodes.map((color, i) => (
-                            <span key={i} className={`relative cursor-pointer h-[35px] bg-[${color}] w-[35px] rounded-[50%] flex items-center justify-center shadow-lg`}>
+                    <div className="flex flex-wrap items-center gap-3 bg-gray-200 px-4 py-3 rounded-2xl w-full">
+                        <h1>Selected Colors :</h1>
+                        {colorCodes.map((color, i) =>
+                        (
+                            <span onClick={() => handleRemoveColor(color)} key={i} style={{ background: color }} className={`relative cursor-pointer h-[35px] w-[35px] rounded-[50%] flex items-center justify-center shadow-lg`}>
+                                {/* <IoMdClose size={24} /> */}
                             </span>
                         ))}
 
