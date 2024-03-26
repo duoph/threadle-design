@@ -272,8 +272,8 @@ const ProductPage = () => {
         </div>
       )
       }
-      <div className='mt-5'>
-        <p>{product?.desc}</p>
+      <div className='mt-5 w-full'>
+        <p className='break-all w-full'>{product?.desc}</p>
       </div>
       {
         product?.category && (
