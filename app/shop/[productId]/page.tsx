@@ -233,7 +233,11 @@ const ProductPage = () => {
 
             </div>
             <div className='flex flex-col gap-4 w-full'>
-              <p>{product?.colors && !product?.isCustom ? "Select Color" : "Available Colors"}</p>
+
+              {product?.colors?.length > 0 && (
+                <p>{!product?.isCustom ? "Select Color" : "Available Colors"}</p>
+              )}
+
 
               <div className='flex gap-3'>
                 {/* Colors display */}
