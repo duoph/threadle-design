@@ -20,6 +20,7 @@ export interface Product {
     salePrice?: number;
     desc: string
     isCustom: boolean
+    colors: string[]
 }
 
 export interface Category {
