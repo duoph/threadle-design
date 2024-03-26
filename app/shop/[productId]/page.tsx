@@ -238,7 +238,7 @@ const ProductPage = () => {
               <div className='flex gap-3'>
                 {/* Colors display */}
                 {product?.colors?.map((color, i) => (
-                  <span key={i} onClick={() => setSelectedColor(color)} style={{ background: color }} className={`relative cursor-pointer h-[35px]w-[35px] rounded-[50%] flex items-center justify-center shadow-lg ${selectedColor === color && "bg-opacity-80"}`}>
+                  <span key={i} onClick={() => setSelectedColor(color)} style={{ background: color }} className={`relative cursor-pointer h-[35px] w-[35px] rounded-[50%] flex items-center justify-center shadow-lg ${selectedColor === color ? "bg-opacity-80" : ""}`}>
                     {selectedColor === color && <IoIosCheckmark className='text-white z-10 bg-opacity-35' size={24} />}
                   </span>
                 ))}
