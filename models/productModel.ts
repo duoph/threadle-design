@@ -14,6 +14,7 @@ interface ProductDocument extends Document {
     slugifyProductName: string;
     moreImagesURLs: string[];
     isFeatured: boolean;
+    colors: string;
 }
 
 const productSchema = new Schema<ProductDocument>({
@@ -28,6 +29,7 @@ const productSchema = new Schema<ProductDocument>({
     regularPrice: { type: Number },
     salePrice: { type: Number || undefined },
     moreImagesURLs: [{ type: String }],
+    colors: [{ type: String }],
     isFeatured: { type: Boolean },
 }, { timestamps: true });
 

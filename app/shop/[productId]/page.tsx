@@ -233,11 +233,16 @@ const ProductPage = () => {
 
             </div>
             <div className='flex flex-col gap-4 w-full'>
-              <p>{!product?.isCustom ? "Select Color" : "Available Colors"}</p>
+              <p>{product?.colors && !product?.isCustom ? "Select Color" : "Available Colors"}</p>
               <div className='flex gap-3'>
 
                 {/* Color hardcode */}
-                <span onClick={() => setSelectedColor("red")} className={`relative cursor-pointer h-[35px] bg-red-700 w-[35px] rounded-[50%] flex items-center justify-center shadow-lg ${selectedColor === "red" && "bg-opacity-80"}`}>
+                {product?.colors?.map((color) => (
+                  <span onClick={() => setSelectedColor(color)} style={{ background: color }} className={`relative cursor-pointer h-[35px]w-[35px] rounded-[50%] flex items-center justify-center shadow-lg ${selectedColor === "red" && "bg-opacity-80"}`}>
+                    {selectedColor === color && <IoIosCheckmark className='text-white z-10 bg-opacity-35' size={24} />}
+                  </span>
+                ))}
+                {/* <span onClick={() => setSelectedColor("red")} className={`relative cursor-pointer h-[35px] bg-red-700 w-[35px] rounded-[50%] flex items-center justify-center shadow-lg ${selectedColor === "red" && "bg-opacity-80"}`}>
                   {selectedColor === "red" && <IoIosCheckmark className='text-white z-10 bg-opacity-35' size={24} />}
                 </span>
                 <span onClick={() => setSelectedColor("blue")} className={`relative cursor-pointer h-[35px] bg-blue-700 w-[35px] rounded-[50%] flex items-center justify-center shadow-lg ${selectedColor === "blue" && "bg-opacity-80"}`}>
@@ -245,7 +250,7 @@ const ProductPage = () => {
                 </span>
                 <span onClick={() => setSelectedColor("green")} className={`relative cursor-pointer h-[35px] bg-green-700 w-[35px] rounded-[50%] flex items-center justify-center shadow-lg ${selectedColor === "green" && "bg-opacity-80"}`}>
                   {selectedColor === "green" && <IoIosCheckmark className='text-white z-10 bg-opacity-35' size={24} />}
-                </span>
+                </span> */}
               </div>
 
               <div className='flex flex-col flex-wrap gap-3'>

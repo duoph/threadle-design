@@ -16,12 +16,19 @@ export async function POST(req: NextRequest) {
         const categoryId = formData.get("categoryId");
         const categoryName = formData.get("categoryName");
         const isCustom = formData.get("isCustom");
-        const file = formData.get("coverImage") as Blob; // Change to Blob
-        const image1 = formData.get("image1") as Blob; // Change to Blob
-        const image2 = formData.get("image2") as Blob; // Change to Blob
-        const image3 = formData.get("image3") as Blob; // Change to Blob
-        const image4 = formData.get("image4") as Blob; // Change to Blob
+        const file = formData.get("coverImage") as Blob;
+        const image1 = formData.get("image1") as Blob;
+        const image2 = formData.get("image2") as Blob;
+        const image3 = formData.get("image3") as Blob;
+        const image4 = formData.get("image4") as Blob;
         const salePrice = formData.get("salePrice") || undefined;
+
+        const colorCodesString: any = formData.get("colorCodes") || '';
+
+        const colorCodes = colorCodesString.split(',');
+
+        console.log(colorCodes)
+
 
         let aws;
 
@@ -69,6 +76,7 @@ export async function POST(req: NextRequest) {
             isCustom: isCustom === "true" ? true : false,
             slugifyProductName,
             moreImagesURLs: imageUrls?.map((result: any) => result.s3Url),
+            colors: colorCodes || []
         });
 
         return NextResponse.json({ message: "Product created successfully", success: true });

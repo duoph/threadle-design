@@ -119,6 +119,7 @@ const CreateProduct = () => {
 
 
 
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         try {
             e.preventDefault();
@@ -134,12 +135,19 @@ const CreateProduct = () => {
 
             // Find the category based on categoryId
 
+
+
+
             formData.append("title", title);
             formData.append("categoryId", categoryId);
             formData.append("desc", desc);
             formData.append("regularPrice", regularPrice);
             formData.append("isCustom", isCustom ? "true" : "false");
-
+            
+            if (colorCodes) {
+                const colorCodesString = colorCodes.join(',');
+                formData.append("colorCodes", colorCodesString);
+            }
 
             const selectedCategory = fetchedCategory?.find((category: any) => category._id === categoryId);
 
