@@ -45,7 +45,7 @@ const SigleCategoryPage = () => {
     }
 
     return (
-        <div className='flex flex-col gap-5 py-10'>
+        <div className='flex flex-col gap-5 lg:px-3 py-10'>
             <div className='flex items-center justify-center'>
                 <h1 className='text-[30px] text-td-secondary font-bold'>{category?.categoryName}</h1>
             </div>

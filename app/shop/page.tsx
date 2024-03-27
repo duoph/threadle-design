@@ -60,7 +60,7 @@ const Shop = () => {
 
 
   return (
-    <div className='flex flex-col gap-5 items-center justify-center px-2 lg:px-10 py-10'>
+    <div className='flex flex-col gap-5 items-center justify-center px-2 lg:px-3 py-10'>
       <div className='rounded-2xl flex items-center justify-center cursor-pointer gap-3 bg-td-secondary pr-6 w-full'>
         <input
           type='text'
