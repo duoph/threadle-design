@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const About = () => {
     return (
@@ -16,17 +16,17 @@ const About = () => {
                 </div>
                 <div className='w-full'>
                     <h1 className='text-td-secondary text-[20px] font-bold text-center'>Ready-Made Elegance</h1>
-                    <p className='break-all'>At Threadle, we prioritize the customer experience above all else. Our knowledgeable stylists are on hand to offer personalized guidance and styling advice, ensuring every visit is a memorable and enjoyable experience. Whether you're embarking on a custom design journey or browsing our ready-made offerings, we're dedicated to providing unparalleled service and attention to detail at every step of the way.</p>
+                    <p className='break-all'>At Threadle, we prioritize the customer experience above all else. Our knowledgeable stylists are on hand to offer personalized guidance and styling advice, ensuring every visit is a memorable and enjoyable experience. Whether you&apos;re embarking on a custom design journey or browsing our ready-made offerings, we&apos;re dedicated to providing unparalleled service and attention to detail at every step of the way.</p>
                 </div>
             </div>
             <div className='flex flex-col md:flex-row items-start justify-center gap-5 w-full'>
                 <div className='w-full'>
-                    <h1 className='text-td-secondary text-[20px] font-bold text-center'>Quality Craftsmanship:</h1>
-                    <p className='break-all'>We take pride in the quality of our craftsmanship, sourcing only the finest fabrics and materials to create garments that stand the test of time. From intricate embroidery to precision tailoring, every stitch is executed with care and expertise, resulting in garments that exude luxury and sophistication. Whether you're investing in a bespoke masterpiece or selecting from our ready-made collection, you can trust that every Threadle creation is crafted to the highest standards of excellence.</p>
+                    <h1 className='text-td-secondary text-[20px] font-bold text-center'>Quality Craftsmanship</h1>
+                    <p className='break-all'>We take pride in the quality of our craftsmanship, sourcing only the finest fabrics and materials to create garments that stand the test of time. From intricate embroidery to precision tailoring, every stitch is executed with care and expertise, resulting in garments that exude luxury and sophistication. Whether you&apos;re investing in a bespoke masterpiece or selecting from our ready-made collection, you can trust that every Threadle creation is crafted to the highest standards of excellence.</p>
                 </div>
                 <div className='w-full'>
                     <h1 className='text-td-secondary text-[20px] font-bold text-center'>Experience the Difference</h1>
-                    <p className='break-all'>Discover the perfect blend of customization and convenience at Threadle. Whether you're seeking a bespoke masterpiece or a ready-made gem, our boutique offers a world of possibilities for the modern woman who values quality, style, and individuality. Experience the difference of personalized fashion at Threadle – where every stitch tells a story, and every garment is a work of art.</p>
+                    <p className='break-all'>Discover the perfect blend of customization and convenience at Threadle. Whether you&apos;re seeking a bespoke masterpiece or a ready-made gem, our boutique offers a world of possibilities for the modern woman who values quality, style, and individuality. Experience the difference of personalized fashion at Threadle – where every stitch tells a story, and every garment is a work of art.</p>
                 </div>
             </div>
 
@@ -34,4 +34,4 @@ const About = () => {
     )
 }
 
-export default About
+export default About;

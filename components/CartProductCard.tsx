@@ -87,7 +87,7 @@ const CartProductCard = ({ product, cartItemsFetch }: any) => {
                 {/* <span className='text-[13px]  font-normal'>Quantity : {product?.quantity}</span> */}
                 <div className='flex items-center justify-between w-full'>
 
-                    <span>Quantity</span>
+                    <span className='text-red-600'>&#8377; {product?.price} </span>
                     <span className='bg-gray-200 flex items-center justify-center gap-4 px-8 py-2 rounded-2xl w-[100px]'>
                         <span className='cursor-pointer' onClick={() => handleQuantity("decrement")}>-</span>
                         <span>{quantity}</span>
