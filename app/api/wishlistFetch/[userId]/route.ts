@@ -17,7 +17,7 @@ export async function GET(req: NextRequest, { params }: any) {
             return NextResponse.json({ message: "User not found", success: false });
         }
 
-        const wishListItems = await ProductModel.find({ _id: { $in: user.wishList } });
+        const wishListItems = await ProductModel.find({ _id: { $in: user.wishList } })
 
         return NextResponse.json({ message: "Fetched user wishlist", success: true, wishList: user.wishList, user, wishListItems });
 
