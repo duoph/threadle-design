@@ -3,6 +3,8 @@ import userModel from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 
 
+
+
 // Creating a new admin 
 export async function POST(req: NextRequest) {
     try {
@@ -37,5 +39,19 @@ export async function POST(req: NextRequest) {
             success: false,
             error
         });
+    }
+}
+
+
+// get admin acc's
+
+export async function GET(req: NextRequest) {
+    try {
+        connectMongoDB()
+        const admins = await userModel.find({ isAdmin: true })
+        return NextResponse.json({ message: "fetched all admins", success: true, admins })
+    } catch (error) {
+        console.log(error)
+        return NextResponse.json({ message: "error while fetching admins", success: false })
     }
 }
