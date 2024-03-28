@@ -18,7 +18,7 @@ const WishList = () => {
         const userId = currentUser?.userId
         try {
             const res = await axios.get(`/api/wishlistFetch/${userId}`)
-            setProducts(res?.data?.wishListItems);
+            setProducts(res?.data?.wishList);
             console.log(res);
         } catch (error) {
             console.log(error);
