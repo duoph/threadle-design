@@ -21,16 +21,26 @@ export async function POST(req: NextRequest) {
             });
         }
 
-        await userModel.findOneAndUpdate(
+        const madeAdmin = await userModel.findOneAndUpdate(
             { email },
             { $set: { isAdmin: true } },
             { new: true }
         );
 
+
+        if (madeAdmin) {
+            return NextResponse.json({
+                message: `${email} is admin now`,
+                success: true
+            });
+        }
+
         return NextResponse.json({
-            message: `${email} is admin now`,
-            success: true
+            message: `error unable to create admin`,
+            success: false
         });
+
+
 
     } catch (error) {
         console.error(error);
