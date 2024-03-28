@@ -11,7 +11,7 @@ export async function GET(req: NextRequest, { params }: any) {
             return NextResponse.json({ message: "User Id not found", success: false });
         }
 
-        const user = await userModel.findOne({ _id: userId }).populate("wishList");
+        const user = await userModel.findOne({ _id: userId })
 
         if (!user) {
             return NextResponse.json({ message: "User not found", success: false });
@@ -21,7 +21,7 @@ export async function GET(req: NextRequest, { params }: any) {
 
         return NextResponse.json({ message: "Fetched user wishlist", success: true, wishList: user.wishList, user, wishListItems });
 
-    } catch (error:any) {
+    } catch (error: any) {
         console.error('Error while fetching wishlist:', error);
         return NextResponse.json({ message: "Error while fetching wishlist", success: false, error: error.message });
     }
