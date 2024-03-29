@@ -67,9 +67,15 @@ const Shop = () => {
   const indexOfFirstProduct = indexOfLastProduct - 20;
   const currentProducts = searchProducts.slice(indexOfFirstProduct, indexOfLastProduct);
 
-  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
-  const nextPage = () => setCurrentPage(currentPage + 1);
-  const prevPage = () => setCurrentPage(currentPage - 1);
+  const nextPage = () => {
+    window.scrollTo(0, 0)
+    setCurrentPage(currentPage + 1)
+  }
+  const prevPage = () => {
+    window.scrollTo(0, 0)
+    setCurrentPage(currentPage - 1)
+  }
+  
 
   return (
     <div className='flex flex-col gap-5 items-center justify-center px-2 lg:px-3 py-10'>

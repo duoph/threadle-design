@@ -36,17 +36,22 @@ const ViewAllProducts = () => {
             product.desc?.toLowerCase().includes(search.toLowerCase())
         )
         setSearchResults(filtered)
-        setCurrentPage(1) 
+        setCurrentPage(1)
     }, [search, products])
 
     const indexOfLastProduct = currentPage * 20
     const indexOfFirstProduct = indexOfLastProduct - 20
     const currentProducts = searchResults.slice(indexOfFirstProduct, indexOfLastProduct)
 
-    const paginate = (pageNumber: number) => setCurrentPage(pageNumber)
-    const nextPage = () => setCurrentPage(currentPage + 1)
-    const prevPage = () => setCurrentPage(currentPage - 1)
 
+    const nextPage = () => {
+        window.scrollTo(0, 0)
+        setCurrentPage(currentPage + 1)
+    }
+    const prevPage = () => {
+        window.scrollTo(0, 0)
+        setCurrentPage(currentPage - 1)
+    }
     return (
         <div className='md:px-10 px flex flex-col flex-wrap items-center justify-center gap-3 px-2 lg:px-3 py-10'>
             <div>
