@@ -12,8 +12,6 @@ const LoginPageAdmin = () => {
     const [email, setEmail] = useState<string>('')
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    const { setCurrentUser } = useUser()
-
     const router = useRouter();
 
 
@@ -32,13 +30,17 @@ const LoginPageAdmin = () => {
             });
 
 
-            if (response.data.success === true) {
+            if (response.data.success) {
                 toast.success(response.data.message)
+                router.push("/admin-panel")
             }
 
             if (response.data.success === false) {
-                toast.success("Unable to make admin")
+                toast.error("Unable to make admin")
             }
+
+
+
             setIsLoading(false);
 
 
@@ -57,9 +59,7 @@ const LoginPageAdmin = () => {
 
     // if (currentUser?.token && currentUser.isAdmin === false) {
     //     return router.push(`/account/${currentUser.userId}`)
-    // }
-
-
+    // 
 
     return (
         <div className='bg-td-secondary py-[50px] flex items-center justify-center px-5 h-[70vh]'>
