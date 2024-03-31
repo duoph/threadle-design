@@ -145,6 +145,15 @@ const ProductPage = () => {
     }
   }
 
+  const handleColor = (color: string) => {
+    try {
+      if (!product?.isCustom) {
+        setSelectedColor(color);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const wpLink = `https://api.whatsapp.com/send?phone=919074063723&text=Hello%20I%20want%20to%20know%20more%20about%20this%20product...%20https://www.threadledesigns.com/shop/${productId}`
 
@@ -239,16 +248,16 @@ const ProductPage = () => {
               )}
 
 
-              <div className='flex gap-3'>
+              <div className='flex gap-3 bg-slate-100 px-3 py-4'>
                 {/* Colors display */}
                 {product?.colors?.map((color, i) => (
                   <span
                     key={i}
-                    onClick={() => setSelectedColor(color)}
+                    onClick={() => { handleColor(color) }}
                     style={{ background: color }}
-                    className={`relative cursor-pointer h-[35px] w-[35px] rounded-[50%] flex items-center justify-center shadow-lg ${selectedColor === color ? "bg-black bg-opacity-80" : ""}`}
+                    className={`relative cursor-pointer h-[35px] w-[35px] rounded-[50%] flex items-center justify-center shadow-lg`}
                   >
-                    {selectedColor === color && <IoIosCheckmark className='text-black absolute -bottom-5 z-10 bg-opacity-35' size={24} />}
+                    {selectedColor === color && <IoIosCheckmark className='text-black absolute -bottom-5 z-10' size={24} />}
                   </span>
                 ))}
               </div>
