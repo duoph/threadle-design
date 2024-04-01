@@ -15,11 +15,15 @@ const ForgotPassword = () => {
     const [password, setPassword] = useState<string>('')
     const [confirmedPassword, setConfirmedPassword] = useState<string>('')
 
+    const { currentUser } = useUser()
+
     const router = useRouter();
 
     const generateSecurityCode = async () => {
         try {
-            const res = await axios.put('/api/forgot-password')
+            await axios.post('/api/forgot-password/', {
+                userId: currentUser?.userId
+            })
         } catch (error) {
             console.log(error)
         }
