@@ -34,7 +34,7 @@ const ForgotPassword = () => {
                 return;
             }
 
-            const response = await axios.post('/api/admin-panel/admin', {
+            const response = await axios.post('/api/forgot-password', {
                 securityCode
             });
 
@@ -59,7 +59,6 @@ const ForgotPassword = () => {
             toast.error('Error unable to create admin');
         }
     };
-
 
 
     // if (currentUser?.token && currentUser.isAdmin === true) {
@@ -88,7 +87,6 @@ const ForgotPassword = () => {
                             <span className="text-[15px] w-full">Verify</span>
                         )}
                     </button>
-                    {/* <span className='text-center text-sm'>view admin accounts?<span className='cursor-pointer text-blue-900 underline' onClick={() => router.push('/account/create-account')}>Click here</span></span> */}
                 </div>
             </div>
         </div>
