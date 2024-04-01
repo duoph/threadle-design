@@ -9,24 +9,33 @@ import { PulseLoader } from 'react-spinners';
 
 
 const ForgotPassword = () => {
-    const [email, setEmail] = useState<string>('')
+    const [securityCode, setSecurityCode] = useState<string>('')
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const router = useRouter();
 
 
-    const handleCreateAdmin = async () => {
+    const handleResend = async () => {
+        try {
+
+        } catch (error) {
+
+        }
+    }
+
+
+    const handleVerify = async () => {
         try {
             setIsLoading(true);
 
-            if (!email) {
+            if (!securityCode) {
                 setIsLoading(false);
                 toast.error('Enter valid credentials');
                 return;
             }
 
             const response = await axios.post('/api/admin-panel/admin', {
-                email
+                securityCode
             });
 
 
@@ -66,12 +75,12 @@ const ForgotPassword = () => {
             <div className='flex bg-white flex-col gap-5 items-center justify-center w-full md:w-[400px] md:px-10 py-10 px-5 rounded-2xl'>
                 <div className='flex flex-col items-center justify-center'>
                     <h1 className='font-bold  text-[22px] sm:text-[35px]  text-td-secondary'>Verify</h1>
-                    <span className='font-bold  text-sm text-gray-300'>a six digit security code is sent to your email</span>
+                    <span className='font-bold  text-sm text-gray-500 flex gap-1'>a six digit security code is sent to your email <p onClick={handleResend} className="text-blue-950 cursor-pointer">resend</p></span>
                 </div>
                 <div className='flex flex-col gap-3 w-full'>
-                    <input type="email" placeholder='Enter the verification code' className='border px-5 py-2 rounded-2xl bg-slate-200' value={email} onChange={(e) => setEmail(e.target.value)} />
+                    <input type="email" placeholder='Enter the verification code' className='border px-5 py-2 rounded-2xl bg-slate-200' value={securityCode} onChange={(e) => setSecurityCode(e.target.value)} />
 
-                    <button onClick={handleCreateAdmin} className='bg-td-secondary rounded-2xl h-12  px-3 py-3 text-white font-semibold'>
+                    <button onClick={handleVerify} className='bg-td-secondary rounded-2xl h-12  px-3 py-3 text-white font-semibold'>
                         {isLoading && (
                             <PulseLoader color="#ffffff" size={15} />
                         )}
