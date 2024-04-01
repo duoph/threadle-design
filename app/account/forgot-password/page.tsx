@@ -3,7 +3,7 @@
 import { useUser } from '@/context/useUser';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { PulseLoader } from 'react-spinners';
 
@@ -17,6 +17,18 @@ const ForgotPassword = () => {
 
     const router = useRouter();
 
+    const generateSecurityCode = async () => {
+        try {
+            const res = await axios.put('/api/forgot-password')
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
+    useEffect(() => {
+        generateSecurityCode()
+    }, [])
 
     const handleResend = async () => {
         try {
@@ -30,7 +42,11 @@ const ForgotPassword = () => {
 
     const handleVerify = async () => {
         setVerified(true)
+        try {
+            // const res = await 
+        } catch (error) {
 
+        }
     };
 
 
