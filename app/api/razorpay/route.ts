@@ -4,20 +4,21 @@ import Razorpay from "razorpay";
 
 
 
+export async function POST(req: NextRequest) {
 
-
-
-export async function GET() {
     const instance = new Razorpay({
         key_id: "rzp_test_P87Egz0sqn2O7K",
         key_secret: "vvTFUjAryByN3Z6vKdXlNayM",
     });
+
     try {
+
+        const { totalAmount }: any = await req.json()
+
         const payment_capture = 1;
-        const amount = 8000 * 100; // amount in paisa. In our case it's INR 1
         const currency = "INR";
         const options = {
-            amount: amount.toString(),
+            amount: totalAmount * 100,
             currency,
             payment_capture
         };
@@ -33,12 +34,12 @@ export async function GET() {
 
 
 
-export async function POST(req: NextRequest) {
-    try {
-        const body = await req.json();
-        return NextResponse.json({ msg: body });
-    } catch (error) {
-        console.error(error);
-        return NextResponse.json(new Error("Failed to parse request body"));
-    }
-}
+// export async function POST(req: NextRequest) {
+//     try {
+//         const body = await req.json();
+//         return NextResponse.json({ msg: body });
+//     } catch (error) {
+//         console.error(error);
+//         return NextResponse.json(new Error("Failed to parse request body"));
+//     }
+// }

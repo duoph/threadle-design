@@ -6,10 +6,7 @@ import { Cart } from '@/types';
 import axios from 'axios';
 import { FaLongArrowAltRight } from 'react-icons/fa';
 import { useUser } from '@/context/useUser';
-import Razorpay from 'razorpay';
-import { Checkout } from '@/actions/checkout';
 import Script from 'next/script';
-import YourBillingComponent from '@/components/paymentCheckout';
 
 const CartPage = () => {
   const { cartItemCountFetch } = useUser();
@@ -25,8 +22,8 @@ const CartPage = () => {
         setCart(res?.data?.cartItems);
       }
 
-      console.log(res?.data?.cartItems);
-      console.log(res);
+      // console.log(res?.data?.cartItems);
+      // console.log(res);
     } catch (error) {
       console.log(error);
     }
@@ -57,19 +54,21 @@ const CartPage = () => {
 
 
   const handleCheckout = async () => {
-    // const res = await axios.get("/api/razorpay")
-    // const data = await res.data.order
+    const res = await axios.post("/api/razorpay", {
+      totalAmount: total
+    })
+    console.log(res)
+    const order = res.data.order
     // console.log(res)
     const options = {
-      // key_id: 'rzp_test_P87Egz0sqn2O7K', // Replace with your Razorpay key ID
-      order_id: "order_Nts6CgK9aImPvC",
+      order_id: order?.id,
       name: 'Threadles Design',
       description: 'Purchase Description',
       image: "/td-white.png",
       handler: function (response: any) {
-        // alert(response.razorpay_payment_id);
-        // alert(response.razorpay_order_id);
-        // alert(response.razorpay_signature);
+        alert(response.razorpay_payment_id);
+        alert(response.razorpay_order_id);
+        alert(response.razorpay_signature);
       },
       prefill: {
         name: "John Doe",
