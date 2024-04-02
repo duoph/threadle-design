@@ -63,8 +63,10 @@ const CartPage = () => {
     const options = {
       order_id: order?.id,
       name: 'Threadles Design',
-      description: 'Purchase Description',
+      description: ["fesf", "fesfsfa", "frafdg", "gararga"],
       image: "/td-white.png",
+      theme: "#231f20",
+      test: "fesmfserf",
       handler: function (response: any) {
         console.log(response)
         alert(response.razorpay_payment_id);
