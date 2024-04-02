@@ -52,8 +52,41 @@ const CartPage = () => {
     setTotal(subTotal());
   }, [cart]);
 
-  const handleCheckout = () => {
-    // checkout()
+
+  const handleCheckout = async () => {
+    try {
+      // Create Razorpay order
+      const res = await axios.get('/api/razorpay');
+
+      // Initialize Razorpay checkout
+      const { data } = res;
+      const options: any = {
+        key: 'YOUR_RAZORPAY_KEY_ID', // Replace with your Razorpay key ID
+        amount: data.amount,
+        currency: data.currency,
+        order_id: data.id,
+        name: 'Your Company Name',
+        description: 'Purchase Description',
+        prefill: {
+          name: 'Customer Name',
+          email: 'customer@example.com',
+          contact: '+911234567890'
+        },
+        theme: {
+          color: '#3399cc'
+        },
+        handler: function (response: any) {
+          console.log(response);
+          // Handle success
+          alert('Payment successful!');
+        }
+      };
+
+      const razorpayInstance: any = new Razorpay(options);
+      razorpayInstance.open();
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (

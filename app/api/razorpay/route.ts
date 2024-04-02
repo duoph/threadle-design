@@ -3,14 +3,15 @@ import Razorpay from "razorpay";
 
 
 
-const instance = new Razorpay({
-    key_id: "rzp_test_P87Egz0sqn2O7K",
-    key_secret: process.env.RAZORPAY_API_SECRET,
-});
+
 
 
 
 export async function GET() {
+    const instance = new Razorpay({
+        key_id: "rzp_test_P87Egz0sqn2O7K",
+        key_secret: "vvTFUjAryByN3Z6vKdXlNayM",
+    });
     try {
         const payment_capture = 1;
         const amount = 1 * 100; // amount in paisa. In our case it's INR 1
@@ -18,12 +19,7 @@ export async function GET() {
         const options = {
             amount: amount.toString(),
             currency,
-            payment_capture,
-            notes: {
-                paymentFor: "testingDemo",
-                userId: "100",
-                productId: 'P100'
-            }
+            payment_capture
         };
 
         const order = await instance.orders.create(options);
@@ -33,6 +29,9 @@ export async function GET() {
         return NextResponse.json(new Error("Failed to create Razorpay order"));
     }
 }
+
+
+
 
 export async function POST(req: NextRequest) {
     try {
