@@ -74,7 +74,7 @@ const CartPage = () => {
       prefill: {
         name: "John Doe",
         email: "jdoe@example.com",
-        contact: "9876543210",
+        contact: "9876543210", productName: "This a kurta for sale", MyName: "hadi Rasal"
       },
     };
 
