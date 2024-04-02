@@ -7,6 +7,9 @@ import axios from 'axios';
 import { FaLongArrowAltRight } from 'react-icons/fa';
 import { useUser } from '@/context/useUser';
 import Razorpay from 'razorpay';
+import { Checkout } from '@/actions/checkout';
+import Script from 'next/script';
+import YourBillingComponent from '@/components/paymentCheckout';
 
 const CartPage = () => {
   const { cartItemCountFetch } = useUser();
@@ -54,73 +57,75 @@ const CartPage = () => {
 
 
   const handleCheckout = async () => {
-    try {
-      // Create Razorpay order
-      const res = await axios.get('/api/razorpay');
+    const res = axios.get("/api/")
+    const options = {
+      // key_id: 'rzp_test_P87Egz0sqn2O7K', // Replace with your Razorpay key ID
+      amount: 10,
+      currency: "INR",
+      order_id: "order_NtjyhDV77pw39p",
+      name: 'Your Company Name',
+      description: 'Purchase Description',
+      // image: logoBase64,
+      handler: function (response: any) {
+        // Validate payment at server - using webhooks is a better idea.
+        //   alert(response.razorpay_payment_id);
+        // alert(response.razorpay_order_id);
+        // alert(response.razorpay_signature);
+      },
+      prefill: {
+        name: "John Doe",
+        email: "jdoe@example.com",
+        contact: "9876543210",
+      },
+    };
 
-      // Initialize Razorpay checkout
-      const { data } = res;
-      const options: any = {
-        key: 'YOUR_RAZORPAY_KEY_ID', // Replace with your Razorpay key ID
-        amount: data.amount,
-        currency: data.currency,
-        order_id: data.id,
-        name: 'Your Company Name',
-        description: 'Purchase Description',
-        prefill: {
-          name: 'Customer Name',
-          email: 'customer@example.com',
-          contact: '+911234567890'
-        },
-        theme: {
-          color: '#3399cc'
-        },
-        handler: function (response: any) {
-          console.log(response);
-          // Handle success
-          alert('Payment successful!');
-        }
-      };
+    const paymentObject = new (window as any).Razorpay(options);
+    paymentObject.open();
 
-      const razorpayInstance: any = new Razorpay(options);
-      razorpayInstance.open();
-    } catch (error) {
-      console.error(error);
-    }
-  }
+    paymentObject.on("payment.failed", function (response: any) {
+      alert("Payment failed. Please try again. Contact support for help");
+    });
+  };
+
 
   return (
-    <div className="flex flex-col items-center justify-center lg:px-10 px-5 py-5 ">
-      <div className='flex items-center justify-center pb-5'>
-        <h1 className='text-[30px] font-bold text-td-secondary'>My Cart</h1>
-      </div>
-      <div className='flex gap-5 md:flex-row flex-col w-full'>
-        <div className=' w-full flex flex-col items-center justify-center border rounded-2xl min-h-[100px]'>
-          {cart?.length === 0 || !cart && <span className='font-light'>Your cart is empty</span>}
-          {cart?.map((item: Cart) => (
-            <React.Fragment key={item._id}>
-              <CartProductCard subTotal={subTotal} cartItemsFetch={cartFetch} product={item} />
-              <div className=' border-b w-2/3'></div>
-            </React.Fragment>
-          ))}
+    <>
+      <Script
+        id="razorpay-checkout-js"
+        src="https://checkout.razorpay.com/v1/checkout.js"
+      />
+      <div className="flex flex-col items-center justify-center lg:px-10 px-5 py-5 ">
+        <div className='flex items-center justify-center pb-5'>
+          <h1 className='text-[30px] font-bold text-td-secondary'>My Cart</h1>
         </div>
-        <div className='flex flex-col items-center justify-around  w-full border rounded-2xl p-5'>
-          <div className='flex flex-col items-center justify-center'>
-            <span className='text-[18px] font-medium'>Order Summary</span>
-            <span>Sub Total : <span className='text-red-600'> &#8377;{total}</span></span>
-            <span>Delivery Charge : <span className='text-red-600'> &#8377;0</span></span>
-            <div>
-              <span>Total :<span className='text-red-600'> &#8377;{total}</span></span>
-            </div>
-            <span className='border-b-8 flex h-2'></span>
+        <div className='flex gap-5 md:flex-row flex-col w-full'>
+          <div className=' w-full flex flex-col items-center justify-center border rounded-2xl min-h-[100px]'>
+            {cart?.length === 0 || !cart && <span className='font-light'>Your cart is empty</span>}
+            {cart?.map((item: Cart) => (
+              <React.Fragment key={item._id}>
+                <CartProductCard subTotal={subTotal} cartItemsFetch={cartFetch} product={item} />
+                <div className=' border-b w-2/3'></div>
+              </React.Fragment>
+            ))}
           </div>
-          <button onClick={handleCheckout} className='flex items-center justify-center gap-3 w-2/3 rounded-2xl px-3 py-3 text-white bg-td-primary hover:scale-95 transition-all duration-300 ease-in-out'>
-            CheckOut <FaLongArrowAltRight color='white' size={20} />
-          </button>
-          <span className='opacity-40 text-sm'>Placed orders can&#39;t be cancelled</span>
+          <div className='flex flex-col items-center justify-around  w-full border rounded-2xl p-5'>
+            <div className='flex flex-col items-center justify-center'>
+              <span className='text-[18px] font-medium'>Order Summary</span>
+              <span>Sub Total : <span className='text-red-600'> &#8377;{total}</span></span>
+              <span>Delivery Charge : <span className='text-red-600'> &#8377;0</span></span>
+              <div>
+                <span>Total :<span className='text-red-600'> &#8377;{total}</span></span>
+              </div>
+              <span className='border-b-8 flex h-2'></span>
+            </div>
+            <button onClick={handleCheckout} className='flex items-center justify-center gap-3 w-2/3 rounded-2xl px-3 py-3 text-white bg-td-primary hover:scale-95 transition-all duration-300 ease-in-out'>
+              CheckOut <FaLongArrowAltRight color='white' size={20} />
+            </button>
+            <span className='opacity-40 text-sm'>Placed orders can&#39;t be cancelled</span>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
