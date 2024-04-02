@@ -38,9 +38,6 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       if (res?.data?.success === true) {
         setCartCount(res?.data?.cartItems?.length)
       }
-
-      console.log(res)
-
     } catch (error) {
       console.log(error)
     }
