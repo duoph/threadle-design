@@ -57,18 +57,17 @@ const CartPage = () => {
 
 
   const handleCheckout = async () => {
-    const res = axios.get("/api/")
+    // const res = await axios.get("/api/razorpay")
+    // const data = await res.data.order
+    // console.log(res)
     const options = {
       // key_id: 'rzp_test_P87Egz0sqn2O7K', // Replace with your Razorpay key ID
-      amount: 10,
-      currency: "INR",
-      order_id: "order_NtjyhDV77pw39p",
-      name: 'Your Company Name',
+      order_id: "order_Nts6CgK9aImPvC",
+      name: 'Threadles Design',
       description: 'Purchase Description',
-      // image: logoBase64,
+      image: "/td-white.png",
       handler: function (response: any) {
-        // Validate payment at server - using webhooks is a better idea.
-        //   alert(response.razorpay_payment_id);
+        // alert(response.razorpay_payment_id);
         // alert(response.razorpay_order_id);
         // alert(response.razorpay_signature);
       },
