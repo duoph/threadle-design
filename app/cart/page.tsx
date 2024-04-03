@@ -14,6 +14,7 @@ const CartPage = () => {
   const { cartItemCountFetch } = useUser();
   const [cart, setCart] = useState<Cart[]>([]);
   const [total, setTotal] = useState<number>(0);
+  const [isLoading, setLoading] = useState<boolean>(false)
 
 
 
@@ -29,7 +30,6 @@ const CartPage = () => {
     try {
       cartItemCountFetch();
       const res = await axios.get("/api/cart");
-
       if (res?.data?.success === true) {
         setCart(res?.data?.cartItems);
       }
@@ -37,8 +37,6 @@ const CartPage = () => {
       console.log(error);
     }
   };
-
-  cartFetch()
 
   const subTotal = () => {
     try {
@@ -71,8 +69,6 @@ const CartPage = () => {
       console.log(error);
     }
   }
-
-
 
 
   const handleCheckout = async () => {
@@ -128,7 +124,7 @@ const CartPage = () => {
         </div>
         <div className='flex gap-5 md:flex-row flex-col w-full'>
           <div className=' w-full flex flex-col items-center justify-center border rounded-2xl min-h-[100px]'>
-            {cart?.length === 0 || !cart && <span className='font-light'>Your cart is empty</span>}
+            {!cart[0]?._id && <span className='font-light'>Your cart is empty</span>}
             {cart?.map((item: Cart) => (
               <React.Fragment key={item._id}>
                 <CartProductCard subTotal={subTotal} cartItemsFetch={cartFetch} product={item} />
@@ -146,7 +142,7 @@ const CartPage = () => {
               </div>
               <span className='border-b-8 flex h-2'></span>
             </div>
-            <button onClick={handleCheckout} className='flex items-center justify-center gap-3 w-2/3 rounded-2xl px-3 py-3 text-white bg-td-primary hover:scale-95 transition-all duration-300 ease-in-out'>
+            <button onClick={handleCheckout} className='flex items-center justify-center gap-3 w-2/3 rounded-2xl px-3 py-3 text-white bg-td-secondary hover:scale-95 transition-all duration-300 ease-in-out'>
               CheckOut <FaLongArrowAltRight color='white' size={20} />
             </button>
             <span className='opacity-40 text-sm'>Placed orders can&#39;t be cancelled</span>
