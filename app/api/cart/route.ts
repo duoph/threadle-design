@@ -1,7 +1,6 @@
 import { getDataFromToken } from "@/helpers/getDataFromToken";
 import connectMongoDB from "@/libs/db";
 import CartModel from "@/models/cartItemModel";
-import { error } from "console";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
@@ -41,7 +40,7 @@ export async function GET(req: NextRequest) {
             return NextResponse.json({ message: "Unauthenticated Access Error while fetching the cart items", success: false });
         }
 
-        const cartItems = await CartModel.find({ userId });
+        const cartItems = await CartModel.find({ userId, isPaid: false });
 
         let message = cartItems.length === 0 ? "Your cart is empty" : "Fetched cart items";
 

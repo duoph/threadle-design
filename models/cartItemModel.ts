@@ -1,4 +1,4 @@
-import mongoose, { Schema, Model, Document } from "mongoose";
+import mongoose, { Schema, Document } from "mongoose";
 
 interface CartItemProps extends Document {
     productId: Schema.Types.ObjectId;
