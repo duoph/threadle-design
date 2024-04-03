@@ -74,6 +74,27 @@ const CartPage = () => {
   }
 
 
+  const createOrder = async () => {
+    try {
+
+    } catch (error) {
+
+    }
+  }
+
+
+  const handleSuccessfulPayment = async (paidItems: any) => {
+    cart.forEach(({ cartItem }: any) => {
+      if (paidItems.includes(cartItem.productId)) {
+        cartItem.paid = true;
+      }
+    });
+  }
+
+
+
+
+
   const handleCheckout = async () => {
     const res = await axios.post("/api/razorpay", {
       totalAmount: total
