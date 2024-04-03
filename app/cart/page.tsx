@@ -7,11 +7,23 @@ import axios from 'axios';
 import { FaLongArrowAltRight } from 'react-icons/fa';
 import { useUser } from '@/context/useUser';
 import Script from 'next/script';
+import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 const CartPage = () => {
   const { cartItemCountFetch } = useUser();
   const [cart, setCart] = useState<Cart[]>([]);
   const [total, setTotal] = useState<number>(0);
+
+
+
+
+  const router = useRouter()
+
+
+  const { currentUser } = useUser()
+
+
 
   const cartFetch = async () => {
     try {
@@ -53,13 +65,21 @@ const CartPage = () => {
   }, [cart]);
 
 
+  const clearCartItems = async () => {
+    try {
+      await axios.delete('/api/cart')
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
   const handleCheckout = async () => {
     const res = await axios.post("/api/razorpay", {
       totalAmount: total
     })
     console.log(res)
     const order = res.data.order
-    // console.log(res)
     const options = {
       order_id: order?.id,
       name: 'Threadles Design',
@@ -68,10 +88,16 @@ const CartPage = () => {
       theme: "#231f20",
       test: "fesmfserf",
       handler: function (response: any) {
-        console.log(response)
-        alert(response.razorpay_payment_id);
-        alert(response.razorpay_order_id);
-        alert(response.razorpay_signature);
+        console.log(response);
+        if (response.razorpay_payment_id) {
+          // Payment successful
+          toast.success("Payment successful!");
+          router.push(`account/${currentUser?.userId}/orders`)
+          clearCartItems();
+        } else {
+          // Payment failed
+          alert("Payment failed. Please try again.");
+        }
       },
       prefill: {
         name: "John Doe",
