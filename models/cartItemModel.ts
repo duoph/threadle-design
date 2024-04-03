@@ -10,7 +10,12 @@ interface CartItemProps extends Document {
     size: string;
     totalPrice: number;
     imageURL: string | undefined;
+    razorpay_order_id: string;
+    razorpay_payment_id: string;
+    razorpay_signature: string;
     isPaid: boolean;
+    isShipped: boolean;
+    isDelivered: boolean;
     address: string;
 }
 
@@ -25,7 +30,10 @@ const cartItemSchema = new Schema<CartItemProps>({
     imageURL: { type: String || undefined, required: false },
     totalPrice: { type: Number, required: true },
     price: { type: Number, required: true },
-    isPaid: { type: Boolean, default: false }
+    isPaid: { type: Boolean, default: false },
+    razorpay_order_id: { type: String, required: false },
+    razorpay_payment_id: { type: String, required: false },
+    razorpay_signature: { type: String, required: false },
 }, { timestamps: true });
 
 const CartModel = mongoose.models.cart || mongoose.model<CartItemProps>('cart', cartItemSchema);

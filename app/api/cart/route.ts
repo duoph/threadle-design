@@ -35,46 +35,39 @@ export async function POST(req: NextRequest) {
 
 export async function GET(req: NextRequest) {
     try {
-        const { userId } = await getDataFromToken(req)
+        const { userId } = await getDataFromToken(req);
 
         if (!userId) {
-            return NextResponse.json({ message: "UnAuthenticated Access Error while fetching the cart items", success: false })
+            return NextResponse.json({ message: "Unauthenticated Access Error while fetching the cart items", success: false });
         }
 
-        const cartItems = await CartModel.find({ userId: userId })
+        const cartItems = await CartModel.find({ userId });
 
-        let message;
+        let message = cartItems.length === 0 ? "Your cart is empty" : "Fetched cart items";
 
-        if (cartItems.length === 0) {
-            let message = "Your cart is empty"
-        } else {
-            let message = " fetched cart items"
-        }
+        return NextResponse.json({ message, success: true, cartItems });
 
-        return NextResponse.json({ message: message, success: true, cartItems })
-
-    } catch {
-        console.log(error)
-        return NextResponse.json({ message: "Error while getting cart items ", success: false, error })
+    } catch (error) {
+        console.log(error);
+        return NextResponse.json({ message: "Error while getting cart items", success: false, error });
     }
 }
 
 
 export async function PUT(req: NextRequest) {
     try {
-        const { userId } = await getDataFromToken(req)
+        const { userId } = await getDataFromToken(req);
 
         if (!userId) {
-            return NextResponse.json({ message: "UnAuthenticated Access Error while fetching the cart items", success: false })
+            return NextResponse.json({ message: "Unauthenticated Access Error while fetching the cart items", success: false });
         }
 
-        const cartItems = await CartModel.findByIdAndUpdate({ userId: userId }, { isPaid: true }, { new: true })
+        const cartItems = await CartModel.updateMany({ userId }, { isPaid: true });
 
-        return NextResponse.json({ message: "Deleted all cart items", success: true, cartItems })
+        return NextResponse.json({ message: "Marked all cart items as paid", success: true, cartItems });
 
-    } catch {
-        console.log(error)
-        return NextResponse.json({ message: "Error while deleting all cart items ", success: false, error })
+    } catch (error) {
+        console.log(error);
+        return NextResponse.json({ message: "Error while marking all cart items as paid", success: false, error });
     }
 }
-

@@ -64,9 +64,9 @@ const CartPage = () => {
   }, [cart]);
 
 
-  const clearCartItems = async () => {
+  const cartItemPayed = async () => {
     try {
-      await axios.delete('/api/cart')
+      await axios.put('/api/cart')
     } catch (error) {
       console.log(error);
     }
@@ -94,10 +94,10 @@ const CartPage = () => {
           // Payment successful
           toast.success("Payment successful!");
           router.push(`account/${currentUser?.userId}/orders`)
-          clearCartItems();
+          cartItemPayed();
         } else {
           // Payment failed
-          alert("Payment failed. Please try again.");
+          toast.error("Payment failed. Please try again.");
         }
       },
       prefill: {
