@@ -33,13 +33,12 @@ const CartPage = () => {
       if (res?.data?.success === true) {
         setCart(res?.data?.cartItems);
       }
-
-      // console.log(res?.data?.cartItems);
-      // console.log(res);
     } catch (error) {
       console.log(error);
     }
   };
+
+  cartFetch()
 
   const subTotal = () => {
     try {
@@ -72,25 +71,6 @@ const CartPage = () => {
       console.log(error);
     }
   }
-
-
-  const createOrder = async () => {
-    try {
-
-    } catch (error) {
-
-    }
-  }
-
-
-  const handleSuccessfulPayment = async (paidItems: any) => {
-    cart.forEach(({ cartItem }: any) => {
-      if (paidItems.includes(cartItem.productId)) {
-        cartItem.paid = true;
-      }
-    });
-  }
-
 
 
 

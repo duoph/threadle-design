@@ -59,7 +59,8 @@ export async function GET(req: NextRequest) {
     }
 }
 
-export async function DELETE(req: NextRequest) {
+
+export async function PUT(req: NextRequest) {
     try {
         const { userId } = await getDataFromToken(req)
 
@@ -67,7 +68,7 @@ export async function DELETE(req: NextRequest) {
             return NextResponse.json({ message: "UnAuthenticated Access Error while fetching the cart items", success: false })
         }
 
-        const cartItems = await CartModel.deleteMany({ userId: userId })
+        const cartItems = await CartModel.findByIdAndUpdate({ userId: userId }, { isPaid: true }, { new: true })
 
         return NextResponse.json({ message: "Deleted all cart items", success: true, cartItems })
 
