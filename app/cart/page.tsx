@@ -9,13 +9,13 @@ import { useUser } from '@/context/useUser';
 import Script from 'next/script';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
+import { PulseLoader } from 'react-spinners';
 
 const CartPage = () => {
   const { cartItemCountFetch } = useUser();
   const [cart, setCart] = useState<Cart[]>([]);
   const [total, setTotal] = useState<number>(0);
-  const [isLoading, setLoading] = useState<boolean>(false)
-
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
 
 
@@ -72,43 +72,50 @@ const CartPage = () => {
 
 
   const handleCheckout = async () => {
-    const res = await axios.post("/api/razorpay", {
-      totalAmount: total
-    })
-    console.log(res)
-    const order = res.data.order
-    const options = {
-      order_id: order?.id,
-      name: 'Threadles Design',
-      description: ["fesf", "fesfsfa", "frafdg", "gararga"],
-      image: "/td-white.png",
-      theme: "#231f20",
-      test: "fesmfserf",
-      handler: function (response: any) {
-        console.log(response);
-        if (response.razorpay_payment_id) {
-          // Payment successful
-          toast.success("Payment successful!");
-          router.push(`account/${currentUser?.userId}/orders`)
-          cartItemPaid();
-        } else {
-          // Payment failed
-          toast.error("Payment failed. Please try again.");
-        }
-      },
-      prefill: {
-        name: "John Doe",
-        email: "jdoe@example.com",
-        contact: "9876543210", productName: "This a kurta for sale", MyName: "hadi Rasal"
-      },
-    };
+    try {
+      setIsLoading(true)
+      const res = await axios.post("/api/razorpay", {
+        totalAmount: total
+      })
+      console.log(res)
+      const order = res.data.order
+      const options = {
+        order_id: order?.id,
+        name: 'Threadles Design',
+        description: ["fesf", "fesfsfa", "frafdg", "gararga"],
+        image: "/td-white.png",
+        theme: "#231f20",
+        test: "fesmfserf",
+        handler: function (response: any) {
+          console.log(response);
+          if (response.razorpay_payment_id) {
+            // Payment successful
+            toast.success("Payment successful!");
+            router.push(`account/${currentUser?.userId}/orders`)
+            cartItemPaid();
+          } else {  
+            // Payment failed
+            toast.error("Payment failed. Please try again.");
+          }
+        },
+        prefill: {
+          name: "John Doe",
+          email: "jdoe@example.com",
+          contact: "9876543210", productName: "This a kurta for sale", MyName: "hadi Rasal"
+        },
+      };
+      setIsLoading(false)
+      const paymentObject = new (window as any).Razorpay(options);
+      paymentObject.open();
 
-    const paymentObject = new (window as any).Razorpay(options);
-    paymentObject.open();
+      paymentObject.on("payment.failed", function (response: any) {
+        alert("Payment failed. Please try again. Contact support for help");
+      });
+    } catch (error) {
+      setIsLoading(false)
+      console.log(error)
+    }
 
-    paymentObject.on("payment.failed", function (response: any) {
-      alert("Payment failed. Please try again. Contact support for help");
-    });
   };
 
 
@@ -143,8 +150,15 @@ const CartPage = () => {
               <span className='border-b-8 flex h-2'></span>
             </div>
             <button onClick={handleCheckout} className='flex items-center justify-center gap-3 w-2/3 rounded-2xl px-3 py-3 text-white bg-td-secondary hover:scale-95 transition-all duration-300 ease-in-out'>
-              CheckOut <FaLongArrowAltRight color='white' size={20} />
+              {!isLoading ? (
+                <>
+                  <span>CheckOut</span> <FaLongArrowAltRight color='white' size={20} />
+                </>
+              ) : (
+                <PulseLoader color={'white'} size={10} />
+              )}
             </button>
+
             <span className='opacity-40 text-sm'>Placed orders can&#39;t be cancelled</span>
           </div>
         </div>
