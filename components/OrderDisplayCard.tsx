@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 const OrderDisplayCard = ({ order }: any) => {
     return (
-        <div key={order._id} className='flex items-center justify-between border rounded-2xl overflow-hidden pr-3'>
+        <div key={order._id} className='cursor-pointer flex items-center justify-between border rounded-2xl overflow-hidden pr-3'>
             <div className='flex items-center gap-1 w-2/3'>
                 <Image src={order.imageURL || "/noImage.jpg"} alt='no Image' width={50} height={50} />
                 <span>{order.title}</span>
