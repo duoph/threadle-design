@@ -28,7 +28,7 @@ const Orders = () => {
     return (
         <div className='flex flex-col items-center py-5 px-3 gap-3'>
             <h1 className='text-td-secondary font-bold text-3xl'>Order Dashboard</h1>
-            <div className='flex items-center justify-center border rounded-2xl py-5 px-3 w-full'>
+            <div className='flex items-center justify-center border bg-slate-200 rounded-2xl py-5 px-3 w-full'>
                 <div className='grid grid-cols-1 md:grid-cols-3 gap-3 text-td-secondary font-bold text-xl'>
                     <div className='flex flex-col items-center justify-center'>
                         <h2>Total Orders</h2>

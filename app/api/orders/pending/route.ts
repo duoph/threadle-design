@@ -4,8 +4,12 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET() {
     try {
-        const pendingOrders = await CartModel.find({ isPaid: true, isShipped: false, isDelivered: false })
-        return NextResponse.json({ message: " fetched the delivered orders", success: true, pendingOrders });
+        const pendingOrders = await CartModel.find({ isPaid: true, isShipped: false })
+        
+        if (pendingOrders) {
+
+            return NextResponse.json({ message: " fetched the delivered orders", success: true, pendingOrders });
+        }
 
     } catch (error) {
         console.error(error);

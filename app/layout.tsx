@@ -30,7 +30,9 @@ export default function RootLayout({
             position="top-center"
             reverseOrder={false}
           />
-          {children}
+          <main style={{ paddingTop: '80px' }}> 
+            {children}
+          </main>
           <Footer />
         </UserProvider>
       </body>
