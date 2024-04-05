@@ -1,5 +1,6 @@
 "use client"
 
+import OrderDisplayCard from '@/components/OrderDisplayCard';
 import axios from 'axios';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
@@ -70,14 +71,8 @@ const Orders = () => {
                     <span>Product Name</span>
                     <span>Customer Name</span>
                 </div>
-                {pendingOrders?.map((e: any) => (
-                    <div key={e._id} className='flex items-center justify-between border rounded-2xl overflow-hidden pr-3'>
-                        <div className='flex items-center gap-1 w-2/3'>
-                            <Image src={e.imageURL || "/noImage.jpg"} alt='no Image' width={50} height={50} />
-                            <span>{e.title}</span>
-                        </div>
-                        <span className='w-1/3 break-all' >{e.razorpay_order_id}</span>
-                    </div>
+                {pendingOrders?.map((order: any) => (
+                    <OrderDisplayCard order={order} />
                 ))}
             </div>
         </div>
