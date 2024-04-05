@@ -71,7 +71,7 @@ const Orders = () => {
                     <span>Customer Name</span>
                 </div>
                 {pendingOrders?.map((e: any) => (
-                    <div className='flex items-center justify-between border rounded-2xl overflow-hidden pr-3'>
+                    <div key={e._id} className='flex items-center justify-between border rounded-2xl overflow-hidden pr-3'>
                         <div className='flex items-center gap-1 w-2/3'>
                             <Image src={e.imageURL || "/noImage.jpg"} alt='no Image' width={50} height={50} />
                             <span>{e.title}</span>
