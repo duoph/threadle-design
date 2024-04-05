@@ -33,9 +33,9 @@ const cartItemSchema = new Schema<CartItemProps>({
     isPaid: { type: Boolean, default: false, required: true },
     isShipped: { type: Boolean, default: false, required: true },
     isDelivered: { type: Boolean, default: false, required: true },
-    razorpay_order_id: { type: String, required: false },
-    razorpay_payment_id: { type: String, required: false },
-    razorpay_signature: { type: String, required: false },
+    razorpay_order_id: { type: String, required: false, default: undefined },
+    razorpay_payment_id: { type: String, required: false, default: undefined },
+    razorpay_signature: { type: String, required: false, default: undefined },
 }, { timestamps: true });
 
 const CartModel = mongoose.models.cart || mongoose.model<CartItemProps>('cart', cartItemSchema);

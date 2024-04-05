@@ -1,11 +1,29 @@
 "use client"
 
+import axios from 'axios';
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const Orders = () => {
 
     const [selectedOrderType, setSelectedOrderType] = useState<string>("pending")
+    const [pendingOrders, setPendingOrders] = useState([])
+
+
+    const fetchPaidOrders = async () => {
+        try {
+            const res = await axios.get('/api/orders/pending')
+            setPendingOrders(res.data?.pendingOrders)
+            console.log(res)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        fetchPaidOrders()
+    }, [])
+
 
     return (
         <div className='flex flex-col items-center py-5 px-3 gap-3'>
@@ -14,20 +32,20 @@ const Orders = () => {
                 <div className='grid grid-cols-1 md:grid-cols-3 gap-3 text-td-secondary font-bold text-xl'>
                     <div className='flex flex-col items-center justify-center'>
                         <h2>Total Orders</h2>
-                        <span>99</span>
+                        <span>1000</span>
                     </div>
                     <div className='flex flex-col items-center justify-center'>
                         <h2>Paid Orders</h2>
-                        <span>99</span>
+                        <span>934</span>
                     </div>
                     <div className='flex flex-col items-center justify-center'>
                         <h2>Shipped Orders</h2>
-                        <span>99</span>
+                        <span>45</span>
                     </div>
                 </div>
             </div>
 
-            <div className='flex items-center  justify-center gap-2 md:gap-5 lg:gap-10 border rounded-2xl py-5 px-5 md:px-10 w-full text-[15px] flex-wrap'>
+            <div className='flex items-center  justify-center gap-2 md:gap-5 lg:gap-10 rounded-2xl py-5 px-5 md:px-10 w-full text-[15px] flex-wrap'>
                 <span
                     onClick={() => setSelectedOrderType('pending')}
                     className={`px-2 py-2 rounded-2xl cursor-pointer border ${selectedOrderType === 'pending' ? 'bg-td-secondary text-white' : ''}`}
@@ -52,13 +70,15 @@ const Orders = () => {
                     <span>Product Name</span>
                     <span>Customer Name</span>
                 </div>
-                <div className='flex items-center justify-between border rounded-2xl overflow-hidden pr-3'>
-                    <div className='flex items-center gap-1 w-2/3'>
-                        <Image src={"/noImage.jpg"} alt='no Image' width={100} height={100} />
-                        <span>This is thererwe best</span>
+                {pendingOrders?.map((e: any) => (
+                    <div className='flex items-center justify-between border rounded-2xl overflow-hidden pr-3'>
+                        <div className='flex items-center gap-1 w-2/3'>
+                            <Image src={e.imageURL || "/noImage.jpg"} alt='no Image' width={50} height={50} />
+                            <span>{e.title}</span>
+                        </div>
+                        <span className='w-1/3 break-all' >{e.razorpay_order_id}</span>
                     </div>
-                    <span >Hadi Rasal</span>
-                </div>
+                ))}
             </div>
         </div>
     );

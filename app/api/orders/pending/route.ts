@@ -4,12 +4,12 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET() {
     try {
-        const deliveredOrders = await CartModel.find({ isPaid: true, isShipped: false, isDelivered: false })
-        return NextResponse.json({ message: " fetched the delivered orders", deliveredOrders });
+        const pendingOrders = await CartModel.find({ isPaid: true, isShipped: false, isDelivered: false })
+        return NextResponse.json({ message: " fetched the delivered orders", success: true, pendingOrders });
 
     } catch (error) {
         console.error(error);
-        return NextResponse.json(new Error("Error in fetching the delivered orders"));
+        return NextResponse.json({ message: " fetched the delivered orders", success: false });
     }
 }
 
@@ -17,11 +17,13 @@ export async function PUT(req: NextRequest) {
     try {
         const { userId } = await getDataFromToken(req);
 
+        const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = await req.json()
+
         if (!userId) {
             return NextResponse.json({ message: "Unauthenticated Access Error while fetching the cart items", success: false });
         }
 
-        const cartItems = await CartModel.updateMany({ userId }, { isPaid: true });
+        const cartItems = await CartModel.updateMany({ userId }, { isPaid: true, razorpay_order_id, razorpay_payment_id, razorpay_signature });
 
         return NextResponse.json({ message: "Marked all cart items as paid", success: true, cartItems });
 
