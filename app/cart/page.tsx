@@ -64,7 +64,7 @@ const CartPage = () => {
 
   const cartItemPaid = async () => {
     try {
-      await axios.put('/api/cart')
+      await axios.put('/api/orders/pending')
     } catch (error) {
       console.log(error);
     }
@@ -93,7 +93,7 @@ const CartPage = () => {
             toast.success("Payment successful!");
             router.push(`account/${currentUser?.userId}/orders`)
             cartItemPaid();
-          } else {  
+          } else {
             // Payment failed
             toast.error("Payment failed. Please try again.");
           }
