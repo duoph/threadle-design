@@ -24,9 +24,29 @@ const Orders = () => {
             console.log(error)
         }
     }
+    const fetchDeliveredOrders = async () => {
+        try {
+            const res = await axios.get('/api/orders/delivered')
+            setDeliveredOrdes(res.data?.pendingOrders)
+            console.log(res)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    const fetchShippedOrders = async () => {
+        try {
+            const res = await axios.get('/api/orders/shipped')
+            setShippedOrders(res.data?.shippedOrders)
+            console.log(res)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     useEffect(() => {
         fetchPaidOrders()
+        fetchShippedOrders()
+        fetchDeliveredOrders()
     }, [])
 
 
