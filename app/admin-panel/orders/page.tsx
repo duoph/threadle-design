@@ -37,15 +37,15 @@ const Orders = () => {
                 <div className='grid grid-cols-1 md:grid-cols-3 gap-3 text-td-secondary font-bold text-xl'>
                     <div className='flex flex-col items-center justify-center'>
                         <h2>Total Orders</h2>
-                        <span>{pendingOrders.length}</span>
+                        <span>{pendingOrders?.length}</span>
                     </div>
                     <div className='flex flex-col items-center justify-center'>
                         <h2>Paid Orders</h2>
-                        <span>{pendingOrders.length}</span>
+                        <span>{pendingOrders?.length || 0}</span>
                     </div>
                     <div className='flex flex-col items-center justify-center'>
                         <h2>Shipped Orders</h2>
-                        <span>0</span>
+                        <span>{shippedOrders?.length || 0}</span>
                     </div>
                 </div>
             </div>
@@ -85,8 +85,8 @@ const Orders = () => {
                     <span className='w-1/3 text-center'>Customer Name</span>
                 </div>
 
-                {orderDisplay.length === 0 && (
-                    <div className='flex items-center justify-center w-full '>No Orders Available</div>
+                {orderDisplay?.length === 0 && (
+                    <div className='flex items-center justify-center w-full h-full'>No Orders Available</div>
                 )}
 
                 {orderDisplay?.map((order: any, i: number) => (
