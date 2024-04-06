@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET() {
     try {
         const pendingOrders = await CartModel.find({ isPaid: true, isShipped: false })
-        
+
         if (pendingOrders) {
 
             return NextResponse.json({ message: " fetched the delivered orders", success: true, pendingOrders });
@@ -22,6 +22,8 @@ export async function PUT(req: NextRequest) {
         const { userId } = await getDataFromToken(req);
 
         const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = await req.json()
+
+        console.log(razorpay_order_id, razorpay_payment_id, razorpay_signature)
 
         if (!userId) {
             return NextResponse.json({ message: "Unauthenticated Access Error while fetching the cart items", success: false });
