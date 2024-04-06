@@ -9,7 +9,7 @@ const OrderDisplayCard = ({ order }: any) => {
                 <Image src={order.imageURL || "/noImage.jpg"} alt='no Image' width={50} height={50} />
                 <span>{order.title}</span>
             </div>
-            <span className='w-1/3 break-all' >{order.razorpay_order_id}</span>
+            <span className='w-1/3 break-all text-center' >{order.razorpay_order_id}</span>
         </div>
     )
 }
