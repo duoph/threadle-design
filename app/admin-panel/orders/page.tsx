@@ -9,12 +9,16 @@ const Orders = () => {
 
     const [selectedOrderType, setSelectedOrderType] = useState<string>("pending")
     const [pendingOrders, setPendingOrders] = useState([])
+    const [shippedOrders, setShippedOrders] = useState([])
+    const [deliveredOrders, setDeliveredOrdes] = useState([])
+    const [orderDisplay, setOrderDisplay] = useState([])
 
 
     const fetchPaidOrders = async () => {
         try {
             const res = await axios.get('/api/orders/pending')
             setPendingOrders(res.data?.pendingOrders)
+            setOrderDisplay(res.data?.pendingOrders)
             console.log(res)
         } catch (error) {
             console.log(error)
@@ -41,38 +45,54 @@ const Orders = () => {
                     </div>
                     <div className='flex flex-col items-center justify-center'>
                         <h2>Shipped Orders</h2>
-                        <span>2</span>
+                        <span>0</span>
                     </div>
                 </div>
             </div>
 
-            <div className='flex items-center  justify-center gap-2 md:gap-5 lg:gap-10 rounded-2xl py-5 px-5 md:px-10 w-full text-[15px] flex-wrap'>
+            <div className='flex items-center  justify-center gap-2 md:gap-5 lg:gap-10 rounded-2xl py-5 px-5 md:px-10 w-full text-[15px] flex-wrap '>
                 <span
-                    onClick={() => setSelectedOrderType('pending')}
+                    onClick={() => {
+                        setSelectedOrderType('pending')
+                        setOrderDisplay(pendingOrders)
+                    }}
                     className={`px-2 py-2 rounded-2xl cursor-pointer border ${selectedOrderType === 'pending' ? 'bg-td-secondary text-white' : ''}`}
                 >
                     Pending Orders
                 </span>
                 <span
-                    onClick={() => setSelectedOrderType('shipped')}
+                    onClick={() => {
+                        setSelectedOrderType('shipped')
+                        setOrderDisplay(shippedOrders)
+                    }}
                     className={`px-3 py-2 rounded-2xl cursor-pointer border ${selectedOrderType === 'shipped' ? 'bg-td-secondary text-white' : ''}`}
                 >
                     Shipped Orders
                 </span>
                 <span
-                    onClick={() => setSelectedOrderType('delivered')}
+                    onClick={() => {
+                        setSelectedOrderType('delivered')
+                        setOrderDisplay(deliveredOrders)
+                    }}
                     className={`px-3 py-2 rounded-2xl cursor-pointer border ${selectedOrderType === 'delivered' ? 'bg-td-secondary text-white' : ''}`}
                 >
                     Delivered Orders
                 </span>
             </div>
-            <div className='flex flex-col border rounded-2xl py-5 px-3 w-full gap-[10px] '>
+            <div className='flex flex-col border rounded-2xl py-5 px-3 w-full gap-[10px]  min-h-[50vh]'>
                 <div className='flex items-center justify-between border-b-2 px-2'>
                     <span className='w-2/3 text-center'>Product Name</span>
                     <span className='w-1/3 text-center'>Customer Name</span>
                 </div>
-                {pendingOrders?.map((order: any, i: number) => (
-                    <OrderDisplayCard key={i} order={order} />
+
+                {orderDisplay.length === 0 && (
+                    <div className='flex items-center justify-center w-full '>No Orders Available</div>
+                )}
+
+                {orderDisplay?.map((order: any, i: number) => (
+                    <>
+                        <OrderDisplayCard key={i} order={order} />
+                    </>
                 ))}
             </div>
         </div>
