@@ -163,14 +163,14 @@ const ProductPage = () => {
 
   const productPaid = async (response: any) => {
     try {
-      const res = await axios.post("/api/cart", {
+      const res = await axios.post("/api/buy-now", {
         productId,
         color: selectedColor,
         size: selectedSize,
         quantity,
         price: product?.salePrice || product?.regularPrice,
         imageURL: product?.coverImageURL,
-        title: product?.title, 
+        title: product?.title,
         razorpay_order_id: response.razorpay_order_id,
         razorpay_payment_id: response.razorpay_payment_id,
         razorpay_signature: response.razorpay_signature,
@@ -211,7 +211,7 @@ const ProductPage = () => {
             // Payment successful
             toast.success("Payment successful!");
             productPaid(response);
-            router.push(`account/${currentUser?.userId}/orders`)
+            router.push(`/account/${currentUser?.userId}/orders`)
           } else {
             // Payment failed
             toast.error("Payment failed. Please try again.");
