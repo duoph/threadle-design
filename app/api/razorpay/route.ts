@@ -7,17 +7,16 @@ import Razorpay from "razorpay";
 export async function POST(req: NextRequest) {
 
     const instance = new Razorpay({
-        key_id: "rzp_test_P87Egz0sqn2O7K",
-        key_secret: "vvTFUjAryByN3Z6vKdXlNayM",
+        key_id: "rzp_test_rCILEJykWqLnh9",
+        key_secret: "tuYdxKs4AxtLli0RRCGn8A3R",
     });
 
     try {
-        const { totalAmount, notes }: any = await req.json()
+        const { totalAmount }: any = await req.json()
 
         const payment_capture = 1;
         const currency = "INR";
         const options = {
-            notes: notes,
             amount: totalAmount * 100,
             currency,
             payment_capture
