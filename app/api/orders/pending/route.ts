@@ -29,7 +29,7 @@ export async function PUT(req: NextRequest) {
             return NextResponse.json({ message: "Unauthenticated Access Error while fetching the cart items", success: false });
         }
 
-        const cartItems = await CartModel.updateMany({ userId }, { isPaid: true, razorpay_order_id, razorpay_payment_id, razorpay_signature });
+        const cartItems = await CartModel.updateMany({ userId }, { isPaid: true, razorpay_order_id, razorpay_payment_id, razorpay_signature, orderedDate: Date.now() });
 
         return NextResponse.json({ message: "Marked all cart items as paid", success: true, cartItems });
 
