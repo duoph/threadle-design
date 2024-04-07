@@ -206,7 +206,7 @@ const ProductPage = () => {
 
 
           </div>
-          <div className='flex flex-col gap-3 items-start justify-start w-full '>
+          <div className='flex flex-col gap-2 items-start justify-start w-full '>
             <div className="flex items-center  w-full justify-between">
               <div className='flex flex-col gap-3'>
                 <h1 className='text-lg font-medium'>{product?.title}</h1>
