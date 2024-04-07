@@ -15,11 +15,15 @@ import { FaWhatsappSquare } from 'react-icons/fa'
 import Head from 'next/head'
 import Link from 'next/link'
 import { useUser } from '@/context/useUser'
+import Script from 'next/script'
 
 
 
 
 const ProductPage = () => {
+
+
+  const router = useRouter()
 
   const { productId } = useParams()
   const [product, setProduct] = useState<Product>()
@@ -28,6 +32,7 @@ const ProductPage = () => {
   const [selectedColor, setSelectedColor] = useState<string>()
   const [wishlistIds, setWishListIds] = useState<string[]>([])
   const [previewImage, setPreviewImage] = useState<string>()
+  const [isLoading, setIsLoading] = useState(false)
 
 
   const { cartItemCountFetch, currentUser } = useUser()
@@ -155,11 +160,94 @@ const ProductPage = () => {
     }
   }
 
+
+  const productPaid = async (response: any) => {
+    try {
+      const res = await axios.post("/api/cart", {
+        productId,
+        color: selectedColor,
+        size: selectedSize,
+        quantity,
+        price: product?.salePrice || product?.regularPrice,
+        imageURL: product?.coverImageURL,
+        title: product?.title, 
+        razorpay_order_id: response.razorpay_order_id,
+        razorpay_payment_id: response.razorpay_payment_id,
+        razorpay_signature: response.razorpay_signature,
+      });
+
+      if (res.data.success === true) {
+        toast.success("Added to cart");
+        cartItemCountFetch();
+      } else {
+        toast.error(res?.data?.message);
+      }
+    } catch (error) {
+      console.error("Error adding product to cart:", error);
+      toast.error("An error occurred while adding the product to cart");
+    }
+  }
+
+
+
+  const handlePayment = async () => {
+    try {
+      setIsLoading(true)
+      const res = await axios.post("/api/razorpay", {
+        totalAmount: product?.salePrice || product?.regularPrice
+      })
+      console.log(res)
+      const order = res.data.order
+      const options = {
+        order_id: order?.id,
+        name: 'Threadles Design',
+        description: ["fesf", "fesfsfa", "frafdg", "gararga"],
+        image: "/td-white.png",
+        theme: "#231f20",
+        test: "fesmfserf",
+        handler: function (response: any) {
+          console.log(response);
+          if (response.razorpay_payment_id) {
+            // Payment successful
+            toast.success("Payment successful!");
+            productPaid(response);
+            router.push(`account/${currentUser?.userId}/orders`)
+          } else {
+            // Payment failed
+            toast.error("Payment failed. Please try again.");
+          }
+        },
+        prefill: {
+          name: "John Doe",
+          email: "jdoe@example.com",
+          contact: "9876543210", productName: "This a kurta for sale", MyName: "hadi Rasal"
+        },
+      };
+      setIsLoading(false)
+      const paymentObject = new (window as any).Razorpay(options);
+      paymentObject.open();
+
+      paymentObject.on("payment.failed", function (response: any) {
+        alert("Payment failed. Please try again. Contact support for help");
+      });
+    } catch (error) {
+      setIsLoading(false)
+      console.log(error)
+    }
+
+  };
+
+
+
   const wpLink = `https://api.whatsapp.com/send?phone=919074063723&text=Hello%20I%20want%20to%20know%20more%20about%20this%20product...%20https://www.threadledesigns.com/shop/${productId}`
 
 
   return (
     <div className='w-full px-5 py-3 md:px-10 flex flex-col gap-3 mb-5 '>
+      <Script
+        id="razorpay-checkout-js"
+        src="https://checkout.razorpay.com/v1/checkout.js"
+      />
       <Head>
         <title property='og:title'>My page title</title>
         <meta property="og:description" content={product?.desc} />
@@ -229,7 +317,7 @@ const ProductPage = () => {
             </div>
             <div className='flex flex-col gap-1'>
               <span className='text-sm flex items-center justify-center gap-1'>All over india free delivery
-                <Image src={"/india.png"} width={15} height={10}  alt="Indian flag" />
+                <Image src={"/india.png"} width={15} height={10} alt="Indian flag" />
               </span>
               {product?.isCustom && (<div>
                 <Link target='_blank' href={wpLink} className='bg-black px-3 py-2 rounded-full flex gap-2'>
@@ -275,13 +363,17 @@ const ProductPage = () => {
 
 
               {!product?.isCustom && product?.inStock ? (
-                <div className='flex gap-3 font-semibold w-full'>
+                <div className='flex flex-col gap-3 font-semibold w-full'>
                   <span className='bg-gray-200 flex items-center justify-between gap-4 px-8 py-2 rounded-2xl w-1/2'>
                     <span className='cursor-pointer' onClick={() => handleQuantity("decrement")}>-</span>
                     <span>{quantity}</span>
                     <span className='cursor-pointer' onClick={() => handleQuantity("increment")}>+</span>
                   </span>
-                  <button onClick={addToCart} className='w-1/2 py-2 bg-td-primary rounded-2xl text-white'> Add to Cart </button>
+                  <div className='flex gap-3'>
+                    <button onClick={addToCart} className='w-1/2 py-2 bg-td-secondary rounded-2xl text-white'> Add to Cart </button>
+                    <button onClick={handlePayment} className='w-1/2 py-2 bg-td-secondary rounded-2xl text-white'> Buy Now </button>
+                  </div>
+
                 </div>
               ) : (
                 null

@@ -103,7 +103,7 @@ const Orders = () => {
             <div className='flex flex-col border rounded-2xl py-5 px-3 w-full gap-[10px]  min-h-[50vh]'>
                 <div className='flex items-center justify-between border-b-2 px-2'>
                     <span className='w-2/3 text-center'>Product Name</span>
-                    <span className='w-1/3 text-center'>Customer Name</span>
+                    <span className='w-1/3 text-center'>Payment Id</span>
                 </div>
 
                 {orderDisplay?.length === 0 && (
