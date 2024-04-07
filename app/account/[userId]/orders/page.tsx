@@ -55,7 +55,7 @@ const Orders = () => {
                 </div>
             </div> */}
 
-            <div className='flex items-center  justify-center gap-2 md:gap-5 lg:gap-10 rounded-2xl py-5 px-5 md:px-10 w-full text-[15px] flex-wrap '>
+            {/* <div className='flex items-center  justify-center gap-2 md:gap-5 lg:gap-10 rounded-2xl py-5 px-5 md:px-10 w-full text-[15px] flex-wrap '>
                 <span
                     onClick={() => {
                         setSelectedOrderType('pending')
@@ -73,7 +73,7 @@ const Orders = () => {
                 >
                     Shipped Orders
                 </span>
-            </div>
+            </div> */}
             <div className='flex flex-col border rounded-2xl py-5 px-3 w-full gap-[10px]  min-h-[50vh]'>
                 <div className='flex items-center justify-between border-b-2 px-2'>
                     <span className='w-2/3 text-center'>Product Name</span>
