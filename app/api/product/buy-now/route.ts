@@ -1,33 +1,49 @@
-import { getDataFromToken } from "@/helpers/getDataFromToken"
-import connectMongoDB from "@/libs/db"
-import CartModel from "@/models/cartItemModel"
-import { NextRequest, NextResponse } from "next/server"
-
+import { getDataFromToken } from "@/helpers/getDataFromToken";
+import connectMongoDB from "@/libs/db";
+import CartModel from "@/models/cartItemModel";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
     try {
-        connectMongoDB()
+        // Connect to MongoDB
+        connectMongoDB();
 
-        const { userId } = await getDataFromToken(req)
+        const { userId } = await getDataFromToken(req);
 
         if (!userId) {
-            return NextResponse.json({ message: "Login to use cart", success: false })
+            return NextResponse.json({ message: "Login to use cart", success: false });
         }
 
-        const { productId, price, quantity, size, color, imageURL, title, razorpay_payment_id, razorpay_order_id, razorpay_signature } = await req.json()
+        const { productId, price, quantity, size, color, imageURL, title, razorpay_payment_id, razorpay_order_id, razorpay_signature } = await req.json();
 
-        const totalPrice = await quantity * price
+        // Calculate total price
+        const totalPrice = quantity * price;
 
-        console.log(totalPrice)
+        console.log(totalPrice);
 
+        // Create cart item
         const cart = await CartModel.create({
-            userId, productId, price, quantity, size, color, imageURL, title, totalPrice, isPaid: true, razorpay_payment_id, razorpay_order_id, razorpay_signature 
-        })
+            userId,
+            productId,
+            price,
+            quantity,
+            size,
+            color,
+            imageURL,
+            title,
+            totalPrice,
+            isPaid: true,
+            orderedDate: new Date(),
+            razorpay_payment_id,
+            razorpay_order_id,
+            razorpay_signature
+        });
 
-        return NextResponse.json({ message: "Product Ordered Successfully", success: true, cart })
+        // Return success response
+        return NextResponse.json({ message: "Product Ordered Successfully", success: true, cart: { _id: cart._id } });
 
     } catch (error) {
-        console.log(error)
-        return NextResponse.json({ message: "Error while buying product", success: false, error })
+        console.log(error);
+        return NextResponse.json({ message: "Error while buying product", success: false, error}); 
     }
 }

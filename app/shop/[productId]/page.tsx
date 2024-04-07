@@ -163,7 +163,7 @@ const ProductPage = () => {
 
   const productPaid = async (response: any) => {
     try {
-      const res = await axios.post("/api/buy-now", {
+      const res = await axios.post("/api/product/buy-now", {
         productId,
         color: selectedColor,
         size: selectedSize,
@@ -201,9 +201,8 @@ const ProductPage = () => {
       const options = {
         order_id: order?.id,
         name: 'Threadles Design',
-        description: ["fesf", "fesfsfa", "frafdg", "gararga"],
-        image: "/td-white.png",
-        theme: "#231f20",
+        image: "/td.png",
+        theme: "green",
         test: "fesmfserf",
         handler: function (response: any) {
           console.log(response);

@@ -33,7 +33,6 @@ const OrderDisplayCardUser = ({ order }: any) => {
         }
     };
 
-    // Format the order date
     const formattedDate = order?.orderedDate ? formatDistanceToNow(new Date(order?.orderedDate)) : '';
 
     return (

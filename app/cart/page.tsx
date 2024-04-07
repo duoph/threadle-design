@@ -87,7 +87,7 @@ const CartPage = () => {
         order_id: order?.id,
         name: 'Threadles Design',
         description: ["fesf", "fesfsfa", "frafdg", "gararga"],
-        image: "/td-white.png",
+        image: "/td.png",
         theme: "#231f20",
         test: "fesmfserf",
         handler: function (response: any) {
