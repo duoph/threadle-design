@@ -194,7 +194,8 @@ const ProductPage = () => {
     try {
       setIsLoading(true)
       const res = await axios.post("/api/razorpay", {
-        totalAmount: product?.salePrice || product?.regularPrice
+        totalAmount: product?.salePrice || product?.regularPrice,
+        notes: "Hello this is a test order"
       })
       console.log(res)
       const order = res.data.order
