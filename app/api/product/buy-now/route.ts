@@ -3,9 +3,9 @@ import connectMongoDB from "@/libs/db"
 import CartModel from "@/models/cartItemModel"
 import { NextRequest, NextResponse } from "next/server"
 
+
 export async function POST(req: NextRequest) {
     try {
-
         connectMongoDB()
 
         const { userId } = await getDataFromToken(req)
@@ -14,14 +14,14 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ message: "Login to use cart", success: false })
         }
 
-        const { productId, price, quantity, size, color, imageURL, title } = await req.json()
+        const { productId, price, quantity, size, color, imageURL, title, razorpay_payment_id, razorpay_order_id, razorpay_signature } = await req.json()
 
         const totalPrice = await quantity * price
 
         console.log(totalPrice)
 
         const cart = await CartModel.create({
-            userId, productId, price, quantity, size, color, imageURL, title, totalPrice, isPaid: true
+            userId, productId, price, quantity, size, color, imageURL, title, totalPrice, isPaid: true, razorpay_payment_id, razorpay_order_id, razorpay_signature 
         })
 
         return NextResponse.json({ message: "Product Ordered Successfully", success: true, cart })
