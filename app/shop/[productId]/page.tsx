@@ -227,8 +227,10 @@ const ProductPage = () => {
                 </button>)}
               </div>
             </div>
-            <div className='flex gap-3'>
-
+            <div className='flex flex-col gap-1'>
+              <span className='text-sm flex items-center justify-center gap-1'>All over india free delivery
+                <Image src={"/india.png"} width={15} height={10}  alt="Indian flag" />
+              </span>
               {product?.isCustom && (<div>
                 <Link target='_blank' href={wpLink} className='bg-black px-3 py-2 rounded-full flex gap-2'>
                   <FaWhatsappSquare className='text-green-500' size={24} />

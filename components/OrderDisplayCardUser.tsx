@@ -34,7 +34,7 @@ const OrderDisplayCardUser = ({ order }: any) => {
     };
 
     // Format the order date
-    const formattedDate = formatDistanceToNow(new Date(order.createdAt), { addSuffix: true });
+    const formattedDate = formatDistanceToNow(new Date(order.orderedDate));
 
     return (
         <div key={order._id} onClick={handleRoute} className='cursor-pointer flex items-center justify-between border rounded-2xl overflow-hidden pr-3 h-[60px]'>
@@ -42,7 +42,7 @@ const OrderDisplayCardUser = ({ order }: any) => {
                 <Image style={{ objectFit: 'cover' }} src={order.imageURL || "/noImage.jpg"} alt='no Image' width={50} height={50} />
                 <div className='flex flex-col w-2/3'>
                     <span className='truncate'>{order.title}</span>
-                    <span className='text-sm opacity-70'>{formattedDate}</span>
+                    <span className='text-sm opacity-70'>{formattedDate} ago</span>
                 </div>
             </div>
             <span className='w-1/3 break-all flex items-center justify-center text-td-secondary' onClick={handleCopy}>

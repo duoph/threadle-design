@@ -12,35 +12,26 @@ const Orders = () => {
     const [deliveredOrders, setDeliveredOrdes] = useState([])
     const [orderDisplay, setOrderDisplay] = useState([])
 
-
     const userOrders = async () => {
         try {
-            const res = await axios.get('/api/orders/user')
-            const userOrders = async () => {
-                try {
-                    const res = await axios.get('/api/orders/user');
+            const res = await axios.get('/api/orders/user');
 
-                    // Ensure userOrders is not null or undefined before sorting
-                    if (res.data?.userOrders) {
-                        const sortedOrders = res.data.userOrders.slice().sort((a: any, b: any) => {
-                            const dateA = new Date(a.orderedDate).getTime();
-                            const dateB = new Date(b.orderedDate).getTime();
-                            return dateB - dateA;
-                        });
+            // Ensure userOrders is not null or undefined before sorting
+            if (res.data?.userOrders) {
+                const sortedOrders = res.data.userOrders.slice().sort((a: any, b: any) => {
+                    const dateA = new Date(a.orderedDate).getTime();
+                    const dateB = new Date(b.orderedDate).getTime();
+                    return dateB - dateA;
+                });
 
-                        setPendingOrders(sortedOrders);
-                        setOrderDisplay(sortedOrders);
-                        console.log(res);
-                    }
-                } catch (error) {
-                    console.log(error);
-                }
-            }; console.log(res)
+                setPendingOrders(sortedOrders);
+                setOrderDisplay(sortedOrders);
+                console.log(res);
+            }
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
-    }
-
+    };
 
 
     useEffect(() => {
