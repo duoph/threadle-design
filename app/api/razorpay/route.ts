@@ -11,15 +11,13 @@ export async function POST(req: NextRequest) {
         key_secret: "vvTFUjAryByN3Z6vKdXlNayM",
     });
 
-
-
     try {
-
-        const { totalAmount }: any = await req.json()
+        const { totalAmount, notes }: any = await req.json()
 
         const payment_capture = 1;
         const currency = "INR";
         const options = {
+            notes: notes,
             amount: totalAmount * 100,
             currency,
             payment_capture

@@ -79,7 +79,8 @@ const CartPage = () => {
     try {
       setIsLoading(true)
       const res = await axios.post("/api/razorpay", {
-        totalAmount: total
+        totalAmount: total,
+        notes: "Hello this is a test order"
       })
       console.log(res)
       const order = res.data.order

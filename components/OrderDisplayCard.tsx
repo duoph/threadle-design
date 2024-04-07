@@ -1,23 +1,24 @@
 "use client"
 
-import { formatDistanceToNow } from 'date-fns'
-import Image from 'next/image'
-import { useRouter } from 'next/navigation'
-import toast from 'react-hot-toast'
+import { formatDistanceToNow } from 'date-fns';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation'; // Fix import statement
+import toast from 'react-hot-toast';
 
 const OrderDisplayCard = ({ order }: any) => {
+    const router = useRouter();
 
-    const router = useRouter()
-
-    const handleRoute = () => {
+    const handleRoute = (e: any) => {
+        e.stopPropagation(); 
         try {
-            router.push(`/admin-panel/orders/${order.razorpay_payment_id}`)
+            router.push(`/admin-panel/orders/${order?.razorpay_payment_id}`);
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
-    }
+    };
+
     const handleCopy = (e: any) => {
-        e.stopPropagation()
+        e.stopPropagation();
         try {
             navigator.clipboard.writeText(order.razorpay_payment_id)
                 .then(() => {
@@ -29,13 +30,12 @@ const OrderDisplayCard = ({ order }: any) => {
         } catch (error) {
             console.log(error);
         }
-    }
+    };
 
     const formattedDate = formatDistanceToNow(new Date(order.orderedDate));
 
-
     return (
-        <div key={order._id} onClick={handleRoute} className='cursor-pointer flex items-center justify-between border rounded-2xl overflow-hidden pr-3 h-[60px]'>
+        <div key={order._id} onClick={(e) => handleRoute(e)} className='cursor-pointer flex items-center justify-between border rounded-2xl overflow-hidden pr-3 h-[60px]'>
             <div className='flex items-center gap-1 w-2/3'>
                 <Image style={{ objectFit: 'cover' }} src={order.imageURL || "/noImage.jpg"} alt='no Image' width={50} height={50} />
                 <div className='flex flex-col md:w-full w-2/3'>
@@ -45,7 +45,7 @@ const OrderDisplayCard = ({ order }: any) => {
             </div>
             <span className='w-1/3 break-all text-center text-td-secondary' onClick={handleCopy}>{order.razorpay_payment_id}</span>
         </div>
-    )
-}
+    );
+};
 
-export default OrderDisplayCard
+export default OrderDisplayCard;

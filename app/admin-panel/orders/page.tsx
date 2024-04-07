@@ -33,6 +33,9 @@ const Orders = () => {
             console.log(error)
         }
     }
+
+
+
     const fetchShippedOrders = async () => {
         try {
             const res = await axios.get('/api/orders/shipped')
@@ -48,6 +51,14 @@ const Orders = () => {
         fetchShippedOrders()
         fetchDeliveredOrders()
     }, [])
+
+
+    useEffect(() => {
+        const sortedOrders = orderDisplay.slice().sort((a: any, b: any) => {
+            return new Date(a.orderedDate).getTime() - new Date(b.createdAt).getTime();
+        });
+        setOrderDisplay(sortedOrders);
+    }, [orderDisplay]);
 
 
 
