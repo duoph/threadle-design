@@ -27,7 +27,7 @@ const Orders = () => {
     const fetchDeliveredOrders = async () => {
         try {
             const res = await axios.get('/api/orders/delivered')
-            setDeliveredOrdes(res.data?.pendingOrders)
+            setDeliveredOrdes(res.data?.deliveredOrders)
             console.log(res)
         } catch (error) {
             console.log(error)
