@@ -18,8 +18,8 @@ export async function POST(req: NextRequest) {
         const currency = "INR";
         const options = {
             amount: totalAmount * 100,
+            payment_capture,
             currency,
-            payment_capture
         };
 
         const order = await instance.orders.create(options);
