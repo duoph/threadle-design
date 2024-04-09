@@ -3,18 +3,17 @@ import connectMongoDB from "@/libs/db";
 import CartModel from "@/models/cartItemModel";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest, params: any) {
+export async function POST(req: NextRequest, params: any) {
 
     try {
 
         connectMongoDB()
 
-        const { userId } = await getDataFromToken(req)
+        const { userId } = await req.json()
 
         // const userId = params.userId;
 
         console.log(userId)
-
 
         if (!userId) {
             return NextResponse.json({ message: "error while fetching user orders no userID found", success: false })

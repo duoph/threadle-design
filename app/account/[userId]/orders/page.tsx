@@ -16,7 +16,9 @@ const Orders = () => {
 
     const userOrders = async () => {
         try {
-            const res = await axios.get(`/api/orders/user`)
+            const res = await axios.post(`/api/orders/user`, {
+                userId: currentUser?.userId
+            })
             if (res.data?.userOrders) {
                 const sortedOrders = res.data.userOrders.slice().sort((a: any, b: any) => {
                     const dateA = new Date(a.orderedDate).getTime();
@@ -32,7 +34,6 @@ const Orders = () => {
             console.log(error);
         }
     };
-
 
     useEffect(() => {
         userOrders()
