@@ -3,7 +3,7 @@ import connectMongoDB from "@/libs/db";
 import CartModel from "@/models/cartItemModel";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest) {
+export async function GET(req: NextRequest, params: any) {
 
     try {
 
@@ -11,7 +11,17 @@ export async function GET(req: NextRequest) {
 
         const { userId } = await getDataFromToken(req)
 
+        // const userId = params.userId;
+
+        console.log(userId)
+
+
+        if (!userId) {
+            return NextResponse.json({ message: "error while fetching user orders no userID found", success: false })
+        }
+
         const userOrders = await CartModel.find({ userId: userId })
+
 
         return NextResponse.json({ message: "Fetched user orders", success: true, userOrders })
     } catch (error) {
