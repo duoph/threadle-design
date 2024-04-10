@@ -21,15 +21,13 @@ export async function PUT(req: NextRequest) {
     try {
         const { userId } = await getDataFromToken(req);
 
-        const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = await req.json()
-
-        console.log(razorpay_order_id, razorpay_payment_id, razorpay_signature)
+        const { cartId } = await req.json()
 
         if (!userId) {
             return NextResponse.json({ message: "Unauthenticated Access Error while fetching the cart items", success: false });
         }
 
-        const cartItems = await CartModel.updateMany({ userId }, { isPaid: true, razorpay_order_id, razorpay_payment_id, razorpay_signature, orderedDate: Date.now() });
+        const cartItems = await CartModel.updateMany({ userId }, { isPaid: true });
 
         return NextResponse.json({ message: "Marked all cart items as paid", success: true, cartItems });
 
