@@ -16,15 +16,14 @@ export async function GET() {
 
 export async function PUT(req: NextRequest) {
     try {
-        const { userId } = await getDataFromToken(req);
 
-        const { cartId } = await req.json()
+        const { productId } = await req.json()
 
-        if (!userId) {
+        if (!productId) {
             return NextResponse.json({ message: "Unauthenticated Access Error while fetching the cart items", success: false });
         }
 
-        const cartItems = await CartModel.updateMany({ _id: cartId }, { isDelivered: true });
+        const cartItems = await CartModel.updateMany({ productId: productId }, { isDelivered: true });
 
         return NextResponse.json({ message: "Marked all cart items as paid", success: true, cartItems });
 
@@ -33,3 +32,4 @@ export async function PUT(req: NextRequest) {
         return NextResponse.json({ message: "Error while marking all cart items as paid", success: false, error });
     }
 }
+
