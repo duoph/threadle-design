@@ -2,7 +2,6 @@
 
 import { Cart, Product } from "@/types"
 import axios from "axios"
-import Image from "next/image"
 import { useParams } from "next/navigation"
 import { useEffect, useState } from "react"
 
@@ -47,12 +46,12 @@ const OrderDetailsPage = () => {
                         <span>Name: Praveen Prasad</span>
                         <span>Phone: 403243294932</span>
                         <span>Whatsapp: 403243294932</span>
-                        <span className="font-medium">{"This is a test product title (red)"}</span>
+                        <span className="font-medium">{product?.title}</span>
                         <span>{"The cave near my boys' school ground ponnanni south 676433"}</span>
                     </div>
                 </div>
                 <div className="w-full">
-                    <button className="bg-td-secondary px-3 py-3 text-white w-full rounded-2xl">Shipping Confirm</button>
+                    <button className="bg-td-secondary px-3 py-3 text-white w-full md:w-[1/2] rounded-2xl">Shipping Confirm</button>
                 </div>
             </div>
         </div>
