@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
         console.log(totalPrice)
 
         const cart = await CartModel.create({
-            userId, productId, price, quantity, size, color, imageURL, title, totalPrice
+            userId, productId, price, quantity, size, color, imageURL, title, totalPrice, toAdress: "test address"
         })
 
         return NextResponse.json({ message: "Cart created successfully", success: true, cart })

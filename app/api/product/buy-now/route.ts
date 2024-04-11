@@ -28,6 +28,7 @@ export async function POST(req: NextRequest) {
             price,
             quantity,
             size,
+            toAdress: "test address",
             color,
             imageURL,
             title,
@@ -44,6 +45,6 @@ export async function POST(req: NextRequest) {
 
     } catch (error) {
         console.log(error);
-        return NextResponse.json({ message: "Error while buying product", success: false, error}); 
+        return NextResponse.json({ message: "Error while buying product", success: false, error });
     }
 }
