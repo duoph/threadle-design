@@ -2,6 +2,25 @@ import { getDataFromToken } from "@/helpers/getDataFromToken";
 import CartModel from "@/models/cartItemModel";
 import { NextRequest, NextResponse } from "next/server";
 
+
+
+
+export async function GET(req: NextRequest, params: any) {
+    try {
+
+        const cartItemId = params.cartItemId
+
+        const cartItem = await CartModel.findById( cartItemId );
+
+        return NextResponse.json({ message: "cart item fetched", success: true, cartItem });
+
+    } catch (error) {
+        console.log(error);
+        return NextResponse.json({ message: "Error while getting cart item", success: false, error });
+    }
+}
+
+
 export async function DELETE(req: NextRequest, { params }: any) {
 
     try {
