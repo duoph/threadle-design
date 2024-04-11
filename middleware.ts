@@ -12,16 +12,16 @@ export function middleware(request: NextRequest) {
 
     console.log("This is the token data", isAdmin)
 
-    const isPublicPath = path === "/account/login" || "/account/create-account"
+    // const isPublicPath = path === "/account/login" || "/account/create-account"
 
-    if (!isPublicPath && !token) {
-        return NextResponse.redirect(new URL('/account', request.url))
-    }
+    // if (!isPublicPath && !token) {
+    //     return NextResponse.redirect(new URL('/account', request.url))
+    // }
 
 
-    if (path.startsWith("/admin-panel/*path:") && isAdmin === false) {
-        return NextResponse.redirect(new URL('/account', request.url))
-    }
+    // if (path.startsWith("/admin-panel/*path:") && isAdmin === false) {
+    //     return NextResponse.redirect(new URL('/account', request.url))
+    // }
 }
 
 // See "Matching Paths" below to learn more

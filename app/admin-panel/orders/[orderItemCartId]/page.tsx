@@ -4,11 +4,11 @@ import { useParams } from "next/navigation"
 
 const OrderDetailsPage = () => {
 
-    const { orderId } = useParams()
+    const { orderItemCartId } = useParams()
 
     return (
         <div>
-            <h1>Your Order id is {orderId} </h1>
+            <h1>Your Order id is {orderItemCartId} </h1>
         </div>
     )
 }

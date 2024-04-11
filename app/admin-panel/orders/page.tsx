@@ -2,7 +2,6 @@
 
 import OrderDisplayCard from '@/components/OrderDisplayCard';
 import axios from 'axios';
-import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 
 const Orders = () => {
@@ -55,7 +54,7 @@ const Orders = () => {
 
     useEffect(() => {
         const sortedOrders = orderDisplay.slice().sort((a: any, b: any) => {
-            return new Date(a.orderedDate).getTime() - new Date(b.createdAt).getTime();
+            return new Date(b.orderedDate).getTime() - new Date(a.orderedDate).getTime();
         });
         setOrderDisplay(sortedOrders);
     }, [orderDisplay]);
