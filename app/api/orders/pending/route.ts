@@ -20,13 +20,15 @@ export async function GET() {
 export async function POST(req: NextRequest) {
     try {
 
+        const { userId } = getDataFromToken(req)
+
         const { cartId } = await req.json()
 
         if (!cartId) {
             return NextResponse.json({ message: "Unauthenticated Access Error while marking is shipped", success: false });
         }
 
-        const cartItem = await CartModel.findByIdAndUpdate({ _id: cartId }, { isShipped: true });
+        const cartItem = await CartModel.findByIdAndUpdate({ userId: userId }, { isPaid: true });
 
         return NextResponse.json({ message: "Marked as shipped", success: true, cartItem });
 

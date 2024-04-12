@@ -14,18 +14,38 @@ export async function GET() {
 
 
 
-export async function PUT(req: NextRequest) {
+export async function POST(req: NextRequest) {
     try {
 
-        const { productId } = await req.json()
+        const { cartId } = await req.json()
 
-        if (!productId) {
+        if (!cartId) {
             return NextResponse.json({ message: "Unauthenticated Access Error while fetching the cart items", success: false });
         }
 
-        const cartItems = await CartModel.updateMany({ productId: productId }, { isShipped: true });
+        const cartItem = await CartModel.findByIdAndUpdate({ _id: cartId }, { isShipped: true });
 
-        return NextResponse.json({ message: "Marked all cart items as paid", success: true, cartItems });
+        return NextResponse.json({ message: "Marked all cart items as paid", success: true, cartItem });
+
+    } catch (error) {
+        console.log(error);
+        return NextResponse.json({ message: "Error while marking all cart items as paid", success: false, error });
+    }
+}
+
+
+export async function PUT(req: NextRequest) {
+    try {
+
+        const { cartId } = await req.json()
+
+        if (!cartId) {
+            return NextResponse.json({ message: "Unauthenticated Access Error while fetching the cart items", success: false });
+        }
+
+        const cartItem = await CartModel.findByIdAndUpdate({ _id: cartId }, { isShipped: false });
+
+        return NextResponse.json({ message: "Marked all cart items as paid", success: true, cartItem });
 
     } catch (error) {
         console.log(error);

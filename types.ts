@@ -40,6 +40,9 @@ export interface Cart {
     userId: string;
     productId: string;
     size: string;
+    isShipped: boolean;
+    isPaid: boolean;
+    isDelivered: boolean;
     price: number;
     totalPrice: number;
     title: string;

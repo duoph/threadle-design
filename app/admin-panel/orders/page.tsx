@@ -2,6 +2,7 @@
 
 import OrderDisplayCard from '@/components/OrderDisplayCard';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
 const Orders = () => {
@@ -12,6 +13,7 @@ const Orders = () => {
     const [deliveredOrders, setDeliveredOrdes] = useState([])
     const [orderDisplay, setOrderDisplay] = useState([])
 
+    const router = useRouter()
 
     const fetchPaidOrders = async () => {
         try {
