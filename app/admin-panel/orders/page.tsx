@@ -68,7 +68,7 @@ const Orders = () => {
                 <div className='grid grid-cols-1 md:grid-cols-3 gap-3 text-td-secondary font-bold text-xl'>
                     <div className='flex flex-col items-center justify-center'>
                         <h2>Total Orders</h2>
-                        <span>{pendingOrders?.length}</span>
+                        <span>{pendingOrders?.length + shippedOrders?.length}</span>
                     </div>
                     <div className='flex flex-col items-center justify-center'>
                         <h2>Paid Orders</h2>
