@@ -17,22 +17,21 @@ export async function GET() {
     }
 }
 
-export async function PUT(req: NextRequest) {
+export async function POST(req: NextRequest) {
     try {
-        const { userId } = await getDataFromToken(req);
 
         const { cartId } = await req.json()
 
-        if (!userId) {
-            return NextResponse.json({ message: "Unauthenticated Access Error while fetching the cart items", success: false });
+        if (!cartId) {
+            return NextResponse.json({ message: "Unauthenticated Access Error while marking is shipped", success: false });
         }
 
-        const cartItems = await CartModel.updateMany({ userId }, { isPaid: true });
+        const cartItem = await CartModel.findByIdAndUpdate({ _id: cartId }, { isShipped: true });
 
-        return NextResponse.json({ message: "Marked all cart items as paid", success: true, cartItems });
+        return NextResponse.json({ message: "Marked as shipped", success: true, cartItem });
 
     } catch (error) {
         console.log(error);
-        return NextResponse.json({ message: "Error while marking all cart items as paid", success: false, error });
+        return NextResponse.json({ message: "Error while marking is shipped", success: false, error });
     }
 }
