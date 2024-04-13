@@ -30,25 +30,6 @@ const OrderDetailsPage = () => {
     }, [])
 
 
-    const handleShippmentCancel = async () => {
-        setIsLoading(true)
-        try {
-            const res = await axios.put('/api/orders/shipped', {
-                cartId: order?._id
-            })
-            console.log(res)
-            if (res.data?.success == true) {
-                toast.success("Canceled Shipping")
-                fetchCartItem()
-            }
-            setIsLoading(false)
-        } catch (error) {
-            setIsLoading(false)
-            console.log(error)
-
-        }
-    }
-
     const handleShippmentConfirm = async () => {
         setIsLoading(true)
         try {
@@ -68,6 +49,27 @@ const OrderDetailsPage = () => {
 
         }
     }
+
+    const handleShippmentCancel = async () => {
+        setIsLoading(true)
+        try {
+            const res = await axios.put('/api/orders/shipped', {
+                cartId: order?._id
+            })
+            console.log(res)
+            if (res.data?.success == true) {
+                toast.success("Canceled Shipping")
+                fetchCartItem()
+            }
+            setIsLoading(false)
+        } catch (error) {
+            setIsLoading(false)
+            console.log(error)
+
+        }
+    }
+
+
 
 
     return (
