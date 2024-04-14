@@ -98,7 +98,7 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
                         <Image src={"/noImage.jpg"} style={{ objectFit: "cover" }} alt='Image' className='rounded-lg' quality={50} fill />
                     )}
                     {product?.coverImageURL && (
-                        <Image src={product?.coverImageURL} style={{ objectFit: "cover" }} className='rounded-lg' fill alt='Red-Dress' />
+                        <Image src={product?.coverImageURL} style={{ objectFit: "cover" }} className='rounded-lg' quality={50} fill alt='Red-Dress' />
                     )}
                 </div>
                 <div className='w-full px-3 py-2 flex flex-col gap-2 '>
