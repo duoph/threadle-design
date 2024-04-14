@@ -110,10 +110,15 @@ const OrderDetailsPage = () => {
                             </div>
                         )}
 
+                        {order?.isDelivered && (
+                            <div className="w-full">
+                                <button className="bg-td-primary  px-3 py-3 text-white w-full md:w-[1/2] rounded-2xl">Delivered</button>
+                            </div>
+                        )}
+
 
                     </>
                 )}
-
 
 
                 {isLoading && (<div className="w-full">
