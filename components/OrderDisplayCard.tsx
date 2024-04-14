@@ -6,16 +6,19 @@ import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 
 const OrderDisplayCard = ({ order }: any) => {
+
     const router = useRouter();
 
 
     const handleRoute = () => {
         try {
-            router.push(`/admin-panel/orders/${order?._id}`);
+            toast.success(order?._id)
+            router.push(`/admin-panel/orders/6611386404d4903af7e981a1`);
         } catch (error) {
             console.log(error);
         }
     };
+
 
     const handleCopy = (e: any) => {
         e.stopPropagation();

@@ -17,7 +17,7 @@ const OrderDetailsPage = () => {
 
     const fetchCartItem = async () => {
         try {
-            const res = await axios.get(`/api/cart/${orderItemCartId}`)
+            const res = await axios.get(`/api/orders/pending/${orderItemCartId}`)
             setOrder(res.data?.cartItem)
             console.log(res)
         } catch (error) {
