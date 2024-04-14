@@ -1,18 +1,32 @@
 import React, { ReactNode, useState } from 'react';
+import { IoMdClose } from 'react-icons/io';
 
 const AdminPanelLayout = ({ children }: { children: ReactNode }) => {
 
     const [isMenu, setIsMenu] = useState<boolean>(true);
 
     return (
-        <div className='bg-blue-600 w-full h-full'>
-            <button className="relative bg-red-700 rounded-2xl px-3 py-2" onClick={() => setIsMenu(!isMenu)}>Open Menu</button>
+        <div className=' w-full h-full flex gap-10'>
 
-            <div className='absolute bg-red-700  left-0 top-0 z-10 h-[100vh]'>
-                <h1 className='text-red-600 text-[30px]'>This is Layout</h1>
+            {/* Side 1 (Menu) */}
+            <div className="relative flex ic bg-red-700 md:w-[250px] lg:w-[300px] h-full shadow-2xl">
+                <div className='absolute top-2 right-2 cursor-pointer' onClick={() => setIsMenu(!isMenu)}>
+                    <IoMdClose className='text-white cursor-pointer' size={24} />
+                </div>
+                <div className="flex flex-col gap-4 items-center justify-center py-8">
+                    <span>Orders</span>
+                    <span>Orders</span>
+                    <span>Orders</span>
+                    <span>Orders</span>
+                </div>
+            </div >
+
+            {/* Side 2 (Main Content) */}
+            <div className='flex flex-col items-center justify-center w-full'>
+                {children}
             </div>
-            {children}
-        </div>
+
+        </div >
     );
 };
 
