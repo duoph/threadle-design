@@ -8,52 +8,42 @@ import React, { useEffect, useState } from 'react';
 
 const Orders = () => {
 
-    const [selectedOrderType, setSelectedOrderType] = useState<string>("pending")
+    const [selectedOrderType, setSelectedOrderType] = useState<string>()
     const [pendingOrders, setPendingOrders] = useState([])
     const [shippedOrders, setShippedOrders] = useState([])
-    const [deliveredOrders, setDeliveredOrdes] = useState([])
+    const [deliveredOrders, setDeliveredOrders] = useState([])
     const [orderDisplay, setOrderDisplay] = useState([])
 
     const router = useRouter()
 
-    const fetchPaidOrders = async () => {
+    const fetchOrders = async () => {
         try {
-            const res = await axios.get('/api/orders/pending')
-            setPendingOrders(res.data?.pendingOrders)
-            setOrderDisplay(res.data?.pendingOrders)
-            console.log(res)
+            const pendingRes = await axios.get('/api/orders/pending');
+            setPendingOrders(pendingRes.data?.pendingOrders);
+            const shippedRes = await axios.get('/api/orders/shipped');
+            setShippedOrders(shippedRes.data?.shippedOrders);
+            const deliveredRes = await axios.get('/api/orders/delivered');
+            setDeliveredOrders(deliveredRes.data?.deliveredOrders);
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
-    }
-    const fetchDeliveredOrders = async () => {
-        try {
-            const res = await axios.get('/api/orders/delivered')
-            setDeliveredOrdes(res.data?.deliveredOrders)
-            console.log(res)
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-
-
-    const fetchShippedOrders = async () => {
-        try {
-            const res = await axios.get('/api/orders/shipped')
-            setShippedOrders(res.data?.shippedOrders)
-            console.log(res)
-        } catch (error) {
-            console.log(error)
-        }
-    }
+    };
 
     useEffect(() => {
-        fetchPaidOrders()
-        fetchShippedOrders()
-        fetchDeliveredOrders()
-    }, [])
+        fetchOrders();
+    }, []);
 
+    useEffect(() => {
+        let displayOrders: any = [];
+        if (selectedOrderType === 'pending') {
+            displayOrders = pendingOrders;
+        } else if (selectedOrderType === 'shipped') {
+            displayOrders = shippedOrders;
+        } else if (selectedOrderType === 'delivered') {
+            displayOrders = deliveredOrders;
+        }
+        setOrderDisplay(displayOrders);
+    }, [selectedOrderType, pendingOrders, shippedOrders, deliveredOrders]);
 
     useEffect(() => {
         const sortedOrders = orderDisplay?.slice()?.sort((a: any, b: any) => {
@@ -61,7 +51,6 @@ const Orders = () => {
         });
         setOrderDisplay(sortedOrders);
     }, [orderDisplay]);
-
 
 
     return (
