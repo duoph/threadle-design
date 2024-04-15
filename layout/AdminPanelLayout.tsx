@@ -14,7 +14,7 @@ const AdminPanelLayout = ({ children }: { children: ReactNode }) => {
         <div className='relative w-full h-full flex gap-10'>
 
             {/* Side 1 (Menu) */}
-            <div className='text-td-secondary px-6 py-5'>
+            <div className='absolute text-td-secondary px-6 py-5'>
                 <button className=' rounded-2xl' onClick={() => setIsMenu(true)}>
                     <IoMenu className='cursor-pointer' size={24} />
 
