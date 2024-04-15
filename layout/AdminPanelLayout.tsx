@@ -17,7 +17,6 @@ const AdminPanelLayout = ({ children }: { children: ReactNode }) => {
             <div className='absolute text-td-secondary px-6 py-5'>
                 <button className=' rounded-2xl' onClick={() => setIsMenu(true)}>
                     <IoMenu className='cursor-pointer' size={24} />
-
                 </button>
             </div>
 
@@ -27,11 +26,11 @@ const AdminPanelLayout = ({ children }: { children: ReactNode }) => {
 
             {isMenu && (
                 <ClickAwayListener onClickAway={() => setIsMenu(false)}>
-                    <div className={`fixed top-5 left-0 md:flex items-center justify-center bg-slate-200 w-[300px] z-[99] h-full  transition-transform duration-300 ease-in-out ${isMenu ? 'translate-x-0' : '-translate-x-[100%]'}`}>
+                    <div className={`fixed top-5 left-0 md:flex items-center justify-center bg-slate-200 md:w-[300px] w-full z-[99] h-full  transition-transform duration-300 ease-in-out ${isMenu ? 'translate-x-0' : '-translate-x-[100%]'}`}>
                         <div className='absolute top-2 right-2 cursor-pointer' onClick={() => setIsMenu(false)}>
-                            <IoMdClose className='text-white cursor-pointer' size={24} />
+                            <IoMdClose className='text-black cursor-pointer' size={24} />
                         </div>
-                        <h1 className='text-center py-2'>Admin Panel</h1>
+                        <h1 className='text-center py-2 font-semibold'>Admin Panel</h1>
                         <div className="flex flex-col gap-2 items-center justify-center ">
                             <div className=' flex flex-col items-center justify-center gap-[4px] w-full'>
                                 <Link href="/admin-panel/create-product" className='bg-td-secondary w-full px-10 py-2 text-white text-center'>Add Product</Link>
