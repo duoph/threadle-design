@@ -71,8 +71,6 @@ const OrderDetailsPage = () => {
     }
 
 
-
-
     return (
         <AdminPanelLayout>
             <div className="min-h-[80vh] py-3 px-3 flex flex-col gap-4 w-full">
