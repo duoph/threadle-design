@@ -11,12 +11,12 @@ const AdminPanelLayout = ({ children }: { children: ReactNode }) => {
     const [isMenu, setIsMenu] = useState<boolean>(false);
 
     return (
-        <div className='relative w-full h-full flex gap-10'>
+        <div className='relative w-full h-full flex gap-10 '>
 
             {/* Side 1 (Menu) */}
             <div className='absolute text-td-secondary px-6 py-5'>
                 <button className=' rounded-2xl' onClick={() => setIsMenu(true)}>
-                    <IoMenu className='cursor-pointer' size={24} />
+                    <IoMenu className='cursor-pointer' size={30} />
                 </button>
             </div>
 
@@ -26,7 +26,7 @@ const AdminPanelLayout = ({ children }: { children: ReactNode }) => {
 
             {isMenu && (
                 <ClickAwayListener onClickAway={() => setIsMenu(false)}>
-                    <div className={`fixed top-5 left-0 md:flex items-center justify-center bg-slate-200 md:w-[300px] w-full z-[99] h-full  transition-transform duration-300 ease-in-out ${isMenu ? 'translate-x-0' : '-translate-x-[100%]'}`}>
+                    <div className={`fixed top-5 left-0 md:flex items-center justify-center bg-slate-200 md:w-[300px] w-full z-[999px] h-full  transition-transform duration-300 ease-in-out ${isMenu ? 'translate-x-0' : '-translate-x-[100%]'}`}>
                         <div className='absolute top-2 right-2 cursor-pointer' onClick={() => setIsMenu(false)}>
                             <IoMdClose className='text-black cursor-pointer' size={24} />
                         </div>
@@ -47,7 +47,7 @@ const AdminPanelLayout = ({ children }: { children: ReactNode }) => {
             )}
 
             {/* Side 2 (Main Content) */}
-            <div className='flex flex-col items-center justify-center w-full'>
+            <div className='flex flex-col items-center justify-center w-full py-10'>
                 {children}
             </div>
         </div>

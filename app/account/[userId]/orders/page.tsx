@@ -7,8 +7,6 @@ import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 
 const Orders = () => {
-
-    const [selectedOrderType, setSelectedOrderType] = useState<string>("pending")
     const [pendingOrders, setPendingOrders] = useState([])
     const [orderDisplay, setOrderDisplay] = useState([])
 
