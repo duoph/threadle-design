@@ -79,7 +79,7 @@ const ViewAllCategories = () => {
 
                     <div className='flex flex-wrap items-center justify-center gap-5'>
                         {categories.map((cat: Category, i) => (
-                            <div key={i} className='relative w-[300px] shadow-2xl pb-10 flex flex-col bg-td-secondary rounded-2xl'>
+                            <div key={i} className='relative sm:w-[300px] w-[250px] shadow-2xl pb-10 flex flex-col bg-td-secondary rounded-2xl'>
                                 <Image
                                     quality={50}
                                     src={cat.imageURL || "/noImage.jpg"}
