@@ -1,6 +1,7 @@
 "use client"
 
 import ProductCard from '@/components/ProductCard'
+import AdminPanelLayout from '@/layout/AdminPanelLayout'
 import { Product } from '@/types'
 import axios from 'axios'
 import { useParams } from 'next/navigation'
@@ -37,25 +38,31 @@ const CategoryProducts = () => {
     // on loading of categories
     if (products.length === 0) {
         return (
-            <div className='min-h-[80vh] md:px-10 px-5 py-10 flex flex-col items-center justify-center gap-3'>
-                <div>
-                    <p className='font-medium'>No Products Available</p>
+            <AdminPanelLayout>
+
+                <div className='min-h-[80vh] md:px-10 w-full px-5 py-10 flex flex-col  items-center justify-center gap-3'>
+                    <div>
+                        <p className='font-medium'>No Products Available</p>
+                    </div>
                 </div>
-            </div>
+            </AdminPanelLayout>
+
         )
     }
 
     return (
-        <div className='md:px-10 px-5 py-10 flex flex-col items-center justify-center gap-3'>
-            <div>
-                <h1 className='text-[30px] font-bold text-td-secondary'>{categoryname}</h1>
+        <AdminPanelLayout>
+            <div className='md:px-10 px-5 py-10 flex flex-col items-center justify-center gap-3 w-full'>
+                <div>
+                    <h1 className='text-[30px] font-bold text-td-secondary'>{categoryname}</h1>
+                </div>
+                <div className='flex items-center justify-center gap-5 flex-wrap md:px-10 px-5'>
+                    {products.map((product: Product) => (
+                        <ProductCard getProducts={categoryProductFetch} key={product._id} product={product} />
+                    ))}
+                </div>
             </div>
-            <div className='flex items-center justify-center gap-5 flex-wrap md:px-10 px-5'>
-                {products.map((product: Product) => (
-                    <ProductCard getProducts={categoryProductFetch} key={product._id} product={product} />
-                ))}
-            </div>
-        </div>
+        </AdminPanelLayout>
     )
 }
 

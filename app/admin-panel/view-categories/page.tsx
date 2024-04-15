@@ -48,7 +48,7 @@ const ViewAllCategories = () => {
 
     if (categories?.length === 0) {
         return (
-            <div className='min-h-[80vh] md:px-10 px-5 py-10 flex flex-col items-center justify-center gap-3'>
+            <div className='min-h-[80vh] w-full md:px-10 px-5 py-10 flex flex-col items-center justify-center gap-3'>
                 <div>
                     <p className='font-medium'>No Categories Available</p>
                 </div>
@@ -58,7 +58,7 @@ const ViewAllCategories = () => {
 
     return (
         <AdminPanelLayout>
-            <div className='min-h-screen flex items-center justify-center md:px-10 px-5'>
+            <div className='min-h-screen w-full flex items-center justify-center md:px-10 px-5'>
                 {deleteConfirm && (
                     <div className=' fixed top-0 bg-black bg-opacity-50 left-0 w-full h-full flex items-center justify-center  md:px-10 px-5'>
                         <div className='bg-white p-6 rounded-md shadow-2xl py-10 px-10'>

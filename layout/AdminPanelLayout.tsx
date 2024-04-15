@@ -11,7 +11,7 @@ const AdminPanelLayout = ({ children }: { children: ReactNode }) => {
     const [isMenu, setIsMenu] = useState<boolean>(false);
 
     return (
-        <div className='relative w-full h-full flex gap-10 '>
+        <div className='relative w-full h-full flex gap-10 z-40 '>
 
             {/* Side 1 (Menu) */}
             <div className='absolute text-td-secondary px-6 py-5'>
@@ -26,7 +26,7 @@ const AdminPanelLayout = ({ children }: { children: ReactNode }) => {
 
             {isMenu && (
                 <ClickAwayListener onClickAway={() => setIsMenu(false)}>
-                    <div className={`fixed top-5 left-0 md:flex items-center justify-center bg-slate-200 md:w-[300px] w-full z-[999px] h-full  transition-transform duration-300 ease-in-out ${isMenu ? 'translate-x-0' : '-translate-x-[100%]'}`}>
+                    <div className={`fixed top-5 left-0 md:flex items-center justify-center bg-slate-200 md:w-[300px] w-full  h-full  transition-transform duration-300 ease-in-out ${isMenu ? 'translate-x-0' : '-translate-x-[100%]'}`}>
                         <div className='absolute top-2 right-2 cursor-pointer' onClick={() => setIsMenu(false)}>
                             <IoMdClose className='text-black cursor-pointer' size={24} />
                         </div>
@@ -38,6 +38,7 @@ const AdminPanelLayout = ({ children }: { children: ReactNode }) => {
                                 <Link href="/admin-panel/view-products" className='bg-td-secondary w-full px-10 py-2 text-white text-center'>View All Product</Link>
                                 <Link href="/admin-panel/view-categories" className='bg-td-secondary w-full px-10 py-2 text-white text-center'>View All Category</Link>
                                 <Link href="/admin-panel/create-admin" className='bg-td-secondary w-full px-10 py-2 text-white text-center'>Create New Admin</Link>
+                                <Link href="/admin-panel/orders" className='bg-td-secondary w-full px-10 py-2 text-white text-center'>Orders</Link>
                                 <button className='bg-red-600 w-full px-10 py-2 text-white text-center flex items-center justify-center gap-3' onClick={() => { }}> LogOut<AiOutlineLogout />
                                 </button>
                             </div>

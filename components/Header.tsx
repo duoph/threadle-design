@@ -27,7 +27,7 @@ const Header = () => {
             }
 
             if (currentUser?.token && currentUser.isAdmin === true) {
-                return router.push('/admin-panel')
+                return router.push('/admin-panel/orders')
             }
 
             if (currentUser?.token && currentUser.isAdmin === false) {
@@ -42,7 +42,7 @@ const Header = () => {
 
 
 
-    useEffect(() => {
+    useEffect(() => {-
         cartItemCountFetch()
     }, [])
 
