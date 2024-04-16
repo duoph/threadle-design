@@ -13,7 +13,6 @@ const OrderDisplayCard = ({ order }: any) => {
 
     const handleRoute = () => {
         try {
-            toast.success(order?._id)
             router.push(`/admin-panel/orders/${order?._id}`);
         } catch (error) {
             console.log(error);
