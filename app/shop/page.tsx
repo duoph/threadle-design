@@ -7,6 +7,10 @@ import axios from 'axios';
 import ProductCard from '@/components/ProductCard';
 import { Product } from '@/types';
 
+
+// export const revalidate = 5000
+
+
 const Shop = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [searchProducts, setSearchProducts] = useState<Product[]>([]);

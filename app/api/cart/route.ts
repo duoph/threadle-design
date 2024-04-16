@@ -3,6 +3,7 @@ import connectMongoDB from "@/libs/db";
 import CartModel from "@/models/cartItemModel";
 import { NextRequest, NextResponse } from "next/server";
 
+
 export async function POST(req: NextRequest) {
     try {
 
@@ -31,6 +32,7 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ message: "Error while creating cart", success: false, error })
     }
 }
+
 
 export async function GET(req: NextRequest) {
     try {

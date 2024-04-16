@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
-export const revalidate = 1000
+export const  revalidate = 1000
 
 const Orders = () => {
 
@@ -16,17 +16,13 @@ const Orders = () => {
     const [deliveredOrders, setDeliveredOrders] = useState([])
     const [orderDisplay, setOrderDisplay] = useState([])
 
-    const router = useRouter()
+    // const router = useRouter()
 
     const fetchOrders = async () => {
         try {
             const pendingRes = await axios.get('/api/orders/pending');
             setOrderDisplay(pendingRes.data?.pendingOrders)
             setPendingOrders(pendingRes.data?.pendingOrders);
-            const shippedRes = await axios.get('/api/orders/shipped');
-            setShippedOrders(shippedRes.data?.shippedOrders);
-            const deliveredRes = await axios.get('/api/orders/delivered');
-            setDeliveredOrders(deliveredRes.data?.deliveredOrders);
         } catch (error) {
             console.log(error);
         }
@@ -83,7 +79,6 @@ const Orders = () => {
                         onClick={() => {
                             setSelectedOrderType('pending')
                             setOrderDisplay(pendingOrders)
-                            // router.push('/admin-panel/orders/pending')
                         }}
                         className={`px-2 py-2 rounded-2xl cursor-pointer border ${selectedOrderType === 'pending' ? 'bg-td-secondary text-white' : ''}`}
                     >
@@ -93,8 +88,6 @@ const Orders = () => {
                         onClick={() => {
                             setSelectedOrderType('shipped')
                             setOrderDisplay(shippedOrders)
-                            // router.push('/admin-panel/orders/shipped')
-
                         }}
                         className={`px-3 py-2 rounded-2xl cursor-pointer border ${selectedOrderType === 'shipped' ? 'bg-td-secondary text-white' : ''}`}
                     >
@@ -104,8 +97,6 @@ const Orders = () => {
                         onClick={() => {
                             setSelectedOrderType('delivered')
                             setOrderDisplay(deliveredOrders)
-                            // router.push('/admin-panel/orders/pending')
-
                         }}
                         className={`px-3 py-2 rounded-2xl cursor-pointer border ${selectedOrderType === 'delivered' ? 'bg-td-secondary text-white' : ''}`}
                     >

@@ -10,8 +10,11 @@ const Footer = () => {
     return (
         <div className='py-5 flex flex-col gap-3 bg-slate-200 w-full md:px-20 px-5'>
             <div className='flex md:flex-row flex-col justify-between items-center gap-4 '>
+
                 <div className='flex flex-col md:items-start items-center md:w-1/2 w-full gap-3'>
-                    <Image src={'/td-green.png'} alt='Logo' width={100} height={100} />
+                    <div className="relative w-[100px] h-[100px]">
+                        <Image priority={true} src={'/td-green.png'} alt='Logo' fill={true} quality={50} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
+                    </div>
                     <p className='break-all'>We have clothes that suit your style and which you&apos;re proud to wear.</p>
                     <span className='flex gap-3'>
                         <Link target='_blank' href={"https://www.facebook.com/profile.php?id=100066335059109"}>

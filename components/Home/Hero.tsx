@@ -30,9 +30,12 @@ const Hero = () => {
             </div>
             <div className='relative md:w-1/2 w-full flex flex-col gap-8 pb-10 items-center justify-center'>
                 <div className='relative'>
-                    <Image src={'/stars.svg'} className='absolute bottom-12 right-2' height={40} width={40} alt='Star' />
-                    <Image src={'/stars.svg'} className='absolute top-12 left-20 ' height={40} width={40} alt='Star' />
-                    <Image src={"/greendress.png"} width={500} height={400} alt='GreenDress' />
+                    <Image priority={true} src={'/stars.svg'} className='absolute bottom-12 right-2' height={40} width={40} alt='Star' sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
+                    <Image priority={true} src={'/stars.svg'} className='absolute top-12 left-20 ' height={40} width={40} alt='Star' sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
+                    <div className='relative w-[500px] min-h-[600px]'>
+                        <Image priority={true} src={"/greendress.png"} fill={true} alt='GreenDress' sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
+                    </div>
+
                 </div>
                 <div className='lg:hidden flex items-center justify-center gap-5 lg:text-[28px] md:text-[20px] text-[16px]'>
                     {/* <p className='flex flex-col items-center justify-center font-bold '>2500+ <span className='font-normal'>Brands</span></p>

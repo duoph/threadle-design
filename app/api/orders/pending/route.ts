@@ -1,9 +1,13 @@
 import { getDataFromToken } from "@/helpers/getDataFromToken";
+import connectMongoDB from "@/libs/db";
 import CartModel from "@/models/cartItemModel";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET() {
     try {
+
+        connectMongoDB()
+
         const pendingOrders = await CartModel.find({ isPaid: true, isShipped: false })
 
         if (pendingOrders) {
@@ -17,8 +21,12 @@ export async function GET() {
     }
 }
 
+
+
 export async function POST(req: NextRequest) {
     try {
+
+        connectMongoDB()
 
         const { userId } = getDataFromToken(req)
 

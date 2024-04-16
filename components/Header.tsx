@@ -6,6 +6,8 @@ import { CiSearch, CiUser, CiShoppingCart } from "react-icons/ci";
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useUser } from '@/context/useUser';
+// import NextNProgress from 'nextjs-progressbar';
+
 import axios from 'axios';
 import { Cart } from '@/types';
 
@@ -44,13 +46,13 @@ const Header = () => {
 
     useEffect(() => {
         -
-        cartItemCountFetch()
+            cartItemCountFetch()
     }, [])
 
     return (
         <div className='bg-td-secondary flex h-[80px] items-center justify-between px-3 lg:px-10 w-full fixed top-0 z-[500] shadow-xl'>
-            <Link href={"/"} className=''>
-                <Image src={'/td-white.png'} alt='Threadle Design' height={80} width={80} />
+            <Link href={"/"} className='relative w-[70px] h-[70px]' >
+                <Image priority={true} src={'/td-white.png'} alt='Threadle Design' fill={true} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
             </Link>
             <div className='flex items-center justify-center gap-2'>
                 <CiSearch onClick={() => router.push('/shop')} className='text-white cursor-pointer' size={24} />
@@ -62,6 +64,7 @@ const Header = () => {
                 )}
                 <CiUser onClick={onAccountClick} className='text-white cursor-pointer' size={24} />
             </div>
+            {/* <NextNProgress /> */}
         </div>
     )
 }

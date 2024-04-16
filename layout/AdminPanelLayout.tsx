@@ -1,14 +1,40 @@
 "use client"
 
+import { useUser } from '@/context/useUser';
+import axios from 'axios';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React, { ReactNode, useState } from 'react';
 import ClickAwayListener from 'react-click-away-listener';
+import toast from 'react-hot-toast';
 import { AiOutlineLogout } from 'react-icons/ai';
 import { IoMdClose } from 'react-icons/io';
 import { IoMenu } from 'react-icons/io5';
 
 const AdminPanelLayout = ({ children }: { children: ReactNode }) => {
     const [isMenu, setIsMenu] = useState<boolean>(false);
+
+
+
+    const { LogOut, currentUser } = useUser()
+    const router = useRouter()
+
+    const logOut = async () => {
+        try {
+            LogOut()
+            await axios.get("/api/logout")
+
+            toast.success("Logout Success")
+
+            router.push(`/account/login`)
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+
+
 
     return (
         <div className='relative w-full h-full flex gap-10 z-50 '>
@@ -26,20 +52,20 @@ const AdminPanelLayout = ({ children }: { children: ReactNode }) => {
 
             {isMenu && (
                 <ClickAwayListener onClickAway={() => setIsMenu(false)}>
-                    <div className={`fixed top-5 left-0 md:flex items-center z-50 justify-center bg-slate-200 md:w-[300px] w-full  h-full  transition-transform duration-300 ease-in-out ${isMenu ? 'translate-x-0' : '-translate-x-[100%]'}`}>
+                    <div className={`fixed top-5 left-0 md:flex items-center z-50 justify-center bg-slate-200 md:w-[300px] w-full  h-full transition-all duration-300 ease-in-out ${isMenu ? 'translate-x-0' : '-translate-x-full'}`}>
                         <div className='absolute top-2 right-2 cursor-pointer' onClick={() => setIsMenu(false)}>
                             <IoMdClose className='text-black cursor-pointer' size={24} />
                         </div>
                         <h1 className='text-center py-2 font-semibold'>Admin Panel</h1>
                         <div className="flex flex-col gap-2 items-center justify-center ">
                             <div onClick={() => setIsMenu(false)} className=' flex flex-col items-center justify-center gap-[4px] w-full px-3'>
-                                <Link  href="/admin-panel/orders" className='bg-td-secondary w-full px-10 py-2 text-white text-center'>Orders</Link>
+                                <Link href="/admin-panel/orders" className='bg-td-secondary w-full px-10 py-2 text-white text-center'>Orders</Link>
                                 <Link href="/admin-panel/create-product" className='bg-td-secondary w-full px-10 py-2 text-white text-center'>Add Product</Link>
                                 <Link href="/admin-panel/create-category" className='bg-td-secondary w-full px-10 py-2 text-white text-center'>Add Category</Link>
                                 <Link href="/admin-panel/view-products" className='bg-td-secondary w-full px-10 py-2 text-white text-center'>View All Product</Link>
                                 <Link href="/admin-panel/view-categories" className='bg-td-secondary w-full px-10 py-2 text-white text-center'>View All Category</Link>
                                 <Link href="/admin-panel/create-admin" className='bg-td-secondary w-full px-10 py-2 text-white text-center'>Create a New Admin</Link>
-                                <button className='bg-red-600 w-full px-10 py-2 text-white text-center flex items-center justify-center gap-3' onClick={() => { }}> LogOut<AiOutlineLogout />
+                                <button className='bg-red-600 w-full px-10 py-2 text-white text-center flex items-center justify-center gap-3' onClick={logOut}> LogOut<AiOutlineLogout />
                                 </button>
                             </div>
                         </div>
