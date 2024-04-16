@@ -75,7 +75,7 @@ const Shop = () => {
     window.scrollTo(0, 0)
     setCurrentPage(currentPage - 1)
   }
-  
+
 
   return (
     <div className='flex flex-col gap-5 items-center justify-center px-2 lg:px-3 py-10'>
@@ -97,9 +97,10 @@ const Shop = () => {
           className='rounded-2xl text-gray-400 font-light text-[12px] md:text-[15px] px-2 py-2'
           onChange={(e) => handleSort(e.target.value)}
         >
+          <option value="newAdded">Sort by</option>
+          <option value="newAdded">Newly Added</option>
           <option value="lowToHigh">Price Low-To-High</option>
           <option value="highToLow">Price High-To-Low</option>
-          <option value="newAdded">Newly Added</option>
         </select>
       </div>
       <div className='flex min-h-[60vh] items-start justify-center gap-[4px] flex-wrap md:gap-5'>

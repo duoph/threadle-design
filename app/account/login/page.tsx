@@ -7,14 +7,6 @@ import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 import { PulseLoader } from 'react-spinners';
 
-interface userDetailsProps {
-  token: string;
-  name: string;
-  phone: number;
-  userId: string;
-  email: string;
-  isAdmin: string;
-}
 
 const LoginPageAdmin = () => {
   const [email, setEmail] = useState<string>('');
@@ -56,7 +48,7 @@ const LoginPageAdmin = () => {
 
 
         if (response.data.userDetails.isAdmin) {
-          router.push('/admin-panel');
+          router.push('/admin-panel/orders');
           toast.success(response.data.message);
         } else {
           router.push('/shop');
@@ -73,7 +65,7 @@ const LoginPageAdmin = () => {
 
 
   if (currentUser?.token && currentUser.isAdmin === true) {
-    return router.push('/admin-panel')
+    return router.push('/admin-panel/orders')
   }
 
   if (currentUser?.token && currentUser.isAdmin === false) {

@@ -6,19 +6,22 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
+export const  revalidate = 1000
+
 const Orders = () => {
 
-    const [selectedOrderType, setSelectedOrderType] = useState<string>()
+    const [selectedOrderType, setSelectedOrderType] = useState<string>("pending")
     const [pendingOrders, setPendingOrders] = useState([])
     const [shippedOrders, setShippedOrders] = useState([])
     const [deliveredOrders, setDeliveredOrders] = useState([])
     const [orderDisplay, setOrderDisplay] = useState([])
 
-    const router = useRouter()
+    // const router = useRouter()
 
     const fetchOrders = async () => {
         try {
             const pendingRes = await axios.get('/api/orders/pending');
+            setOrderDisplay(pendingRes.data?.pendingOrders)
             setPendingOrders(pendingRes.data?.pendingOrders);
             const shippedRes = await axios.get('/api/orders/shipped');
             setShippedOrders(shippedRes.data?.shippedOrders);
@@ -33,17 +36,17 @@ const Orders = () => {
         fetchOrders();
     }, []);
 
-    useEffect(() => {
-        let displayOrders: any = [];
-        if (selectedOrderType === 'pending') {
-            displayOrders = pendingOrders;
-        } else if (selectedOrderType === 'shipped') {
-            displayOrders = shippedOrders;
-        } else if (selectedOrderType === 'delivered') {
-            displayOrders = deliveredOrders;
-        }
-        setOrderDisplay(displayOrders);
-    }, [selectedOrderType, pendingOrders, shippedOrders, deliveredOrders]);
+    // useEffect(() => {
+    //     let displayOrders: any = [];
+    //     if (selectedOrderType === 'pending') {
+    //         displayOrders = pendingOrders;
+    //     } else if (selectedOrderType === 'shipped') {
+    //         displayOrders = shippedOrders;
+    //     } else if (selectedOrderType === 'delivered') {
+    //         displayOrders = deliveredOrders;
+    //     }
+    //     setOrderDisplay(displayOrders);
+    // }, [selectedOrderType, pendingOrders, shippedOrders, deliveredOrders]);
 
     useEffect(() => {
         const sortedOrders = orderDisplay?.slice()?.sort((a: any, b: any) => {

@@ -14,7 +14,7 @@ const OrderDisplayCard = ({ order }: any) => {
     const handleRoute = () => {
         try {
             toast.success(order?._id)
-            router.push(`/admin-panel/orders/6611386404d4903af7e981a1`);
+            router.push(`/admin-panel/orders/${order?._id}`);
         } catch (error) {
             console.log(error);
         }
@@ -39,7 +39,7 @@ const OrderDisplayCard = ({ order }: any) => {
     const formattedDate = formatDistanceToNow(new Date(order.orderedDate));
 
     return (
-        <div key={order._id} className='cursor-pointer flex items-center justify-between border rounded-2xl overflow-hidden pr-3 h-[60px]' >
+        <div key={order._id} onClick={handleRoute} className='cursor-pointer flex items-center justify-between border rounded-2xl overflow-hidden pr-3 h-[60px]' >
             <Link href={`/admin-panel/orders/${order._id}`} className='flex items-center gap-1 w-2/3'>
                 <Image style={{ objectFit: 'cover' }} src={order.imageURL || "/noImage.jpg"} alt='no Image' width={50} height={50} />
                 <div className='flex flex-col md:w-full w-2/3'>

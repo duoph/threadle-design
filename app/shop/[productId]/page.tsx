@@ -263,7 +263,7 @@ const ProductPage = () => {
           <div className='flex flex-col w-full gap-1 items-center justify-center bg-slate-100 '>
             <div>
 
-              <Image style={{ objectFit: "contain" }} src={previewImage || product?.coverImageURL || product?.moreImagesURLs[0] || product?.moreImagesURLs[1] || product?.moreImagesURLs[2] || product?.moreImagesURLs[3] || "/noImage.jpg"} alt='greenDress' className='h-[350px]' width={300} height={200} />
+              <Image style={{ objectFit: "contain" }} src={previewImage || product?.coverImageURL || product?.moreImagesURLs[0] || product?.moreImagesURLs[1] || product?.moreImagesURLs[2] || product?.moreImagesURLs[3] || "/noImage.jpg"} alt='greenDress' className='h-[350px]' width={300} height={200} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
             </div>
 
 
@@ -282,10 +282,11 @@ const ProductPage = () => {
                       src={imageUrl}
                       className='h-[4.7rem] cursor-pointer'
                       style={{ objectFit: 'cover' }}
-                      alt={`Image ${index}`}
+                      alt={`Image`}
                       width={65}
                       height={65}
                       quality={50}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
                   </div>
                 )

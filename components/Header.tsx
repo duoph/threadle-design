@@ -42,7 +42,8 @@ const Header = () => {
 
 
 
-    useEffect(() => {-
+    useEffect(() => {
+        -
         cartItemCountFetch()
     }, [])
 

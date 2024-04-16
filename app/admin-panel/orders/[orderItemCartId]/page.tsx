@@ -3,6 +3,7 @@
 import AdminPanelLayout from "@/layout/AdminPanelLayout"
 import { Cart } from "@/types"
 import axios from "axios"
+import Image from "next/image"
 import { useParams } from "next/navigation"
 import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
@@ -80,8 +81,8 @@ const OrderDetailsPage = () => {
                     <div className="flex flex-col md:flex-row gap-3 w-full">
                         <div className="text-center flex gap-2 flex-col md:w-1/2">
                             <span className="font-medium text-center w-full">{order?.title}</span>
-                            <div className="relative flex items-center z-0 justify-center  max-h-[200px] w-full">
-                                <img style={{ objectFit: "contain" }} className="rounded-2xl  max-h-[200px]" src={order?.imageURL || '/noImage.jpg'} alt="orderImage" />
+                            <div className="relative flex items-center z-0 justify-center  min-h-[200px] w-full rounded-2xl">
+                                <Image quality={50} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" fill={true} style={{ objectFit: "contain" }} className="rounded-2xl  max-h-[200px]" src={order?.imageURL || '/noImage.jpg'} alt="orderImage" />
                             </div>
                             <div className="flex flex-col">
                                 <span className="text-center">&#8377;999 <span className="text-red-600">(Paid)</span></span>

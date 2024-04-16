@@ -95,10 +95,10 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
                         <span className='text-white'>Out of stock</span>
                     </div>}
                     {!product?.coverImageURL && (
-                        <Image src={"/noImage.jpg"} style={{ objectFit: "cover" }} alt='Image' className='rounded-lg' quality={50} fill />
+                        <Image src={"/noImage.jpg"} style={{ objectFit: "cover" }} alt='Image' className='rounded-lg' quality={50} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
                     )}
                     {product?.coverImageURL && (
-                        <Image src={product?.coverImageURL} style={{ objectFit: "cover" }} className='rounded-lg' quality={50} fill alt='Red-Dress' />
+                        <Image src={product?.coverImageURL} style={{ objectFit: "cover" }} className='rounded-lg' quality={50} fill alt='Red-Dress' sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
                     )}
                 </div>
                 <div className='w-full px-3 py-2 flex flex-col gap-2 '>

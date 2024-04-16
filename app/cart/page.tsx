@@ -11,6 +11,8 @@ import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import { PulseLoader } from 'react-spinners';
 
+export const revalidate = 500
+
 const CartPage = () => {
   const { cartItemCountFetch } = useUser();
   const [cart, setCart] = useState<Cart[]>([]);

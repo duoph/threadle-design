@@ -32,8 +32,8 @@ const AdminPanelLayout = ({ children }: { children: ReactNode }) => {
                         </div>
                         <h1 className='text-center py-2 font-semibold'>Admin Panel</h1>
                         <div className="flex flex-col gap-2 items-center justify-center ">
-                            <div className=' flex flex-col items-center justify-center gap-[4px] w-full px-3'>
-                                <Link href="/admin-panel/orders" className='bg-td-secondary w-full px-10 py-2 text-white text-center'>Orders</Link>
+                            <div onClick={() => setIsMenu(false)} className=' flex flex-col items-center justify-center gap-[4px] w-full px-3'>
+                                <Link  href="/admin-panel/orders" className='bg-td-secondary w-full px-10 py-2 text-white text-center'>Orders</Link>
                                 <Link href="/admin-panel/create-product" className='bg-td-secondary w-full px-10 py-2 text-white text-center'>Add Product</Link>
                                 <Link href="/admin-panel/create-category" className='bg-td-secondary w-full px-10 py-2 text-white text-center'>Add Category</Link>
                                 <Link href="/admin-panel/view-products" className='bg-td-secondary w-full px-10 py-2 text-white text-center'>View All Product</Link>
