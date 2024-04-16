@@ -261,17 +261,14 @@ const ProductPage = () => {
       ) : (
         <div className='flex flex-col w-full gap-3'>
           <div className='flex flex-col w-full gap-1 items-center justify-center bg-slate-100 '>
-            <div>
-
-              <Image style={{ objectFit: "contain" }} src={previewImage || product?.coverImageURL || product?.moreImagesURLs[0] || product?.moreImagesURLs[1] || product?.moreImagesURLs[2] || product?.moreImagesURLs[3] || "/noImage.jpg"} alt='greenDress' className='h-[350px]' width={300} height={200} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
+            <div className='relative w-[300px] h-[300px] '>
+              <Image priority={true} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" style={{ objectFit: "contain" }} src={previewImage || product?.coverImageURL || product?.moreImagesURLs[0] || product?.moreImagesURLs[1] || product?.moreImagesURLs[2] || product?.moreImagesURLs[3] || "/noImage.jpg"} alt='greenDress' className='h-[350px]' fill={true} />
             </div>
-
-
 
             {product?.moreImagesURLs?.length !== 0 && <div className='h-[5rem] bg-gray-300 w-full flex items-center justify-center gap-1'>
               {product?.moreImagesURLs?.map((imageUrl, index) => (
                 imageUrl && (
-                  <div key={index} className='relative'>
+                  <div key={index} className='relative h-[60px] w-[55px]'>
                     {imageUrl === previewImage && (
                       <div onClick={() => handlePreviewImageLink(product?.coverImageURL)} className='absolute cursor-pointer flex items-center justify-center bg-gray-500 bg-opacity-50 w-full h-full'>
                         <FaCheck className='text-white' />
@@ -283,9 +280,8 @@ const ProductPage = () => {
                       className='h-[4.7rem] cursor-pointer'
                       style={{ objectFit: 'cover' }}
                       alt={`Image`}
-                      width={65}
-                      height={65}
-                      quality={50}
+                      fill={true}
+                      priority={true}
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
                   </div>
@@ -318,7 +314,10 @@ const ProductPage = () => {
             </div>
             <div className='flex flex-col gap-1'>
               <span className='text-sm flex items-center justify-center gap-1'>All over india free delivery
-                <Image src={"/india.png"} width={15} height={10} alt="Indian flag" />
+                <div className='relative h-[14px] w-[14px] flex items-center justify-center'>
+                  <Image priority={true}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={"/india.png"} fill={true} alt="Indian flag" />
+                </div>
               </span>
               {product?.isCustom && (<div>
                 <Link target='_blank' href={wpLink} className='bg-black px-3 py-2 rounded-full flex gap-2'>

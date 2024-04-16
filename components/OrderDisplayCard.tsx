@@ -10,7 +10,6 @@ const OrderDisplayCard = ({ order }: any) => {
 
     const router = useRouter();
 
-
     const handleRoute = () => {
         try {
             router.push(`/admin-panel/orders/${order?._id}`);
