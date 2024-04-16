@@ -97,7 +97,6 @@ const Orders = () => {
                         onClick={() => {
                             setSelectedOrderType('pending');
                             setOrderDisplay(pendingOrders)
-
                         }}
                         className={`px-2 py-2 rounded-2xl cursor-pointer border ${selectedOrderType === 'pending' ? 'bg-td-secondary text-white' : ''}`}
                     >
@@ -107,7 +106,6 @@ const Orders = () => {
                         onClick={() => {
                             setSelectedOrderType('shipped');
                             setOrderDisplay(shippedOrders)
-
                         }}
                         className={`px-3 py-2 rounded-2xl cursor-pointer border ${selectedOrderType === 'shipped' ? 'bg-td-secondary text-white' : ''}`}
                     >
