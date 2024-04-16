@@ -62,7 +62,7 @@ const CreateCategory = () => {
     return (
         <AdminPanelLayout>
 
-            <div className='flex flex-col gap-3 py-5 md:px-10 px-5'>
+            <div className='flex flex-col gap-3 py-5 md:px-10 px-5 w-full'>
                 <div className='flex gap-2 items-center justify-start'>
                     <IoMdArrowBack className="cursor-pointer hover:scale-110" onClick={() => router.back()} size={24} />
                     <h1 className='font-bold text-[30px]'>Create new Category</h1>
