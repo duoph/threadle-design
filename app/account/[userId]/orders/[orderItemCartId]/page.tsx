@@ -2,6 +2,7 @@
 
 import { Cart, } from "@/types"
 import axios from "axios"
+import Image from "next/image"
 import { useParams } from "next/navigation"
 import { useEffect, useState } from "react"
 
@@ -36,8 +37,8 @@ const OrderDetailsPage = () => {
                 <h1 className="text-sm">Order Id : {order?._id}</h1>
                 <div className="flex flex-col md:flex-row gap-3 w-full">
                     <div className="text-center flex gap-2 flex-col md:w-1/2">
-                        <div className="relative flex items-center justify-center  max-h-[200px] w-full">
-                            <img style={{ objectFit: "contain" }} className="rounded-2xl  max-h-[200px]" src={order?.imageURL || '/noImage.jpg'} alt="orderImage" />
+                        <div className="relative flex items-center z-0 justify-center  min-h-[200px] w-full rounded-2xl">
+                            <Image priority={true} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" quality={50} fill={true} style={{ objectFit: "contain" }} className="rounded-2xl  max-h-[200px]" src={order?.imageURL || '/noImage.jpg'} alt="orderImage" />
                         </div>
                         <div className="flex flex-col">
                             <span className="text-center">&#8377;999 <span className="text-red-600">(Paid)</span></span>
@@ -53,9 +54,19 @@ const OrderDetailsPage = () => {
                         <span>Delivering Address : {"The cave near my boys' school ground ponnanni south 676433"}</span>
                     </div>
                 </div>
-                {/* <div className="w-full">
-                    <button className="bg-td-secondary px-3 py-3 text-white w-full md:w-[1/2] rounded-2xl">Cancel Order Confirm</button>
-                </div> */}
+
+                {order?.isShipped && !order?.isDelivered && (
+                    <div className="w-full">
+                        <button className="bg-td-secondary px-3 py-3 text-white w-full md:w-[1/2] rounded-2xl">Your Order Has Been Shipped</button>
+                    </div>
+                )}
+
+                {order?.isShipped && order?.isDelivered && (
+                    <div className="w-full">
+                        <button className="bg-td-secondary px-3 py-3 text-white w-full md:w-[1/2] rounded-2xl">Your Order Delivered</button>
+                    </div>
+                )}
+
             </div>
         </div>
     )

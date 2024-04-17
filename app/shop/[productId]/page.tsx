@@ -370,7 +370,10 @@ const ProductPage = () => {
                   </span>
                   <div className='flex gap-3'>
                     <button onClick={addToCart} className='w-1/2 py-2 bg-td-secondary rounded-2xl text-white'> Add to Cart </button>
-                    <button onClick={handlePayment} className='w-1/2 py-2 bg-td-secondary rounded-2xl text-white'> Buy Now </button>
+                    <button onClick={handlePayment} className='w-1/2 py-2 bg-td-secondary rounded-2xl text-white flex items-center justify-center'>
+
+                      {isLoading ? <PulseLoader color='white' /> : "Buy Now"}
+                    </button>
                   </div>
 
                 </div>

@@ -11,7 +11,7 @@ const WishList = () => {
     const { currentUser } = useUser()
 
 
-    const [products, setProducts] = useState<Product[]>([]); // Initialize as an empty array
+    const [products, setProducts] = useState<Product[]>([]);
 
 
     const fetchWishlistedProducts = async () => {

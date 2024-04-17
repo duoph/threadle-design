@@ -7,10 +7,9 @@ export async function GET(req: NextRequest) {
     try {
 
         // const { userId } = await getDataFromToken(req)
-        
+
         const { userId } = await req.json()
-
-
+        console.log(userId)
 
 
         if (!userId) {
