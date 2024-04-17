@@ -32,7 +32,7 @@ const Hero = () => {
                 <div className='relative'>
                     <Image priority={true} src={'/stars.svg'} className='absolute bottom-12 right-2' height={40} width={40} alt='Star' sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
                     <Image priority={true} src={'/stars.svg'} className='absolute top-12 left-20 ' height={40} width={40} alt='Star' sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
-                    <div className='relative w-[500px] min-h-[620px]'>
+                    <div className='relative w-[460px] min-h-[600px]'>
                         <Image priority={true} src={"/greendress.png"} fill={true} alt='GreenDress' sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
                     </div>
 
