@@ -177,7 +177,6 @@ const ProductPage = () => {
       });
 
       if (res.data.success === true) {
-        toast.success("Added to cart");
         cartItemCountFetch();
       } else {
         toast.error(res?.data?.message);
@@ -268,9 +267,9 @@ const ProductPage = () => {
             {product?.moreImagesURLs?.length !== 0 && <div className='h-[5rem] bg-gray-300 w-full flex items-center justify-center gap-1'>
               {product?.moreImagesURLs?.map((imageUrl, index) => (
                 imageUrl && (
-                  <div key={index} className='relative h-[60px] w-[55px]'>
+                  <div key={index} className='relative h-[70px] w-[55px]'>
                     {imageUrl === previewImage && (
-                      <div onClick={() => handlePreviewImageLink(product?.coverImageURL)} className='absolute cursor-pointer flex items-center justify-center bg-gray-500 bg-opacity-50 w-full h-full'>
+                      <div onClick={() => handlePreviewImageLink(product?.coverImageURL)} className='absolute z-10 cursor-pointer flex items-center justify-center bg-gray-500 bg-opacity-50 w-full h-full'>
                         <FaCheck className='text-white' />
                       </div>
                     )}

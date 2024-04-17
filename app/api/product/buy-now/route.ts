@@ -34,6 +34,7 @@ export async function POST(req: NextRequest) {
             title,
             totalPrice,
             isPaid: true,
+            toAddress: "Suite 852 1329 Israel Corner, Gutkowskiview, CT 53486",
             orderedDate: new Date(),
             razorpay_payment_id,
             razorpay_order_id,

@@ -33,6 +33,7 @@ const OrderDisplayCard = ({ order }: any) => {
             console.log(error);
         }
     };
+    
 
     const formattedDate = formatDistanceToNow(new Date(order.orderedDate));
 
@@ -40,7 +41,7 @@ const OrderDisplayCard = ({ order }: any) => {
         <div key={order._id} onClick={handleRoute} className='cursor-pointer flex items-center justify-between border rounded-2xl overflow-hidden pr-3 h-[60px]' >
             <Link href={`/admin-panel/orders/${order._id}`} className='flex items-center gap-1 w-2/3'>
                 <Image style={{ objectFit: 'cover' }} src={order.imageURL || "/noImage.jpg"} alt='no Image' width={50} height={50} />
-                <div className='flex flex-col md:w-full w-2/3'>
+                <div className='flex flex-col md:w-full w-2/3 pr-10'>
                     <span className='truncate'>{order.title}</span>
                     <span className='text-sm opacity-70'>{formattedDate} ago</span>
                 </div>

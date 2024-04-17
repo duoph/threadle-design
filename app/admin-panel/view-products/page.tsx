@@ -53,9 +53,10 @@ const ViewAllProducts = () => {
         window.scrollTo(0, 0)
         setCurrentPage(currentPage - 1)
     }
+    
     return (
         <AdminPanelLayout>
-            <div className='md:px-10  w-full flex flex-col flex-wrap items-center justify-center gap-3 px-2 lg:px-3 py-10'>
+            <div className='md:px-10  w-full flex flex-col flex-wrap items-center justify-center gap-3 px-2 lg:px-3 py-5'>
                 <div>
                     <h1 className='text-[30px] font-bold text-td-secondary'>All Products</h1>
                 </div>
@@ -70,7 +71,7 @@ const ViewAllProducts = () => {
                 </div>
                 <div className='min-h-[80vh] md:px-10 flex flex-col items-center justify-center gap-3'>
 
-                    <div className='flex min-h-[60vh] items-start justify-center gap-[4px] -z-50 flex-wrap md:gap-5'>
+                    <div className='flex min-h-[60vh] items-start justify-start gap-[4px] z-40 flex-wrap md:gap-5'>
                         {currentProducts.map((product) => (
                             <ProductCard key={product._id} getProducts={fetchProducts} product={product} />
                         ))}
