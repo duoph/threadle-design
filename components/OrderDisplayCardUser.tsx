@@ -12,7 +12,7 @@ const OrderDisplayCardUser = ({ order }: any) => {
 
     const handleRoute = () => {
         try {
-            router.push(`/account/${order.userId}/orders/${order.razorpay_payment_id}`);
+            router.push(`/account/${order.userId}/orders/${order._id}`);
         } catch (error) {
             console.log(error);
         }

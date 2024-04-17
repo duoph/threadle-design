@@ -11,7 +11,6 @@ export const revalidate = 1000
 
 
 const Orders = () => {
-
     const [selectedOrderType, setSelectedOrderType] = useState<string>('pending');
     const [pendingOrders, setPendingOrders] = useState<Cart[]>([]);
     const [shippedOrders, setShippedOrders] = useState<Cart[]>([]);
@@ -20,46 +19,49 @@ const Orders = () => {
 
     const router = useRouter();
 
-
-    const fetchPaidOrders = async () => {
+    const fetchOrders = async () => {
         try {
-            const res = await axios.get('/api/orders/pending')
-            setPendingOrders(res.data?.pendingOrders)
-            setOrderDisplay(res.data?.pendingOrders)
-            console.log(res)
+            const pendingRes = await axios.get('/api/orders/pending');
+            const shippedRes = await axios.get('/api/orders/shipped');
+            const deliveredRes = await axios.get('/api/orders/delivered');
+
+            setPendingOrders(pendingRes.data?.pendingOrders);
+            setShippedOrders(shippedRes.data?.shippedOrders);
+            setDeliveredOrders(deliveredRes.data?.deliveredOrders);
+
+            switch (selectedOrderType) {
+                case 'pending':
+                    setOrderDisplay(pendingRes.data?.pendingOrders);
+                    break;
+                case 'shipped':
+                    setOrderDisplay(shippedRes.data?.shippedOrders);
+                    break;
+                case 'delivered':
+                    setOrderDisplay(deliveredRes.data?.deliveredOrders);
+                    break;
+                default:
+                    break;
+            }
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
-    }
-
-    const fetchDeliveredOrders = async () => {
-        try {
-            const res = await axios.get('/api/orders/delivered')
-            setDeliveredOrders(res.data?.deliveredOrders)
-            console.log(res)
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-
-
-    const fetchShippedOrders = async () => {
-        try {
-            const res = await axios.get('/api/orders/shipped')
-            setShippedOrders(res.data?.shippedOrders)
-            console.log(res)
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
+    };
 
     useEffect(() => {
-        fetchPaidOrders()
-        fetchShippedOrders()
-        fetchDeliveredOrders()
-    }, [])
+        fetchOrders(); // Fetch orders initially
+        const intervalId = setInterval(fetchOrders, 5000); // Fetch orders every 5 seconds
+
+        return () => clearInterval(intervalId); // Cleanup interval on unmount
+    }, [selectedOrderType]); // Fetch orders when selectedOrderType changes
+
+
+
+
+    // useEffect(() => {
+    //     fetchPaidOrders()
+    //     fetchShippedOrders()
+    //     fetchDeliveredOrders()
+    // }, [])
 
     useEffect(() => {
         const sortedOrders = orderDisplay.slice().sort((a: any, b: any) => {
@@ -76,7 +78,7 @@ const Orders = () => {
                 <h1 className="text-td-secondary font-bold text-3xl">Order Dashboard</h1>
                 {/* Total Orders */}
                 <div className="flex items-center justify-center border bg-slate-200 rounded-2xl py-5 px-3 w-full">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-td-secondary font-bold text-xl">
+                    <div className="flex items-center justify-center flex-col md:flex-row flex-wrap gap-6 text-td-secondary font-bold text-xl">
                         <div className="flex flex-col items-center justify-center">
                             <h2>Total Orders</h2>
                             <span>{pendingOrders.length + shippedOrders.length}</span>
@@ -88,6 +90,10 @@ const Orders = () => {
                         <div className="flex flex-col items-center justify-center">
                             <h2>Shipped Orders</h2>
                             <span>{shippedOrders.length}</span>
+                        </div>
+                        <div className="flex flex-col items-center justify-center">
+                            <h2>Delivered Orders</h2>
+                            <span>{deliveredOrders.length}</span>
                         </div>
                     </div>
                 </div>

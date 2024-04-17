@@ -72,6 +72,46 @@ const OrderDetailsPage = () => {
     }
 
 
+    const handleDeliveredConfirm = async () => {
+        setIsLoading(true)
+        try {
+            const res = await axios.post('/api/orders/delivered', {
+                cartId: order?._id
+            })
+            if (res.data?.success == true) {
+                toast.success("Marked as Shipped")
+                fetchCartItem()
+            }
+            console.log(res)
+            setIsLoading(false)
+        } catch (error) {
+            setIsLoading(false)
+            fetchCartItem()
+            console.log(error)
+
+        }
+    }
+
+    const handleDeliveredCancel = async () => {
+        setIsLoading(true)
+        try {
+            const res = await axios.put('/api/orders/delivered', {
+                cartId: order?._id
+            })
+            console.log(res)
+            if (res.data?.success == true) {
+                toast.success("Canceled Shipping")
+                fetchCartItem()
+            }
+            setIsLoading(false)
+        } catch (error) {
+            setIsLoading(false)
+            console.log(error)
+
+        }
+    }
+
+
     return (
         <AdminPanelLayout>
             <div className="min-h-[80vh] py-3 px-3 flex flex-col gap-4 w-full">
@@ -100,23 +140,29 @@ const OrderDetailsPage = () => {
 
                     {!isLoading && (
                         <>
-                            {order?.isShipped && (
+                            {order?.isShipped && order?.isPaid && !order?.isDelivered && (
                                 <div className="w-full">
                                     <button className="bg-red-600 px-3 py-3 text-white w-full md:w-[1/2] rounded-2xl" onClick={handleShippmentCancel}>Cancel Shipment</button>
                                 </div>
                             )}
-                            {!order?.isShipped && (
+                            {!order?.isShipped && !order?.isDelivered && (
                                 <div className="w-full">
                                     <button className="bg-td-secondary px-3 py-3 text-white w-full md:w-[1/2] rounded-2xl" onClick={handleShippmentConfirm}>Shipping Confirm</button>
                                 </div>
                             )}
 
-                            {order?.isDelivered && (
+
+
+                            {order?.isShipped && order?.isPaid && !order?.isDelivered && (
                                 <div className="w-full">
-                                    <button className="bg-td-primary  px-3 py-3 text-white w-full md:w-[1/2] rounded-2xl">Delivered</button>
+                                    <button className="bg-td-secondary  px-3 py-3 text-white w-full md:w-[1/2] rounded-2xl" onClick={handleDeliveredConfirm}>Confirm Delivery</button>
                                 </div>
                             )}
-
+                            {order?.isShipped && order?.isPaid && order?.isDelivered && (
+                                <div className="w-full">
+                                    <button className="bg-red-600 px-3 py-3 text-white w-full md:w-[1/2] rounded-2xl" onClick={handleDeliveredCancel}>Cancel Delivery</button>
+                                </div>
+                            )}
 
                         </>
                     )}

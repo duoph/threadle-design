@@ -16,13 +16,13 @@ export async function GET() {
 export async function POST(req: NextRequest) {
     try {
 
-        const { productId } = await req.json()
+        const { cartId } = await req.json()
 
-        if (!productId) {
+        if (!cartId) {
             return NextResponse.json({ message: "Unauthenticated Access Error while fetching the cart items", success: false });
         }
 
-        const cartItems = await CartModel.updateMany({ productId: productId }, { isDelivered: true });
+        const cartItems = await CartModel.findByIdAndUpdate({ _id: cartId }, { isDelivered: true });
 
         return NextResponse.json({ message: "Marked all cart items as paid", success: true, cartItems });
 
