@@ -106,7 +106,7 @@ const UserProfile = () => {
 
 
     return (
-        <div className='flex flex-col items-center justify-center gap-3 py-2 px-5 min-h-[85vh]'>
+        <div className='flex flex-col items-center justify-center gap-3 py-5 px-5 min-h-[85vh]'>
             <h1 className='text-[30px] text-td-secondary font-bold'>Profile</h1>
             <div className="flex md:flex-row flex-col w-full h-full gap-2">
                 <form onSubmit={handleSubmit} className='flex flex-col items-center justify-center gap-3 border px-5 py-8 rounded-2xl lg:w-1/2 w-full bg-slate-100'>
