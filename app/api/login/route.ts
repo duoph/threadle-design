@@ -9,11 +9,13 @@ export async function POST(req: NextRequest) {
         await connectMongoDB();
         const { email, password } = await req.json();
 
+        const lowerCaseEmail = email.toLowerCase()
+
         if (!email || !password) {
             return NextResponse.json({ message: 'Enter valid credentials', success: false });
         }
 
-        const user = await userModel.findOne({ email });
+        const user = await userModel.findOne({ email: lowerCaseEmail });
 
         if (!user) {
             return NextResponse.json({ message: 'Check your email or password', success: false });
