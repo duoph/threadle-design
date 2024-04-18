@@ -15,10 +15,9 @@ export const revalidate = 500
 
 const CartPage = () => {
   const { cartItemCountFetch } = useUser();
-  const [cart, setCart] = useState<Cart[]>([]);
+  const [cart, setCart] = useState<any>()
   const [total, setTotal] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(false)
-
 
 
   const router = useRouter()
@@ -44,7 +43,7 @@ const CartPage = () => {
     try {
       let sum = 0;
       if (cart) {
-        cart.forEach(item => {
+        cart.forEach((item: any) => {
           if (item && item.totalPrice) {
             sum += item.totalPrice;
           }
@@ -124,6 +123,20 @@ const CartPage = () => {
     }
 
   };
+
+
+
+  if (!cart) {
+    return (
+      <div className='flex flex-col items-center py-5 px-3 gap-3 min-h-[85vh]'>
+        <h1 className='text-td-secondary font-bold text-3xl'>Profile</h1>
+        <div className=" absolute flex items-center justify-center flex-grow h-[65vh]">
+          <PulseLoader />
+        </div>
+      </div>
+    );
+  }
+
 
 
   return (

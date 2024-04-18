@@ -20,6 +20,8 @@ interface CartItemProps extends Document {
     orderedDate: Date;
     shippedDate: Date;
     toAddress: string;
+    phoneNumber: number;
+    whatsAppNumber: number;
     customerName: string;
 }
 
@@ -36,6 +38,8 @@ const cartItemSchema = new Schema<CartItemProps>({
     imageURL: { type: String || undefined, required: false },
     totalPrice: { type: Number, required: true },
     price: { type: Number, required: true },
+    whatsAppNumber: { type: Number, required: false },
+    phoneNumber: { type: Number, required: false },
     orderedDate: { type: Date, required: false },
     shippedDate: { type: Date, required: false },
     isPaid: { type: Boolean, default: false, required: true },

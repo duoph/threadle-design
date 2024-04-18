@@ -5,6 +5,7 @@ import axios from "axios"
 import Image from "next/image"
 import { useParams } from "next/navigation"
 import { useEffect, useState } from "react"
+import { PulseLoader } from "react-spinners"
 
 const OrderDetailsPage = () => {
 
@@ -30,8 +31,18 @@ const OrderDetailsPage = () => {
     }, [])
 
 
+    if (!order) {
+        return (
+            <div className='flex flex-col items-center py-5 px-3 gap-3 min-h-[85vh]'>
+                <h1 className='text-td-secondary font-bold text-3xl'>Your Order Info</h1>
+                <PulseLoader />
+            </div>
+        )
+    }
+
+
     return (
-        <div className="min-h-[80vh] py-3 px-3 flex flex-col gap-4">
+        <div className="py-3 px-3 flex flex-col gap-4 min-h-[85vh]">
             <h1 className="text-center font-bold text-[25px] md:text-[35px] text-td-secondary">Your Order Info</h1>
             <div className="flex flex-col gap-3 border px-3 py-3 rounded-2xl bg-slate-100">
                 <h1 className="text-sm">Order Id : {order?._id}</h1>

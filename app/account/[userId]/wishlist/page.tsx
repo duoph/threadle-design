@@ -5,6 +5,7 @@ import { useUser } from '@/context/useUser';
 import { Product } from '@/types';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { PulseLoader } from 'react-spinners';
 
 const WishList = () => {
 
@@ -31,10 +32,17 @@ const WishList = () => {
     }, []);
 
 
-
+    if (!products) {
+        return (
+            <div className='flex flex-col items-center py-5 px-3 gap-3 min-h-[85vh]'>
+                <h1 className='text-td-secondary font-bold text-3xl'>Wishlist</h1>
+                <PulseLoader />
+            </div>
+        )
+    }
 
     return (
-        <div className="px-3 lg:px-10 flex flex-col min-h-[70vh] py-10">
+        <div className="px-3 lg:px-10 flex flex-col min-h-[85vh] py-10">
             <div className="flex items-center justify-center">
                 <h1 className="text-[30px] font-bold text-td-secondary">Wishlist</h1>
             </div>
@@ -42,7 +50,7 @@ const WishList = () => {
                 {products?.map((product) => (
                     <ProductCard getProducts={fetchWishlistedProducts} key={product._id} product={product} />
                 ))}
-                {products?.length === 0 && <span>No products in Wishlist</span>}
+                {/* {products?.length === 0 && <span>No products in Wishlist</span>} */}
             </div>
         </div>
     );

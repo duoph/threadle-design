@@ -35,10 +35,12 @@ const OrderDisplayCardUser = ({ order }: any) => {
 
     const formattedDate = order?.orderedDate ? formatDistanceToNow(new Date(order?.orderedDate)) : '';
 
+
+
     return (
         <div key={order._id} onClick={handleRoute} className=' cursor-pointer flex items-center justify-between border rounded-2xl overflow-hidden pr-3 h-[60px]'>
             <div className='flex items-center gap-1 w-2/3 pr-4'>
-                <Image style={{ objectFit: 'cover' }} src={order.imageURL || "/noImage.jpg"} alt='no Image' width={50} height={50} />
+                <Image style={{ objectFit: 'cover' }} src={order.imageURL || "/noImage.jpg"} alt='no Image' width={50} height={50} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" priority={true} />
                 <div className='flex flex-col w-full'>
                     <span className='truncate'>{order.title}</span>
                     <span className='text-sm opacity-70'>{formattedDate} ago</span>

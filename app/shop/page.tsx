@@ -51,6 +51,7 @@ const Shop = () => {
         break;
     }
 
+    setCurrentPage(1);
     setSearchProducts(sortedProducts);
   };
 
@@ -81,8 +82,10 @@ const Shop = () => {
   }
 
 
+  
+
   return (
-    <div className='flex flex-col gap-5 items-center justify-center px-2 lg:px-3 py-10'>
+    <div className='flex flex-col gap-5 items-center justify-center px-2 lg:px-3 py-10 min-h-[85vh]'>
       <div className='rounded-2xl flex items-center justify-center cursor-pointer gap-3 bg-td-secondary pr-6 w-full'>
         <input
           type='text'
@@ -117,6 +120,7 @@ const Shop = () => {
             <PulseLoader />
           </div>
         )}
+
       </div>
       <div>
         {searchProducts.length > 20 && (

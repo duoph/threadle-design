@@ -9,13 +9,16 @@ import toast from 'react-hot-toast';
 import { FaPhoneAlt, FaAddressCard } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
 import { RiAccountCircleFill } from 'react-icons/ri';
+import { PulseLoader } from 'react-spinners';
 
 const UserProfile = () => {
 
     const router = useRouter();
     const { LogOut, currentUser, setCurrentUser } = useUser();
     const [user, setUser] = useState<User>();
+    const [isLoading, setIsLoading] = useState<boolean>()
     const [formData, setFormData] = useState({
+
         name: '',
         email: '',
         phone: '',
@@ -24,6 +27,7 @@ const UserProfile = () => {
 
     const fetchUser = async () => {
         try {
+            setIsLoading(true)
             const res = await axios.get(`/api/user/${currentUser?.userId}`)
             setUser(res?.data?.user);
             if (res?.data?.user) {
@@ -36,7 +40,9 @@ const UserProfile = () => {
             }
 
             console.log(res)
+            setIsLoading(false)
         } catch (error) {
+            setIsLoading(false)
             console.log(error);
         }
     }
@@ -85,8 +91,22 @@ const UserProfile = () => {
         return null;
     }
 
+
+
+    if (formData.email === "") {
+        return (
+            <div className='flex flex-col items-center py-5 px-3 gap-3 min-h-[85vh]'>
+                <h1 className='text-td-secondary font-bold text-3xl'>Profile</h1>
+                <div className=" absolute flex items-center justify-center flex-grow h-[65vh]">
+                    <PulseLoader />
+                </div>
+            </div>
+        );
+    }
+
+
     return (
-        <div className='flex flex-col items-center justify-center gap-3 py-2 px-5'>
+        <div className='flex flex-col items-center justify-center gap-3 py-2 px-5 min-h-[85vh]'>
             <h1 className='text-[30px] text-td-secondary font-bold'>Profile</h1>
             <div className="flex md:flex-row flex-col w-full h-full gap-2">
                 <form onSubmit={handleSubmit} className='flex flex-col items-center justify-center gap-3 border px-5 py-8 rounded-2xl lg:w-1/2 w-full bg-slate-100'>
