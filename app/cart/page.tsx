@@ -129,7 +129,7 @@ const CartPage = () => {
   if (!cart) {
     return (
       <div className='flex flex-col items-center py-5 px-3 gap-3 min-h-[85vh]'>
-        <h1 className='text-td-secondary font-bold text-3xl'>Profile</h1>
+        <h1 className='text-[30px] font-bold text-td-secondary'>My Cart</h1>
         <div className=" absolute flex items-center justify-center flex-grow h-[65vh]">
           <PulseLoader />
         </div>
@@ -145,7 +145,7 @@ const CartPage = () => {
         id="razorpay-checkout-js"
         src="https://checkout.razorpay.com/v1/checkout.js"
       />
-      <div className="flex flex-col items-center justify-center lg:px-10 px-5 py-5 ">
+      <div className="flex flex-col items-center justify-start lg:px-10 px-5 py-5  min-h-[85vh] ">
         <div className='flex items-center justify-center pb-5'>
           <h1 className='text-[30px] font-bold text-td-secondary'>My Cart</h1>
         </div>

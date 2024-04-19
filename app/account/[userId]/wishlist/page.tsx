@@ -32,19 +32,22 @@ const WishList = () => {
     }, []);
 
 
+
     if (!products) {
         return (
             <div className='flex flex-col items-center py-5 px-3 gap-3 min-h-[85vh]'>
-                <h1 className='text-td-secondary font-bold text-3xl'>Wishlist</h1>
-                <PulseLoader />
+                <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>Wishlist</h1>
+                <div className=" absolute flex items-center justify-center flex-grow h-[65vh]">
+                    <PulseLoader />
+                </div>
             </div>
-        )
+        );
     }
 
     return (
-        <div className="px-3 lg:px-10 flex flex-col min-h-[85vh] py-10">
+        <div className="px-3 lg:px-10 flex flex-col gap-3 min-h-[85vh] py-5">
             <div className="flex items-center justify-center">
-                <h1 className="text-[30px] font-bold text-td-secondary">Wishlist</h1>
+                <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>Wishlist</h1>
             </div>
             <div className="flex items-center h-full justify-center  gap-[4px] flex-wrap md:gap-5">
                 {products?.map((product) => (

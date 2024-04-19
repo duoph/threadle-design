@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react'
 import { IoIosCheckmark } from 'react-icons/io'
 import { PulseLoader } from 'react-spinners'
 import { useParams, useRouter } from 'next/navigation'
-import { Product } from '@/types'
+import { Product, User } from '@/types'
 import { FaCheck, FaHeart } from 'react-icons/fa6'
 import toast from 'react-hot-toast'
 import { CiHeart } from 'react-icons/ci'
@@ -22,7 +22,6 @@ import Script from 'next/script'
 
 const ProductPage = () => {
 
-
   const router = useRouter()
 
   const { productId } = useParams()
@@ -33,6 +32,8 @@ const ProductPage = () => {
   const [wishlistIds, setWishListIds] = useState<string[]>([])
   const [previewImage, setPreviewImage] = useState<string>()
   const [isLoading, setIsLoading] = useState(false)
+  const [user, setUser] = useState<User>();
+
 
 
   const { cartItemCountFetch, currentUser } = useUser()
@@ -50,9 +51,24 @@ const ProductPage = () => {
     }
   }
 
+  const fetchUser = async () => {
+    try {
+      setIsLoading(true)
+      const res = await axios.get(`/api/user/${currentUser?.userId}`)
+      setUser(res?.data?.user);
+      console.log(res)
+      setIsLoading(false)
+    } catch (error) {
+      setIsLoading(false)
+      console.log(error);
+    }
+  }
+
+
   useEffect(() => {
     fetchProduct()
     userWishlist()
+    fetchUser()
   }, [])
 
 
@@ -112,6 +128,9 @@ const ProductPage = () => {
 
   const addToCart = async () => {
     try {
+      if (!selectedColor || !selectedSize) {
+        return toast.error("Select Size and Color")
+      }
       const res = await axios.post("/api/cart", {
         productId, color: selectedColor, size: selectedSize, quantity, price: product?.salePrice || product?.regularPrice, imageURL: product?.coverImageURL, title: product?.title
       })
@@ -191,12 +210,29 @@ const ProductPage = () => {
 
   const handlePayment = async () => {
     try {
+
       setIsLoading(true)
+
+      if (!selectedColor || !selectedSize || !user?.address || user?.address.length <= 10 || user?.address === "") {
+        if (!user?.address || user?.address === "" || user?.address.length <= 10) {
+          toast.error("Add Address");
+          return router.push(`/account/${currentUser?.userId}`);
+        } else {
+          setIsLoading(false);
+          return toast.error("Select Size and Color");
+        }
+      }
+
+
       const res = await axios.post("/api/razorpay", {
         totalAmount: product?.salePrice || product?.regularPrice,
         notes: "Hello this is a test order"
       })
+
+
       console.log(res)
+
+
       const order = res.data.order
       const options = {
         order_id: order?.id,

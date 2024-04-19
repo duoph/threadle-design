@@ -80,7 +80,7 @@ const LoginPageAdmin = () => {
 
 
   return (
-    <div className='bg-td-secondary py-10 flex items-center justify-center px-5 min-h-[85vh]'>
+    <div className='bg-td-secondary py-10 flex items-center justify-center px-5 min-h-[70vh]'>
       <div className='flex bg-white flex-col gap-5 items-center justify-center w-full md:w-[400px] md:px-10 py-10 px-5 rounded-2xl'>
         <div>
           <h1 className='font-bold text-[30px] text-td-secondary'>Login</h1>
