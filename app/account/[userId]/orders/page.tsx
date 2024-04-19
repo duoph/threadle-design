@@ -4,6 +4,7 @@ import OrderDisplayCardUser from '@/components/OrderDisplayCardUser';
 import { useUser } from '@/context/useUser';
 import axios from 'axios';
 import Image from 'next/image';
+import { useParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { PulseLoader } from 'react-spinners';
 
@@ -12,12 +13,12 @@ export const revalidate = 2000
 const Orders = () => {
     const [orderDisplay, setOrderDisplay] = useState([])
 
-    const { currentUser } = useUser()
+    const { userId } = useParams()
 
     const userOrders = async () => {
         try {
             const res = await axios.post(`/api/orders/user`, {
-                userId: currentUser?.userId
+                userId: userId
             })
             if (res.data?.userOrders) {
                 const sortedOrders = res.data.userOrders.slice().sort((a: any, b: any) => {
