@@ -8,8 +8,6 @@ const Hero = () => {
 
     const router = useRouter()
 
-  
-
 
     return (
         <div className=" w-full flex flex-col md:flex-row  items-center justify-center bg-gray-200">

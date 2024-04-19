@@ -52,16 +52,8 @@ const Orders = () => {
         const intervalId = setInterval(fetchOrders, 5000); // Fetch orders every 5 seconds
 
         return () => clearInterval(intervalId); // Cleanup interval on unmount
-    }, [selectedOrderType, window.performance]); // Fetch orders when selectedOrderType changes
+    }, []); // Fetch orders when selectedOrderType changes
 
-
-
-
-    // useEffect(() => {
-    //     fetchPaidOrders()
-    //     fetchShippedOrders()
-    //     fetchDeliveredOrders()
-    // }, [])
 
     useEffect(() => {
         const sortedOrders = orderDisplay.slice().sort((a: any, b: any) => {
