@@ -6,20 +6,24 @@ import { Product } from '@/types';
 import axios from 'axios';
 import { useParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
 import { PulseLoader } from 'react-spinners';
 
 const WishList = () => {
     const { userId } = useParams()
 
     const [products, setProducts] = useState<Product[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>();
 
     const fetchWishlistedProducts = async () => {
         try {
+            setIsLoading(true)
             const res = await axios.get(`/api/wishlistFetch/${userId}`);
             setProducts(res.data?.wishListItems);
             console.log(res?.data);
+            setIsLoading(false)
+
         } catch (error) {
+            setIsLoading(false)
             console.log(error);
         }
     };
@@ -30,7 +34,7 @@ const WishList = () => {
     }, []);
 
 
-    if (!products) { // Check for both products and loading state
+    if (products?.length === 0 && isLoading) { // Check for both products and loading state
         return (
             <div className='flex flex-col items-center py-5 px-3 gap-3 min-h-[85vh]'>
                 <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>Wishlist</h1>
