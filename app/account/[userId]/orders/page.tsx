@@ -35,7 +35,7 @@ const Orders = () => {
 
     useEffect(() => {
         userOrders()
-    }, [])
+    }, [window.performance])
 
 
     if (orderDisplay.length === 0) {

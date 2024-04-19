@@ -52,7 +52,7 @@ const Orders = () => {
         const intervalId = setInterval(fetchOrders, 5000); // Fetch orders every 5 seconds
 
         return () => clearInterval(intervalId); // Cleanup interval on unmount
-    }, [selectedOrderType]); // Fetch orders when selectedOrderType changes
+    }, [selectedOrderType, window.performance]); // Fetch orders when selectedOrderType changes
 
 
 
@@ -69,6 +69,9 @@ const Orders = () => {
         });
         setOrderDisplay(sortedOrders);
     }, []);
+
+
+
 
 
 
