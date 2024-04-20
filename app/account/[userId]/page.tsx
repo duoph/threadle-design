@@ -17,6 +17,7 @@ const UserProfile = () => {
     const { LogOut, currentUser, setCurrentUser } = useUser();
     const [user, setUser] = useState<User>();
     const [isLoading, setIsLoading] = useState<boolean>()
+    const [isSubmiting, setIsSubmiting] = useState<boolean>()
     const [formData, setFormData] = useState({
 
         name: '',
@@ -57,6 +58,7 @@ const UserProfile = () => {
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
+        setIsSubmiting(true)
         try {
             const res = await axios.put(`/api/user/${currentUser?.userId}`, formData);
 
@@ -67,7 +69,9 @@ const UserProfile = () => {
             if (res.data?.success === false) {
                 toast.error('Profile Updated Successfully');
             }
+            setIsSubmiting(false)
         } catch (error) {
+            setIsSubmiting(false)
             console.log(error);
             toast.error('Failed to update profile');
         }
@@ -127,7 +131,7 @@ const UserProfile = () => {
                         <textarea id="address" name="address" className='border px-5  py-2 w-full rounded-2xl bg-slate-200 min-h-[150px]' placeholder='Address' value={formData.address} onChange={handleChange} />
                     </div>
 
-                    <button className={`px-5 rounded-2xl py-3 border bg-td-secondary text-white font-bold`} type='submit'>Save</button>
+                    <button className={`px-5 rounded-2xl py-3 border bg-td-secondary text-white font-bold`} type='submit'>{isSubmiting ? <PulseLoader color="white" size={9}/> : "Save"}</button>
                 </form>
 
                 <div className='flex items-center justify-center flex-col lg:w-1/2 w-full border px-5 py-8 gap-1 rounded-2xl bg-slate-100'>

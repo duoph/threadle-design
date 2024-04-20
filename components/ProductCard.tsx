@@ -84,7 +84,7 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
 
     useEffect(() => {
         userWishlist();
-    }, []);
+    }, [currentUser]);
 
 
     return (
