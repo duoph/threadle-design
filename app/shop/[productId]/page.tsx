@@ -16,6 +16,8 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useUser } from '@/context/useUser'
 import Script from 'next/script'
+import { Helmet } from "react-helmet";
+
 
 
 
@@ -272,11 +274,11 @@ const ProductPage = () => {
 
   };
 
-  document.title = product?.title || "Shop Now"
+  // document.title = product?.title || "Shop Now"
 
 
 
-  const wpLink = `https://api.whatsapp.com/send?phone=919074063723&text=Hello%20I%20want%20to%20know%20more%20about%20this%20product...%20https://www.threadledesigns.com/shop/${productId}`
+  const wpLink = `https://api.whatsapp.com/send?phone=919074063723&text=Hello%20I%20want%20to%20know%20more%20about%20this%20product...%20https://threadle-design.vercel.app/shop/${productId}`
 
 
   return (
@@ -285,12 +287,23 @@ const ProductPage = () => {
         id="razorpay-checkout-js"
         src="https://checkout.razorpay.com/v1/checkout.js"
       />
-      <Head>
-        <title property='og:title'>My page title</title>
-        <meta property="og:description" content={product?.desc} />
-        <meta property="og:image" content={product?.coverImageURL || "/greendress.png"} />
-        <meta property="og:url" content={`https://www.threadledesigns.com/`} />
-      </Head>
+      {product && (
+        // <Head>
+        //   <title>{product.title || "Shop Now"}</title>
+        //   <meta property='og:title' content={product.title || "Shop Now"} />
+        //   <meta property="og:description" content={product.desc} />
+        //   <meta property="og:image" content={product.coverImageURL || "/greendress.png"} />
+        //   <meta property="og:url" content={`https://www.threadledesigns.com/shop/${productId}`} />
+        //   {/* Add other meta tags as needed */}
+        // </Head>
+        <Helmet>
+          <title>{product.title || "Shop Now"}</title>
+          <meta name="description" content={product.desc} />
+          <meta name="image" content={product.coverImageURL} />
+          <link rel="canonical" href="https://threadle-design.vercel.app/" />
+
+        </Helmet>
+      )}
       {!product ? (
         <div className="w-full h-[70vh] flex items-center justify-center px-5 py-3 md:px-10 gap-3 mb-5 ">
           <PulseLoader />
