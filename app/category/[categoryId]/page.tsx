@@ -11,16 +11,21 @@ const SigleCategoryPage = () => {
 
     const [category, setCategory] = useState<Category>()
     const [products, setProducts] = useState<Product[]>([])
+    const [isLoading, seIstLoading] = useState<boolean>(false);
+
 
     const { categoryId } = useParams()
 
     const fetchCategory = async () => {
+        seIstLoading(true)
         try {
             const response = await axios.get(`/api/category/${categoryId}`)
             console.log(response?.data)
             setCategory(response?.data?.category)
             setProducts(response?.data?.products)
+            seIstLoading(false)
         } catch (error) {
+            seIstLoading(false)
             console.log(error)
         }
     }
@@ -34,20 +39,21 @@ const SigleCategoryPage = () => {
     console.log(category)
 
 
-    if (products?.length === 0) {
+    if (isLoading) { // Check for both products and loading state
         return (
-            <div className='min-h-[80vh] md:px-10 flex flex-col items-center justify-center gap-3  px-5 py-10'>
-                <div>
-                    <p className='font-medium'>No Products Available</p>
+            <div className='flex flex-col items-center py-5 px-3 gap-3 min-h-[85vh]'>
+                <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>{category?.categoryName}</h1>
+                <div className=" absolute flex items-center justify-center flex-grow h-[65vh]">
+                    <PulseLoader />
                 </div>
             </div>
-        )
+        );
     }
 
     return (
-        <div className='flex flex-col gap-5 lg:px-3 py-10'>
+        <div className='flex flex-col gap-5 lg:px-3 py-5 min-h-[85vh]'>
             <div className='flex items-center justify-center'>
-                <h1 className='text-[30px] text-td-secondary font-bold'>{category?.categoryName}</h1>
+                <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>{category?.categoryName}</h1>
             </div>
 
             <div className='flex items-center justify-center'>

@@ -6,22 +6,29 @@ import { Category } from '@/types'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
+import { PulseLoader } from 'react-spinners'
 
 const CategoryPage = () => {
     const [categories, setCategories] = useState<Category[]>([])
+    const [isLoading, setIsLoading] = useState<boolean>()
+
 
 
     const router = useRouter()
 
     const fetchCategory = async () => {
         try {
+            setIsLoading(true)
             const response = await axios.get('/api/category')
 
             console.log(response.data.tdCategory)
 
             setCategories(response.data.tdCategory)
+            setIsLoading(false)
 
         } catch (error) {
+            setIsLoading(false)
+
             console.log(error)
         }
     }
@@ -31,22 +38,23 @@ const CategoryPage = () => {
     }, [])
 
 
+    if (categories?.length === 0 && isLoading) {
+        return (
+            <div className='flex flex-col items-center py-5 px-3 gap-3 min-h-[85vh]'>
+                <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>All Categories</h1>
+                <div className=" absolute flex items-center justify-center flex-grow h-[65vh]">
+                    <PulseLoader />
+                </div>
+            </div>
+        );
+    }
 
     return (
-        <div className='md:px-10 px-5 py-10'>
+        <div className='md:px-10 px-3 py-5 min-h-[85vh]'>
             <div className='flex items-center justify-center'>
-                <h1 className='text-[30px] font-bold text-td-secondary'>All Categories</h1>
+                <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>All Categories</h1>
             </div>
-            <div className='min-h-[60vh]'>
-                {/* <div>
-                    <div className='flex flex-wrap items-center justify-center w-full gap-2 font-medium text-sm'>
-                        {categories.slice(0, 6).map((category: Category, i) => (
-                            <div key={i} onClick={() => router.push(`/category/${category._id}`)} className='bg-td-secondary text-white md:w-2/5 w-full  rounded-2xl py-2 flex items-center justify-center overflow-hidden cursor-pointer'>
-                                <h1 className=' text-[20px] text-center'>{category.categoryName}</h1>
-                            </div>
-                        ))}
-                    </div>
-                </div> */}
+            <div className=''>
                 {categories?.map((category, index) => (
                     <ProductContainerWithCategory key={index} category={category} />
                 ))}

@@ -63,15 +63,17 @@ const ProductContainerWithCategory = ({ category, categoryId, title, productNotT
         }
     };
 
+
+
     return (
         <>
             {!products ? null : (
-                <div className='flex flex-col items-center justify-center mt-10 w-full mb-5'>
-                    <h1 className='text-[35px] font-extrabold'>{title || category?.categoryName}</h1>
+                <div className='flex flex-col items-center justify-center  w-full mb-5'>
+                    <h1 className='text-[20px] font-extrabold'>{title || category?.categoryName}</h1>
                     <div className='relative w-full px-2'>
-                        <GoChevronLeft onClick={handleScrollLeft} className='md:hover:scale-110 z-10 absolute top-[200px] bg-black text-white  left-8 rounded-full cursor-pointer' size={30} />
-                        <GoChevronRight onClick={handleScrollRight} className='md:hover:scale-110 z-10 absolute top-[200px] bg-black text-white right-8 rounded-full cursor-pointer' size={30} />
-                        <div ref={scrollContainerRef} className='flex hideScrollBar hideScrollBar overflow-x-scroll justify-start items-center gap-5 h-[450px]'>
+                        <GoChevronLeft onClick={handleScrollLeft} className='md:hover:scale-110 z-10 absolute top-[150px] bg-black text-white  left-3 rounded-full cursor-pointer' size={30} />
+                        <GoChevronRight onClick={handleScrollRight} className='md:hover:scale-110 z-10 absolute top-[150px] bg-black text-white right-3 rounded-full cursor-pointer' size={30} />
+                        <div ref={scrollContainerRef} className='flex hideScrollBar hideScrollBar overflow-x-scroll justify-start items-center gap-2 h-[350px]'>
                             {products?.map((product) => (
                                 <div key={product._id}>
                                     {productNotToshow === product._id ? null : <ProductCard product={product} getProducts={fetchCategoryProducts} />}

@@ -1,31 +1,34 @@
 "use client"
 
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CiSearch } from 'react-icons/ci';
 import { PulseLoader } from 'react-spinners';
 import axios from 'axios';
 import ProductCard from '@/components/ProductCard';
 import { Product } from '@/types';
+import { MdNavigateBefore, MdNavigateNext } from 'react-icons/md';
+
+
+export const revalidate = 5000
+
 
 const Shop = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [searchProducts, setSearchProducts] = useState<Product[]>([]);
   const [search, setSearch] = useState<string>('');
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [loading, setLoading] = useState<boolean>(false);
-  const bottomBoundaryRef = useRef<HTMLDivElement>(null);
-  const [sortBy, setSortBy] = useState<string>("newAdded");
 
   const fetchProducts = async () => {
     try {
-      setLoading(true);
       const response = await axios.get('/api/product');
       setProducts(response.data.tdProduct);
-      setLoading(false);
     } catch (error) {
       console.log(error);
-      setLoading(false);
     }
+  };
+
+  const onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
   };
 
   const handleSort = (sortBy: string) => {
@@ -49,27 +52,13 @@ const Shop = () => {
         break;
     }
 
+    setCurrentPage(1);
     setSearchProducts(sortedProducts);
-    setSortBy(sortBy);
   };
 
   useEffect(() => {
     fetchProducts();
     handleSort("newAdded");
-  }, []);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (
-        bottomBoundaryRef.current &&
-        window.innerHeight + window.scrollY >= bottomBoundaryRef.current.offsetTop
-      ) {
-        setCurrentPage((prevPage) => prevPage + 1);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   useEffect(() => {
@@ -80,7 +69,21 @@ const Shop = () => {
     setSearchProducts(filtered);
   }, [search, products]);
 
-  const currentProducts = searchProducts.slice(0, currentPage * 20);
+  const indexOfLastProduct = currentPage * 20;
+  const indexOfFirstProduct = indexOfLastProduct - 20;
+  const currentProducts = searchProducts.slice(indexOfFirstProduct, indexOfLastProduct);
+
+  const nextPage = () => {
+    window.scrollTo(0, 0)
+    setCurrentPage(currentPage + 1)
+  }
+  const prevPage = () => {
+    window.scrollTo(0, 0)
+    setCurrentPage(currentPage - 1)
+  }
+
+
+
 
   return (
     <div className='flex flex-col gap-5 items-center justify-center px-2 lg:px-3 py-5 min-h-[85vh]'>
@@ -90,17 +93,16 @@ const Shop = () => {
           placeholder='Search Product'
           className='border px-4 py-4 rounded-2xl w-full'
           value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={onSearch}
         />
         <CiSearch className='rounded-2xl text-[30px] cursor-pointer text-white' />
       </div>
       <div className='w-full flex items-center justify-between'>
         <span className='text-gray-400 font-light text-[12px] md:text-[15px]'>
-          Showing {Math.min(currentProducts.length, searchProducts.length)} of {searchProducts.length} Products
+          Showing {Math.min(currentProducts.length, 20)} of {searchProducts.length} Products
         </span>
         <select
           className='rounded-2xl text-gray-400 font-light text-[12px] md:text-[15px] px-2 py-2'
-          value={sortBy}
           onChange={(e) => handleSort(e.target.value)}
         >
           <option value="newAdded">Sort by</option>
@@ -110,15 +112,28 @@ const Shop = () => {
         </select>
       </div>
       <div className='flex min-h-[60vh] items-start justify-center gap-[4px] flex-wrap md:gap-5'>
-        {currentProducts.map((product, index) => (
-          <ProductCard getProducts={fetchProducts} key={index} product={product} />
-        ))}
-        {loading && (
+        {currentProducts.length > 0 ? (
+          currentProducts.map((product) => (
+            product.inStock && <ProductCard getProducts={fetchProducts} key={product._id} product={product} />
+          ))
+        ) : (
           <div className="pt-32">
             <PulseLoader />
           </div>
         )}
-        <div ref={bottomBoundaryRef} />
+
+      </div>
+      <div>
+        {searchProducts.length > 20 && (
+          <ul className="flex items-center justify-evenly gap-7">
+            <li className={`cursor-pointer page-item border flex items-center justify-center text-white rounded-2xl py-2 bg-td-secondary px-6 ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : ''}`}>
+              <button onClick={prevPage} disabled={currentPage === 1} className="flex items-center justify-center px-3"> <MdNavigateBefore size={24} /> <span className='px-2'>Prev</span> </button>
+            </li>
+            <li className={`cursor-pointer page-item border flex items-center justify-center text-white rounded-2xl py-2 bg-td-secondary px-6 ${indexOfLastProduct >= searchProducts.length ? 'opacity-50 cursor-not-allowed' : ''}`}>
+              <button onClick={nextPage} disabled={indexOfLastProduct >= searchProducts.length} className=" flex items-center justify-center"><span className='px-2'>Next</span> <MdNavigateNext size={24} /></button>
+            </li>
+          </ul>
+        )}
       </div>
     </div>
   );
