@@ -425,13 +425,10 @@ const ProductPage = () => {
       <div className='mt-5 w-full'>
         <p className='break-all w-full'>{product?.desc}</p>
       </div>
-      {
-        product?.category && (
-          <div className='py-3'>
-            <ProductContainerWithCategory productNotToshow={product._id} title='You may also like' categoryId={product?.category} />
-          </div>
-        )
-      }
+      <div className='py-3'>
+        <ProductContainerWithCategory productNotToshow={product?._id} title='You may also like' categoryId={product?.category} />
+      </div>
+
     </div >
   )
 }
