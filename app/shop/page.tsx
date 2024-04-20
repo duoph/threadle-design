@@ -111,7 +111,7 @@ const Shop = () => {
           <option value="highToLow">Price High-To-Low</option>
         </select>
       </div>
-      <div className='flex min-h-[60vh] items-start justify-center gap-[4px] flex-wrap md:gap-5'>
+      <div className='flex min-h-[60vh] items-start justify-center gap-[9px] flex-wrap md:gap-5'>
         {currentProducts.length > 0 ? (
           currentProducts.map((product) => (
             product.inStock && <ProductCard getProducts={fetchProducts} key={product._id} product={product} />

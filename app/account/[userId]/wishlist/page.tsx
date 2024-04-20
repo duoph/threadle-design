@@ -50,7 +50,7 @@ const WishList = () => {
             <div className="flex items-center justify-center">
                 <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>Wishlist</h1>
             </div>
-            <div className="flex items-center h-full justify-center  gap-[4px] flex-wrap md:gap-5">
+            <div className="flex items-center h-full justify-center  gap-[9px] flex-wrap md:gap-5">
                 {products?.map((product) => (
                     <ProductCard getProducts={fetchWishlistedProducts} key={product._id} product={product} />
                 ))}

@@ -96,7 +96,7 @@ const UserProfile = () => {
     if (formData.email === "") {
         return (
             <div className='flex flex-col items-center py-5 px-3 gap-3 min-h-[85vh]'>
-                <h1 className='text-td-secondary font-bold text-3xl'>Profile</h1>
+                <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>Profile</h1>
                 <div className=" absolute flex items-center justify-center flex-grow h-[65vh]">
                     <PulseLoader />
                 </div>
@@ -106,8 +106,8 @@ const UserProfile = () => {
 
 
     return (
-        <div className='flex flex-col items-center justify-center gap-3 py-5 px-5 min-h-[85vh]'>
-            <h1 className='text-[30px] text-td-secondary font-bold'>Profile</h1>
+        <div className='flex flex-col items-center justify-start gap-3 py-5 px-5 min-h-[85vh]'>
+            <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>Profile</h1>
             <div className="flex md:flex-row flex-col w-full h-full gap-2">
                 <form onSubmit={handleSubmit} className='flex flex-col items-center justify-center gap-3 border px-5 py-8 rounded-2xl lg:w-1/2 w-full bg-slate-100'>
                     <div className='flex items-center justify-center gap-2 w-full'>

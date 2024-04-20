@@ -45,6 +45,7 @@ const ProductPage = () => {
   const fetchProduct = async () => {
     try {
       const response = await axios.get(`/api/product/${productId}`)
+      console.log(response.data.product)
       setProduct(response.data.product)
     } catch (error) {
       console.log(error)
@@ -70,7 +71,6 @@ const ProductPage = () => {
     userWishlist()
     fetchUser()
   }, [])
-
 
 
 
@@ -418,16 +418,19 @@ const ProductPage = () => {
               )}
 
             </div>
+            <div className='mt-5 w-full'>
+              <p className='break-all w-full'>{product?.desc}</p>
+            </div>
+            <div className='py-3 w-full'>
+              {product._id && product.category && (
+                <ProductContainerWithCategory productNotToshow={product?._id} title='You may also like' categoryId={product?.category} />
+              )}
+            </div>
           </div>
         </div>
       )
       }
-      <div className='mt-5 w-full'>
-        <p className='break-all w-full'>{product?.desc}</p>
-      </div>
-      <div className='py-3'>
-        <ProductContainerWithCategory productNotToshow={product?._id} title='You may also like' categoryId={product?.category} />
-      </div>
+
 
     </div >
   )

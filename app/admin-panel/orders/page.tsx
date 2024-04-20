@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import AdminPanelLayout from '@/layout/AdminPanelLayout';
 import OrderDisplayCard from '@/components/OrderDisplayCard';
 import { Cart } from '@/types';
+import { PulseLoader } from 'react-spinners';
 
 export const revalidate = 1000
 
@@ -16,11 +17,14 @@ const Orders = () => {
     const [shippedOrders, setShippedOrders] = useState<Cart[]>([]);
     const [deliveredOrders, setDeliveredOrders] = useState<Cart[]>([]);
     const [orderDisplay, setOrderDisplay] = useState<Cart[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>()
+
 
     const router = useRouter();
 
     const fetchOrders = async () => {
         try {
+            setIsLoading(true)
             const pendingRes = await axios.get('/api/orders/pending');
             const shippedRes = await axios.get('/api/orders/shipped');
             const deliveredRes = await axios.get('/api/orders/delivered');
@@ -28,6 +32,8 @@ const Orders = () => {
             setPendingOrders(pendingRes.data?.pendingOrders);
             setShippedOrders(shippedRes.data?.shippedOrders);
             setDeliveredOrders(deliveredRes.data?.deliveredOrders);
+
+            setIsLoading(false)
 
             switch (selectedOrderType) {
                 case 'pending':
@@ -43,6 +49,8 @@ const Orders = () => {
                     break;
             }
         } catch (error) {
+            setIsLoading(false)
+
             console.log(error);
         }
     };
@@ -64,13 +72,24 @@ const Orders = () => {
 
 
 
+    if (isLoading) { // Check for both products and loading state
+        return (
+            <div className='flex flex-col items-center py-5 px-3 gap-3 min-h-[85vh]'>
+                <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>Order Dashboard</h1>
+                <div className=" absolute flex items-center justify-center flex-grow h-[65vh]">
+                    <PulseLoader />
+                </div>
+            </div>
+        );
+    }
+
 
 
 
     return (
         <AdminPanelLayout>
             <div className="flex flex-col items-center py-5 px-3 gap-3 w-full">
-                <h1 className="text-td-secondary font-bold text-3xl">Order Dashboard</h1>
+                <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>Order Dashboard</h1>
                 {/* Total Orders */}
                 <div className="flex items-center justify-center border bg-slate-200 rounded-2xl py-5 px-3 w-full">
                     <div className="flex items-center justify-center flex-col md:flex-row flex-wrap gap-6 text-td-secondary font-bold text-xl">
