@@ -286,21 +286,13 @@ const ProductPage = () => {
         src="https://checkout.razorpay.com/v1/checkout.js"
       />
       {product && (
-        // <Head>
-        //   <title>{product.title || "Shop Now"}</title>
-        //   <meta property='og:title' content={product.title || "Shop Now"} />
-        //   <meta property="og:description" content={product.desc} />
-        //   <meta property="og:image" content={product.coverImageURL || "/greendress.png"} />
-        //   <meta property="og:url" content={`https://www.threadledesigns.com/shop/${productId}`} />
-        //   {/* Add other meta tags as needed */}
-        // </Head>
-        <Helmet>
+        <Head>
           <title>{product.title || "Shop Now"}</title>
-          <meta name="description" content={product.desc} />
-          <meta name="image" content={product.coverImageURL} />
-          <link rel="canonical" href="https://threadle-design.vercel.app/" />
-
-        </Helmet>
+          <meta property='og:title' content={product.title || "Shop Now"} />
+          <meta property="og:description" content={product.desc} />
+          <meta property="og:image" content={product.coverImageURL || "/greendress.png"} />
+          <meta property="og:url" content={`https://www.threadledesigns.com/shop/${productId}`} />
+        </Head>
       )}
       {
         !product ? (
