@@ -277,9 +277,7 @@ const ProductPage = () => {
   // document.title = product?.title || "Shop Now"
 
 
-
-  const wpLink = `https://api.whatsapp.com/send?phone=919074063723&text=Hello%20I%20want%20to%20know%20more%20about%20this%20product...%20https://threadle-design.vercel.app/shop/${productId}`
-
+  const wpLink = `https://api.whatsapp.com/send?phone=919074063723&text=https%3A%2F%2Fthreadle-design.vercel.app%2Fshop%2F%24${product ? product._id : ''}%0AProductId%20%3A%20${product ? product._id : ''}%0ATitle%20%3A%20${product ? product.title : ''}${product && product.desc ? `%0ADesc%3A%20${product.desc}` : ''}`;
 
   return (
     <div className='w-full px-5 py-3 md:px-10 flex flex-col gap-3 mb-5 '>
@@ -304,146 +302,147 @@ const ProductPage = () => {
 
         </Helmet>
       )}
-      {!product ? (
-        <div className="w-full h-[70vh] flex items-center justify-center px-5 py-3 md:px-10 gap-3 mb-5 ">
-          <PulseLoader />
-        </div>
-      ) : (
-        <div className='flex flex-col w-full gap-3'>
-          <div className='flex flex-col w-full gap-1 items-center justify-center bg-slate-100 '>
-            <div className='relative w-[300px] h-[300px] '>
-              <Image priority={true} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" style={{ objectFit: "contain" }} src={previewImage || product?.coverImageURL || product?.moreImagesURLs[0] || product?.moreImagesURLs[1] || product?.moreImagesURLs[2] || product?.moreImagesURLs[3] || "/noImage.jpg"} alt='greenDress' className='h-[350px]' fill={true} />
-            </div>
-
-            {product?.moreImagesURLs?.length !== 0 && <div className='h-[5rem] bg-gray-300 w-full flex items-center justify-center gap-1'>
-              {product?.moreImagesURLs?.map((imageUrl, index) => (
-                imageUrl && (
-                  <div key={index} className='relative h-[70px] w-[55px]'>
-                    {imageUrl === previewImage && (
-                      <div onClick={() => handlePreviewImageLink(product?.coverImageURL)} className='absolute z-10 cursor-pointer flex items-center justify-center bg-gray-500 bg-opacity-50 w-full h-full'>
-                        <FaCheck className='text-white' />
-                      </div>
-                    )}
-                    <Image
-                      onClick={() => handlePreviewImageLink(imageUrl)}
-                      src={imageUrl}
-                      className='h-[4.7rem] cursor-pointer'
-                      style={{ objectFit: 'cover' }}
-                      alt={`Image`}
-                      fill={true}
-                      priority={true}
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    />
-                  </div>
-                )
-              ))}
-            </div>}
-
-
+      {
+        !product ? (
+          <div className="w-full h-[70vh] flex items-center justify-center px-5 py-3 md:px-10 gap-3 mb-5 ">
+            <PulseLoader />
           </div>
-          <div className='flex flex-col gap-2 items-start justify-start w-full '>
-            <div className="flex items-center  w-full justify-between">
-              <div className='flex flex-col gap-3'>
-                <h1 className='text-lg font-medium'>{product?.title}</h1>
-
-                {!product.inStock && (
-                  <span className='text-lg font-medium text-red-600'>Out of stock</span>
-                )}
+        ) : (
+          <div className='flex flex-col w-full gap-3'>
+            <div className='flex flex-col w-full gap-1 items-center justify-center bg-slate-100 '>
+              <div className='relative w-[300px] h-[300px] '>
+                <Image priority={true} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" style={{ objectFit: "contain" }} src={previewImage || product?.coverImageURL || product?.moreImagesURLs[0] || product?.moreImagesURLs[1] || product?.moreImagesURLs[2] || product?.moreImagesURLs[3] || "/noImage.jpg"} alt='greenDress' className='h-[350px]' fill={true} />
               </div>
 
-
-              <div>
-                {wishlistIds?.includes(`${productId}`) ? (
-                  <button onClick={handleDislike} className='flex  w-[43px] border rounded-full py-2 items-center justify-center px-2 bg-white text-white '>
-                    <FaHeart className='text-center   text-td-secondary hover:scale-110' size={24} />
-                  </button>
-                ) : (<button onClick={handleLike} className='flex  w-[43px] border rounded-full py-2 items-center justify-center px-2 bg-white text-white '>
-                  <CiHeart className='text-center   text-td-secondary hover:scale-110' size={24} />
-                </button>)}
-              </div>
-            </div>
-            <div className='flex flex-col gap-1'>
-              <span className='text-sm flex items-center justify-center gap-1'>All over india free delivery
-                <div className='relative h-[14px] w-[14px] flex items-center justify-center'>
-                  <Image priority={true}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={"/india.png"} fill={true} alt="Indian flag" />
-                </div>
-              </span>
-              {product?.isCustom && (<div>
-                <Link target='_blank' href={wpLink} className='bg-black px-3 py-2 rounded-full flex gap-2'>
-                  <FaWhatsappSquare className='text-green-500' size={24} />
-                  <p className='text-white'>Contact us for pricing</p>
-                </Link>
-              </div>)}
-              {!product?.isCustom && (<div className="flex gap-3">
-                <p className={`text-lg font-medium ${product?.salePrice && "line-through"}`}>&#8377;{product?.regularPrice}</p>
-                {product?.salePrice && <p className={`text-lg text-red-600 font-medium`}>&#8377;{product?.salePrice}</p>}
-              </div>)}
-
-            </div>
-            <div className='flex flex-col gap-4 w-full'>
-
-              {product?.colors?.length > 0 && (
-                <p>{!product?.isCustom ? "Select Color" : "Available Colors"}</p>
-              )}
-
-
-              <div className='flex gap-3 bg-slate-100 px-3 py-4'>
-                {/* Colors display */}
-                {product?.colors?.map((color, i) => (
-                  <span
-                    key={i}
-                    onClick={() => { handleColor(color) }}
-                    style={{ background: color }}
-                    className={`relative cursor-pointer h-[35px] w-[35px] rounded-[50%] flex items-center justify-center shadow-lg`}
-                  >
-                    {selectedColor === color && <IoIosCheckmark className='text-black absolute -bottom-5 z-10' size={24} />}
-                  </span>
+              {product?.moreImagesURLs?.length !== 0 && <div className='h-[5rem] bg-gray-300 w-full flex items-center justify-center gap-1'>
+                {product?.moreImagesURLs?.map((imageUrl, index) => (
+                  imageUrl && (
+                    <div key={index} className='relative h-[70px] w-[55px]'>
+                      {imageUrl === previewImage && (
+                        <div onClick={() => handlePreviewImageLink(product?.coverImageURL)} className='absolute z-10 cursor-pointer flex items-center justify-center bg-gray-500 bg-opacity-50 w-full h-full'>
+                          <FaCheck className='text-white' />
+                        </div>
+                      )}
+                      <Image
+                        onClick={() => handlePreviewImageLink(imageUrl)}
+                        src={imageUrl}
+                        className='h-[4.7rem] cursor-pointer'
+                        style={{ objectFit: 'cover' }}
+                        alt={`Image`}
+                        fill={true}
+                        priority={true}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      />
+                    </div>
+                  )
                 ))}
-              </div>
+              </div>}
 
-              <div className='flex flex-col flex-wrap gap-3'>
-                <p>{!product?.isCustom ? "Select Size" : "Available Size's"}</p>
-                <div className='flex gap-2 flex-wrap font-light'>
-                  {sizes.map((size, i) => (
-                    <button key={i} onClick={() => handleSize(size)} className={`px-4 py-2 rounded-2xl ${selectedSize === size ? "bg-td-primary text-white" : "bg-gray-200"}`}>{size}</button>
+
+            </div>
+            <div className='flex flex-col gap-2 items-start justify-start w-full '>
+              <div className="flex items-center  w-full justify-between">
+                <div className='flex flex-col gap-3'>
+                  <h1 className='text-lg font-medium'>{product?.title}</h1>
+
+                  {!product.inStock && (
+                    <span className='text-lg font-medium text-red-600'>Out of stock</span>
+                  )}
+                </div>
+
+
+                <div>
+                  {wishlistIds?.includes(`${productId}`) ? (
+                    <button onClick={handleDislike} className='flex  w-[43px] border rounded-full py-2 items-center justify-center px-2 bg-white text-white '>
+                      <FaHeart className='text-center   text-td-secondary hover:scale-110' size={24} />
+                    </button>
+                  ) : (<button onClick={handleLike} className='flex  w-[43px] border rounded-full py-2 items-center justify-center px-2 bg-white text-white '>
+                    <CiHeart className='text-center   text-td-secondary hover:scale-110' size={24} />
+                  </button>)}
+                </div>
+              </div>
+              <div className='flex flex-col gap-1'>
+                <span className='text-sm flex items-center justify-center gap-1'>All over india free delivery
+                  <div className='relative h-[14px] w-[14px] flex items-center justify-center'>
+                    <Image priority={true}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={"/india.png"} fill={true} alt="Indian flag" />
+                  </div>
+                </span>
+                {product?.isCustom && (<div>
+                  <Link target='_blank' href={wpLink} className='bg-black px-3 py-2 rounded-full flex gap-2'>
+                    <FaWhatsappSquare className='text-green-500' size={24} />
+                    <p className='text-white'>Contact us for pricing</p>
+                  </Link>
+                </div>)}
+                {!product?.isCustom && (<div className="flex gap-3">
+                  <p className={`text-lg font-medium ${product?.salePrice && "line-through"}`}>&#8377;{product?.regularPrice}</p>
+                  {product?.salePrice && <p className={`text-lg text-red-600 font-medium`}>&#8377;{product?.salePrice}</p>}
+                </div>)}
+
+              </div>
+              <div className='flex flex-col gap-4 w-full'>
+
+                {product?.colors?.length > 0 && (
+                  <p>{!product?.isCustom ? "Select Color" : "Available Colors"}</p>
+                )}
+
+
+                <div className='flex gap-3 bg-slate-100 px-3 py-4'>
+                  {/* Colors display */}
+                  {product?.colors?.map((color, i) => (
+                    <span
+                      key={i}
+                      onClick={() => { handleColor(color) }}
+                      style={{ background: color }}
+                      className={`relative cursor-pointer h-[35px] w-[35px] rounded-[50%] flex items-center justify-center shadow-lg`}
+                    >
+                      {selectedColor === color && <IoIosCheckmark className='text-black absolute -bottom-5 z-10' size={24} />}
+                    </span>
                   ))}
                 </div>
-              </div>
 
-
-              {!product?.isCustom && product?.inStock ? (
-                <div className='flex flex-col gap-3 font-semibold w-full'>
-                  <span className='bg-gray-200 flex items-center justify-between gap-4 px-8 py-2 rounded-2xl w-1/2'>
-                    <span className='cursor-pointer' onClick={() => handleQuantity("decrement")}>-</span>
-                    <span>{quantity}</span>
-                    <span className='cursor-pointer' onClick={() => handleQuantity("increment")}>+</span>
-                  </span>
-                  <div className='flex gap-3'>
-                    <button onClick={addToCart} className='w-1/2 py-2 bg-td-secondary rounded-2xl text-white'> Add to Cart </button>
-                    <button onClick={handlePayment} className='w-1/2 py-2 bg-td-secondary rounded-2xl text-white flex items-center justify-center'>
-
-                      {isLoading ? <PulseLoader color='white' /> : "Buy Now"}
-                    </button>
+                <div className='flex flex-col flex-wrap gap-3'>
+                  <p>{!product?.isCustom ? "Select Size" : "Available Size's"}</p>
+                  <div className='flex gap-2 flex-wrap font-light'>
+                    {sizes.map((size, i) => (
+                      <button key={i} onClick={() => handleSize(size)} className={`px-4 py-2 rounded-2xl ${selectedSize === size ? "bg-td-primary text-white" : "bg-gray-200"}`}>{size}</button>
+                    ))}
                   </div>
-
                 </div>
-              ) : (
-                null
-              )}
 
-            </div>
-            <div className='mt-5 w-full'>
-              <p className='break-all w-full'>{product?.desc}</p>
-            </div>
-            <div className='py-3 w-full'>
-              {product._id && product.category && (
-                <ProductContainerWithCategory productNotToshow={product?._id} title='You may also like' categoryId={product?.category} />
-              )}
+
+                {!product?.isCustom && product?.inStock ? (
+                  <div className='flex flex-col gap-3 font-semibold w-full'>
+                    <span className='bg-gray-200 flex items-center justify-between gap-4 px-8 py-2 rounded-2xl w-1/2'>
+                      <span className='cursor-pointer' onClick={() => handleQuantity("decrement")}>-</span>
+                      <span>{quantity}</span>
+                      <span className='cursor-pointer' onClick={() => handleQuantity("increment")}>+</span>
+                    </span>
+                    <div className='flex gap-3'>
+                      <button onClick={addToCart} className='w-1/2 py-2 bg-td-secondary rounded-2xl text-white'> Add to Cart </button>
+                      <button onClick={handlePayment} className='w-1/2 py-2 bg-td-secondary rounded-2xl text-white flex items-center justify-center'>
+
+                        {isLoading ? <PulseLoader color='white' /> : "Buy Now"}
+                      </button>
+                    </div>
+
+                  </div>
+                ) : (
+                  null
+                )}
+
+              </div>
+              <div className='mt-5 w-full'>
+                <p className='break-all w-full'>{product?.desc}</p>
+              </div>
+              <div className='py-3 w-full'>
+                {product._id && product.category && (
+                  <ProductContainerWithCategory productNotToshow={product?._id} title='You may also like' categoryId={product?.category} />
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      )
+        )
       }
 
 
