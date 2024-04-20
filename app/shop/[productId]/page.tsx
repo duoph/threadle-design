@@ -277,7 +277,7 @@ const ProductPage = () => {
   // document.title = product?.title || "Shop Now"
 
 
-  const wpLink = `https://api.whatsapp.com/send?phone=919074063723&text=https%3A%2F%2Fthreadle-design.vercel.app%2Fshop%2F%24${product ? product._id : ''}%0AProductId%20%3A%20${product ? product._id : ''}%0ATitle%20%3A%20${product ? product.title : ''}${product && product.desc ? `%0ADesc%3A%20${product.desc}` : ''}`;
+  const wpLink = `https://api.whatsapp.com/send?phone=919074063723&text=https%3A%2F%2Fthreadle-design.vercel.app%2Fshop%2F${product ? product._id : ''}%0AProductId%20%3A%20${product ? product._id : ''}%0ATitle%20%3A%20${product ? product.title : ''}${product && product.desc ? `%0ADesc%3A%20${product.desc}` : ''}`;
 
   return (
     <div className='w-full px-5 py-3 md:px-10 flex flex-col gap-3 mb-5 '>
