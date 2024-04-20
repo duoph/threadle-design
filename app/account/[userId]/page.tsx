@@ -7,6 +7,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { FaPhoneAlt, FaAddressCard } from 'react-icons/fa';
+import { FaSquareWhatsapp } from 'react-icons/fa6';
 import { MdEmail } from 'react-icons/md';
 import { RiAccountCircleFill } from 'react-icons/ri';
 import { PulseLoader } from 'react-spinners';
@@ -23,6 +24,7 @@ const UserProfile = () => {
         name: '',
         email: '',
         phone: '',
+        whatsAppNumber: '',
         address: '',
     });
 
@@ -36,6 +38,7 @@ const UserProfile = () => {
                     name: res.data.user.name,
                     email: res.data.user.email,
                     phone: res.data.user.phone,
+                    whatsAppNumber: res?.data?.user?.whatsAppNumber,
                     address: res.data.user.address,
                 });
             }
@@ -126,17 +129,21 @@ const UserProfile = () => {
                         <FaPhoneAlt size={30} />
                         <input type="phone" name="phone" placeholder='Phone' value={formData.phone} onChange={handleChange} className='border px-5  w-full py-2 rounded-2xl bg-slate-200' />
                     </div>
+                    <div className='flex items-center justify-center gap-2 w-full'>
+                        <FaSquareWhatsapp size={30} />
+                        <input type="phone" name="phone" placeholder='Phone' value={formData.phone || formData.phone} onChange={handleChange} className='border px-5  w-full py-2 rounded-2xl bg-slate-200' />
+                    </div>
                     <div className='flex items-start justify-center gap-2 w-full '>
                         <FaAddressCard size={30} />
                         <textarea id="address" name="address" className='border px-5  py-2 w-full rounded-2xl bg-slate-200 min-h-[150px]' placeholder='Address' value={formData.address} onChange={handleChange} />
                     </div>
 
-                    <button className={`px-5 rounded-2xl py-3 border bg-td-secondary text-white font-bold`} type='submit'>{isSubmiting ? <PulseLoader color="white" size={9}/> : "Save"}</button>
+                    <button className={`px-5 rounded-2xl py-3 border bg-td-secondary text-white font-bold`} type='submit'>{isSubmiting ? <PulseLoader color="white" size={9} /> : "Save"}</button>
                 </form>
 
                 <div className='flex items-center justify-center flex-col lg:w-1/2 w-full border px-5 py-8 gap-1 rounded-2xl bg-slate-100'>
                     <button onClick={() => router.push(`/account/${currentUser.userId}/wishlist`)} className='px-5 rounded-2xl py-3 border  bg-td-secondary text-white font-bold w-[200px]'>WishList</button>
-                    <button onClick={() => router.push(`/account/${currentUser.userId}/orders`)} className='px-5 rounded-2xl py-3 border bg-td-secondary text-white font-bold w-[200px]'>Orders</button>
+                    <button onClick={() => router.push(`/account/${currentUser.userId}/orders`)} className='px-5 rounded-2xl py-3 border bg-td-secondary text-white font-bold w-[200px]'>My Orders</button>
                     <button onClick={() => router.push(`/account/${currentUser.userId}/change-password`)} className='px-5 rounded-2xl py-3 border  bg-td-secondary text-white font-bold w-[200px]'>Change Password</button>
                     <button onClick={logOut} className='px-5 rounded-2xl py-3 border  bg-red-700 text-white font-bold w-[200px]'>LogOut</button>
                 </div>

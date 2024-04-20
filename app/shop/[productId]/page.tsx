@@ -272,6 +272,8 @@ const ProductPage = () => {
 
   };
 
+  document.title = product?.title || "Shop Now"
+
 
 
   const wpLink = `https://api.whatsapp.com/send?phone=919074063723&text=Hello%20I%20want%20to%20know%20more%20about%20this%20product...%20https://www.threadledesigns.com/shop/${productId}`
