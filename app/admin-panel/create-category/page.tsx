@@ -9,7 +9,6 @@ import { MdDelete } from "react-icons/md";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { PulseLoader } from "react-spinners";
-import AdminPanelLayout from "@/layout/AdminPanelLayout";
 
 const CreateCategory = () => {
     const router = useRouter();
@@ -60,7 +59,6 @@ const CreateCategory = () => {
     };
 
     return (
-        <AdminPanelLayout>
 
             <div className='flex flex-col gap-3 py-5 md:px-10 px-5 w-full'>
                 <div className='flex gap-2 items-center justify-start'>
@@ -115,7 +113,6 @@ const CreateCategory = () => {
                     </button>
                 </ div>
             </div >
-        </AdminPanelLayout>
 
     );
 }

@@ -1,7 +1,6 @@
 "use client"
 
 import { useUser } from '@/context/useUser';
-import AdminPanelLayout from '@/layout/AdminPanelLayout';
 import axios from 'axios';
 import Link from 'next/link'
 import { useRouter } from 'next/navigation';
@@ -37,7 +36,6 @@ const AdminPanel = () => {
 
 
   return (
-    <AdminPanelLayout>
       <div className='py-10 flex flex-col items-center justify-center gap-4 w-full '>
         <Link href="/admin-panel/create-product" className='bg-td-secondary px-10 py-4 rounded-2xl text-white'>Add Product</Link>
         <Link href="/admin-panel/create-category" className='bg-td-secondary px-10 py-4 rounded-2xl text-white'>Add Category</Link>
@@ -47,7 +45,6 @@ const AdminPanel = () => {
         <Link href="/admin-panel/create-admin" className='bg-td-secondary px-10 py-4 rounded-2xl text-white'>Create New Admin</Link>
         <button className='bg-red-600 px-10 py-4 rounded-2xl text-white' onClick={logOut}>Logout</button>
       </div>
-    </AdminPanelLayout>
   )
 }
 

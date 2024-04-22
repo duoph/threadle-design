@@ -1,7 +1,6 @@
 "use client"
 
 import ProductCard from '@/components/ProductCard'
-import AdminPanelLayout from '@/layout/AdminPanelLayout'
 import { Product } from '@/types'
 import axios from 'axios'
 import { useParams } from 'next/navigation'
@@ -38,20 +37,17 @@ const CategoryProducts = () => {
     // on loading of categories
     if (products.length === 0) {
         return (
-            <AdminPanelLayout>
 
                 <div className='min-h-[80vh] md:px-10 w-full px-5 py-10 flex flex-col  items-center justify-center gap-3'>
                     <div>
                         <p className='font-medium'>No Products Available</p>
                     </div>
                 </div>
-            </AdminPanelLayout>
 
         )
     }
 
     return (
-        <AdminPanelLayout>
             <div className='md:px-10 px-5 py-10 flex flex-col items-center justify-center gap-3 w-full'>
                 <div>
                     <h1 className='text-[30px] font-bold text-td-secondary'>{categoryname}</h1>
@@ -62,7 +58,6 @@ const CategoryProducts = () => {
                     ))}
                 </div>
             </div>
-        </AdminPanelLayout>
     )
 }
 

@@ -1,53 +1,42 @@
 "use client"
 
-import React, { useEffect, useState } from 'react'
+
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { CiSearch, CiUser, CiShoppingCart } from "react-icons/ci";
+import { CiSearch, CiUser, CiShoppingCart, CiMenuBurger, CiCircleRemove } from "react-icons/ci";
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useUser } from '@/context/useUser';
-// import NextNProgress from 'nextjs-progressbar';
-
-import axios from 'axios';
-import { Cart } from '@/types';
-
+import { AiOutlineLogout } from 'react-icons/ai';
+import ClickAwayListener from 'react-click-away-listener';
+import {   IoIosClose } from 'react-icons/io';
 
 const Header = () => {
-
-
-
-    const { LogOut, currentUser, cartItemCountFetch, cartCount } = useUser()
-
-    const router = useRouter()
-
+    const { LogOut, currentUser, cartItemCountFetch, cartCount } = useUser();
+    const router = useRouter();
+    const [isMenu, setIsMenu] = useState<boolean>(false);
 
     const onAccountClick = () => {
         try {
-
             if (!currentUser) {
-                return router.push('/account')
+                return router.push('/account');
             }
 
             if (currentUser?.token && currentUser.isAdmin === true) {
-                return router.push('/admin-panel/orders')
+                return router.push('/admin-panel/orders');
             }
 
             if (currentUser?.token && currentUser.isAdmin === false) {
-                return router.push(`/account/${currentUser.userId}`)
+                return router.push(`/account/${currentUser.userId}`);
             }
-
-
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
-    }
-
-
+    };
 
     useEffect(() => {
-        -
-            cartItemCountFetch()
-    }, [])
+        cartItemCountFetch();
+    }, []);
 
     return (
         <div className='bg-td-secondary flex h-[80px] items-center justify-between px-3 lg:px-10 w-full fixed top-0 z-[500] shadow-xl'>
@@ -63,10 +52,35 @@ const Header = () => {
                     </div>
                 )}
                 <CiUser onClick={onAccountClick} className='text-white cursor-pointer' size={24} />
-            </div>
-            {/* <NextNProgress /> */}
-        </div>
-    )
-}
+                <div className='text-white flex items-center justify-center'>
+                    {!isMenu ? (
+                        <button className=' rounded-2xl' onClick={() => setIsMenu(true)}>
+                            <CiMenuBurger className='cursor-pointer' size={24} />
+                        </button>
+                    ) : (
+                        <button className=' rounded-2xl' onClick={() => setIsMenu(true)}>
+                            <CiCircleRemove  className='cursor-pointer' size={24} />
+                        </button>
+                    )}
+                </div>
 
-export default Header
+
+                {isMenu && (
+                    <ClickAwayListener onClickAway={() => setIsMenu(false)}>
+                        <div onClick={() => setIsMenu(false)} className={`absolute top-[85px] right-0 flex flex-col items-center justify-center z-50 shadow-2xl  bg-slate-200 w-[300px] transition-all duration-300 ease-in-out ${isMenu ? 'translate-x-0' : '-translate-x-full'}`}>
+                            <Link href="/admin-panel/orders" className='bg-td-secondary w-full px-10 py-2 text-white text-center'>Orders</Link>
+                            <Link href="/admin-panel/create-product" className='bg-td-secondary w-full px-10 py-2 text-white text-center'>Add Product</Link>
+                            <Link href="/admin-panel/create-category" className='bg-td-secondary w-full px-10 py-2 text-white text-center'>Add Category</Link>
+                            <Link href="/admin-panel/view-products" className='bg-td-secondary w-full px-10 py-2 text-white text-center'>View All Product</Link>
+                            <Link href="/admin-panel/view-categories" className='bg-td-secondary w-full px-10 py-2 text-white text-center'>View All Category</Link>
+                            <Link href="/admin-panel/create-admin" className='bg-td-secondary w-full px-10 py-2 text-white text-center'>Create a New Admin</Link>
+                            <button className='bg-red-600 w-full px-10 py-2 text-white text-center flex items-center justify-center gap-3' onClick={LogOut}> LogOut<AiOutlineLogout /></button>
+                        </div>
+                    </ClickAwayListener>
+                )}
+            </div>
+        </div>
+    );
+};
+
+export default Header;

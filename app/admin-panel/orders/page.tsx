@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import AdminPanelLayout from '@/layout/AdminPanelLayout';
 import OrderDisplayCard from '@/components/OrderDisplayCard';
 import { Cart } from '@/types';
 import { PulseLoader } from 'react-spinners';
@@ -57,7 +56,7 @@ const Orders = () => {
 
     useEffect(() => {
         fetchOrders(); // Fetch orders initially
-        const intervalId = setInterval(fetchOrders, 5000); // Fetch orders every 5 seconds
+        const intervalId = setInterval(fetchOrders, 60000); // Fetch orders every 5 seconds
 
         return () => clearInterval(intervalId); // Cleanup interval on unmount
     }, []); // Fetch orders when selectedOrderType changes
@@ -87,7 +86,6 @@ const Orders = () => {
 
 
     return (
-        <AdminPanelLayout>
             <div className="flex flex-col items-center py-5 px-3 gap-3 w-full">
                 <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>Order Dashboard</h1>
                 {/* Total Orders */}
@@ -155,7 +153,6 @@ const Orders = () => {
                     )}
                 </div>
             </div>
-        </AdminPanelLayout>
     );
 };
 

@@ -10,7 +10,6 @@ import toast from "react-hot-toast";
 import axios from "axios"; // Import Axios
 import { PulseLoader } from "react-spinners";
 import { Category } from "@/types";
-import AdminPanelLayout from "@/layout/AdminPanelLayout";
 
 
 const CreateProduct = () => {
@@ -206,7 +205,6 @@ const CreateProduct = () => {
 
     return (
 
-        < AdminPanelLayout>
             <div className='flex flex-col gap-3 py-5 md:px-10 px-5 w-full'>
                 <div className='flex gap-2 items-center justify-start'>
                     <IoMdArrowBack className="cursor-pointer hover:scale-110" onClick={() => router.back()} size={24} />
@@ -387,7 +385,6 @@ const CreateProduct = () => {
                     </button>
                 </form >
             </div >
-        </AdminPanelLayout>
 
     );
 }
