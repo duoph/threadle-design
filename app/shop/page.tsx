@@ -15,7 +15,7 @@ const Shop = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [searchProducts, setSearchProducts] = useState<Product[]>([]);
   const [search, setSearch] = useState<string>('');
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const fetchProducts = async () => {
@@ -74,7 +74,12 @@ const Shop = () => {
       product.desc?.toLowerCase().includes(search.toLowerCase())
     );
     setSearchProducts(filtered);
-  }, [search, products]);
+  }, [search]);
+
+  useEffect(() => {
+    handleSort("newAdded");
+  }, [products]);
+
 
   const indexOfLastProduct = currentPage * 18;
   const indexOfFirstProduct = indexOfLastProduct - 18;
@@ -90,27 +95,8 @@ const Shop = () => {
   }
 
 
-  if (isLoading) {
-    return (
-      <div className='flex flex-col gap-5 items-center justify-center px-2 lg:px-3 py-5 min-h-[85vh]'>
-        <div className='rounded-2xl flex items-center justify-center cursor-pointer gap-3 bg-td-secondary pr-6 w-full'>
-          <input
-            type='text'
-            placeholder='Search Product'
-            className='border px-4 py-4 rounded-2xl w-full'
-            value={search}
-            onChange={onSearch}
-          />
-          <CiSearch className='rounded-2xl text-[30px] cursor-pointer text-white' />
-        </div>
-      </div>
-    )
-  }
-
-
-
   return (
-    <div className='flex flex-col gap-5 items-center justify-center px-2 lg:px-3 py-5 min-h-[85vh]'>
+    <div className='flex flex-col gap-5 items-center justify-start px-2 lg:px-3 py-5 min-h-[85vh]'>
       <div className='rounded-2xl flex items-center justify-center cursor-pointer gap-3 bg-td-secondary pr-6 w-full'>
         <input
           type='text'
@@ -121,44 +107,49 @@ const Shop = () => {
         />
         <CiSearch className='rounded-2xl text-[30px] cursor-pointer text-white' />
       </div>
-      <div className='w-full flex items-center justify-between'>
-        <span className='text-gray-400 font-light text-[12px] md:text-[15px]'>
-          Showing {Math.min(currentProducts.length, 20)} of {searchProducts.length} Products
-        </span>
-        <select
-          className='rounded-2xl text-gray-400 font-light text-[12px] md:text-[15px] px-2 py-2'
-          onChange={(e) => handleSort(e.target.value)}
-        >
-          <option value="newAdded">Sort by</option>
-          <option value="newAdded">Newly Added</option>
-          <option value="lowToHigh">Price Low-To-High</option>
-          <option value="highToLow">Price High-To-Low</option>
-        </select>
-      </div>
-      <div className='flex min-h-[60vh] items-start justify-center gap-[9px] flex-wrap md:gap-5'>
-        {currentProducts.length > 0 && !isLoading ? (
-          currentProducts.map((product) => (
-            product.inStock && <ProductCard getProducts={fetchProducts} key={product._id} product={product} />
-          ))
-        ) : (
-          <div className='flex items-center justify-center h-full w-full'>
-            <span className=''>No Products Available</span>
+      {isLoading ? (
+        <div className="w-full h-full flex items-center justify-center min-h-[60vh]">
+          <PulseLoader />
+        </div>
+      ) : (
+        <>
+          <div className='w-full flex items-center justify-between'>
+            <span className='text-gray-400 font-light text-[12px] md:text-[15px]'>
+              Showing {Math.min(currentProducts.length, 20)} of {searchProducts.length} Products
+            </span>
+            <select
+              className='rounded-2xl text-gray-400 font-light text-[12px] md:text-[15px] px-2 py-2'
+              onChange={(e) => handleSort(e.target.value)}
+            >
+              <option value="newAdded">Sort by</option>
+              <option value="newAdded">Newly Added</option>
+              <option value="lowToHigh">Price Low-To-High</option>
+              <option value="highToLow">Price High-To-Low</option>
+            </select>
           </div>
-        )}
-
-      </div>
-      <div>
-        {searchProducts.length > 18 && (
-          <ul className="flex items-center justify-evenly gap-7">
-            <li className={`cursor-pointer page-item border flex items-center justify-center text-white rounded-2xl py-2 bg-td-secondary px-6  ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105 transition-all ease-in-out'}`}>
-              <button onClick={prevPage} disabled={currentPage === 1} className="flex items-center justify-center "> <MdNavigateBefore size={24} /> <span className='px-2'>Prev</span> </button>
-            </li>
-            <li className={`cursor-pointer page-item border flex items-center justify-center text-white rounded-2xl py-2 bg-td-secondary px-6 ${indexOfLastProduct >= searchProducts.length ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105 transition-all ease-in-out'}`}>
-              <button onClick={nextPage} disabled={indexOfLastProduct >= searchProducts.length} className=" flex items-center justify-center"><span className='px-2'>Next</span> <MdNavigateNext size={24} /></button>
-            </li>
-          </ul>
-        )}
-      </div>
+          <div className='flex min-h-[60vh] items-start justify-center gap-[9px] flex-wrap md:gap-5'>
+            {currentProducts.length > 0 ? (
+              currentProducts.map((product) => (
+                product.inStock && <ProductCard getProducts={fetchProducts} key={product._id} product={product} />
+              ))
+            ) : (
+              <div className='flex items-center justify-center h-full w-full'>
+                <span className=''>No Products Available</span>
+              </div>
+            )}
+          </div>
+          {searchProducts.length > 18 && (
+            <ul className="flex items-center justify-evenly gap-7">
+              <li className={`cursor-pointer page-item border flex items-center justify-center text-white rounded-2xl py-2 bg-td-secondary px-6  ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105 transition-all ease-in-out'}`}>
+                <button onClick={prevPage} disabled={currentPage === 1} className="flex items-center justify-center "> <MdNavigateBefore size={24} /> <span className='px-2'>Prev</span> </button>
+              </li>
+              <li className={`cursor-pointer page-item border flex items-center justify-center text-white rounded-2xl py-2 bg-td-secondary px-6 ${indexOfLastProduct >= searchProducts.length ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105 transition-all ease-in-out'}`}>
+                <button onClick={nextPage} disabled={indexOfLastProduct >= searchProducts.length} className=" flex items-center justify-center"><span className='px-2'>Next</span> <MdNavigateNext size={24} /></button>
+              </li>
+            </ul>
+          )}
+        </>
+      )}
     </div>
   );
 };
