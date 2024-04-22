@@ -19,7 +19,6 @@ const Shop = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const fetchProducts = async () => {
-    setIsLoading(true)
     try {
       const response = await axios.get('/api/product');
       setProducts(response.data.tdProduct);
