@@ -13,8 +13,11 @@ import { PulseLoader } from 'react-spinners';
 
 const LoginPageAdmin = () => {
   const [email, setEmail] = useState<string>('');
+  const [phone, setPhone] = useState<string>('');
+  const [isPhone, setIsPhone] = useState<boolean>(false);
   const [password, setPassword] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
 
   const { setCurrentUser, currentUser } = useUser()
 
@@ -102,7 +105,12 @@ const LoginPageAdmin = () => {
               <span onClick={handleLogin} className="text-[15px] w-full">Login</span>
             )}
           </button>
+
+          <div className='flex flex-col items-center justify-center'>
           <span className='text-center text-sm'>Don&apos;t have an account?<span className='cursor-pointer text-blue-900 underline' onClick={() => router.push('/account/create-account')}>Create Account</span></span>
+          <span className='text-center text-sm'>Don&apos;t have an account?<span className='cursor-pointer text-blue-900 underline' onClick={() => router.push('/account/create-account')}>Create Account</span></span>
+          </div>
+
         </div>
       </div>
     </div>

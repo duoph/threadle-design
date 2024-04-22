@@ -7,27 +7,37 @@ import JWT from "jsonwebtoken";
 export async function POST(req: NextRequest) {
     try {
         await connectMongoDB();
-        const { email, password } = await req.json();
+        const { email, phone, password } = await req.json();
 
-        const lowerCaseEmail = email.toLowerCase()
-
-        if (!email || !password) {
+        // Check if email or phone and password are provided
+        if ((!phone && !email) || !password) {
             return NextResponse.json({ message: 'Enter valid credentials', success: false });
         }
 
-        const user = await userModel.findOne({ email: lowerCaseEmail });
+        let user;
 
-        if (!user) {
-            return NextResponse.json({ message: 'Check your email or password', success: false });
+        if (phone) {
+            // Find user by phone
+            user = await userModel.findOne({ phone: phone });
+        } else if (email) {
+            // Find user by email
+            const lowerCaseEmail = email.toLowerCase();
+            user = await userModel.findOne({ email: lowerCaseEmail });
         }
 
+        // If user not found
+        if (!user) {
+            return NextResponse.json({ message: 'User not found', success: false });
+        }
+
+        // Compare passwords
         const passCompare = await bcrypt.compare(password, user.password);
 
         if (!passCompare) {
-            return NextResponse.json({ message: 'Check your password', success: false });
+            return NextResponse.json({ message: 'Invalid password', success: false });
         }
 
-
+        // Generate JWT token
         const tokenData = {
             userId: user._id,
             phone: user.phone,
@@ -37,6 +47,7 @@ export async function POST(req: NextRequest) {
 
         const token = JWT.sign(tokenData, process.env.NEXT_PUBLIC_JWT_SECRET as string, { expiresIn: '7d' });
 
+        // Prepare user details to send back
         const userDetails = {
             token: token,
             name: user.name,
@@ -47,18 +58,19 @@ export async function POST(req: NextRequest) {
             isAdmin: user.isAdmin,
         };
 
+        const userMessage = user.isAdmin ? "Admin access granted" : "Logged in successfully";
 
-        const userMessage = user.isAdmin === true ? "Admin access granted" : "Logged in successfully"
-
+        // Create response with user details
         const response = NextResponse.json({ message: userMessage, success: true, userDetails });
 
+        // Set JWT token in cookie
         response.cookies.set('token', token, {
             httpOnly: true,
             expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days
         });
-        return response
+        return response;
 
-    } catch (error) {
-        return NextResponse.json({ message: 'Error in logging in', success: false, error });
+    } catch (error:any) {
+        return NextResponse.json({ message: 'Error in logging in', success: false, error: error.message });
     }
 }
