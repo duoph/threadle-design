@@ -29,14 +29,14 @@ const LoginPageAdmin = () => {
     try {
       setIsLoading(true);
 
-      if (!email || !password) {
+      if (!password) {
         setIsLoading(false);
         toast.error('Enter valid credentials');
         return;
       }
-
       const response = await axios.post('/api/login', {
         email,
+        phone,
         password,
       });
 
@@ -89,10 +89,23 @@ const LoginPageAdmin = () => {
           <h1 className='font-bold text-[30px] text-td-secondary'>Login</h1>
         </div>
         <div className='flex flex-col gap-3 w-full'>
-          <div className='flex items-center justify-center gap-2'>
-            <FaUserCircle size={24} />
-            <input type="text" placeholder='Email Or Phone' className='border px-5 py-2 rounded-2xl bg-slate-200 w-full' value={email} onChange={(e) => setEmail(e.target.value)} />
-          </div>
+          {
+            isPhone && (
+              <div className='flex items-center justify-center gap-2'>
+                <FaUserCircle size={24} />
+                <input type="text" placeholder="Email" className='border px-5 py-2 rounded-2xl bg-slate-200 w-full' value={email} onChange={(e) => setEmail(e.target.value)} />
+              </div>
+            )
+          }
+          {
+            !isPhone && (
+              <div className='flex items-center justify-center gap-2'>
+                <FaUserCircle size={24} />
+                <input type="text" placeholder={"Phone"} className='border px-5 py-2 rounded-2xl bg-slate-200 w-full' value={phone} onChange={(e) => setPhone(e.target.value)} />
+              </div>
+            )
+          }
+
           <div className='flex items-center justify-center gap-2'>
             <FaLock size={24} />
             <input type="password" placeholder='Password' className='border px-5 py-2 rounded-2xl bg-slate-200  w-full' value={password} onChange={(e) => setPassword(e.target.value)} />
@@ -107,8 +120,8 @@ const LoginPageAdmin = () => {
           </button>
 
           <div className='flex flex-col items-center justify-center'>
-          <span className='text-center text-sm'>Don&apos;t have an account?<span className='cursor-pointer text-blue-900 underline' onClick={() => router.push('/account/create-account')}>Create Account</span></span>
-          <span className='text-center text-sm'>Don&apos;t have an account?<span className='cursor-pointer text-blue-900 underline' onClick={() => router.push('/account/create-account')}>Create Account</span></span>
+            <span className='text-center text-sm'>Login with {!isPhone ? ("email") : ("phone")}?<span className='cursor-pointer text-blue-900 underline' onClick={() => setIsPhone(!isPhone)}>click here</span></span>
+            <span className='text-center text-sm'>Don&apos;t have an account?<span className='cursor-pointer text-blue-900 underline' onClick={() => router.push('/account/create-account')}>Create Account</span></span>
           </div>
 
         </div>
