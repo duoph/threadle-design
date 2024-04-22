@@ -11,18 +11,23 @@ import { MdNavigateBefore, MdNavigateNext } from 'react-icons/md';
 
 export const revalidate = 5000
 
-
 const Shop = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [searchProducts, setSearchProducts] = useState<Product[]>([]);
   const [search, setSearch] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const fetchProducts = async () => {
+    setIsLoading(true)
     try {
       const response = await axios.get('/api/product');
       setProducts(response.data.tdProduct);
+      setIsLoading(false)
+
     } catch (error) {
+      setIsLoading(false)
+
       console.log(error);
     }
   };
@@ -32,6 +37,7 @@ const Shop = () => {
   };
 
   const handleSort = (sortBy: string) => {
+    setIsLoading(true)
     let sortedProducts: Product[] = searchProducts.length > 0 ? [...searchProducts] : [...products];
 
     switch (sortBy) {
@@ -54,6 +60,7 @@ const Shop = () => {
 
     setCurrentPage(1);
     setSearchProducts(sortedProducts);
+    setIsLoading(false)
   };
 
   useEffect(() => {
@@ -82,6 +89,23 @@ const Shop = () => {
     setCurrentPage(currentPage - 1)
   }
 
+
+  if (isLoading) {
+    return (
+      <div className='flex flex-col gap-5 items-center justify-center px-2 lg:px-3 py-5 min-h-[85vh]'>
+        <div className='rounded-2xl flex items-center justify-center cursor-pointer gap-3 bg-td-secondary pr-6 w-full'>
+          <input
+            type='text'
+            placeholder='Search Product'
+            className='border px-4 py-4 rounded-2xl w-full'
+            value={search}
+            onChange={onSearch}
+          />
+          <CiSearch className='rounded-2xl text-[30px] cursor-pointer text-white' />
+        </div>
+      </div>
+    )
+  }
 
 
 
@@ -112,13 +136,13 @@ const Shop = () => {
         </select>
       </div>
       <div className='flex min-h-[60vh] items-start justify-center gap-[9px] flex-wrap md:gap-5'>
-        {currentProducts.length > 0 ? (
+        {currentProducts.length > 0 && !isLoading ? (
           currentProducts.map((product) => (
             product.inStock && <ProductCard getProducts={fetchProducts} key={product._id} product={product} />
           ))
         ) : (
-          <div className="pt-32">
-            <PulseLoader />
+          <div className='flex items-center justify-center h-full w-full'>
+            <span className=''>No Products Available</span>
           </div>
         )}
 
@@ -126,10 +150,10 @@ const Shop = () => {
       <div>
         {searchProducts.length > 18 && (
           <ul className="flex items-center justify-evenly gap-7">
-            <li className={`cursor-pointer page-item border flex items-center justify-center text-white rounded-2xl py-2 bg-td-secondary px-6 ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : ''}`}>
+            <li className={`cursor-pointer page-item border flex items-center justify-center text-white rounded-2xl py-2 bg-td-secondary px-6  ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105 transition-all ease-in-out'}`}>
               <button onClick={prevPage} disabled={currentPage === 1} className="flex items-center justify-center "> <MdNavigateBefore size={24} /> <span className='px-2'>Prev</span> </button>
             </li>
-            <li className={`cursor-pointer page-item border flex items-center justify-center text-white rounded-2xl py-2 bg-td-secondary px-6 ${indexOfLastProduct >= searchProducts.length ? 'opacity-50 cursor-not-allowed' : ''}`}>
+            <li className={`cursor-pointer page-item border flex items-center justify-center text-white rounded-2xl py-2 bg-td-secondary px-6 ${indexOfLastProduct >= searchProducts.length ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105 transition-all ease-in-out'}`}>
               <button onClick={nextPage} disabled={indexOfLastProduct >= searchProducts.length} className=" flex items-center justify-center"><span className='px-2'>Next</span> <MdNavigateNext size={24} /></button>
             </li>
           </ul>
