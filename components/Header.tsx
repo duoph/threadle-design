@@ -9,6 +9,9 @@ import { useRouter } from 'next/navigation';
 import { useUser } from '@/context/useUser';
 import { AiOutlineLogout } from 'react-icons/ai';
 import ClickAwayListener from 'react-click-away-listener';
+import axios from 'axios';
+import { FiLogOut } from 'react-icons/fi';
+import toast from 'react-hot-toast';
 
 
 const Header = () => {
@@ -32,7 +35,22 @@ const Header = () => {
         } catch (error) {
             console.log(error);
         }
+
     };
+
+    const handleLogout = async () => {
+        try {
+            await axios.get('/api/logout');
+            LogOut();
+            toast.success('Logout Success');
+            router.push('/account/login');
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
+
+
 
     useEffect(() => {
         cartItemCountFetch();
@@ -51,7 +69,7 @@ const Header = () => {
                         <CiShoppingCart onClick={() => router.push('/cart')} className='text-white ' size={24} />
                     </div>
                 )}
-                {currentUser?.isAdmin === false && (
+                {!currentUser?.isAdmin === true && (
                     <div className='relative cursor-pointer'>
                         <CiUser onClick={onAccountClick} className='text-white cursor-pointer' size={24} />
                     </div>
@@ -79,7 +97,7 @@ const Header = () => {
                         <Link href="/admin-panel/view-products" className=' w-full px-10 py-2 text-white text-center '>View All Product</Link>
                         <Link href="/admin-panel/view-categories" className=' w-full px-10 py-2 text-white text-center  '>View All Category</Link>
                         <Link href="/admin-panel/create-admin" className=' w-full px-10 py-2 text-white text-center '>Create a New Admin</Link>
-                        <button className='bg-red-600 w-full px-10 py-2 text-white text-center flex items-center justify-center gap-3' onClick={LogOut}> LogOut<AiOutlineLogout /></button>
+                        <button className='bg-red-600 w-full px-10 py-2 text-white text-center flex items-center justify-center gap-3' onClick={handleLogout}> LogOut<AiOutlineLogout /></button>
                     </div>
                 </ClickAwayListener>
 
