@@ -72,14 +72,14 @@ const Header = () => {
                 )}
 
                 <ClickAwayListener onClickAway={() => setIsMenu(false)}>
-                    <div onClick={() => setIsMenu(false)} className={`fixed md:top-[82px] top-[80px] h-full  right-0 flex flex-col items-center justify-start z-50 shadow-2xl  bg-slate-500 md:w-[300px] w-full  translate-x-[100%]  transition-all duration-300 ease-in-out ${isMenu && '-translate-x-[0%]'}`}>
-                        <Link href="/admin-panel/orders" className=' w-full px-10 py-2 text-white text-center border'>Orders</Link>
-                        <Link href="/admin-panel/create-product" className=' w-full px-10 py-2 text-white text-center  border'>Add Product</Link>
-                        <Link href="/admin-panel/create-category" className=' w-full px-10 py-2 text-white text-center border'>Add Category</Link>
-                        <Link href="/admin-panel/view-products" className=' w-full px-10 py-2 text-white text-center border'>View All Product</Link>
-                        <Link href="/admin-panel/view-categories" className=' w-full px-10 py-2 text-white text-center border '>View All Category</Link>
-                        <Link href="/admin-panel/create-admin" className=' w-full px-10 py-2 text-white text-center border'>Create a New Admin</Link>
-                        <button className='bg-red-600 rounded-2xl w-full px-10 py-2 text-white text-center flex items-center justify-center gap-3' onClick={LogOut}> LogOut<AiOutlineLogout /></button>
+                    <div onClick={() => setIsMenu(false)} className={`fixed top-[81px] h-full right-0 flex flex-col items-center justify-start z-50 shadow-2xl  bg-td-secondary md:w-[300px] w-full  translate-x-[100%]  transition-all duration-300 ease-in-out ${isMenu && '-translate-x-[0%]'}`}>
+                        <Link href="/admin-panel/orders" className=' w-full px-10 py-2 text-white text-center '>Orders</Link>
+                        <Link href="/admin-panel/create-product" className=' w-full px-10 py-2 text-white text-center  '>Add Product</Link>
+                        <Link href="/admin-panel/create-category" className=' w-full px-10 py-2 text-white text-center '>Add Category</Link>
+                        <Link href="/admin-panel/view-products" className=' w-full px-10 py-2 text-white text-center '>View All Product</Link>
+                        <Link href="/admin-panel/view-categories" className=' w-full px-10 py-2 text-white text-center  '>View All Category</Link>
+                        <Link href="/admin-panel/create-admin" className=' w-full px-10 py-2 text-white text-center '>Create a New Admin</Link>
+                        <button className='bg-red-600 w-full px-10 py-2 text-white text-center flex items-center justify-center gap-3' onClick={LogOut}> LogOut<AiOutlineLogout /></button>
                     </div>
                 </ClickAwayListener>
 
