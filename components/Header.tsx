@@ -10,7 +10,6 @@ import { useUser } from '@/context/useUser';
 import { AiOutlineLogout } from 'react-icons/ai';
 import ClickAwayListener from 'react-click-away-listener';
 import axios from 'axios';
-import { FiLogOut } from 'react-icons/fi';
 import toast from 'react-hot-toast';
 
 
@@ -35,8 +34,8 @@ const Header = () => {
         } catch (error) {
             console.log(error);
         }
-
     };
+
 
     const handleLogout = async () => {
         try {
@@ -91,7 +90,7 @@ const Header = () => {
                 )}
 
                 <ClickAwayListener onClickAway={() => setIsMenu(false)}>
-                    <div onClick={() => setIsMenu(false)} className={`fixed top-[81px] h-full right-0 flex flex-col items-center justify-start z-50 shadow-2xl  bg-td-secondary md:w-[300px] w-full  translate-x-[100%]  transition-all duration-300 ease-in-out ${isMenu && '-translate-x-[0%]'}`}>
+                    <div onClick={() => setIsMenu(false)} className={`fixed top-[81px] h-full right-0 flex flex-col items-center justify-start z-50 shadow-2xl  bg-td-secondary md:w-[300px] w-full  translate-x-[100%]  transition-all duration-300 ease-in-out ${isMenu && 'translate-x-[0%]'}`}>
                         <Link href="/admin-panel/orders" className=' w-full px-10 py-2 text-white text-center '>Orders</Link>
                         <Link href="/admin-panel/create-product" className=' w-full px-10 py-2 text-white text-center  '>Add Product</Link>
                         <Link href="/admin-panel/create-category" className=' w-full px-10 py-2 text-white text-center '>Add Category</Link>
