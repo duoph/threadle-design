@@ -53,35 +53,39 @@ const Header = () => {
                 )}
                 {currentUser?.isAdmin === false && (
                     <div className='relative cursor-pointer'>
-                                       <CiUser onClick={onAccountClick} className='text-white cursor-pointer' size={24} />
+                        <CiUser onClick={onAccountClick} className='text-white cursor-pointer' size={24} />
                     </div>
                 )}
 
-                <div className='text-white flex items-center justify-center'>
-                    {!isMenu ? (
-                        <button className=' rounded-2xl' onClick={() => setIsMenu(true)}>
-                            <CiMenuBurger className='cursor-pointer' size={24} />
-                        </button>
-                    ) : (
-                        <button className=' rounded-2xl' onClick={() => setIsMenu(true)}>
-                            <CiCircleRemove className='cursor-pointer' size={24} />
-                        </button>
-                    )}
-                </div>
-
-                {isMenu && (
-                    <ClickAwayListener onClickAway={() => setIsMenu(false)}>
-                        <div onClick={() => setIsMenu(false)} className={`absolute top-[82px] rounded-2xl right-0 flex flex-col items-center justify-center z-50 shadow-2xl  bg-slate-200 w-[300px]  transition-all duration-300 ease-in-out ${isMenu ? 'translate-x-0' : '-translate-x-full'}`}>
-                            <Link href="/admin-panel/orders" className='bg-td-secondary w-full px-10 py-2 text-white text-center'>Orders</Link>
-                            <Link href="/admin-panel/create-product" className='bg-td-secondary w-full px-10 py-2 text-white text-center'>Add Product</Link>
-                            <Link href="/admin-panel/create-category" className='bg-td-secondary w-full px-10 py-2 text-white text-center'>Add Category</Link>
-                            <Link href="/admin-panel/view-products" className='bg-td-secondary w-full px-10 py-2 text-white text-center'>View All Product</Link>
-                            <Link href="/admin-panel/view-categories" className='bg-td-secondary w-full px-10 py-2 text-white text-center'>View All Category</Link>
-                            <Link href="/admin-panel/create-admin" className='bg-td-secondary w-full px-10 py-2 text-white text-center'>Create a New Admin</Link>
-                            <button className='bg-red-600 w-full px-10 py-2 text-white text-center flex items-center justify-center gap-3' onClick={LogOut}> LogOut<AiOutlineLogout /></button>
-                        </div>
-                    </ClickAwayListener>
+                {currentUser?.isAdmin === true && (
+                    <div className='text-white flex items-center justify-center'>
+                        {!isMenu ? (
+                            <button className=' rounded-2xl' onClick={() => setIsMenu(true)}>
+                                <CiMenuBurger className='cursor-pointer' size={24} />
+                            </button>
+                        ) : (
+                            <button className=' rounded-2xl' onClick={() => setIsMenu(true)}>
+                                <CiCircleRemove className='cursor-pointer' size={24} />
+                            </button>
+                        )}
+                    </div>
                 )}
+
+                <ClickAwayListener onClickAway={() => setIsMenu(false)}>
+                    <div onClick={() => setIsMenu(false)} className={`fixed md:top-[82px] top-[80px] h-full  right-0 flex flex-col items-center justify-start z-50 shadow-2xl  bg-slate-500 md:w-[300px] w-full  translate-x-[100%]  transition-all duration-300 ease-in-out ${isMenu && '-translate-x-[0%]'}`}>
+                        <Link href="/admin-panel/orders" className=' w-full px-10 py-2 text-white text-center border'>Orders</Link>
+                        <Link href="/admin-panel/create-product" className=' w-full px-10 py-2 text-white text-center  border'>Add Product</Link>
+                        <Link href="/admin-panel/create-category" className=' w-full px-10 py-2 text-white text-center border'>Add Category</Link>
+                        <Link href="/admin-panel/view-products" className=' w-full px-10 py-2 text-white text-center border'>View All Product</Link>
+                        <Link href="/admin-panel/view-categories" className=' w-full px-10 py-2 text-white text-center border '>View All Category</Link>
+                        <Link href="/admin-panel/create-admin" className=' w-full px-10 py-2 text-white text-center border'>Create a New Admin</Link>
+                        <button className='bg-red-600 rounded-2xl w-full px-10 py-2 text-white text-center flex items-center justify-center gap-3' onClick={LogOut}> LogOut<AiOutlineLogout /></button>
+                    </div>
+                </ClickAwayListener>
+
+                {/* {isMenu && (
+                   
+                )} */}
             </div>
         </div>
     );
