@@ -93,6 +93,27 @@ const Shop = () => {
     setCurrentPage(currentPage - 1)
   }
 
+  if (products?.length === 0) { // Check for both products and loading state
+    return (
+      <div className='flex flex-col items-center py-5 px-3 gap-3 min-h-[85vh]'>
+        <div className='rounded-2xl flex items-center justify-center cursor-pointer gap-3 bg-td-secondary pr-6 w-full'>
+          <input
+            type='text'
+            placeholder='Search Product'
+            className='border px-4 py-4 rounded-2xl w-full'
+            value={search}
+            onChange={onSearch}
+          />
+          <CiSearch className='rounded-2xl text-[30px] cursor-pointer text-white' />
+        </div>
+        <div className=' h-[60vh] flex items-center justify-center'>
+          <PulseLoader />
+        </div>
+      </div>
+    )
+  }
+
+
 
   return (
     <div className='flex flex-col gap-5 items-center justify-start px-2 lg:px-3 py-5 min-h-[85vh]'>

@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { CiSearch } from 'react-icons/ci'
 import { MdNavigateBefore, MdNavigateNext } from 'react-icons/md'
+import { PulseLoader } from 'react-spinners'
 
 const ViewAllProducts = () => {
     const [products, setProducts] = useState<Product[]>([])
@@ -54,8 +55,20 @@ const ViewAllProducts = () => {
         setCurrentPage(currentPage - 1)
     }
 
+    if (products?.length === 0) {
+        return (
+            <div className='flex flex-col items-center py-5 px-3 gap-3 min-h-[85vh]'>
+                <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>All Products</h1>
+                <div className=" absolute flex items-center justify-center flex-grow h-[65vh]">
+                    <PulseLoader />
+                </div>
+            </div>
+        )
+    }
+
+
     return (
-        <div className='md:px-10  w-full flex flex-col flex-wrap items-center justify-center gap-3 px-2 lg:px-3 py-5'>
+        <div className='md:px-10  w-full flex flex-col flex-wrap items-center justify-center gap-3 px-2 lg:px-3 py-5 min-h-[85vh]'>
             <div>
                 <h1 className='text-[30px] font-bold text-td-secondary'>All Products</h1>
             </div>
@@ -68,7 +81,7 @@ const ViewAllProducts = () => {
                     onChange={(e) => setSearch(e.target.value)} />
                 <CiSearch className='rounded-2xl text-[30px] cursor-pointer text-white' />
             </div>
-            <div className='min-h-[80vh] md:px-10 flex flex-col items-center justify-center gap-3'>
+            <div className='min-h-[80vh] md:px-10 flex flex-col items-center justify-start gap-3'>
 
                 <div className='flex min-h-[60vh] items-start justify-center z-40 gap-[9px] flex-wrap md:gap-5'>
                     {currentProducts.map((product) => (

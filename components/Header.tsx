@@ -3,7 +3,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { CiSearch, CiUser, CiShoppingCart, CiMenuBurger, CiCircleRemove } from "react-icons/ci";
+import { CiSearch, CiUser, CiShoppingCart, CiMenuBurger, CiCircleRemove, CiCirclePlus } from "react-icons/ci";
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useUser } from '@/context/useUser';
@@ -93,10 +93,29 @@ const Header = () => {
 
 
                 <ClickAwayListener onClickAway={() => setIsMenu(true)}>
-                    <div onClick={() => setIsMenu(true)} className={`fixed top-[81px] h-full right-0 flex flex-col items-center justify-start z-50 shadow-2xl  bg-td-secondary md:w-[300px] w-full  translate-x-[0%]  transition-all duration-300 ease-in-out ${isMenu && 'translate-x-[100%]'}`}>
-                        <Link href="/admin-panel/orders" className=' w-full px-10 py-2 text-white text-center '>Orders</Link>
-                        <Link href="/admin-panel/create-product" className=' w-full px-10 py-2 text-white text-center  '>Add Product</Link>
-                        <Link href="/admin-panel/create-category" className=' w-full px-10 py-2 text-white text-center '>Add Category</Link>
+                    <div onClick={() => setIsMenu(true)} className={`fixed top-[81px] h-full right-0 flex flex-col items-start justify-start z-50 shadow-2xl  bg-td-secondary md:w-[300px] w-full  translate-x-[0%]  transition-all duration-300 ease-in-out ${isMenu && 'translate-x-[100%]'}`}>
+                        <Link href="/admin-panel/orders" className=' w-full px-10 py-2 text-white text-center '>
+                            <span className="flex items-center justify-center gap-2">
+                                <CiShoppingCart />
+                                <p>
+                                    Orders
+                                </p>
+                            </span>
+                        </Link>
+                        <Link href="/admin-panel/create-product" className=' w-full px-10 py-2 text-white text-center  '>
+                            <span className="flex items-center justify-center gap-2">
+                                <CiCirclePlus />
+                                <p>
+                                    Add Products
+                                </p>
+                            </span>
+                        </Link>
+                        <Link href="/admin-panel/create-category" className=' w-full px-10 py-2 text-white text-center '> <span className="flex items-center justify-center gap-2">
+                                <CiCirclePlus />
+                                <p>
+                                    Add Category
+                                </p>
+                            </span></Link>
                         <Link href="/admin-panel/view-products" className=' w-full px-10 py-2 text-white text-center '>View All Product</Link>
                         <Link href="/admin-panel/view-categories" className=' w-full px-10 py-2 text-white text-center  '>View All Category</Link>
                         <Link href="/admin-panel/create-admin" className=' w-full px-10 py-2 text-white text-center '>Create a New Admin</Link>

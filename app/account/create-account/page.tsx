@@ -17,16 +17,19 @@ interface FormData {
     email: string;
     password: string;
     whatsApp: string;
+    confirmPassword: string;
 }
 
 const CreateAccount = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [confirmPass, setConfirmPass] = useState<string>()
     const [formData, setFormData] = useState<FormData>({
         phone: '',
         whatsApp: '',
         name: '',
         email: '',
         password: '',
+        confirmPassword: ''
     });
 
     const router = useRouter();
@@ -39,8 +42,23 @@ const CreateAccount = () => {
         });
     };
 
+    const isMatchCheck = (e: ChangeEvent<HTMLInputElement>) => {
+        const { value } = e.target;
+        setConfirmPass(value);
+    };
+
+    const passwordsMatch = () => {
+        return formData.password === confirmPass;
+    };
+
+
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
+
+        if (!passwordsMatch()) {
+            toast.error("Passwords do not match");
+            return;
+        }
 
         try {
             setIsLoading(true)
@@ -82,14 +100,16 @@ const CreateAccount = () => {
 
     return (
         <div className='flex flex-col items-center justify-center bg-td-secondary gap-3 py-5 md:px-10 px-5 min-h-[85vh]'>
-            {/* <div className='flex text-white gap-2 items-center justify-start'>
-                <IoMdArrowBack className="cursor-pointer hover:scale-110" onClick={() => router.push("/shop")} size={24} />
-                <h1 className='font-bold text-[25px]'>Home</h1>
-            </div> */}
+
             <div className='flex items-center justify-center pb-10 w-full'>
-                <form onSubmit={handleSubmit} className='rounded-2xl bg-white flex flex-col gap-3 md:w-[400px] w-full md:px-10 py-10 px-5 '>
-                    <h1 className='text-center font-bold text-td-secondary text-[30px]'>Create Account</h1>
-                    <div className='flex items-center justify-center gap-2 c'>
+
+                <form onSubmit={handleSubmit} className='rounded-2xl bg-white flex flex-col gap-3 md:w-[400px] w-full md:px-10 py-8 px-5 '>
+                    <div className='h-[10vh] flex flex-col items-center justify-start'>
+                        <h1 className='text-center font-bold text-td-secondary text-[30px]'>Create Account</h1>
+                        {!passwordsMatch() && confirmPass && <span className='text-red-600 text-center transition-all ease-in-out duration-300 '>Password dosn&#39;t match</span>}
+                    </div>
+
+                    <div className='flex items-center justify-center gap-2 '>
                         <FaUserCircle size={24} />
                         <input
                             type="text"
@@ -141,7 +161,20 @@ const CreateAccount = () => {
                             name="password"
                             value={formData.password}
                             onChange={handleChange}
-                            placeholder='Password' className='border px-5 py-2 rounded-2xl bg-slate-200 w-full'
+                            placeholder='Password'
+                            className='border px-5 py-2 rounded-2xl bg-slate-200 w-full'
+                        />
+                    </div>
+                    <div className={`flex items-center justify-center gap-2 ${!passwordsMatch() && 'border-red-600 focus:border-red-500'}`}>
+                        <FaLock size={24} />
+                        <input
+                            type="password"
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            value={confirmPass}
+                            onChange={isMatchCheck}
+                            placeholder='Confirm Password'
+                            className='border px-5 py-2 rounded-2xl bg-slate-200 w-full'
                         />
                     </div>
                     <button type="submit" className='bg-td-secondary h-12  text-white px-5 py-3 rounded-2xl mt-4 w-full'>
