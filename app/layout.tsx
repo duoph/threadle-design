@@ -5,7 +5,6 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Toaster } from "react-hot-toast";
 import { UserProvider } from "@/context/useUser";
-import { ThemeProvider } from "@material-tailwind/react";
 
 
 const inter = Inter({ subsets: ['latin'] })
