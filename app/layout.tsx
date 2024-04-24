@@ -26,7 +26,6 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <UserProvider>
-          <ThemeProvider>
             <Header />
             <Toaster
               position="top-center"
@@ -36,7 +35,6 @@ export default function RootLayout({
               {children}
             </main>
             <Footer />
-          </ThemeProvider>
         </UserProvider>
       </body>
     </html>
