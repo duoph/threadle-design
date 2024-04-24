@@ -22,7 +22,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="icon" href="/icon.png" />
-      </head>
+    </head>
       <body className={inter.className}>
         <UserProvider>
             <Header />
