@@ -101,14 +101,14 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
                         <Image priority={true} src={product?.coverImageURL} style={{ objectFit: "cover" }} className='rounded-lg' quality={50} fill alt='Red-Dress' sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
                     )}
                 </div>
-                <div className='w-full px-3 py-2 flex flex-col gap-2 '>
-                    <p className='text-start break-all font-light truncate '>{product?.title}</p>
+                <div className='w-full px-3 py-2 flex flex-col gap-2  '>
+                    <p className='text-start break-all font-light truncate'>{product?.title.substring(0, 50)}</p>
                     <div className='flex gap-3'>
                         {!product?.isCustom ? (
                             <>
                                 {product?.salePrice ? (
                                     <>
-                                        <p className={`font-medium ${product?.salePrice && "line-through"}`}>&#8377;{product?.regularPrice}</p>
+                                        {/* <p className={`font-medium ${product?.salePrice && "line-through"}`}>&#8377;{product?.regularPrice}</p> */}
                                         <p className={`text-red-600 font-medium`}>&#8377;{product?.salePrice}</p>
                                     </>
                                 ) : (

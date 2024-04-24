@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Toaster } from "react-hot-toast";
 import { UserProvider } from "@/context/useUser";
+import { ThemeProvider } from "@material-tailwind/react";
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -25,15 +26,17 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <UserProvider>
-          <Header />
-          <Toaster
-            position="top-center"
-            reverseOrder={false}
-          />
-          <main style={{ paddingTop: '80px' }}>
-            {children}
-          </main>
-          <Footer />
+          <ThemeProvider>
+            <Header />
+            <Toaster
+              position="top-center"
+              reverseOrder={false}
+            />
+            <main style={{ paddingTop: '80px' }}>
+              {children}
+            </main>
+            <Footer />
+          </ThemeProvider>
         </UserProvider>
       </body>
     </html>
