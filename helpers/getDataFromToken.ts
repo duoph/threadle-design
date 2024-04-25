@@ -2,6 +2,11 @@ import jwt from 'jsonwebtoken';
 import { NextRequest } from 'next/server';
 
 
+interface tokenDataProps {
+    req: NextRequest;
+    token?: string
+}
+
 export const getDataFromToken: any = async (req: NextRequest) => {
     try {
 

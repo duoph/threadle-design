@@ -3,27 +3,22 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { getDataFromToken } from './helpers/getDataFromToken';
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
 
-    const path = request.nextUrl.pathname
+    const path = await request.nextUrl.pathname
+
 
     const token = request.cookies.get("token")?.value || ""
 
+    const data = getDataFromToken(request)
+
+
+    console.log(token, data)
+
     if (path === "/shop") {
-        console.log("messsi")
+        return NextResponse.redirect(new URL('/admin-panel', request.url))
     }
 
-
-    // const isPublicPath = path === "/account/login" || "/account/create-account"
-
-    // if (!isPublicPath && !token) {
-    //     return NextResponse.redirect(new URL('/account', request.url))
-    // }
-
-
-    // if (path.startsWith("/admin-panel/*path:") && isAdmin === false) {
-    //     return NextResponse.redirect(new URL('/account', request.url))
-    // }
 }
 
 // See "Matching Paths" below to learn more

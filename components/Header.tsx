@@ -3,7 +3,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { CiSearch, CiUser, CiShoppingCart, CiMenuBurger, CiCircleRemove, CiCirclePlus } from "react-icons/ci";
+import { CiSearch, CiUser, CiShoppingCart, CiMenuBurger, CiCircleRemove, CiCirclePlus, CiShop } from "react-icons/ci";
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useUser } from '@/context/useUser';
@@ -11,6 +11,7 @@ import { AiOutlineLogout } from 'react-icons/ai';
 import ClickAwayListener from 'react-click-away-listener';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { RiAdminLine } from 'react-icons/ri';
 
 
 const Header = () => {
@@ -99,8 +100,6 @@ const Header = () => {
                     </div>
                 )}
 
-
-
                 <ClickAwayListener onClickAway={() => setIsMenu(true)}>
                     <div onClick={() => setIsMenu(true)} className={`fixed top-[81px] h-full right-0 flex flex-col items-start justify-start z-50 shadow-2xl  bg-td-secondary md:w-[300px] w-full  translate-x-[0%]  transition-all duration-300 ease-in-out ${isMenu && 'translate-x-[100%]'}`}>
                         <Link href="/admin-panel/orders" className=' w-full px-10 py-2 text-white text-center '>
@@ -115,7 +114,7 @@ const Header = () => {
                             <span className="flex items-center justify-center gap-2">
                                 <CiCirclePlus />
                                 <p>
-                                    Add Products
+                                    Add Product
                                 </p>
                             </span>
                         </Link>
@@ -124,10 +123,33 @@ const Header = () => {
                             <p>
                                 Add Category
                             </p>
-                        </span></Link>
-                        <Link href="/admin-panel/view-products" className=' w-full px-10 py-2 text-white text-center '>View All Product</Link>
-                        <Link href="/admin-panel/view-categories" className=' w-full px-10 py-2 text-white text-center  '>View All Category</Link>
-                        <Link href="/admin-panel/create-admin" className=' w-full px-10 py-2 text-white text-center '>Create a New Admin</Link>
+                        </span>
+                        </Link>
+                        <Link href="/admin-panel/view-products" className=' w-full px-10 py-2 text-white text-center '>
+                            <span className="flex items-center justify-center gap-2">
+                                <CiShop />
+                                <p>
+                                    View All Products
+                                </p>
+                            </span>
+                        </Link>
+                        <Link href="/admin-panel/view-categories" className=' w-full px-10 py-2 text-white text-center  '>
+                            <span className="flex items-center justify-center gap-2">
+                                <CiShop />
+                                <p>
+                                    View All Categories
+                                </p>
+                            </span>
+
+                        </Link>
+                        <Link href="/admin-panel/create-admin" className=' w-full px-10 py-2 text-white text-center '>
+                            <span className="flex items-center justify-center gap-2">
+                                <RiAdminLine />
+                                <p>
+                                    Create new Admin
+                                </p>
+                            </span>
+                        </Link>
                         <button className='bg-red-600 w-full px-10 py-2 text-white text-center flex items-center justify-center gap-3' onClick={handleLogout}> LogOut<AiOutlineLogout /></button>
                     </div>
                 </ClickAwayListener>
