@@ -111,7 +111,7 @@ const LoginPageAdmin = () => {
             )}
           </button>
           <div className='flex flex-col items-center justify-center'>
-            <span className='text-center text-sm'>Login with {!isPhone ? ("email") : ("phone")}?<span className='cursor-pointer text-blue-900 underline' onClick={() => setIsPhone(!isPhone)}>click here</span></span>
+            <span className='text-center text-sm'>Login with {!isPhone ? ("phone") : ("email")}?<span className='cursor-pointer text-blue-900 underline' onClick={() => setIsPhone(!isPhone)}>click here</span></span>
             <span className='text-center text-sm'>Don&apos;t have an account?<span className='cursor-pointer text-blue-900 underline' onClick={() => router.push('/account/create-account')}>Create Account</span></span>
           </div>
         </div>

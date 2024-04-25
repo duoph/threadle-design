@@ -63,18 +63,26 @@ const Header = () => {
             </Link>
             <div className='flex items-center justify-center gap-2'>
 
-                {currentUser?.isAdmin === false && currentUser?.token && (
-                    <div className='relative cursor-pointer'>
+                {currentUser?.isAdmin !== true && currentUser?.token && (
+                    <div className='relative  cursor-pointer'>
                         <span className='absolute p-1 px-2 text-xs bg-red-800 rounded-full -right-2 -top-2 text-white'>{cartCount || "0"}</span>
                         <CiShoppingCart onClick={() => router.push('/cart')} className='text-white ' size={24} />
                     </div>
                 )}
-                {!currentUser?.isAdmin === true && (
+
+                {currentUser?.token && (
                     <div className='cursor-pointer flex items-center justify-center gap-2 '>
                         <CiSearch onClick={() => router.push('/shop')} className='text-white cursor-pointer' size={24} />
                         <CiUser onClick={onAccountClick} className='text-white cursor-pointer' size={24} />
                     </div>
                 )}
+
+                {!currentUser?.token && (
+                    <div className='cursor-pointer flex items-center justify-center gap-2 '>
+                        <h1 onClick={() => router.push("/account/login")} className="text-white font-medium">Login/Register</h1>
+                    </div>
+                )}
+
 
                 {currentUser?.isAdmin === true && (
                     <div className='text-white flex items-center justify-center'>
@@ -111,11 +119,11 @@ const Header = () => {
                             </span>
                         </Link>
                         <Link href="/admin-panel/create-category" className=' w-full px-10 py-2 text-white text-center '> <span className="flex items-center justify-center gap-2">
-                                <CiCirclePlus />
-                                <p>
-                                    Add Category
-                                </p>
-                            </span></Link>
+                            <CiCirclePlus />
+                            <p>
+                                Add Category
+                            </p>
+                        </span></Link>
                         <Link href="/admin-panel/view-products" className=' w-full px-10 py-2 text-white text-center '>View All Product</Link>
                         <Link href="/admin-panel/view-categories" className=' w-full px-10 py-2 text-white text-center  '>View All Category</Link>
                         <Link href="/admin-panel/create-admin" className=' w-full px-10 py-2 text-white text-center '>Create a New Admin</Link>

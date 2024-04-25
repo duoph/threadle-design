@@ -108,11 +108,11 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
                             <>
                                 {product?.salePrice ? (
                                     <>
-                                        {/* <p className={`font-medium ${product?.salePrice && "line-through"}`}>&#8377;{product?.regularPrice}</p> */}
+                                        <p className={`font-medium ${product?.salePrice && "line-through"}`}>&#8377;{product?.regularPrice}</p>
                                         <p className={`text-red-600 font-medium`}>&#8377;{product?.salePrice}</p>
                                     </>
                                 ) : (
-                                    <p className={`font-medium`}>&#8377;{product?.regularPrice}</p>
+                                    <p className={`font-medium text-red-600 `}>&#8377;{product?.regularPrice}</p>
                                 )}
                             </>
                         ) : (
