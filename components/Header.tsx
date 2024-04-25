@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { CiSearch, CiUser, CiShoppingCart, CiMenuBurger, CiCircleRemove, CiCirclePlus, CiShop } from "react-icons/ci";
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useUser } from '@/context/useUser';
 import { AiOutlineLogout } from 'react-icons/ai';
 import ClickAwayListener from 'react-click-away-listener';
@@ -18,6 +18,11 @@ const Header = () => {
     const { LogOut, currentUser, cartItemCountFetch, cartCount } = useUser();
     const router = useRouter();
     const [isMenu, setIsMenu] = useState<boolean>(true);
+
+
+    const pathname = usePathname()
+
+    console.log(pathname)
 
     const onAccountClick = () => {
         try {
@@ -102,7 +107,7 @@ const Header = () => {
 
                 <ClickAwayListener onClickAway={() => setIsMenu(true)}>
                     <div onClick={() => setIsMenu(true)} className={`fixed top-[81px] h-full right-0 flex flex-col items-start justify-start z-50 shadow-2xl  bg-td-secondary md:w-[300px] w-full  translate-x-[0%]  transition-all duration-300 ease-in-out ${isMenu && 'translate-x-[100%]'}`}>
-                        <Link href="/admin-panel/orders" className=' w-full px-10 py-2 text-white text-center '>
+                        <Link href="/admin-panel/orders" className={` w-full px-10 py-2 text-white  text-center ${pathname?.startsWith("/admin-panel/orders") && "bg-td-primary"}`}>
                             <span className="flex items-center justify-center gap-2">
                                 <CiShoppingCart />
                                 <p>
@@ -110,7 +115,7 @@ const Header = () => {
                                 </p>
                             </span>
                         </Link>
-                        <Link href="/admin-panel/create-product" className=' w-full px-10 py-2 text-white text-center  '>
+                        <Link href="/admin-panel/create-product" className={` w-full px-10 py-2 text-white  text-center ${pathname?.startsWith("/admin-panel/create-product") && "bg-td-primary"}`}>
                             <span className="flex items-center justify-center gap-2">
                                 <CiCirclePlus />
                                 <p>
@@ -118,14 +123,14 @@ const Header = () => {
                                 </p>
                             </span>
                         </Link>
-                        <Link href="/admin-panel/create-category" className=' w-full px-10 py-2 text-white text-center '> <span className="flex items-center justify-center gap-2">
+                        <Link href="/admin-panel/create-category" className={` w-full px-10 py-2 text-white  text-center ${pathname?.startsWith("/admin-panel/create-category") && "bg-td-primary"}`}> <span className="flex items-center justify-center gap-2">
                             <CiCirclePlus />
                             <p>
                                 Add Category
                             </p>
                         </span>
                         </Link>
-                        <Link href="/admin-panel/view-products" className=' w-full px-10 py-2 text-white text-center '>
+                        <Link href="/admin-panel/view-products" className={` w-full px-10 py-2 text-white  text-center ${pathname?.startsWith("/admin-panel/view-products") || pathname?.startsWith("/admin-panel/edit-product") && "bg-td-primary"}`}>
                             <span className="flex items-center justify-center gap-2">
                                 <CiShop />
                                 <p>
@@ -133,16 +138,15 @@ const Header = () => {
                                 </p>
                             </span>
                         </Link>
-                        <Link href="/admin-panel/view-categories" className=' w-full px-10 py-2 text-white text-center  '>
+                        <Link href="/admin-panel/view-categories" className={` w-full px-10 py-2 text-white  text-center ${pathname?.startsWith("/admin-panel/view-categories") || pathname?.startsWith("/admin-panel/edit-category") && "bg-td-primary"}`}>
                             <span className="flex items-center justify-center gap-2">
                                 <CiShop />
                                 <p>
                                     View All Categories
                                 </p>
                             </span>
-
                         </Link>
-                        <Link href="/admin-panel/create-admin" className=' w-full px-10 py-2 text-white text-center '>
+                        <Link href="/admin-panel/create-admin" className={` w-full px-10 py-2 text-white  text-center ${pathname?.startsWith("/admin-panel/create-admin") && "bg-td-primary"}`}>
                             <span className="flex items-center justify-center gap-2">
                                 <RiAdminLine />
                                 <p>
@@ -154,8 +158,8 @@ const Header = () => {
                     </div>
                 </ClickAwayListener>
 
-            </div>
-        </div>
+            </div >
+        </div >
     );
 };
 

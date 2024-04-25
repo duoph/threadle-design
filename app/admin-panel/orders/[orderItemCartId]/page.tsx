@@ -1,6 +1,5 @@
 "use client"
 
-import AdminPanelLayout from "@/layout/AdminPanelLayout"
 import { Cart } from "@/types"
 import axios from "axios"
 import Image from "next/image"
@@ -113,7 +112,6 @@ const OrderDetailsPage = () => {
 
 
     return (
-        <AdminPanelLayout>
             <div className="min-h-[80vh] py-3 px-3 flex flex-col gap-4 w-full">
                 <h1 className="text-center font-bold text-[25px] md:text-[35px] text-td-secondary">Confirm Order Shipping</h1>
                 <div className="flex flex-col gap-3 border px-3 py-3 rounded-2xl bg-slate-100">
@@ -167,7 +165,6 @@ const OrderDetailsPage = () => {
                         </>
                     )}
 
-
                     {isLoading && (<div className="w-full">
                         <button className="bg-td-secondary px-3 py-3 text-white w-full md:w-[1/2] rounded-2xl">
                             <PulseLoader color="white" />
@@ -176,7 +173,6 @@ const OrderDetailsPage = () => {
 
                 </div>
             </div>
-        </AdminPanelLayout>
 
     )
 }
