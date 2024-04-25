@@ -8,9 +8,11 @@ export function middleware(request: NextRequest) {
     const path = request.nextUrl.pathname
 
     const token = request.cookies.get("token")?.value || ""
-    const isAdmin = request.cookies.get("isAdmin")?.value || false
 
-    console.log("This is the token data", isAdmin)
+    if (path === "/shop") {
+        console.log("messsi")
+    }
+
 
     // const isPublicPath = path === "/account/login" || "/account/create-account"
 
@@ -26,5 +28,5 @@ export function middleware(request: NextRequest) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-    matcher: ['/admin-panel/:path*', '/account/[userId]', "/account/login", "/account/create-account"]
+    matcher: ['/admin-panel/:path*', '/account/[userId]', "/account/login", "/account/create-account", "/shop"]
 }

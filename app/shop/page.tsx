@@ -93,7 +93,7 @@ const Shop = () => {
     setCurrentPage(currentPage - 1)
   }
 
-  if (products?.length === 0) { // Check for both products and loading state
+  if (products?.length === 0) { 
     return (
       <div className='flex flex-col items-center py-5 px-3 gap-3 min-h-[85vh]'>
         <div className='rounded-2xl flex items-center justify-center cursor-pointer gap-3 bg-td-secondary pr-6 w-full'>

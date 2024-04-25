@@ -70,7 +70,7 @@ const Header = () => {
                     </div>
                 )}
 
-                {currentUser?.token && (
+                {currentUser?.token && currentUser?.isAdmin !== true && (
                     <div className='cursor-pointer flex items-center justify-center gap-2 '>
                         <CiSearch onClick={() => router.push('/shop')} className='text-white cursor-pointer' size={24} />
                         <CiUser onClick={onAccountClick} className='text-white cursor-pointer' size={24} />
@@ -79,6 +79,7 @@ const Header = () => {
 
                 {!currentUser?.token && (
                     <div className='cursor-pointer flex items-center justify-center gap-2 '>
+                        <CiSearch onClick={() => router.push('/shop')} className='text-white cursor-pointer' size={24} />
                         <h1 onClick={() => router.push("/account/login")} className="text-white font-medium">Login/Register</h1>
                     </div>
                 )}
