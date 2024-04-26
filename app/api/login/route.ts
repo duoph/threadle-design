@@ -68,9 +68,13 @@ export async function POST(req: NextRequest) {
             httpOnly: true,
             expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days
         })
+        response.cookies.set('isAdmin', user.isAdmin , {
+            httpOnly: true,
+            expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days
+        })
         return response;
 
-    } catch (error:any) {
+    } catch (error: any) {
         return NextResponse.json({ message: 'Error in logging in', success: false, error: error.message });
     }
 }

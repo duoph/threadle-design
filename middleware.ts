@@ -1,27 +1,51 @@
-import jwt from 'jsonwebtoken';
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { getDataFromToken } from './helpers/getDataFromToken';
 
-export async function middleware(request: NextRequest) {
 
-    const path = await request.nextUrl.pathname
+export function middleware(request: NextRequest) {
+
+    const path = request.nextUrl.pathname
 
 
     const token = request.cookies.get("token")?.value || ""
+    const isAdmin = request.cookies.get("isAdmin")?.value || false
 
-    const data = getDataFromToken(request)
 
 
-    console.log(token, data)
+    if (path === "/") {
+        if (token && isAdmin) {
+            return NextResponse.redirect(new URL('/admin-panel/orders', request.url))
+        } else if (token) {
+            return NextResponse.redirect(new URL('/shop', request.url))
+        }
+    }
 
-    // if (path === "/shop") {
-    //     return NextResponse.redirect(new URL('/admin-panel', request.url))
-    // }
+    if (path.startsWith("/admin-panel/")) {
+        console.log("Requested path:", path);
+        console.log("isAdmin status:", isAdmin);
+        if (isAdmin === false) {
+            console.log("User is not admin. Redirecting...");
+            const redirectUrl = new URL('/pagenotfound', request.url);
+            console.log("Redirecting to:", redirectUrl.href);
+            return NextResponse.redirect(redirectUrl);
+        }
+    }
+    
+
+    if (path === "/cart") {
+
+        if (token) {
+
+            return NextResponse.redirect(new URL('/cart', request.url))
+        } else {
+            return NextResponse.redirect(new URL('account/login', request.url))
+
+        }
+
+    }
 
 }
 
-// See "Matching Paths" below to learn more
 export const config = {
-    matcher: ['/admin-panel/:path*', '/account/[userId]', "/account/login", "/account/create-account", "/shop"]
+    matcher: ['/admin-panel/:path*', '/account/[userId]', "/account/login", "/account/create-account", "/shop", "/cart", "/"]
 }
