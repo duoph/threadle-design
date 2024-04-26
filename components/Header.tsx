@@ -130,7 +130,7 @@ const Header = () => {
                             </p>
                         </span>
                         </Link>
-                        <Link href="/admin-panel/view-products" className={` w-full px-10 py-2 text-white  text-center ${pathname?.startsWith("/admin-panel/view-products") || pathname?.startsWith("/admin-panel/edit-product") && "bg-td-primary"}`}>
+                        <Link href="/admin-panel/view-products" className={` w-full px-10 py-2 text-white  text-center ${pathname?.startsWith("/admin-panel/view-products") && "bg-td-primary"} ${pathname?.startsWith("/admin-panel/edit-product/") && "bg-td-primary"}`}>
                             <span className="flex items-center justify-center gap-2">
                                 <CiShop />
                                 <p>
@@ -138,7 +138,7 @@ const Header = () => {
                                 </p>
                             </span>
                         </Link>
-                        <Link href="/admin-panel/view-categories" className={` w-full px-10 py-2 text-white  text-center ${pathname?.startsWith("/admin-panel/view-categories") || pathname?.startsWith("/admin-panel/edit-category") && "bg-td-primary"}`}>
+                        <Link href="/admin-panel/view-categories" className={` w-full px-10 py-2 text-white text-center ${pathname?.startsWith("/admin-panel/edit-category") && "bg-td-primary"} ${pathname?.startsWith("/admin-panel/view-categories") && "bg-td-primary"}`}>
                             <span className="flex items-center justify-center gap-2">
                                 <CiShop />
                                 <p>
@@ -146,7 +146,7 @@ const Header = () => {
                                 </p>
                             </span>
                         </Link>
-                        <Link href="/admin-panel/create-admin" className={` w-full px-10 py-2 text-white  text-center ${pathname?.startsWith("/admin-panel/create-admin") && "bg-td-primary"}`}>
+                        <Link href="/admin-panel/create-admin" className={` w-full px-10 py-2 text-white text-center ${pathname?.startsWith("/admin-panel/create-admin") && "bg-td-primary"}`}>
                             <span className="flex items-center justify-center gap-2">
                                 <RiAdminLine />
                                 <p>
