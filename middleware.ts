@@ -15,9 +15,9 @@ export async function middleware(request: NextRequest) {
 
     console.log(token, data)
 
-    if (path === "/shop") {
-        return NextResponse.redirect(new URL('/admin-panel', request.url))
-    }
+    // if (path === "/shop") {
+    //     return NextResponse.redirect(new URL('/admin-panel', request.url))
+    // }
 
 }
 
