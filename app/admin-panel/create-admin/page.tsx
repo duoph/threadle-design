@@ -1,7 +1,5 @@
 "use client"
 
-import { useUser } from '@/context/useUser';
-import AdminPanelLayout from '@/layout/AdminPanelLayout';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';

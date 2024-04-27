@@ -68,7 +68,7 @@ export async function POST(req: NextRequest) {
             httpOnly: true,
             expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days
         })
-        response.cookies.set('isAdmin', user.isAdmin , {
+        response.cookies.set('isAdmin', user.isAdmin ? "1" : "0", {
             httpOnly: true,
             expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days
         })

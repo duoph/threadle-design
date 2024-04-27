@@ -13,7 +13,7 @@ export function middleware(request: NextRequest) {
 
 
     if (path === "/") {
-        if (token && isAdmin) {
+        if (token && isAdmin === "1") {
             return NextResponse.redirect(new URL('/admin-panel/orders', request.url))
         } else if (token) {
             return NextResponse.redirect(new URL('/shop', request.url))
@@ -30,7 +30,7 @@ export function middleware(request: NextRequest) {
             return NextResponse.redirect(redirectUrl);
         }
     }
-    
+
 
     if (path === "/cart") {
 
