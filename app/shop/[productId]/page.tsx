@@ -16,7 +16,6 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useUser } from '@/context/useUser'
 import Script from 'next/script'
-import { Helmet } from "react-helmet";
 
 
 
@@ -189,6 +188,9 @@ const ProductPage = () => {
         color: selectedColor,
         size: selectedSize,
         quantity,
+        phoneNumber: user?.phone,
+        whatsAppNumber: user?.whatsAppNumber,
+        toAdress: user?.address,
         price: product?.salePrice || product?.regularPrice,
         imageURL: product?.coverImageURL,
         title: product?.title,
@@ -196,6 +198,12 @@ const ProductPage = () => {
         razorpay_payment_id: response.razorpay_payment_id,
         razorpay_signature: response.razorpay_signature,
       });
+
+      await axios.post("/api/sms", {
+        phone: `+91${user?.phone}`,
+        message: `Threadle Designs : Your order for ${product?.title} is successfully Placed will notify you when it is shipped`
+      }
+      )
 
       if (res.data.success === true) {
         cartItemCountFetch();

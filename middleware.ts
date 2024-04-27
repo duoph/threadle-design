@@ -24,11 +24,11 @@ export function middleware(request: NextRequest) {
 
 
     if (path.startsWith("/admin-panel/")) {
-        if (isAdmin === "0") {
+        if (!token) {
             return NextResponse.redirect(new URL('/login', request.url))
-        } else if (isAdmin === "1") {
-            return NextResponse.redirect(new URL('/admin-panel/orders', request.url))
-        } else {
+        }
+
+        if (token && isAdmin === "0") {
             return NextResponse.redirect(new URL('/shop', request.url))
         }
     }
@@ -36,16 +36,22 @@ export function middleware(request: NextRequest) {
 
 
     if (path === "/cart") {
-
-        if (token && isAdmin === "0") {
-
-            return NextResponse.redirect(new URL('/cart', request.url))
-        } else {
-            return NextResponse.redirect(new URL('account/login', request.url))
-
+        if (token && isAdmin === "1") {
+            return NextResponse.redirect(new URL('/admin-panel/orders', request.url))
         }
-
+        if (!token) {
+            return NextResponse.redirect(new URL('/account/login', request.url))
+        }
     }
+
+
+    if (path === "/shop") {
+        if (token && isAdmin === "1") {
+            return NextResponse.redirect(new URL('/admin-panel/orders', request.url))
+        }
+    }
+
+
 
     if (path === "/account/login" || path === "/account/create-account") {
         if (token && isAdmin === "0") {
