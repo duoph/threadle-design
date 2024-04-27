@@ -15,26 +15,29 @@ export function middleware(request: NextRequest) {
     if (path === "/") {
         if (token && isAdmin === "1") {
             return NextResponse.redirect(new URL('/admin-panel/orders', request.url))
-        } else if (token) {
+        } else if (token && isAdmin === "0") {
             return NextResponse.redirect(new URL('/shop', request.url))
         }
     }
 
+
+
+
     if (path.startsWith("/admin-panel/")) {
-        console.log("Requested path:", path);
-        console.log("isAdmin status:", isAdmin);
-        if (isAdmin === false) {
-            console.log("User is not admin. Redirecting...");
-            const redirectUrl = new URL('/pagenotfound', request.url);
-            console.log("Redirecting to:", redirectUrl.href);
-            return NextResponse.redirect(redirectUrl);
+        if (isAdmin === "0") {
+            return NextResponse.redirect(new URL('/login', request.url))
+        } else if (isAdmin === "1") {
+            return NextResponse.redirect(new URL('/admin-panel/orders', request.url))
+        } else {
+            return NextResponse.redirect(new URL('/shop', request.url))
         }
     }
 
 
+
     if (path === "/cart") {
 
-        if (token) {
+        if (token && isAdmin === "0") {
 
             return NextResponse.redirect(new URL('/cart', request.url))
         } else {
@@ -44,8 +47,16 @@ export function middleware(request: NextRequest) {
 
     }
 
+    if (path === "/account/login" || path === "/account/create-account") {
+        if (token && isAdmin === "0") {
+            return NextResponse.redirect(new URL('/account/profile', request.url))
+        } else if (token && isAdmin === "1") {
+            return NextResponse.redirect(new URL('/admin-panel/orders', request.url))
+        }
+    }
+
 }
 
 export const config = {
-    matcher: ['/admin-panel/:path*', '/account/[userId]', "/account/login", "/account/create-account", "/shop", "/cart", "/"]
+    matcher: ['/admin-panel/:path*', '/account/[userId]', "/account/login", "/account/create-account", "/shop", "/cart", "/", "/account/forgot-password"]
 }
