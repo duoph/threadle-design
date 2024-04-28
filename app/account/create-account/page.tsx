@@ -1,15 +1,11 @@
 "use client"
 
-import { countryCode } from '@/data/countryCodes';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import toast from 'react-hot-toast';
-import { CiUser } from 'react-icons/ci';
 import { FaUserCircle } from 'react-icons/fa';
-import { FaLock, FaPhone, FaSquareWhatsapp, FaUser } from 'react-icons/fa6';
-import { IoMdArrowBack } from 'react-icons/io';
-import { MdEmail, MdOutlineEmail } from 'react-icons/md';
+import { FaLock, FaPhone, FaSquareWhatsapp } from 'react-icons/fa6';
 import { PulseLoader } from 'react-spinners';
 
 interface FormData {
@@ -19,15 +15,13 @@ interface FormData {
     password: string;
     whatsApp: string;
     confirmPassword: string;
-    countryCode: string
-    countryCodeWp: string
 }
 
 const CreateAccount = () => {
 
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [confirmPass, setConfirmPass] = useState<string>()
-    const [showWhatsApp, setShowWhatsApp] = useState<boolean>(false); // State variable for showing WhatsApp input
+    const [showWhatsApp, setShowWhatsApp] = useState<boolean>(false);
 
 
     const [formData, setFormData] = useState<FormData>({
@@ -36,14 +30,12 @@ const CreateAccount = () => {
         name: '',
         email: '',
         password: '',
-        confirmPassword: '',
-        countryCode: '+91',
-        countryCodeWp: '+91',
+        confirmPassword: ''
     });
 
     const router = useRouter();
 
-    const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData({
             ...formData,
@@ -74,16 +66,13 @@ const CreateAccount = () => {
 
             const formDataToSend = new FormData();
             formDataToSend.append('name', formData.name);
-            formDataToSend.append('phone', formData.countryCode + formData.phone);
+            formDataToSend.append('phone', "+91" + formData.phone);
             formDataToSend.append('email', formData.email);
             formDataToSend.append('password', formData.password);
-            formDataToSend.append('countryCode', formData.countryCode);
-            formDataToSend.append('countryCodeWp', formData.countryCodeWp);
-            showWhatsApp ? formDataToSend.append('whatsApp', formData.countryCodeWp + formData.whatsApp) : formDataToSend.append('whatsApp', formData.countryCode + formData.phone)
+            showWhatsApp ? formDataToSend.append('whatsApp', "+91" + formData.whatsApp) : formDataToSend.append('whatsApp', "+91" + formData.phone)
 
 
-
-            if (formData.name === "" || formData.phone === "" || formData.email === "" || formData.password === "") {
+            if (formData.name === "" || formData.phone === "" || formData.password === "") {
                 toast.error("Unable to create account")
                 setIsLoading(false)
             }
@@ -93,12 +82,13 @@ const CreateAccount = () => {
 
             if (response.data.success === true) {
                 toast.success("Account created successfully")
-                router.push('/account/login')
+                router.push(`/account/create-account/otp-verification/${response.data.phone}`)
                 setIsLoading(false)
             }
 
-            if (!response.data.success === true) {
-                console.log("error")
+            if (response.data.success === false) {
+                toast.error("Error")
+                console.log(response.data)
             }
 
 
@@ -133,76 +123,49 @@ const CreateAccount = () => {
                             placeholder='Name' className='border px-5 py-2 rounded-2xl bg-slate-200 w-full'
                         />
                     </div>
-                    {/* <div className='flex items-center justify-center gap-2'>
-                        <MdEmail size={24} />
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            placeholder='Email' className='border px-5 py-2 rounded-2xl bg-slate-200 w-full'
-                        />
-                    </div> */}
+
+
                     <div className='flex items-center justify-center gap-2'>
                         <FaPhone size={24} />
-                        <div className='flex rounded-2xl bg-slate-200 w-full'>
-                            <select
-                                value={formData.countryCode}
-                                onChange={handleChange}
-                                name="countryCode"
-                                id="countryCode"
-                                className='w-[80px] px-1 bg-slate-200 rounded-2xl'
-                            >
-                                <option value="+91">+91</option>
-                                {countryCode.map((country: any) => (
-                                    <option key={country.name} value={country.dial_code}>
-                                        {country.dial_code}
-                                    </option>
-                                ))}
-                            </select>
+                        <div className='flex items-center justify-center rounded-2xl bg-slate-200 w-full'>
+                            <span className='pl-2'>+91</span>
                             <input
-                                type="text"
+                                type="string"
+                                // pattern='0-9'
                                 id="phone"
                                 name="phone"
+                                maxLength={10}
                                 value={formData.phone}
                                 onChange={handleChange}
                                 placeholder='Phone'
-                                className='border px-5 py-2 rounded-2xl bg-slate-200 w-full'
+                                className='border px-3 py-2 rounded-2xl bg-slate-200 w-full'
                             />
+
                         </div>
+
                     </div>
 
 
                     {showWhatsApp && (
-                        <div className='flex items-center justify-center gap-2 '>
+                        <div className='flex items-center justify-center gap-2'>
                             <FaSquareWhatsapp size={24} />
-                            <div className='flex rounded-2xl bg-slate-200 w-full'>
-                                <select
-                                    value={formData.countryCodeWp}
-                                    onChange={handleChange}
-                                    id='countryCodeWp'
-                                    name='countryCodeWp'
-                                    className='w-[80px] px-1 bg-slate-200 rounded-2xl'
-                                >
-                                    <option value="+91">+91</option>
-                                    {countryCode.map((country: any) => (
-                                        <option key={country.name} value={country.dial_code}>
-                                            {country.dial_code} {country.name}
-                                        </option>
-                                    ))}
-                                </select>
+                            <div className='flex items-center justify-center rounded-2xl bg-slate-200 w-full'>
+                                <span className='pl-2'>+91</span>
                                 <input
-                                    type="text"
+                                    type="number"
                                     id="whatsApp"
                                     name="whatsApp"
+                                    maxLength={10}
                                     value={formData.whatsApp}
                                     onChange={handleChange}
-                                    placeholder='whatsApp' className='border px-5 py-2 rounded-2xl bg-slate-200 w-full'
+                                    placeholder='whatsApp' className='border px-3 py-2 rounded-2xl bg-slate-200 w-full'
                                 />
+
                             </div>
                         </div>
                     )}
+
+
 
                     <div className='flex items-center justify-start gap-2 px-1'>
                         <input

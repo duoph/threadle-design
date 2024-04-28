@@ -22,7 +22,6 @@ const Header = () => {
 
     const pathname = usePathname()
 
-    console.log(pathname)
 
     const onAccountClick = () => {
         try {
@@ -89,8 +88,6 @@ const Header = () => {
                         <h1 onClick={() => router.push("/account/login")} className="text-white font-medium">Login/Register</h1>
                     </div>
                 )}
-
-
 
 
 

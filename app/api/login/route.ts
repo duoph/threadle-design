@@ -43,6 +43,7 @@ export async function POST(req: NextRequest) {
             phone: user.phone,
             email: user.email,
             isAdmin: user.isAdmin,
+            isVeridied: user.isVerified,
         }
 
         const token = JWT.sign(tokenData, process.env.NEXT_PUBLIC_JWT_SECRET as string, { expiresIn: '7d' });
@@ -55,6 +56,7 @@ export async function POST(req: NextRequest) {
             phone: user.phone,
             email: user.email,
             address: user.address,
+            isVeridied: user.isVerified,
             isAdmin: user.isAdmin,
         };
 

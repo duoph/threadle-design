@@ -1,7 +1,6 @@
 import mongoose, { Schema, Document, models } from "mongoose";
 
 interface userProps extends Document {
-    email: string;
     password: string;
     name: string;
     address: string;
@@ -17,7 +16,6 @@ interface userProps extends Document {
 }
 
 const userSchema = new Schema<userProps>({
-    email: { type: String, unique: true, required: true },
     password: { type: String, required: true },
     whatsAppNumber: { type: Number },
     name: { type: String, required: true },

@@ -2,24 +2,22 @@ import userModel from '@/models/userModel'
 import { NextRequest, NextResponse } from "next/server";
 import twilio from "twilio";
 
-// Initialize Twilio client with correct credentials
 const client = twilio(process.env.NEXT_PUBLIC_ACCOUNT_SID, process.env.NEXT_PUBLIC_TWILIO_AUTH_TOKEN);
 
-export async function GET(req: NextRequest) {
+export async function PUT(req: NextRequest) {
     try {
         const { phone } = await req.json();
 
         const otpCode = Math.floor(100000 + Math.random() * 900000);
 
         const expirationTime = new Date();
-        expirationTime.setMinutes(expirationTime.getMinutes() + 10); // Set expiration time to 10 minutes from now
+        expirationTime.setMinutes(expirationTime.getMinutes() + 10); 
         await userModel.findOneAndUpdate(
             { phone: phone },
             { otp: otpCode, otpExpiration: expirationTime },
             { new: true, upsert: true }
         );
 
-        // Send the generated code via SMS
         const result = await client.messages.create({
             body: `Your OTP code is: ${otpCode}`,
             from: "+14697950137",

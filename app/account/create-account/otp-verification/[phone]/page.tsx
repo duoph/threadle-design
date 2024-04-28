@@ -1,7 +1,7 @@
 "use client"
 
 import axios from 'axios';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 
@@ -12,9 +12,13 @@ const OTPPage = () => {
 
   const router = useRouter();
 
+  const { phone } = useParams()
+
   const sendOTP = async () => {
     try {
-      const res = await axios.get("/api/sms/otp")
+      const res = await axios.put("/api/sms/otp", {
+        phone: phone
+      })
 
     } catch (error) {
 
@@ -48,7 +52,7 @@ const OTPPage = () => {
               value={otp}
               onChange={(e) => {
                 const value = e.target.value;
-                if (/^\d{0,6}$/.test(value)) { // Limit to maximum 6 digits
+                if (/^\d{0,6}$/.test(value)) { 
                   setOtp(value);
                 }
               }}
