@@ -1,5 +1,6 @@
 "use client"
 
+import { countryCode } from '@/data/countryCodes';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import React, { useState, ChangeEvent, FormEvent } from 'react';
@@ -18,23 +19,28 @@ interface FormData {
     password: string;
     whatsApp: string;
     confirmPassword: string;
+    countryCode: string
 }
 
 const CreateAccount = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [confirmPass, setConfirmPass] = useState<string>()
+    const [showWhatsApp, setShowWhatsApp] = useState<boolean>(false); // State variable for showing WhatsApp input
+
+
     const [formData, setFormData] = useState<FormData>({
         phone: '',
         whatsApp: '',
         name: '',
         email: '',
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
+        countryCode: ''
     });
 
     const router = useRouter();
 
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         setFormData({
             ...formData,
@@ -68,7 +74,8 @@ const CreateAccount = () => {
             formDataToSend.append('phone', formData.phone);
             formDataToSend.append('email', formData.email);
             formDataToSend.append('password', formData.password);
-            formDataToSend.append('whatsApp', formData.whatsApp);
+            showWhatsApp ? formDataToSend.append('whatsApp', formData.whatsApp) : formDataToSend.append('whatsApp', formData.phone)
+
 
             if (formData.name === "" || formData.phone === "" || formData.email === "" || formData.password === "") {
                 toast.error("Unable to create account")
@@ -120,7 +127,7 @@ const CreateAccount = () => {
                             placeholder='Name' className='border px-5 py-2 rounded-2xl bg-slate-200 w-full'
                         />
                     </div>
-                    <div className='flex items-center justify-center gap-2'>
+                    {/* <div className='flex items-center justify-center gap-2'>
                         <MdEmail size={24} />
                         <input
                             type="email"
@@ -130,28 +137,64 @@ const CreateAccount = () => {
                             onChange={handleChange}
                             placeholder='Email' className='border px-5 py-2 rounded-2xl bg-slate-200 w-full'
                         />
-                    </div>
-                    <div className='flex items-center justify-center gap-2'>
+                    </div> */}
+                    <div className='flex items-center justify-center gap-2 '>
                         <FaPhone size={24} />
-                        <input
-                            type="text"
-                            id="phone"
-                            name="phone"
-                            value={formData.phone}
-                            onChange={handleChange}
-                            placeholder='Phone' className='border px-5 py-2 rounded-2xl bg-slate-200 w-full'
-                        />
+                        <div className='flex rounded-2xl bg-slate-200 w-full'>
+                            <select name="" id="" className='w-[80px] px-1  bg-slate-200 rounded-2xl'>
+                                <option value="+91">+91</option>
+                                {countryCode.map((country: any) => (
+                                    <option key={country.name} value={country.dial_code}>
+                                        {country.dial_code}
+                                    </option>
+                                ))}
+                            </select>
+                            <input
+                                type="text"
+                                id="phone"
+                                name="phone"
+                                value={formData.phone}
+                                onChange={handleChange}
+                                placeholder='Phone' className='border px-5 py-2 rounded-2xl bg-slate-200 w-full'
+                            />
+                        </div>
                     </div>
-                    <div className='flex items-center justify-center gap-2'>
-                        <FaSquareWhatsapp size={24} />
+
+                    {showWhatsApp && (
+                        <div className='flex items-center justify-center gap-2 '>
+                            <FaSquareWhatsapp size={24} />
+                            <div className='flex rounded-2xl bg-slate-200 w-full'>
+                                <select value={formData.countryCode}
+                                    onChange={handleChange} className='w-[80px] px-1  bg-slate-200 rounded-2xl'>
+                                    <option value="+91">+91</option>
+                                    {countryCode.map((country: any) => (
+                                        <option key={country.name} value={country.dial_code}>
+                                            {country.dial_code} {country.name}
+                                        </option>
+                                    ))}
+                                </select>
+                                <input
+                                    type="text"
+                                    id="whatsApp"
+                                    name="whatsApp"
+                                    value={formData.whatsApp}
+                                    onChange={handleChange}
+                                    placeholder='whatsApp' className='border px-5 py-2 rounded-2xl bg-slate-200 w-full'
+                                />
+                            </div>
+                        </div>
+                    )}
+
+                    <div className='flex items-center justify-start gap-2 px-1'>
                         <input
-                            type="text"
-                            id="whatsApp"
-                            name="whatsApp"
-                            value={formData.whatsApp}
-                            onChange={handleChange}
-                            placeholder='whatsApp' className='border px-5 py-2 rounded-2xl bg-slate-200 w-full'
+                            type="checkbox"
+                            id="whatsAppCheck"
+                            name="whatsAppCheck"
+                            checked={showWhatsApp}
+                            onChange={(e) => setShowWhatsApp(!showWhatsApp)}
+                            placeholder='whatsAppCheck' className='border px-5 py-2 rounded-2xl bg-slate-200'
                         />
+                        <label htmlFor="whatsAppCheck" className='font-medium text-sm'>have a diffrent whatsapp number</label>
                     </div>
                     <div className='flex items-center justify-center gap-2'>
                         <FaLock size={24} />
