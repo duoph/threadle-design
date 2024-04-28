@@ -83,12 +83,15 @@ const Header = () => {
                     </div>
                 )}
 
-                {!currentUser?.token && (
+                {!currentUser?.token && pathname != "/account/create-account/otp-verification" && (
                     <div className='cursor-pointer flex items-center justify-center gap-2 '>
                         <CiSearch onClick={() => router.push('/shop')} className='text-white cursor-pointer' size={24} />
                         <h1 onClick={() => router.push("/account/login")} className="text-white font-medium">Login/Register</h1>
                     </div>
                 )}
+
+
+
 
 
                 {currentUser?.isAdmin === true && (

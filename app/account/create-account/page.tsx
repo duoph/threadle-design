@@ -20,9 +20,11 @@ interface FormData {
     whatsApp: string;
     confirmPassword: string;
     countryCode: string
+    countryCodeWp: string
 }
 
 const CreateAccount = () => {
+
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [confirmPass, setConfirmPass] = useState<string>()
     const [showWhatsApp, setShowWhatsApp] = useState<boolean>(false); // State variable for showing WhatsApp input
@@ -35,7 +37,8 @@ const CreateAccount = () => {
         email: '',
         password: '',
         confirmPassword: '',
-        countryCode: ''
+        countryCode: '+91',
+        countryCodeWp: '+91',
     });
 
     const router = useRouter();
@@ -71,10 +74,13 @@ const CreateAccount = () => {
 
             const formDataToSend = new FormData();
             formDataToSend.append('name', formData.name);
-            formDataToSend.append('phone', formData.phone);
+            formDataToSend.append('phone', formData.countryCode + formData.phone);
             formDataToSend.append('email', formData.email);
             formDataToSend.append('password', formData.password);
-            showWhatsApp ? formDataToSend.append('whatsApp', formData.whatsApp) : formDataToSend.append('whatsApp', formData.phone)
+            formDataToSend.append('countryCode', formData.countryCode);
+            formDataToSend.append('countryCodeWp', formData.countryCodeWp);
+            showWhatsApp ? formDataToSend.append('whatsApp', formData.countryCodeWp + formData.whatsApp) : formDataToSend.append('whatsApp', formData.countryCode + formData.phone)
+
 
 
             if (formData.name === "" || formData.phone === "" || formData.email === "" || formData.password === "") {
@@ -138,10 +144,16 @@ const CreateAccount = () => {
                             placeholder='Email' className='border px-5 py-2 rounded-2xl bg-slate-200 w-full'
                         />
                     </div> */}
-                    <div className='flex items-center justify-center gap-2 '>
+                    <div className='flex items-center justify-center gap-2'>
                         <FaPhone size={24} />
                         <div className='flex rounded-2xl bg-slate-200 w-full'>
-                            <select name="" id="" className='w-[80px] px-1  bg-slate-200 rounded-2xl'>
+                            <select
+                                value={formData.countryCode}
+                                onChange={handleChange}
+                                name="countryCode"
+                                id="countryCode"
+                                className='w-[80px] px-1 bg-slate-200 rounded-2xl'
+                            >
                                 <option value="+91">+91</option>
                                 {countryCode.map((country: any) => (
                                     <option key={country.name} value={country.dial_code}>
@@ -155,17 +167,24 @@ const CreateAccount = () => {
                                 name="phone"
                                 value={formData.phone}
                                 onChange={handleChange}
-                                placeholder='Phone' className='border px-5 py-2 rounded-2xl bg-slate-200 w-full'
+                                placeholder='Phone'
+                                className='border px-5 py-2 rounded-2xl bg-slate-200 w-full'
                             />
                         </div>
                     </div>
+
 
                     {showWhatsApp && (
                         <div className='flex items-center justify-center gap-2 '>
                             <FaSquareWhatsapp size={24} />
                             <div className='flex rounded-2xl bg-slate-200 w-full'>
-                                <select value={formData.countryCode}
-                                    onChange={handleChange} className='w-[80px] px-1  bg-slate-200 rounded-2xl'>
+                                <select
+                                    value={formData.countryCodeWp}
+                                    onChange={handleChange}
+                                    id='countryCodeWp'
+                                    name='countryCodeWp'
+                                    className='w-[80px] px-1 bg-slate-200 rounded-2xl'
+                                >
                                     <option value="+91">+91</option>
                                     {countryCode.map((country: any) => (
                                         <option key={country.name} value={country.dial_code}>
