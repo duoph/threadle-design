@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
 
         // Compare OTP values
         if (user.otp === otpNumber) {
-            await userModel.findByIdAndUpdate(userId, { isNumberVerified: true, otp: undefined });
+            await userModel.findByIdAndUpdate(userId, { isNumberVerified: true, otp: null }, { new: true });
             return NextResponse.json({ message: "OTP verified successfully", success: true });
         }
 
