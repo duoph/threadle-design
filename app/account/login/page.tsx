@@ -62,7 +62,7 @@ const LoginPageAdmin = () => {
   }
 
   if (currentUser?.token && currentUser.isAdmin === false) {
-    return router.push(`/account/${currentUser.userId}`);
+    return router.push(`/shop`);
   }
 
   return (

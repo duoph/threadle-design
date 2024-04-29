@@ -15,6 +15,7 @@ interface ProductDocument extends Document {
     moreImagesURLs: string[];
     isFeatured: boolean;
     colors: string;
+    tags: string;
 }
 
 const productSchema = new Schema<ProductDocument>({
@@ -30,6 +31,7 @@ const productSchema = new Schema<ProductDocument>({
     salePrice: { type: Number || undefined },
     moreImagesURLs: [{ type: String }],
     colors: [{ type: String }],
+    tags: { type: String },
     isFeatured: { type: Boolean },
 }, { timestamps: true });
 

@@ -7,7 +7,6 @@ const client = twilio(process.env.NEXT_PUBLIC_ACCOUNT_SID, process.env.NEXT_PUBL
 export async function sendOTP(userId: string) {
     try {
         const otpCode = Math.floor(100000 + Math.random() * 900000);
-        const expirationTime = new Date(Date.now() + 5 * 60 * 1000);
 
         const user = await userModel.findOneAndUpdate(
             { _id: userId },
@@ -15,7 +14,7 @@ export async function sendOTP(userId: string) {
             { new: true, upsert: true }
         );
 
-        const result = await client.messages.create({
+         await client.messages.create({
             body: `Your Threadle Designs OTP code is: ${otpCode}`,
             from: "+14697950137",
             to: user.phone,
