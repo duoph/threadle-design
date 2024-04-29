@@ -1,5 +1,6 @@
 "use client"
 
+import { verifyOTP } from '@/actions/actionOTP';
 import axios from 'axios';
 import { useParams, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
@@ -9,24 +10,26 @@ import toast from 'react-hot-toast';
 const OTPPage = () => {
 
   const [otp, setOtp] = useState("");
+  const [isLoading, setIsLoading] = useState("");
 
   const router = useRouter();
 
-  const { phone } = useParams();
+  const { userId } = useParams();
 
-  const sendOTP = async () => {
-    try {
-      const res = await axios.put("/api/sms/otp", {
-        phone: phone
-      });
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  // const sendOTP = async () => {
+  //   try {
+  //     const res = await axios.put("/api/sms/otp", {
+  //       userId
+  //     });
+  //     console.log(res)
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
 
-  useEffect(() => {
-    sendOTP();
-  }, []);
+  // useEffect(() => {
+  //   sendOTP();
+  // }, []);
 
   const handleResentOtp = () => {
     toast.success("OTP has been sent")
@@ -34,9 +37,8 @@ const OTPPage = () => {
 
   const handleVerification = async () => {
     try {
-      const res = await axios.post("/api/sms/otp", {
-        otp: otp
-      });
+      const res = axios.post('/api/sms/otp', { userId, otp })
+      console.log(res)
     } catch (error) {
       toast.error("Couldn't verify");
       console.log(error);
@@ -47,7 +49,7 @@ const OTPPage = () => {
     <div className='bg-td-secondary py-10 flex items-center justify-center px-5 min-h-[70vh]'>
       <div className='flex bg-white flex-col gap-5 items-center justify-center w-full md:w-[400px] md:px-10 py-10 px-5 rounded-2xl'>
         <div className='flex flex-col items-center justify-center'>
-           <h1 className='font-bold text-[30px] text-td-secondary'>Enter OTP</h1>
+          <h1 className='font-bold text-[30px] text-td-secondary'>Enter OTP</h1>
           <span className='font-bold text-[12px] text-td-secondary'>A six-digit OTP has been sent to your phone number</span>
         </div>
         <div className='flex flex-col gap-3 w-full'>
