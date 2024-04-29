@@ -1,6 +1,5 @@
 "use client"
 
-import { verifyOTP } from '@/actions/actionOTP';
 import axios from 'axios';
 import { useParams, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
@@ -15,21 +14,6 @@ const OTPPage = () => {
   const router = useRouter();
 
   const { userId } = useParams();
-
-  // const sendOTP = async () => {
-  //   try {
-  //     const res = await axios.put("/api/sms/otp", {
-  //       userId
-  //     });
-  //     console.log(res)
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   sendOTP();
-  // }, []);
 
   const handleResentOtp = () => {
     toast.success("OTP has been sent")

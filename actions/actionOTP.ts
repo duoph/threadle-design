@@ -6,53 +6,24 @@ const client = twilio(process.env.NEXT_PUBLIC_ACCOUNT_SID, process.env.NEXT_PUBL
 
 export async function sendOTP(userId: string) {
     try {
-
         const otpCode = Math.floor(100000 + Math.random() * 900000);
-        const expirationTime = new Date(Date.now() + 3 * 60 * 1000);
+        const expirationTime = new Date(Date.now() + 5 * 60 * 1000);
 
         const user = await userModel.findOneAndUpdate(
             { _id: userId },
-            { $push: { otp: { code: otpCode, expires: expirationTime } } },
+            { otp: otpCode },
             { new: true, upsert: true }
         );
 
         const result = await client.messages.create({
-            body: `Your Threadle Designs OTP code is: ${user.otp}`,
+            body: `Your Threadle Designs OTP code is: ${otpCode}`,
             from: "+14697950137",
             to: user.phone,
         });
 
-
+        return { message: "OTP sent successfully", success: true };
     } catch (error) {
         console.error("Error sending OTP:", error);
-        return console.log({ message: "Error in sending OTP", success: false });
-    }
-}
-
-
-export async function verifyOTP(userId: any, otp: any) {
-    try {
-        const user = await userModel.findById(userId);
-
-        if (!user) {
-            return { message: "User not found", success: false };
-        }
-
-        const currentTimestamp = new Date();
-
-        const matchingOTP = user.otp.find(({ otpObj }: any) => otpObj.code === otp && otpObj.expires > currentTimestamp);
-
-        if (matchingOTP) {
-            // Update isVerify field to true
-            await userModel.findByIdAndUpdate(userId, { isVerify: true });
-
-            return { message: "OTP verified successfully", success: true };
-        } else {
-            return { message: "Invalid OTP or OTP has expired", success: false };
-        }
-
-    } catch (error) {
-        console.error("Error verifying OTP:", error);
-        return { message: "Error in verifying OTP", success: false };
+        return { message: "Error in sending OTP", success: false };
     }
 }
