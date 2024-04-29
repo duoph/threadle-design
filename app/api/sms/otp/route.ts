@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ message: "User not found", success: false });
         }
 
-        if (user.otp === otp) {
+        if (user.otp !== otp) {
             return NextResponse.json({ message: "Invalid OTP or OTP has expired", success: false });
         }
 

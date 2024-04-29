@@ -4,12 +4,13 @@ import axios from 'axios';
 import { useParams, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import { PulseLoader } from 'react-spinners';
 
 
 const OTPPage = () => {
 
   const [otp, setOtp] = useState("");
-  const [isLoading, setIsLoading] = useState("");
+  const [isLoading, setIsLoading] = useState<boolean>()
 
   const router = useRouter();
 
@@ -21,8 +22,28 @@ const OTPPage = () => {
 
   const handleVerification = async () => {
     try {
-      const res = axios.post('/api/sms/otp', { userId, otp })
+      setIsLoading(true)
+      const res = await axios.post('/api/sms/otp', { userId, otp })
       console.log(res)
+      if (res.data.success === true) {
+        router.push('/account/login')
+        toast.success(res.data?.message);
+      }
+      if (res.data.success === false) {
+        toast.error(res.data?.message);
+      }
+      setIsLoading(false)
+
+    } catch (error) {
+      setIsLoading(false)
+      toast.error("Couldn't verify");
+      console.log(error);
+    }
+  }
+
+  const handleResendOTP = async () => {
+    try {
+      const res = await axios.post('/api/sms/otp', { userId, otp })
     } catch (error) {
       toast.error("Couldn't verify");
       console.log(error);
@@ -54,13 +75,23 @@ const OTPPage = () => {
             />
           </div>
 
-          <button onClick={handleVerification} className='bg-td-secondary rounded-2xl h-12 px-3 py-3 text-white font-semibold'>
-            <span className="text-[15px] w-full">Verify</span>
-          </button>
-          <button onClick={handleResentOtp} className="text-xs text-center w-full cursor-pointer text-blue-900 underline">Resend OTP</button>
+          {!isLoading && (
+            <button onClick={handleVerification} className='bg-td-secondary rounded-2xl h-12 px-3 py-3 text-white font-semibold'>
+              <span className="text-[15px] w-full">Verify</span>
+            </button>
+          )}
+          {isLoading && (
+            <button onClick={handleVerification} className='bg-td-secondary rounded-2xl h-12 px-3 py-3 text-white font-semibold'>
+              <PulseLoader color='white' />
+            </button>
+          )}
+
+          <div className="flex items-center justify-center">
+            <span onClick={handleResendOTP} className="text-xs text-center w-[100px] cursor-pointer text-blue-900 underline">Resend OTP</span>
+          </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 
