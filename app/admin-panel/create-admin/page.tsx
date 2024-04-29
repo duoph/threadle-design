@@ -32,6 +32,7 @@ const LoginPageAdmin = () => {
             if (response.data.success) {
                 toast.success(response.data.message)
                 router.push("/admin-panel")
+                router.push(`/account/create-account/otp-verification/${response.data.user._id}`)
             }
 
             if (response.data.success === false) {

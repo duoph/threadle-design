@@ -52,6 +52,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }
   }, []);
 
+
   const LogOut = () => {
     localStorage.removeItem('currentUser');
     setCurrentUser(null);

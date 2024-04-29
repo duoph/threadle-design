@@ -33,6 +33,12 @@ const LoginPageAdmin = () => {
 
       setIsLoading(false);
 
+      if (response.data.isNumberVerified === false) {
+        toast.error(response.data.message);
+        router.push(`/account/create-account/otp-verification/${response.data.userId}`);
+        return;
+      }
+
       if (response.data.success === false) {
         toast.error(response.data.message);
       } else {

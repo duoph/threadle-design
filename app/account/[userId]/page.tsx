@@ -122,16 +122,12 @@ const UserProfile = () => {
                         <input type="text" name="name" placeholder='Name' value={formData.name} onChange={handleChange} className='border px-5  py-2 rounded-2xl bg-slate-200 w-full' />
                     </div>
                     <div className='flex items-center justify-center gap-2 w-full'>
-                        <MdEmail size={30} />
-                        <input type="email" name="email" disabled placeholder='Email' value={formData.email} onChange={handleChange} className='border px-5 w-full py-2 rounded-2xl bg-slate-200' />
-                    </div>
-                    <div className='flex items-center justify-center gap-2 w-full'>
                         <FaPhoneAlt size={30} />
-                        <input type="phone" name="phone" placeholder='Phone' value={formData.phone} onChange={handleChange} className='border px-5  w-full py-2 rounded-2xl bg-slate-200' />
+                        <input disabled={true} type="phone" name="phone" placeholder='Phone' value={formData.phone} onChange={handleChange} className='border px-5  w-full py-2 rounded-2xl bg-slate-200' />
                     </div>
                     <div className='flex items-center justify-center gap-2 w-full'>
                         <FaSquareWhatsapp size={30} />
-                        <input type="phone" name="phone" placeholder='Phone' value={formData.phone || formData.phone} onChange={handleChange} className='border px-5  w-full py-2 rounded-2xl bg-slate-200' />
+                        <input disabled={true} type="phone" name="phone" placeholder='Phone' value={formData.phone || formData.phone} onChange={handleChange} className='border px-5  w-full py-2 rounded-2xl bg-slate-200' />
                     </div>
                     <div className='flex items-start justify-center gap-2 w-full '>
                         <FaAddressCard size={30} />

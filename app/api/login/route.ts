@@ -3,45 +3,44 @@ import connectMongoDB from "@/libs/db";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import JWT from "jsonwebtoken";
+import { sendOTP } from '@/actions/actionOTP';
 
 export async function POST(req: NextRequest) {
     try {
         await connectMongoDB();
-        const { email, phone, password } = await req.json();
+        const { phone, password } = await req.json();
+
+
+
 
         // Check if email or phone and password are provided
-        if ((!phone && !email) || !password) {
+        if (!phone || !password) {
             return NextResponse.json({ message: 'Enter valid credentials', success: false });
         }
 
-        let user;
 
-        if (phone) {
-            // Find user by phone
-            user = await userModel.findOne({ phone: phone });
-        } else if (email) {
-            // Find user by email
-            const lowerCaseEmail = email.toLowerCase();
-            user = await userModel.findOne({ email: lowerCaseEmail });
-        }
 
-        // If user not found
+        const user = await userModel.findOne({ phone: "+91" + phone });
+
         if (!user) {
             return NextResponse.json({ message: 'User not found', success: false });
         }
 
-        // Compare passwords
         const passCompare = await bcrypt.compare(password, user.password);
 
         if (!passCompare) {
             return NextResponse.json({ message: 'Invalid password', success: false });
         }
 
+        if (user.isNumberVerified === false) {
+            sendOTP(user._id)
+            return NextResponse.json({ message: 'User is not verified', isNumberVerified: false, userId: user._id });
+        }
+
         // Generate JWT token
         const tokenData = {
             userId: user._id,
             phone: user.phone,
-            email: user.email,
             isAdmin: user.isAdmin,
             isVeridied: user.isVerified,
         }
@@ -54,7 +53,6 @@ export async function POST(req: NextRequest) {
             name: user.name,
             userId: user._id,
             phone: user.phone,
-            email: user.email,
             address: user.address,
             isVeridied: user.isVerified,
             isAdmin: user.isAdmin,
