@@ -4,7 +4,7 @@ interface userProps extends Document {
     password: string;
     name: string;
     address: string;
-    phone: number;
+    phone: string;
     numberVerified: string;
     createdAt: Date;
     isAdmin: boolean;
@@ -19,7 +19,7 @@ const userSchema = new Schema<userProps>({
     password: { type: String, required: true },
     whatsAppNumber: { type: Number },
     name: { type: String, required: true },
-    phone: { type: Number },
+    phone: { type: String },
     address: { type: String },
     isAdmin: { type: Boolean, default: false },
     numberVerified: { type: String },

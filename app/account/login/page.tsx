@@ -6,13 +6,10 @@ import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 import { FaUserCircle, FaLock } from 'react-icons/fa';
-import { MdEmail } from 'react-icons/md';
 import { PulseLoader } from 'react-spinners';
 
 const LoginPageAdmin = () => {
-  const [email, setEmail] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
-  const [isPhone, setIsPhone] = useState<boolean>(false);
   const [password, setPassword] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -30,8 +27,7 @@ const LoginPageAdmin = () => {
       }
 
       const response = await axios.post('/api/login', {
-        email: isPhone ? null : email,
-        phone: isPhone ? phone : null,
+        phone,
         password,
       });
 
@@ -70,29 +66,18 @@ const LoginPageAdmin = () => {
           <h1 className='font-bold text-[30px] text-td-secondary'>Login</h1>
         </div>
         <div className='flex flex-col gap-3 w-full'>
-          {isPhone ? (
-            <div className='flex items-center justify-center gap-2'>
-              <FaUserCircle size={24} />
-              <input
-                type="text"
-                placeholder="Phone"
-                className='border px-5 py-2 rounded-2xl bg-slate-200 w-full'
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-              />
-            </div>
-          ) : (
-            <div className='flex items-center justify-center gap-2'>
-              <FaUserCircle size={24} />
-              <input
-                type="text"
-                placeholder="Email"
-                className='border px-5 py-2 rounded-2xl bg-slate-200 w-full'
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-          )}
+
+          <div className='flex items-center justify-center gap-2'>
+            <FaUserCircle size={24} />
+            <input
+              type="text"
+              placeholder="Phone"
+              className='border px-5 py-2 rounded-2xl bg-slate-200 w-full'
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+            />
+          </div>
+
           <div className='flex items-center justify-center gap-2'>
             <FaLock size={24} />
             <input
@@ -111,7 +96,6 @@ const LoginPageAdmin = () => {
             )}
           </button>
           <div className='flex flex-col items-center justify-center'>
-            <span className='text-center text-sm'>Login with {!isPhone ? ("phone") : ("email")}?<span className='cursor-pointer text-blue-900 underline' onClick={() => setIsPhone(!isPhone)}>click here</span></span>
             <span className='text-center text-sm'>Don&apos;t have an account?<span className='cursor-pointer text-blue-900 underline' onClick={() => router.push('/account/create-account')}>Create Account</span></span>
           </div>
         </div>

@@ -8,29 +8,41 @@ export async function PUT(req: NextRequest) {
     try {
         const { phone } = await req.json();
 
-        const otpCode = Math.floor(100000 + Math.random() * 900000);
+        const existingUser = await userModel.findOne({ phone: phone });
 
-        const expirationTime = new Date();
-        expirationTime.setMinutes(expirationTime.getMinutes() + 10); 
-        await userModel.findOneAndUpdate(
-            { phone: phone },
-            { otp: otpCode, otpExpiration: expirationTime },
-            { new: true, upsert: true }
-        );
+        if (existingUser && existingUser.otp && existingUser.otpExpiration > new Date()) {
+            const result = await client.messages.create({
+                body: `Your Threadle Designs OTP code is: ${existingUser.otp}`,
+                from: "+14697950137",
+                to: phone,
+            });
 
-        const result = await client.messages.create({
-            body: `Your OTP code is: ${otpCode}`,
-            from: "+14697950137",
-            to: phone,
-        });
+            return NextResponse.json({ result, expTime: existingUser.otpExpiration });
+        } else {
+            const otpCode = Math.floor(100000 + Math.random() * 900000);
+            const expirationTime = new Date();
+            expirationTime.setMinutes(expirationTime.getMinutes() + 5);
 
-        return NextResponse.json({ result });
+            const user = await userModel.findOneAndUpdate(
+                { phone: phone },
+                { otp: otpCode, otpExpiration: expirationTime },
+                { new: true, upsert: true }
+            );
 
+            const result = await client.messages.create({
+                body: `Your Threadle Designs OTP code is: ${otpCode}`,
+                from: "+14697950137",
+                to: phone,
+            });
+
+            return NextResponse.json({ result, expTime: user.otpExpiration });
+        }
     } catch (error) {
         console.error("Error sending OTP:", error);
         return NextResponse.json({ message: "Error in sending OTP", success: false });
     }
 }
+
 
 
 export async function POST(req: NextRequest) {

@@ -2,7 +2,6 @@ import bcrypt from "bcrypt"
 import connectMongoDB from "@/libs/db";
 import { NextRequest, NextResponse } from "next/server";
 import userModel from '@/models/userModel';
-import axios from "axios";
 
 
 export async function POST(req: NextRequest) {

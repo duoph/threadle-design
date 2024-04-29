@@ -55,7 +55,6 @@ export interface Cart {
 
 export interface User {
     __id: string;
-    email: string;
     phone: number;
     whatsAppNumber: number;
     address?: string;

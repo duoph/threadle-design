@@ -7,7 +7,6 @@ interface User {
   name: string;
   userId?: string;
   address: string;
-  email: string;
   phone: number
   isAdmin?: boolean;
   token?: string

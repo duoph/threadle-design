@@ -82,7 +82,7 @@ const CreateAccount = () => {
 
             if (response.data.success === true) {
                 toast.success("Account created successfully")
-                router.push(`/account/create-account/otp-verification/${response.data.phone}`)
+                router.push(`/account/create-account/otp-verification/${response.data.user.phone}`)
                 setIsLoading(false)
             }
 
@@ -109,7 +109,7 @@ const CreateAccount = () => {
                 <form onSubmit={handleSubmit} className='rounded-2xl bg-white flex flex-col gap-3 md:w-[400px] w-full md:px-10 py-8 px-5 '>
                     <div className='h-[10vh] flex flex-col items-center justify-start'>
                         <h1 className='text-center font-bold text-td-secondary text-[30px]'>Create Account</h1>
-                        {!passwordsMatch() && confirmPass && <span className='text-red-600 text-center transition-all ease-in-out duration-300 '>Password dosn&#39;t match</span>}
+                        {!passwordsMatch() && confirmPass && <span className='text-red-600 text-center transition-all ease-in-out duration-300 '>Password doesn&#39;t match</span>}
                     </div>
 
                     <div className='flex items-center justify-center gap-2 '>
