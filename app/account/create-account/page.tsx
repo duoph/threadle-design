@@ -69,7 +69,7 @@ const CreateAccount = () => {
             formDataToSend.append('phone', formData.phone);
             formDataToSend.append('email', formData.email);
             formDataToSend.append('password', formData.password);
-            showWhatsApp ? formDataToSend.append('whatsApp', formData.whatsApp) : formDataToSend.append('whatsApp', "+91" + formData.phone)
+            showWhatsApp ? formDataToSend.append('whatsApp', formData.whatsApp) : formDataToSend.append('whatsApp', formData.phone)
 
 
             if (formData.name === "" || formData.phone === "" || formData.password === "") {

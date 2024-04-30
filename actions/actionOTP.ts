@@ -3,18 +3,19 @@ import twilio from "twilio";
 
 const client = twilio(process.env.NEXT_PUBLIC_ACCOUNT_SID, process.env.NEXT_PUBLIC_TWILIO_AUTH_TOKEN);
 
-
 export async function sendOTP(userId: string) {
     try {
         const otpCode = Math.floor(100000 + Math.random() * 900000);
+        const otpExpire = new Date();
+        otpExpire.setMinutes(otpExpire.getMinutes() + 10); // Add 10 minutes to current time
 
         const user = await userModel.findOneAndUpdate(
             { _id: userId },
-            { otp: otpCode },
+            { otp: otpCode, otpExpire: otpExpire },
             { new: true, upsert: true }
         );
 
-         await client.messages.create({
+        await client.messages.create({
             body: `Your Threadle Designs OTP code is: ${otpCode}`,
             from: "+14697950137",
             to: user.phone,
