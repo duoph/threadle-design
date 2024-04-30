@@ -237,7 +237,7 @@ const EditProduct = () => {
             <div className="flex flex-col gap-1">
                 <label htmlFor="category" className="font-semibold">Category</label>
                 <select onChange={handleSelectChange} id="category" className="bg-gray-200 px-5 py-3 rounded-2xl text-black">
-                    {!fetchedCategoryName && <option value={fetchedCategoryId}>{fetchedCategoryName}</option>}
+                    {fetchedCategoryName && <option value={fetchedCategoryId}>{fetchedCategoryName}</option>}
                     {fetchedCategory && fetchedCategory.map((category: Category) => (
                         <option key={category._id} value={category._id} selected={category._id === fetchedCategoryId}>
                             {category.categoryName}
