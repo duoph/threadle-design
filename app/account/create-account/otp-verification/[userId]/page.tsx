@@ -16,9 +16,6 @@ const OTPPage = () => {
 
   const { userId } = useParams();
 
-  const handleResentOtp = () => {
-    toast.success("OTP has been sent")
-  }
 
   const handleVerification = async () => {
     try {
@@ -43,7 +40,8 @@ const OTPPage = () => {
 
   const handleResendOTP = async () => {
     try {
-      const res = await axios.post('/api/sms/otp', { userId, otp })
+      const res = await axios.post('/api/sms/otp/resend', { userId, otp })
+      console.log(res)
     } catch (error) {
       toast.error("Couldn't verify");
       console.log(error);

@@ -54,7 +54,7 @@ const Orders = () => {
     return (
         <div className='flex flex-col items-center py-5 px-3 gap-3 min-h-[85vh]'>
             <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>My Orders</h1>
-            <div className='flex flex-col border rounded-2xl py-5 px-3 w-full gap-[10px]  min-h-[50vh]'>
+            <div className='flex flex-col border rounded-2xl py-5 px-3 w-full gap-[10px]  min-h-[70vh]'>
                 <div className='flex items-center justify-between border-b-2 px-2'>
                     <span className='w-2/3 text-center'>Product Name</span>
                     <span className='w-1/3 text-center'>Package Sent</span>

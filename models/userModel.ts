@@ -10,14 +10,14 @@ interface userProps extends Document {
     isAdmin: boolean;
     wishList: mongoose.Types.ObjectId[]
     securityCode: number;
-    whatsAppNumber: number;
+    whatsAppNumber: string;
     otp: number;
     isNumberVerified: boolean;
 }
 
 const userSchema = new Schema<userProps>({
     password: { type: String, required: true },
-    whatsAppNumber: { type: Number },
+    whatsAppNumber: { type: String },
     name: { type: String, required: true },
     phone: { type: String },
     address: { type: String },
@@ -25,7 +25,7 @@ const userSchema = new Schema<userProps>({
     numberVerified: { type: String },
     securityCode: { type: Number },
     isNumberVerified: { type: Boolean, default: false },
-    otp: { type: Number },
+    otp: { type: Number, expires: 600000 },
     wishList: [{ type: mongoose.Types.ObjectId, ref: "product" }]
 }, { timestamps: true });
 
