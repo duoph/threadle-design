@@ -18,9 +18,6 @@ import { useUser } from '@/context/useUser'
 import Script from 'next/script'
 
 
-
-
-
 const ProductPage = () => {
 
   const router = useRouter()
@@ -34,7 +31,6 @@ const ProductPage = () => {
   const [previewImage, setPreviewImage] = useState<string>()
   const [isLoading, setIsLoading] = useState(false)
   const [user, setUser] = useState<User>();
-
 
 
   const { cartItemCountFetch, currentUser } = useUser()
@@ -125,13 +121,22 @@ const ProductPage = () => {
     } else if (action === "decrement" && quantity > 1) {
       setQuantity(quantity - 1);
     }
-  };
+  }
 
   const addToCart = async () => {
     try {
-      if (!selectedColor || !selectedSize) {
-        return toast.error("Select Size and Color")
+
+      if (!user?.address || user?.address.length <= 10 || user?.address === "") {
+        if (!user?.address || user?.address === "" || user?.address.length <= 10) {
+          toast.error("Add Address");
+          return router.push(`/account/${currentUser?.userId}`);
+        }
+        if (!selectedColor || !selectedSize) {
+          setIsLoading(false);
+          return toast.error("Select Size and Color");
+        }
       }
+
       const res = await axios.post("/api/cart", {
         productId, color: selectedColor, size: selectedSize, quantity, price: product?.salePrice || product?.regularPrice, imageURL: product?.coverImageURL, title: product?.title
       })
@@ -139,9 +144,9 @@ const ProductPage = () => {
         toast.success("Added to cart")
         cartItemCountFetch()
       }
-      if (res.data.success === false) {
-        toast.error(res?.data?.message)
-      }
+      // if (res.data.success === false) {
+      //   toast.error(res?.data?.message)
+      // }
     } catch (error) {
       console.log(error)
     }
@@ -194,6 +199,8 @@ const ProductPage = () => {
         price: product?.salePrice || product?.regularPrice,
         imageURL: product?.coverImageURL,
         title: product?.title,
+        customerName: user?.name,
+        toAddress: user?.address,
         razorpay_order_id: response.razorpay_order_id,
         razorpay_payment_id: response.razorpay_payment_id,
         razorpay_signature: response.razorpay_signature,
@@ -286,6 +293,8 @@ const ProductPage = () => {
 
 
   const wpLink = `https://api.whatsapp.com/send?phone=919074063723&text=https%3A%2F%2Fthreadle-design.vercel.app%2Fshop%2F${product ? product._id : ''}%0AProductId%20%3A%20${product ? product._id : ''}%0ATitle%20%3A%20${product ? product.title : ''}${product && product.desc ? `%0ADesc%3A%20${product.desc}` : ''}`;
+
+
 
   return (
     <div className='w-full px-5 py-3 md:px-10 flex flex-col gap-3 mb-5 '>

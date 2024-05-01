@@ -39,6 +39,7 @@ export interface Cart {
     imageURL: string
     userId: string;
     productId: string;
+    customerName: string;
     size: string;
     isShipped: boolean;
     isPaid: boolean;
@@ -46,7 +47,8 @@ export interface Cart {
     price: number;
     totalPrice: number;
     title: string;
-    phoneNumber: number;
+    phoneNumber: string;
+    whatsAppNumber: string;
     quantity: number;
     UpdatedAt: Date;
     createdAt: Date;
@@ -56,7 +58,7 @@ export interface Cart {
 export interface User {
     __id: string;
     phone: number;
-    whatsAppNumber: number;
+    whatsAppNumber: string;
     address?: string;
     name: string;
     wishListIds: [];

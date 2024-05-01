@@ -1,6 +1,7 @@
 import { getDataFromToken } from "@/helpers/getDataFromToken";
 import connectMongoDB from "@/libs/db";
 import CartModel from "@/models/cartItemModel";
+import userModel from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET() {
@@ -36,7 +37,14 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ message: "Unauthenticated Access Error while marking is shipped", success: false });
         }
 
-        const cartItem = await CartModel.findByIdAndUpdate({ userId: userId }, { isPaid: true });
+        const user = await userModel.findById(userId)
+
+        const cartItem = await CartModel.findByIdAndUpdate({ userId: userId }, {
+            isPaid: true, customerName: user.name,
+            toAddress: user.address,
+            phoneNumber: user.phone,
+            whatsAppNumber: user.whatsAppNumber,
+        });
 
         return NextResponse.json({ message: "Marked as shipped", success: true, cartItem });
 

@@ -135,10 +135,10 @@ const OrderDetailsPage = () => {
                         </div>
                     </div>
                     <div className="flex flex-col items-center justify-center md:w-1/2 text-center">
-                        <span>Name: Praveen Prasad</span>
-                        <span>Phone: 403243294932</span>
-                        <span>Whatsapp: 403243294932</span>
-                        <span>{"The cave near my boys' school ground ponnanni south 676433"}</span>
+                        <span>Name:{order?.customerName}</span>
+                        <span>Phone: {order?.phoneNumber}</span>
+                        <span>Whatsapp: {order?.whatsAppNumber}</span>
+                        <span>{order?.toAdress}</span>
                     </div>
                 </div>
 
