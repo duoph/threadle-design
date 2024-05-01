@@ -52,6 +52,7 @@ const OrderDetailsPage = () => {
                 <h1 className="text-sm">Order Id : {order?._id}</h1>
                 <div className="flex flex-col md:flex-row gap-3 w-full">
                     <div className="text-center flex gap-2 flex-col md:w-1/2">
+                        <span className="font-medium">{order?.title}</span>
                         <div className="relative flex items-center z-0 justify-center  min-h-[200px] w-full rounded-2xl">
                             <Image priority={true} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" quality={50} fill={true} style={{ objectFit: "contain" }} className="rounded-2xl  max-h-[200px]" src={order?.imageURL || '/noImage.jpg'} alt="orderImage" />
                         </div>
@@ -62,12 +63,18 @@ const OrderDetailsPage = () => {
                         </div>
                     </div>
                     <div className="flex flex-col items-center justify-center md:w-1/2 text-center">
-                        <span>Name: Praveen Prasad</span>
-                        <span>Phone: 403243294932</span>
-                        <span>Whatsapp: 403243294932</span>
-                        <span className="font-medium">{order?.title}</span>
-                        <span>Delivering Address : {"The cave near my boys' school ground ponnanni south 676433"}</span>
+                        <span>Name:{order?.customerName}</span>
+                        <span>Phone: {order?.phoneNumber}</span>
+                        <span>Whatsapp: {order?.whatsAppNumber}</span>
+                        <span>Delivering Address: {order?.toAddress}</span>
                     </div>
+                </div>
+
+
+                {/* order tracking */}
+                <div className="bg-red-50 flex flex-col items-center justify-center">
+                    <h1 className="font-medium">Track Order</h1>
+                    <Image src={"/noImage.jpg"} alt="Image" height={200} width={200} />
                 </div>
 
                 {order?.isShipped && !order?.isDelivered && (

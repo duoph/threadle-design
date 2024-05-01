@@ -31,7 +31,8 @@ export async function POST(req: NextRequest) {
 
         const { userId } = getDataFromToken(req)
 
-        const { cartId } = await req.json()
+        const { cartId, razorpay_order_id, razorpay_payment_id, razorpay_signature } = await req.json()
+
 
         if (!cartId) {
             return NextResponse.json({ message: "Unauthenticated Access Error while marking is shipped", success: false });
@@ -39,11 +40,15 @@ export async function POST(req: NextRequest) {
 
         const user = await userModel.findById(userId)
 
-        const cartItem = await CartModel.findByIdAndUpdate({ userId: userId }, {
-            isPaid: true, customerName: user.name,
+        const cartItem = await CartModel.updateMany({ userId }, {
+            isPaid: true,
+            customerName: user.name,
             toAddress: user.address,
             phoneNumber: user.phone,
             whatsAppNumber: user.whatsAppNumber,
+            razorpay_order_id,
+            razorpay_payment_id,
+            razorpay_signature
         });
 
         return NextResponse.json({ message: "Marked as shipped", success: true, cartItem });

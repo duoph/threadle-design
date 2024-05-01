@@ -20,9 +20,10 @@ interface CartItemProps extends Document {
     orderedDate: Date;
     shippedDate: Date;
     toAddress: string;
-    phoneNumber: number;
-    whatsAppNumber: number;
+    phoneNumber: string;
+    whatsAppNumber: string;
     customerName: string;
+    deliverySlipURL: string;
 }
 
 const cartItemSchema = new Schema<CartItemProps>({
@@ -38,8 +39,8 @@ const cartItemSchema = new Schema<CartItemProps>({
     imageURL: { type: String || undefined, required: false },
     totalPrice: { type: Number, required: true },
     price: { type: Number, required: true },
-    whatsAppNumber: { type: Number, required: false },
-    phoneNumber: { type: Number, required: false },
+    whatsAppNumber: { type: String, required: false },
+    phoneNumber: { type: String, required: false },
     orderedDate: { type: Date, required: false },
     shippedDate: { type: Date, required: false },
     isPaid: { type: Boolean, default: false, required: true },
@@ -48,6 +49,7 @@ const cartItemSchema = new Schema<CartItemProps>({
     razorpay_order_id: { type: String, required: false, default: undefined },
     razorpay_payment_id: { type: String, required: false, default: undefined },
     razorpay_signature: { type: String, required: false, default: undefined },
+    deliverySlipURL: { type: String || undefined, required: false }
 }, { timestamps: true });
 
 const CartModel = mongoose.models.cart || mongoose.model<CartItemProps>('cart', cartItemSchema);

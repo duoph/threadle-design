@@ -35,7 +35,7 @@ export interface Category {
 
 export interface Cart {
     _id: string;
-    toAdress: string;
+    toAddress: string;
     imageURL: string
     userId: string;
     productId: string;

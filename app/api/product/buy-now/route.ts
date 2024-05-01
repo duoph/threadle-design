@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ message: "Login to use cart", success: false });
         }
 
-        const { productId, price, quantity, size, color, imageURL, title, razorpay_payment_id, razorpay_order_id, razorpay_signature } = await req.json();
+        const { productId, price, quantity, size, color, imageURL, title, razorpay_payment_id, razorpay_order_id, razorpay_signature, toAdress } = await req.json();
 
         // Calculate total price
         const totalPrice = quantity * price;
@@ -28,13 +28,12 @@ export async function POST(req: NextRequest) {
             price,
             quantity,
             size,
-            toAdress: "test address",
+            toAdress,
             color,
             imageURL,
             title,
             totalPrice,
             isPaid: true,
-            toAddress: "Suite 852 1329 Israel Corner, Gutkowskiview, CT 53486",
             orderedDate: new Date(),
             razorpay_payment_id,
             razorpay_order_id,

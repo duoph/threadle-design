@@ -65,7 +65,7 @@ const CartPage = () => {
 
   const cartItemPaid = async (response: any) => {
     try {
-      await axios.put('/api/orders/pending', {
+      await axios.put('/api/cart', {
         razorpay_order_id: response.razorpay_order_id,
         razorpay_payment_id: response.razorpay_payment_id,
         razorpay_signature: response.razorpay_signature,
@@ -97,8 +97,8 @@ const CartPage = () => {
           if (response.razorpay_payment_id) {
             // Payment successful
             toast.success("Payment successful!");
-            router.push(`account/${currentUser?.userId}/orders`)
             cartItemPaid(response);
+            router.push(`account/${currentUser?.userId}/orders`)
           } else {
             // Payment failed
             toast.error("Payment failed. Please try again.");

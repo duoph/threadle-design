@@ -138,7 +138,7 @@ const OrderDetailsPage = () => {
                         <span>Name:{order?.customerName}</span>
                         <span>Phone: {order?.phoneNumber}</span>
                         <span>Whatsapp: {order?.whatsAppNumber}</span>
-                        <span>{order?.toAdress}</span>
+                        <span>Delivering Address: {order?.toAddress}</span>
                     </div>
                 </div>
 
