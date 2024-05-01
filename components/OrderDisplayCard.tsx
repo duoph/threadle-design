@@ -40,7 +40,7 @@ const OrderDisplayCard = ({ order }: any) => {
     return (
         <div key={order._id} onClick={handleRoute} className='cursor-pointer flex items-center justify-between border rounded-2xl overflow-hidden pr-3 h-[60px]' >
             <Link href={`/admin-panel/orders/${order._id}`} className='flex items-center gap-1 w-2/3'>
-                <div className='relative h-[70px] w-[55px]'>
+                <div className='relative h-[70px] min-w-[55px]'>
                     <Image style={{ objectFit: 'cover' }} src={order?.imageURL || "/noImage.jpg"} alt='no Image' fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" priority={true} />
                 </div>
                 <div className='flex flex-col md:w-full w-2/3 pr-10'>
@@ -48,7 +48,10 @@ const OrderDisplayCard = ({ order }: any) => {
                     <span className='text-sm opacity-70'>{formattedDate} ago</span>
                 </div>
             </Link>
-            <span className='w-1/3 break-all text-center text-td-secondary' onClick={handleCopy}>{order.razorpay_payment_id}</span>
+            <div className='break-all flex flex-col' >
+                <span className='text-sm w-[5ww] text-center text-td-secondary' onClick={handleCopy}>{order.customerName}</span>
+                <span className='text-sm text-center text-td-secondary' onClick={handleCopy}>{order.phoneNumber}</span>
+            </div>
         </div >
     );
 };

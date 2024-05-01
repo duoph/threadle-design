@@ -126,15 +126,9 @@ const ProductPage = () => {
   const addToCart = async () => {
     try {
 
-      if (!user?.address || user?.address.length <= 10 || user?.address === "") {
-        if (!user?.address || user?.address === "" || user?.address.length <= 10) {
-          toast.error("Add Address");
-          return router.push(`/account/${currentUser?.userId}`);
-        }
-        if (!selectedColor || !selectedSize) {
-          setIsLoading(false);
-          return toast.error("Select Size and Color");
-        }
+      if (!selectedColor || !selectedSize) {
+        setIsLoading(false);
+        return toast.error("Select Size and Color");
       }
 
       const res = await axios.post("/api/cart", {

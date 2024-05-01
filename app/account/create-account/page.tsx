@@ -87,7 +87,7 @@ const CreateAccount = () => {
             }
 
             if (response.data.success === false) {
-                toast.error("Error")
+                toast.error(response.data.message)
                 console.log(response.data)
             }
 

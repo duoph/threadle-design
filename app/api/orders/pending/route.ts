@@ -26,6 +26,8 @@ export async function GET() {
 
 
 
+
+// this is not in use 
 export async function POST(req: NextRequest) {
     try {
 
@@ -34,7 +36,6 @@ export async function POST(req: NextRequest) {
         const { userId } = getDataFromToken(req)
 
         const { cartId, razorpay_order_id, razorpay_payment_id, razorpay_signature } = await req.json()
-
 
         if (!cartId) {
             return NextResponse.json({ message: "Unauthenticated Access Error while marking is shipped", success: false });
@@ -52,12 +53,7 @@ export async function POST(req: NextRequest) {
             razorpay_payment_id,
             razorpay_signature
         });
-
-
-
-
         return NextResponse.json({ message: "Marked as shipped", success: true, cartItem });
-
     } catch (error) {
         console.log(error);
         return NextResponse.json({ message: "Error while marking is shipped", success: false, error });

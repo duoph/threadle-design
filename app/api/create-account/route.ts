@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
         const whatsApp = formData?.get("whatsApp") as string | undefined;
         const password = formData?.get("password") as string | undefined;
 
-        const numberInUse = await userModel.findOne({ phone });
+        const numberInUse = await userModel.findOne({ phone: "+91" + phone });
 
         if (numberInUse) {
             return NextResponse.json({ message: "Phone is linked with another account", success: false });
