@@ -3,7 +3,7 @@ import connectMongoDB from "@/libs/db";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import JWT from "jsonwebtoken";
-import { sendOTP } from '@/actions/actionOTP';
+import { sendOTP } from '@/actions/actionSMS';
 
 export async function POST(req: NextRequest) {
     try {

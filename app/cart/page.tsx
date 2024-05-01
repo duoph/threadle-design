@@ -98,7 +98,7 @@ const CartPage = () => {
             // Payment successful
             toast.success("Payment successful!");
             cartItemPaid(response);
-            router.push(`account/${currentUser?.userId}/orders`)
+            router.push(`/account/${currentUser?.userId}/orders`)
           } else {
             // Payment failed
             toast.error("Payment failed. Please try again.");

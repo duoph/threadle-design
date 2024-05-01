@@ -1,3 +1,4 @@
+import { sendSMS } from "@/actions/actionSMS";
 import { getDataFromToken } from "@/helpers/getDataFromToken";
 import connectMongoDB from "@/libs/db";
 import CartModel from "@/models/cartItemModel";
@@ -91,7 +92,7 @@ export async function PUT(req: NextRequest) {
         const user = await userModel.findById(userId)
 
 
-        const cartItem = await CartModel.updateMany({ userId }, {
+        const cartItem = await CartModel.updateMany({ isPaid: false }, {
             isPaid: true,
             customerName: user.name,
             orderedDate: new Date(),
@@ -102,6 +103,9 @@ export async function PUT(req: NextRequest) {
             razorpay_payment_id,
             razorpay_signature
         });
+
+        sendSMS(userId, "Threadles Desings : Your Order Have Been Placed Succesfully we will inform you when its shipped")
+
 
         return NextResponse.json({ message: "Marked all cart items as paid", success: true, cartItem });
 

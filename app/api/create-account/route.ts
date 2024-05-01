@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 import connectMongoDB from "@/libs/db";
 import { NextRequest, NextResponse } from "next/server";
 import userModel from '@/models/userModel';
-import { sendOTP } from "@/actions/actionOTP";
+import { sendOTP } from "@/actions/actionSMS";
 
 export async function POST(req: NextRequest) {
     try {

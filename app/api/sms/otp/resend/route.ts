@@ -1,4 +1,4 @@
-import { sendOTP } from "@/actions/actionOTP";
+import { sendOTP } from "@/actions/actionSMS";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {

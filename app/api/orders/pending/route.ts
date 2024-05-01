@@ -1,7 +1,9 @@
+import { sendSMS } from "@/actions/actionSMS";
 import { getDataFromToken } from "@/helpers/getDataFromToken";
 import connectMongoDB from "@/libs/db";
 import CartModel from "@/models/cartItemModel";
 import userModel from "@/models/userModel";
+import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET() {
@@ -40,7 +42,7 @@ export async function POST(req: NextRequest) {
 
         const user = await userModel.findById(userId)
 
-        const cartItem = await CartModel.updateMany({ userId }, {
+        const cartItem = await CartModel.updateMany({ isPaid: false }, {
             isPaid: true,
             customerName: user.name,
             toAddress: user.address,
@@ -50,6 +52,9 @@ export async function POST(req: NextRequest) {
             razorpay_payment_id,
             razorpay_signature
         });
+
+
+
 
         return NextResponse.json({ message: "Marked as shipped", success: true, cartItem });
 
