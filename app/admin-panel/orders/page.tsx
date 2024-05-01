@@ -14,7 +14,7 @@ const Orders = () => {
     const [selectedOrderType, setSelectedOrderType] = useState<string>('pending');
     const [pendingOrders, setPendingOrders] = useState<Cart[]>([]);
     const [shippedOrders, setShippedOrders] = useState<Cart[]>([]);
-    const [deliveredOrders, setDeliveredOrders] = useState<Cart[]>([]);
+    // const [deliveredOrders, setDeliveredOrders] = useState<Cart[]>([]);
     const [orderDisplay, setOrderDisplay] = useState<Cart[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>()
 
@@ -26,11 +26,11 @@ const Orders = () => {
             setIsLoading(true)
             const pendingRes = await axios.get('/api/orders/pending');
             const shippedRes = await axios.get('/api/orders/shipped');
-            const deliveredRes = await axios.get('/api/orders/delivered');
+            // const deliveredRes = await axios.get('/api/orders/delivered');
 
             setPendingOrders(pendingRes.data?.pendingOrders);
             setShippedOrders(shippedRes.data?.shippedOrders);
-            setDeliveredOrders(deliveredRes.data?.deliveredOrders);
+            // setDeliveredOrders(deliveredRes.data?.deliveredOrders);
 
             setIsLoading(false)
 
@@ -41,9 +41,9 @@ const Orders = () => {
                 case 'shipped':
                     setOrderDisplay(shippedRes.data?.shippedOrders);
                     break;
-                case 'delivered':
-                    setOrderDisplay(deliveredRes.data?.deliveredOrders);
-                    break;
+                // case 'delivered':
+                //     setOrderDisplay(deliveredRes.data?.deliveredOrders);
+                //     break;
                 default:
                     break;
             }
@@ -88,7 +88,7 @@ const Orders = () => {
         <div className="flex flex-col items-center py-5 px-3 gap-3 w-full">
             <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>Order Dashboard</h1>
             {/* Total Orders */}
-            <div className="flex items-center justify-center border bg-slate-200 rounded-2xl py-5 px-3 w-full">
+            {/* <div className="flex items-center justify-center border bg-slate-200 rounded-2xl py-5 px-3 w-full">
                 <div className="flex items-center justify-center flex-col md:flex-row flex-wrap gap-6 text-td-secondary font-bold text-xl">
                     <div className="flex flex-col items-center justify-center">
                         <h2>Total Orders</h2>
@@ -107,7 +107,7 @@ const Orders = () => {
                         <span>{deliveredOrders.length}</span>
                     </div>
                 </div>
-            </div>
+            </div> */}
             {/* Order Type Buttons */}
             <div className="flex items-center justify-center gap-2 md:gap-5 lg:gap-10 rounded-2xl py-5 px-5 md:px-10 w-full text-[15px] flex-wrap">
                 <span
@@ -128,7 +128,7 @@ const Orders = () => {
                 >
                     Shipped Orders
                 </span>
-                <span
+                {/* <span
                     onClick={() => {
                         setSelectedOrderType('delivered');
                         setOrderDisplay(deliveredOrders)
@@ -137,10 +137,10 @@ const Orders = () => {
                     className={`px-3 py-2 rounded-2xl cursor-pointer border ${selectedOrderType === 'delivered' ? 'bg-td-secondary text-white' : ''}`}
                 >
                     Delivered Orders
-                </span>
+                </span> */}
             </div>
             {/* Order Display */}
-            <div className="flex flex-col border rounded-2xl py-5 px-3 w-full gap-[10px] min-h-[50vh]">
+            <div className="flex flex-col border rounded-2xl py-5 px-3 w-full gap-[10px] min-h-[70vh]">
                 <div className="flex items-center justify-between border-b-2 px-2">
                     <span className="w-2/6 text-center">Product Name</span>
                     <span className="w-2/6 text-center">Customer Name</span>

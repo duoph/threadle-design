@@ -117,9 +117,22 @@ const OrderDetailsPage = () => {
     }
 
 
+    if (!order) { // Check for both products and loading state
+        return (
+            <div className='flex flex-col items-center py-5 px-3 gap-3 min-h-[85vh]'>
+                <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>Order Details</h1>
+                <div className=" absolute flex items-center justify-center flex-grow h-[65vh]">
+                    <PulseLoader />
+                </div>
+            </div>
+        );
+    }
+
+
+
     return (
-        <div className="min-h-[80vh] py-3 px-3 flex flex-col gap-4 w-full">
-            <h1 className="text-center font-bold text-[25px] md:text-[35px] text-td-secondary"> Order Details</h1>
+        <div className=" py-3 px-3 flex flex-col gap-4 w-full min-h-[85vh]">
+            <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>Order Details</h1>
             <div className="flex flex-col gap-3 border px-3 py-3 rounded-2xl bg-slate-100">
                 <h1 className="text-sm">Order Id: {order?._id}</h1>
                 <div className="flex flex-col md:flex-row gap-3 w-full">
