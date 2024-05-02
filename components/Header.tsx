@@ -12,6 +12,7 @@ import ClickAwayListener from 'react-click-away-listener';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { RiAdminLine } from 'react-icons/ri';
+import UserSliderMenu from './Header/userSliderMenu';
 
 
 const Header = () => {
@@ -68,17 +69,16 @@ const Header = () => {
             </Link>
             <div className='flex items-center justify-center gap-2'>
 
-                {currentUser?.isAdmin !== true && currentUser?.token && (
-                    <div className='relative  cursor-pointer'>
-                        <span className='absolute p-1 px-2 text-xs bg-red-800 rounded-full -right-2 -top-2 text-white'>{cartCount || "0"}</span>
-                        <CiShoppingCart onClick={() => router.push('/cart')} className='text-white ' size={24} />
-                    </div>
-                )}
-
                 {currentUser?.token && currentUser?.isAdmin !== true && (
-                    <div className='cursor-pointer flex items-center justify-center gap-2 '>
-                        <CiSearch onClick={() => router.push('/shop')} className='text-white cursor-pointer' size={24} />
-                        <CiUser onClick={onAccountClick} className='text-white cursor-pointer' size={24} />
+                    <div className='cursor-pointer text-white flex items-center justify-center gap-2 '>
+                        <div className='relative  cursor-pointer'>
+                            <span className='absolute p-1 px-2 text-xs bg-red-800 rounded-full -right-2 -top-2 text-white'>{cartCount || "0"}</span>
+                            <CiShoppingCart onClick={() => router.push('/cart')} className='text-white ' size={24} />
+                        </div>
+                        <CiSearch onClick={() => router.push('/shop')} className=' cursor-pointer' size={24} />
+                        <span>
+                            <UserSliderMenu />
+                        </span>
                     </div>
                 )}
 
@@ -106,6 +106,7 @@ const Header = () => {
                 )}
 
 
+                {/* Menu For Admin */}
                 <ClickAwayListener onClickAway={() => setIsMenu(true)}>
                     <div onClick={() => setIsMenu(true)} className={`fixed top-[81px] h-full right-0 flex flex-col items-start justify-start z-50 shadow-2xl  bg-td-secondary md:w-[300px] w-full  translate-x-[0%]  transition-all duration-300 ease-in-out ${isMenu && 'translate-x-[100%]'}`}>
                         <Link href="/admin-panel/orders" className={` w-full px-10 py-2 text-white  text-center ${pathname?.startsWith("/admin-panel/orders") && "bg-td-primary"}`}>
@@ -158,6 +159,8 @@ const Header = () => {
                         <button className='bg-red-600 w-full px-10 py-2 text-white text-center flex items-center justify-center gap-3' onClick={handleLogout}> LogOut<AiOutlineLogout /></button>
                     </div>
                 </ClickAwayListener>
+
+
 
             </div >
         </div >

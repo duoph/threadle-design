@@ -78,7 +78,7 @@ const ProductContainerWithCategory = ({ category, categoryId, title, productNotT
                                 <GoChevronRight onClick={handleScrollRight} className='md:hover:scale-110 z-10 absolute top-[150px] bg-black text-white right-3 rounded-full cursor-pointer' size={30} />
                             </>
                         )}
-                        <div ref={scrollContainerRef} className={`flex ${mdHide ? 'flex-wrap gap-5 items-center justify-center py-5' : 'hideScrollBar overflow-x-scroll justify-start items-center gap-2 h-[350px]'} `}>
+                        <div ref={scrollContainerRef} className={`flex ${mdHide ? 'flex-wrap md:gap-5 gap-3 items-center justify-center py-5' : 'hideScrollBar overflow-x-scroll justify-start items-center gap-2 h-[350px]'} `}>
                             {products.slice(0, mdHide ? 4 : products.length).map((product) => (  // Limit to 4 products if mdHide is true
                                 <div key={product._id}>
                                     {productNotToshow === product._id ? null : <ProductCard product={product} getProducts={fetchCategoryProducts} />}
