@@ -24,7 +24,13 @@ const MapContainer = () => {
     }
 
     if (!isLoaded) {
-        return <div>Loading maps</div>;
+        return (
+            <div className=' lg:px-10 px-5 mt-5 lg:mt-10 mb-10 flex flex-col gap-2 items-center justify-center'>
+                <div>
+                    Loading
+                </div>
+            </div>
+        )
     }
 
     return (

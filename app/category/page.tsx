@@ -14,6 +14,7 @@ const CategoryPage = () => {
 
 
 
+
     const router = useRouter()
 
     const fetchCategory = async () => {
@@ -54,9 +55,17 @@ const CategoryPage = () => {
             <div className='flex items-center justify-center'>
                 <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>All Categories</h1>
             </div>
-            <div className=''>
+            <div className='py-5 md:hidden'>
                 {categories?.map((category, index) => (
                     <ProductContainerWithCategory key={index} category={category} />
+                ))}
+            </div>
+
+            {/* only visible in big screens */}
+
+            <div className='py-5 '>
+                {categories?.map((category, index) => (
+                    <ProductContainerWithCategory key={index} category={category} mdHide={true} />
                 ))}
             </div>
 

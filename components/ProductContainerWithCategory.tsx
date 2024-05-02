@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useEffect, useRef, useState } from 'react';
 import ProductCard from './ProductCard';
 import { GoChevronRight, GoChevronLeft } from "react-icons/go";
@@ -9,10 +11,11 @@ interface ProductContainerProps {
     category?: any
     categoryId?: string
     title?: string
+    mdHide?: boolean;
     productNotToshow?: string
 }
 
-const ProductContainerWithCategory = ({ category, categoryId, title, productNotToshow }: ProductContainerProps) => {
+const ProductContainerWithCategory = ({ category, categoryId, title, productNotToshow, mdHide }: ProductContainerProps) => {
     const scrollContainerRef = useRef<HTMLDivElement>(null);
     const [products, setProducts] = useState<Product[]>([]);
     const router = useRouter();
@@ -63,18 +66,20 @@ const ProductContainerWithCategory = ({ category, categoryId, title, productNotT
         }
     };
 
-
-
     return (
         <>
             {!products ? null : (
-                <div className='flex flex-col items-center justify-center  w-full mb-5'>
-                    <h1 className='text-[20px] font-extrabold'>{title || category?.categoryName}</h1>
+                <div className='flex flex-col items-center justify-center w-full mb-5'>
+                    <h1 className='text-td-secondary text-[20px] md:text-[30px] font-bold text-3xl'>{title || category?.categoryName}</h1>
                     <div className='relative w-full px-2'>
-                        <GoChevronLeft onClick={handleScrollLeft} className='md:hover:scale-110 z-10 absolute top-[150px] bg-black text-white  left-3 rounded-full cursor-pointer' size={30} />
-                        <GoChevronRight onClick={handleScrollRight} className='md:hover:scale-110 z-10 absolute top-[150px] bg-black text-white right-3 rounded-full cursor-pointer' size={30} />
-                        <div ref={scrollContainerRef} className='flex hideScrollBar hideScrollBar overflow-x-scroll justify-start items-center gap-2 h-[350px]'>
-                            {products?.map((product) => (
+                        {mdHide !== true && (
+                            <>
+                                <GoChevronLeft onClick={handleScrollLeft} className='md:hover:scale-110 z-10 absolute top-[150px] bg-black text-white  left-3 rounded-full cursor-pointer' size={30} />
+                                <GoChevronRight onClick={handleScrollRight} className='md:hover:scale-110 z-10 absolute top-[150px] bg-black text-white right-3 rounded-full cursor-pointer' size={30} />
+                            </>
+                        )}
+                        <div ref={scrollContainerRef} className={`flex ${mdHide ? 'flex-wrap gap-5 items-center justify-center py-5' : 'hideScrollBar overflow-x-scroll justify-start items-center gap-2 h-[350px]'} `}>
+                            {products.slice(0, mdHide ? 4 : products.length).map((product) => (  // Limit to 4 products if mdHide is true
                                 <div key={product._id}>
                                     {productNotToshow === product._id ? null : <ProductCard product={product} getProducts={fetchCategoryProducts} />}
                                 </div>
