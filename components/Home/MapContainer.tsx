@@ -3,7 +3,7 @@
 import React from 'react';
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
 
-const libraries: string[] = ['places'];
+// const libraries: string[] = ['places'];
 
 const mapContainerStyle = {
     height: '50vh',
@@ -15,8 +15,8 @@ const center = {
 
 const MapContainer = () => {
     const { isLoaded, loadError } = useLoadScript({
-        // googleMapsApiKey: 'erewrwear',
-        // libraries: libraries,
+        googleMapsApiKey: 'erewrwear',
+        libraries: [],
     });
 
     if (loadError) {
