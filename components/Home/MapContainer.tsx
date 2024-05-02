@@ -15,8 +15,8 @@ const center = {
 
 const MapContainer = () => {
     const { isLoaded, loadError } = useLoadScript({
-        googleMapsApiKey: 'erewrwear',
-        libraries: libraries,
+        // googleMapsApiKey: 'erewrwear',
+        // libraries: libraries,
     });
 
     if (loadError) {
