@@ -23,6 +23,7 @@ interface CartItemProps extends Document {
     phoneNumber: string;
     whatsAppNumber: string;
     customerName: string;
+    isCancel: boolean;
     deliverySlipURL: string;
 }
 
@@ -43,6 +44,7 @@ const cartItemSchema = new Schema<CartItemProps>({
     phoneNumber: { type: String, required: false },
     orderedDate: { type: Date, required: false },
     shippedDate: { type: Date, required: false },
+    isCancel: { type: Boolean, default: false },
     isPaid: { type: Boolean, default: false, required: true },
     isShipped: { type: Boolean, default: false, required: true },
     isDelivered: { type: Boolean, default: false, required: true },

@@ -12,10 +12,12 @@ export const revalidate = 2000
 
 const Orders = () => {
     const [orderDisplay, setOrderDisplay] = useState([])
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
     const { userId } = useParams()
 
     const userOrders = async () => {
+        setIsLoading(true)
         try {
             const res = await axios.post(`/api/orders/user`, {
                 userId: userId
@@ -29,7 +31,9 @@ const Orders = () => {
                 setOrderDisplay(sortedOrders);
                 console.log(res);
             }
+            setIsLoading(false)
         } catch (error) {
+            setIsLoading(false)
             console.log(error);
         }
     };
@@ -39,8 +43,7 @@ const Orders = () => {
     }, [window.performance])
 
 
-    if (orderDisplay.length === 0) {
-
+    if (isLoading) {
         return (
             <div className='flex flex-col items-center py-5 px-3 gap-3 min-h-[85vh]'>
                 <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>My Orders</h1>

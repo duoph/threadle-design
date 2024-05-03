@@ -1,6 +1,13 @@
-import React from 'react'
+"use client"
+
+
+import React, { useState } from 'react'
 
 const NewsLetterContainer = () => {
+
+    const [phone, setPhone] = useState<string>()
+
+
     return (
         <div className='lg:px-10 px-5 w-full mb-10'>
             <div className='bg-td-secondary flex md:flex-row flex-col gap-3 md:gap-0items-center justify-between rounded-2xl w-full lg:px-10 px-5 py-10  '>
@@ -9,9 +16,12 @@ const NewsLetterContainer = () => {
                 </div>
                 <div className='flex flex-col items-center justify-center gap-3 md:w-1/2'>
                     <input type="text"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
                         className='rounded-2xl px-5 py-2 w-full'
                         placeholder='Enter your email address' />
-                    <button className='bg-white text-black px-5 py-2 rounded-2xl w-full font-bold'>Subscribe To Newsletter</button>
+                    <button onClick={() =>
+                        setPhone("")} className='bg-white text-black px-5 py-2 rounded-2xl w-full font-bold'>Subscribe To Newsletter</button>
                 </div>
             </div>
         </div>
