@@ -46,7 +46,7 @@ const UserSliderMenu = () => {
             <ClickAwayListener onClickAway={() => setIsMenu(true)}>
                 <div onClick={() => setIsMenu(true)} className={`fixed top-[81px] h-full right-0 flex flex-col items-start justify-start z-50 shadow-2xl  bg-td-secondary md:w-[300px] w-full  translate-x-[0%]  transition-all duration-300 ease-in-out ${isMenu && 'translate-x-[100%]'}`}>
                     <Link href="/admin-panel/orders" className={` w-full px-10 py-2 text-white  text-center ${pathname?.startsWith("/admin-panel/orders") && "bg-td-primary"}`}>
-                        <span className="flex items-center justify-center gap-2">
+                        <span className="flex items-center justify-start gap-8">
                             <CiShoppingCart />
                             <p>
                                 Orders
@@ -54,14 +54,14 @@ const UserSliderMenu = () => {
                         </span>
                     </Link>
                     <Link href="/admin-panel/create-product" className={` w-full px-10 py-2 text-white  text-center ${pathname?.startsWith("/admin-panel/create-product") && "bg-td-primary"}`}>
-                        <span className="flex items-center justify-center gap-2">
+                        <span className="flex items-center justify-start gap-8">
                             <CiCirclePlus />
                             <p>
                                 Add Product
                             </p>
                         </span>
                     </Link>
-                    <Link href="/admin-panel/create-category" className={` w-full px-10 py-2 text-white  text-center ${pathname?.startsWith("/admin-panel/create-category") && "bg-td-primary"}`}> <span className="flex items-center justify-center gap-2">
+                    <Link href="/admin-panel/create-category" className={` w-full px-10 py-2 text-white  text-center ${pathname?.startsWith("/admin-panel/create-category") && "bg-td-primary"}`}> <span className="flex items-center justify-start gap-8">
                         <CiCirclePlus />
                         <p>
                             Add Category
@@ -69,7 +69,7 @@ const UserSliderMenu = () => {
                     </span>
                     </Link>
                     <Link href="/admin-panel/view-products" className={` w-full px-10 py-2 text-white  text-center ${pathname?.startsWith("/admin-panel/view-products") && "bg-td-primary"} ${pathname?.startsWith("/admin-panel/edit-product/") && "bg-td-primary"}`}>
-                        <span className="flex items-center justify-center gap-2">
+                        <span className="flex items-center justify-start gap-8">
                             <CiShop />
                             <p>
                                 View All Products
@@ -77,7 +77,7 @@ const UserSliderMenu = () => {
                         </span>
                     </Link>
                     <Link href="/admin-panel/view-categories" className={` w-full px-10 py-2 text-white text-center ${pathname?.startsWith("/admin-panel/edit-category") && "bg-td-primary"} ${pathname?.startsWith("/admin-panel/view-categories") && "bg-td-primary"}`}>
-                        <span className="flex items-center justify-center gap-2">
+                        <span className="flex items-center justify-start gap-8">
                             <CiShop />
                             <p>
                                 View All Categories
@@ -85,7 +85,7 @@ const UserSliderMenu = () => {
                         </span>
                     </Link>
                     <Link href="/admin-panel/create-admin" className={` w-full px-10 py-2 text-white text-center ${pathname?.startsWith("/admin-panel/create-admin") && "bg-td-primary"}`}>
-                        <span className="flex items-center justify-center gap-2">
+                        <span className="flex items-center justify-start gap-8">
                             <RiAdminLine />
                             <p>
                                 Create new Admin
