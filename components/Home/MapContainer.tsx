@@ -9,23 +9,35 @@ const mapContainerStyle = {
     height: '50vh',
 };
 const center = {
-    lat: 7.2905715,
-    lng: 80.6337262,
+    lat: 11.0433600,
+    lng: 76.071780,
 };
 
 const MapContainer = () => {
     const { isLoaded, loadError } = useLoadScript({
-        googleMapsApiKey: 'erewrwear',
-        libraries: [],
+        googleMapsApiKey: 'AIzaSyBU1onFYu4AsvQHRO5Ugacrjo0ObuF7kVo',
     });
 
+
+
     if (loadError) {
-        return <div>Error loading maps</div>;
+        return (
+            <div className=' lg:px-10 px-5 mt-5 lg:mt-10 mb-10 flex flex-col gap-2 items-center justify-center'>
+                <h1 className='lg:text-[40px] text-[25px] font-bold text-td-secondary'>Locate Our Store</h1>
+
+                <div>
+                    Error loading maps
+                </div>
+            </div>
+        )
     }
+
 
     if (!isLoaded) {
         return (
             <div className=' lg:px-10 px-5 mt-5 lg:mt-10 mb-10 flex flex-col gap-2 items-center justify-center'>
+                <h1 className='lg:text-[40px] text-[25px] font-bold text-td-secondary'>Locate Our Store</h1>
+
                 <div>
                     Loading
                 </div>
@@ -34,19 +46,17 @@ const MapContainer = () => {
     }
 
     return (
-
         <div className=' lg:px-10 px-5 mt-5 lg:mt-10 mb-10 flex flex-col gap-2 items-center justify-center'>
             <h1 className='lg:text-[40px] text-[25px] font-bold text-td-secondary'>Locate Our Store</h1>
             <div className='w-full h-full'>
                 <GoogleMap
                     mapContainerStyle={mapContainerStyle}
-                    zoom={10}
+                    zoom={20}
                     center={center}
                 >
                     <Marker position={center} />
                 </GoogleMap>
             </div>
-
         </div>
     );
 };
