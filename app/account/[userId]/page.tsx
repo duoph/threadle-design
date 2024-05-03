@@ -3,7 +3,7 @@
 import { useUser } from '@/context/useUser';
 import { User } from '@/types';
 import axios from 'axios';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { FaPhoneAlt, FaAddressCard } from 'react-icons/fa';
@@ -27,11 +27,13 @@ const UserProfile = () => {
         address: '',
     });
 
+    const pathname = usePathname()
+
+
     const fetchUser = async () => {
         try {
             setIsLoading(true)
             const res = await axios.get(`/api/user/${currentUser?.userId}`)
-            // setUser(res?.data?.user);
             if (res?.data?.user) {
                 setFormData({
                     name: res.data.user.name,
@@ -62,21 +64,25 @@ const UserProfile = () => {
         e.preventDefault();
         setIsSubmiting(true)
         try {
+
             const res = await axios.put(`/api/user/${currentUser?.userId}`, formData);
 
             if (res.data?.success === true) {
                 const userData = res.data?.user;
                 toast.success('Profile Updated Successfully');
             }
+
             if (res.data?.success === false) {
                 toast.error('Profile Updated Successfully');
             }
+
             setIsSubmiting(false)
         } catch (error) {
             setIsSubmiting(false)
             console.log(error);
             toast.error('Failed to update profile');
         }
+
         fetchUser()
 
     };
@@ -85,6 +91,12 @@ const UserProfile = () => {
 
     if (!currentUser?.token) {
         router.push('/account/login');
+        return null;
+    }
+
+
+    if (pathname === "/account/profile") {
+        router.push('/shop');
         return null;
     }
 

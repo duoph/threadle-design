@@ -1,13 +1,9 @@
 "use client"
 
-import { useUser } from '@/context/useUser'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 
 const Account = () => {
-
-
-    // const { currentUser } = useUser()
 
 
     const router = useRouter()

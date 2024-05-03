@@ -50,6 +50,13 @@ export function middleware(request: NextRequest) {
     }
 
 
+    if (path === "/account/profile'") {
+        if (token && isAdmin === "0") {
+            return NextResponse.redirect(new URL('/shop', request.url))
+        }
+    }
+
+
 
     if (path === "/account/login" || path === "/account/create-account") {
         if (token && isAdmin === "0") {
@@ -62,5 +69,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-    matcher: ['/admin-panel/:path*', '/account/[userId]', "/account/login", "/account/create-account", "/shop", "/cart", "/", "/account/forgot-password", "/account/create-account/otp-verification/[userId]"]
+    matcher: ['/admin-panel/:path*', '/account/[userId]', "/account/login", "/account", "/account/create-account", "/shop", "/cart", "/", "/account/forgot-password", "/account/create-account/otp-verification/[userId]"]
 }

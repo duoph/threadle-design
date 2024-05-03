@@ -112,12 +112,11 @@ const OrderDetailsPage = () => {
         } catch (error) {
             setIsLoading(false)
             console.log(error)
-
         }
     }
 
 
-    if (!order) { // Check for both products and loading state
+    if (!order) { 
         return (
             <div className='flex flex-col items-center py-5 px-3 gap-3 min-h-[85vh]'>
                 <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>Order Details</h1>
