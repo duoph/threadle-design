@@ -413,7 +413,6 @@ const ProductPage = () => {
                   </div>
                 </div>
 
-
                 {!product?.isCustom && product?.inStock ? (
                   <div className='flex flex-col gap-3 font-semibold w-full'>
                     <span className='bg-gray-200 flex items-center justify-between gap-4 px-8 py-2 rounded-2xl w-1/2'>

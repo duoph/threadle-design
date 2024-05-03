@@ -18,20 +18,6 @@ const OrderDisplayCardUser = ({ order }: any) => {
         }
     };
 
-    const handleCopy = (e: any) => {
-        e.stopPropagation();
-        try {
-            navigator.clipboard.writeText(order.razorpay_payment_id)
-                .then(() => {
-                    toast.success('Copied to clipboard:', order.razorpay_payment_id);
-                })
-                .catch((error) => {
-                    toast.error('Failed to copy:', error);
-                });
-        } catch (error) {
-            console.log(error);
-        }
-    };
 
     const formattedDate = order?.orderedDate ? formatDistanceToNow(new Date(order?.orderedDate)) : '';
 
@@ -46,7 +32,7 @@ const OrderDisplayCardUser = ({ order }: any) => {
                     <span className='text-sm opacity-70'>{formattedDate} ago</span>
                 </div>
             </div>
-            <span className='w-1/3 break-all flex items-center justify-center text-td-secondary' onClick={handleCopy}>
+            <span className='w-1/3 break-all flex items-center justify-center text-td-secondary'>
                 {order.isShipped ? (<CiCircleCheck size={24} />) : (<IoMdCloseCircleOutline className='text-red-500' size={24} />)}
             </span>
         </div>

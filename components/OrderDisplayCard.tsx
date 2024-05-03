@@ -22,9 +22,9 @@ const OrderDisplayCard = ({ order }: any) => {
     const handleCopy = (e: any) => {
         e.stopPropagation();
         try {
-            navigator.clipboard.writeText(order.razorpay_payment_id)
+            navigator.clipboard.writeText(order.phoneNumber)
                 .then(() => {
-                    toast.success('Copied to clipboard:', order.razorpay_payment_id);
+                    toast.success('Phone Number Copied to clipboard:', order.phoneNumber);
                 })
                 .catch((error) => {
                     toast.error('Failed to copy:', error);

@@ -9,6 +9,7 @@ const FeaturedCategory = () => {
 
     const [categories, setCategories] = useState<Category[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false) 
+    
     const fetchCategory = async () => {
         try {
             const response: AxiosResponse<{ tdCategory: Category[] }> = await axios.get("/api/category");

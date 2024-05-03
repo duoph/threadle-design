@@ -7,7 +7,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { FaPhoneAlt, FaAddressCard } from 'react-icons/fa';
-import { FaSquareWhatsapp } from 'react-icons/fa6';
+import { FaLocationDot, FaSquareWhatsapp } from 'react-icons/fa6';
 import { RiAccountCircleFill } from 'react-icons/ri';
 import { PulseLoader } from 'react-spinners';
 
@@ -132,6 +132,10 @@ const UserProfile = () => {
                     <div className='flex items-start justify-center gap-2 w-full '>
                         <FaAddressCard size={30} />
                         <textarea id="address" name="address" className='border px-5  py-2 w-full rounded-2xl bg-slate-200 min-h-[150px]' placeholder='Address' value={formData.address} onChange={handleChange} />
+                    </div>
+                    <div className='flex items-center justify-center gap-2 w-full'>
+                        <FaLocationDot size={30} />
+                        <input disabled={true} type="pincode" name="pincode" placeholder='Pincode' className='border px-5  w-full py-2 rounded-2xl bg-slate-200' />
                     </div>
                     <button className={`px-5 rounded-2xl py-3 border bg-td-secondary text-white font-bold`} type='submit'>{isSubmiting ? <PulseLoader color="white" size={9} /> : "Save"}</button>
                 </form>
