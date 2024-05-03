@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import Link from "next/link"
 import ClickAwayListener from 'react-click-away-listener'
-import { CiCircleRemove, CiMenuBurger, CiShoppingCart } from 'react-icons/ci'
+import { CiCircleRemove, CiHeart, CiMenuBurger, CiShop, CiShoppingCart } from 'react-icons/ci'
 import { AiOutlineLogout } from 'react-icons/ai'
 import { usePathname, useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
 import axios from 'axios'
 import { useUser } from '@/context/useUser'
+import { FaUserCircle } from 'react-icons/fa'
 
 const UserSliderMenu = () => {
     const [isMenuUser, setIsMenuUser] = useState<boolean>(true);
@@ -47,7 +48,7 @@ const UserSliderMenu = () => {
                 <div onClick={() => setIsMenuUser(true)} className={`fixed top-[81px] h-full right-0 flex flex-col items-start justify-start z-50 shadow-2xl  bg-td-secondary md:w-[300px] w-full  translate-x-[0%]  transition-all duration-300 ease-in-out ${isMenuUser && 'translate-x-[100%]'}`}>
                     <Link href="/admin-panel/orders" className={` w-full px-10 py-2 text-white  text-center`}>
                         <span className="flex items-center justify-center gap-2">
-                            <CiShoppingCart />
+                            <FaUserCircle />
                             <p>
                                 Profile
                             </p>
@@ -55,9 +56,25 @@ const UserSliderMenu = () => {
                     </Link>
                     <Link href="/admin-panel/orders" className={` w-full px-10 py-2 text-white  text-center`}>
                         <span className="flex items-center justify-center gap-2">
+                            <CiShop />
+                            <p>
+                                All Categories
+                            </p>
+                        </span>
+                    </Link>
+                    <Link href="/admin-panel/orders" className={` w-full px-10 py-2 text-white  text-center`}>
+                        <span className="flex items-center justify-center gap-2">
+                            <CiHeart />
+                            <p>
+                                Wishlist
+                            </p>
+                        </span>
+                    </Link>
+                    <Link href="/admin-panel/orders" className={` w-full px-10 py-2 text-white  text-center`}>
+                        <span className="flex items-center justify-center gap-2">
                             <CiShoppingCart />
                             <p>
-                                Profile
+                                My Orders
                             </p>
                         </span>
                     </Link>
