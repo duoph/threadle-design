@@ -10,7 +10,7 @@ import { PulseLoader } from 'react-spinners'
 
 const CategoryPage = () => {
     const [categories, setCategories] = useState<Category[]>([])
-    const [isLoading, setIsLoading] = useState<boolean>()
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
 
 
@@ -57,7 +57,7 @@ const CategoryPage = () => {
             </div>
             <div className='py-5 md:hidden'>
                 {categories?.map((category, index) => (
-                    <ProductContainerWithCategory key={index} category={category} />
+                    <ProductContainerWithCategory setIsLoading={setIsLoading} key={index} category={category} />
                 ))}
             </div>
 
@@ -65,7 +65,7 @@ const CategoryPage = () => {
 
             <div className='py-5 '>
                 {categories?.map((category, index) => (
-                    <ProductContainerWithCategory key={index} category={category} mdHide={true} />
+                    <ProductContainerWithCategory setIsLoading={setIsLoading} key={index} category={category} mdHide={true} />
                 ))}
             </div>
 

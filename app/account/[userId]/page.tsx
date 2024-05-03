@@ -8,7 +8,6 @@ import React, { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { FaPhoneAlt, FaAddressCard } from 'react-icons/fa';
 import { FaSquareWhatsapp } from 'react-icons/fa6';
-import { MdEmail } from 'react-icons/md';
 import { RiAccountCircleFill } from 'react-icons/ri';
 import { PulseLoader } from 'react-spinners';
 
@@ -21,7 +20,6 @@ const UserProfile = () => {
     const [formData, setFormData] = useState({
 
         name: '',
-        email: '',
         phone: '',
         whatsAppNumber: '',
         address: '',
@@ -37,7 +35,6 @@ const UserProfile = () => {
             if (res?.data?.user) {
                 setFormData({
                     name: res.data.user.name,
-                    email: res.data.user.email,
                     phone: res.data.user.phone,
                     whatsAppNumber: res?.data?.user?.whatsAppNumber,
                     address: res.data.user.address,
@@ -102,7 +99,7 @@ const UserProfile = () => {
 
 
 
-    if (formData.email === "") {
+    if (formData.phone === "") {
         return (
             <div className='flex flex-col items-center py-5 px-3 gap-3 min-h-[85vh]'>
                 <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>Profile</h1>

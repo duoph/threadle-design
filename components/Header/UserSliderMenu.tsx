@@ -53,7 +53,7 @@ const UserSliderMenu = () => {
                             </p>
                         </span>
                     </Link>
-                    <Link href="/" className={` w-full px-10 py-2 text-white text-center ${pathname?.startsWith(`/category/`) && "bg-td-primary"}`}>
+                    <Link href="/category" className={` w-full px-10 py-2 text-white text-center ${pathname?.startsWith(`/category/`) && "bg-td-primary"}`}>
                         <span className="flex items-center justify-center gap-2">
                             <CiShop />
                             <p>
@@ -62,23 +62,23 @@ const UserSliderMenu = () => {
                         </span>
                     </Link>
                     <Link href={`/account/${currentUser?.userId}/wishlist`} className={` w-full px-10 py-2 text-white  text-center ${pathname?.startsWith(`/account/${currentUser?.userId}/wishlist`) && "bg-td-primary"}`}>
-                    <span className="flex items-center justify-center gap-2">
-                        <CiHeart />
-                        <p>
-                            Wishlist
-                        </p>
-                    </span>
-                </Link>
-                <Link href={`/account/${currentUser?.userId}/orders`} className={` w-full px-10 py-2 text-white  text-center ${pathname?.startsWith(`/account/${currentUser?.userId}/orders`) && "bg-td-primary"}`}>
-                    <span className="flex items-center justify-center gap-2">
-                        <CiShoppingCart />
-                        <p>
-                            My Orders
-                        </p>
-                    </span>
-                </Link>
-                <button className='bg-red-600 w-full px-10 py-2 text-white text-center flex items-center justify-center gap-3' onClick={handleLogout}> LogOut<AiOutlineLogout /></button>
-        </div>
+                        <span className="flex items-center justify-center gap-2">
+                            <CiHeart />
+                            <p>
+                                Wishlist
+                            </p>
+                        </span>
+                    </Link>
+                    <Link href={`/account/${currentUser?.userId}/orders`} className={` w-full px-10 py-2 text-white  text-center ${pathname?.startsWith(`/account/${currentUser?.userId}/orders`) && "bg-td-primary"}`}>
+                        <span className="flex items-center justify-center gap-2">
+                            <CiShoppingCart />
+                            <p>
+                                My Orders
+                            </p>
+                        </span>
+                    </Link>
+                    <button className='bg-red-600 w-full px-10 py-2 text-white text-center flex items-center justify-center gap-3' onClick={handleLogout}> LogOut<AiOutlineLogout /></button>
+                </div>
             </ClickAwayListener >
         </div >
     )

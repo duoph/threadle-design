@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import ProductCard from './ProductCard';
 import { GoChevronRight, GoChevronLeft } from "react-icons/go";
 import { useRouter } from 'next/navigation';
@@ -13,15 +13,17 @@ interface ProductContainerProps {
     title?: string
     mdHide?: boolean;
     productNotToshow?: string
+    setIsLoading: Dispatch<boolean>
 }
 
-const ProductContainerWithCategory = ({ category, categoryId, title, productNotToshow, mdHide }: ProductContainerProps) => {
+const ProductContainerWithCategory = ({ category, categoryId, title, productNotToshow, mdHide, setIsLoading }: ProductContainerProps) => {
     const scrollContainerRef = useRef<HTMLDivElement>(null);
     const [products, setProducts] = useState<Product[]>([]);
     const router = useRouter();
 
     const fetchCategoryProducts = async () => {
         try {
+            setIsLoading(true)
             const response = await axios.get(`/api/category/${categoryId || category._id}`);
             console.log(response);
             if (response.data.success === true) {
@@ -29,7 +31,9 @@ const ProductContainerWithCategory = ({ category, categoryId, title, productNotT
             } else {
                 setProducts([])
             }
+            setIsLoading(false)
         } catch (error) {
+            setIsLoading(false)
             console.log(error);
         }
     };
