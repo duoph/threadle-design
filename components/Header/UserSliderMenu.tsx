@@ -12,8 +12,7 @@ import { FaUserCircle } from 'react-icons/fa'
 const UserSliderMenu = () => {
     const [isMenuUser, setIsMenuUser] = useState<boolean>(true);
 
-
-    const { LogOut } = useUser();
+    const { LogOut, currentUser } = useUser();
 
     const router = useRouter();
 
@@ -46,7 +45,7 @@ const UserSliderMenu = () => {
 
             <ClickAwayListener onClickAway={() => setIsMenuUser(true)}>
                 <div onClick={() => setIsMenuUser(true)} className={`fixed top-[81px] h-full right-0 flex flex-col items-start justify-start z-50 shadow-2xl  bg-td-secondary md:w-[300px] w-full  translate-x-[0%]  transition-all duration-300 ease-in-out ${isMenuUser && 'translate-x-[100%]'}`}>
-                    <Link href="/admin-panel/orders" className={` w-full px-10 py-2 text-white  text-center`}>
+                    <Link href={`/account/${currentUser?.userId}`} className={` w-full px-10 py-2 text-white  text-center ${pathname?.startsWith("/admin-panel/create-product") && "bg-td-primary"}`}>
                         <span className="flex items-center justify-center gap-2">
                             <FaUserCircle />
                             <p>
@@ -54,7 +53,7 @@ const UserSliderMenu = () => {
                             </p>
                         </span>
                     </Link>
-                    <Link href="/admin-panel/orders" className={` w-full px-10 py-2 text-white  text-center`}>
+                    <Link href="/" className={` w-full px-10 py-2 text-white  text-center ${pathname?.startsWith("/admin-panel/create-product") && "bg-td-primary"}`}>
                         <span className="flex items-center justify-center gap-2">
                             <CiShop />
                             <p>
@@ -62,7 +61,7 @@ const UserSliderMenu = () => {
                             </p>
                         </span>
                     </Link>
-                    <Link href="/admin-panel/orders" className={` w-full px-10 py-2 text-white  text-center`}>
+                    <Link href={`/account/${currentUser?.userId}/wishlist`} className={` w-full px-10 py-2 text-white  text-center ${pathname?.startsWith("/admin-panel/create-product") && "bg-td-primary"}`}>
                         <span className="flex items-center justify-center gap-2">
                             <CiHeart />
                             <p>
@@ -70,7 +69,7 @@ const UserSliderMenu = () => {
                             </p>
                         </span>
                     </Link>
-                    <Link href="/admin-panel/orders" className={` w-full px-10 py-2 text-white  text-center`}>
+                    <Link href={`/account/${currentUser?.userId}/orders`} className={` w-full px-10 py-2 text-white  text-center ${pathname?.startsWith("/admin-panel/create-product") && "bg-td-primary"}`}>
                         <span className="flex items-center justify-center gap-2">
                             <CiShoppingCart />
                             <p>
@@ -80,8 +79,8 @@ const UserSliderMenu = () => {
                     </Link>
                     <button className='bg-red-600 w-full px-10 py-2 text-white text-center flex items-center justify-center gap-3' onClick={handleLogout}> LogOut<AiOutlineLogout /></button>
                 </div>
-            </ClickAwayListener>
-        </div>
+            </ClickAwayListener >
+        </div >
     )
 }
 

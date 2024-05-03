@@ -15,8 +15,7 @@ import { PulseLoader } from 'react-spinners';
 const UserProfile = () => {
 
     const router = useRouter();
-    const { LogOut, currentUser, setCurrentUser } = useUser();
-    const [user, setUser] = useState<User>();
+    const { currentUser } = useUser();
     const [isLoading, setIsLoading] = useState<boolean>()
     const [isSubmiting, setIsSubmiting] = useState<boolean>()
     const [formData, setFormData] = useState({
@@ -32,7 +31,7 @@ const UserProfile = () => {
         try {
             setIsLoading(true)
             const res = await axios.get(`/api/user/${currentUser?.userId}`)
-            setUser(res?.data?.user);
+            // setUser(res?.data?.user);
             if (res?.data?.user) {
                 setFormData({
                     name: res.data.user.name,
@@ -82,16 +81,7 @@ const UserProfile = () => {
 
     };
 
-    const logOut = async () => {
-        try {
-            await axios.get('/api/logout');
-            LogOut();
-            toast.success('Logout Success');
-            router.push('/account/login');
-        } catch (error) {
-            console.log(error);
-        }
-    };
+
 
     if (!currentUser?.token) {
         router.push('/account/login');
@@ -115,7 +105,8 @@ const UserProfile = () => {
     return (
         <div className='flex flex-col items-center justify-start gap-3 py-5 px-5 min-h-[85vh]'>
             <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>Profile</h1>
-            <div className="flex md:flex-row flex-col w-full h-full gap-2">
+            <span className='text-xs font-light'>You can update you name and address</span>
+            <div className="flex md:flex-row flex-col items-center justify-center w-full h-full gap-2">
                 <form onSubmit={handleSubmit} className='flex flex-col items-center justify-center gap-3 border px-5 py-8 rounded-2xl lg:w-1/2 w-full bg-slate-100'>
                     <div className='flex items-center justify-center gap-2 w-full'>
                         <RiAccountCircleFill size={30} />
@@ -133,16 +124,8 @@ const UserProfile = () => {
                         <FaAddressCard size={30} />
                         <textarea id="address" name="address" className='border px-5  py-2 w-full rounded-2xl bg-slate-200 min-h-[150px]' placeholder='Address' value={formData.address} onChange={handleChange} />
                     </div>
-
                     <button className={`px-5 rounded-2xl py-3 border bg-td-secondary text-white font-bold`} type='submit'>{isSubmiting ? <PulseLoader color="white" size={9} /> : "Save"}</button>
                 </form>
-
-                <div className='flex items-center justify-center flex-col lg:w-1/2 w-full border px-5 py-8 gap-1 rounded-2xl bg-slate-100'>
-                    <button onClick={() => router.push(`/account/${currentUser.userId}/wishlist`)} className='px-5 rounded-2xl py-3 border  bg-td-secondary text-white font-bold w-[200px]'>WishList</button>
-                    <button onClick={() => router.push(`/account/${currentUser.userId}/orders`)} className='px-5 rounded-2xl py-3 border bg-td-secondary text-white font-bold w-[200px]'>My Orders</button>
-                    <button onClick={() => router.push(`/account/${currentUser.userId}/change-password`)} className='px-5 rounded-2xl py-3 border  bg-td-secondary text-white font-bold w-[200px]'>Change Password</button>
-                    <button onClick={logOut} className='px-5 rounded-2xl py-3 border  bg-red-700 text-white font-bold w-[200px]'>LogOut</button>
-                </div>
             </div>
         </div>
     );

@@ -3,7 +3,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { CiSearch, CiShoppingCart} from "react-icons/ci";
+import { CiSearch, CiShoppingCart } from "react-icons/ci";
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useUser } from '@/context/useUser';
@@ -16,14 +16,8 @@ const Header = () => {
     const { LogOut, currentUser, cartItemCountFetch, cartCount } = useUser();
 
     const router = useRouter();
-    
-    const [isMenu, setIsMenu] = useState<boolean>(true);
-
 
     const pathname = usePathname()
-
-
-
 
 
     useEffect(() => {
