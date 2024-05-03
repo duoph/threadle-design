@@ -7,8 +7,8 @@ import axios, { AxiosResponse } from "axios";
 
 const FeaturedCategory = () => {
 
-    const [categories, setCategories] = useState<Category[]>([]); // Initialize with an empty array of categories
-
+    const [categories, setCategories] = useState<Category[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(false) 
     const fetchCategory = async () => {
         try {
             const response: AxiosResponse<{ tdCategory: Category[] }> = await axios.get("/api/category");
@@ -25,8 +25,8 @@ const FeaturedCategory = () => {
 
     return (
         <div className="flex flex-col gap-3 items-center justify-center mt-10 mb-10 px-1 ">
-            {categories && categories.slice(1,4).map((category, index) => (
-                <ProductContainerWithCategory key={index} category={category} />
+            {categories && categories.slice(1, 4).map((category, index) => (
+                <ProductContainerWithCategory setIsLoading={setIsLoading} key={index} category={category} />
             ))}
         </div>
     );
