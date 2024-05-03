@@ -18,7 +18,6 @@ const UserSliderMenu = () => {
 
     const pathname = usePathname()
 
-
     const handleLogout = async () => {
         try {
             await axios.get('/api/logout');
@@ -28,8 +27,8 @@ const UserSliderMenu = () => {
         } catch (error) {
             console.log(error);
         }
-
     }
+
 
     return (
         <div className="flex items-center justify-center">

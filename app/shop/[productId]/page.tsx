@@ -440,7 +440,7 @@ const ProductPage = () => {
               </div>
               <div className='py-3 w-full'>
                 {product._id && product.category && (
-                  <ProductContainerWithCategory productNotToshow={product?._id} title='You may also like' categoryId={product?.category} />
+                  <ProductContainerWithCategory setIsLoading={setIsLoading} productNotToshow={product?._id} title='You may also like' categoryId={product?.category} />
                 )}
               </div>
             </div>
