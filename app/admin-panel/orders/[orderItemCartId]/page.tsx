@@ -129,11 +129,28 @@ const OrderDetailsPage = () => {
     const handleSubmit = async () => {
         try {
             const formData = new FormData();
+
+            formData.append("title", orderItemCartId as string);
+
             if (slipURL) {
                 const file = await fetch(slipURL).then((res) => res.blob());
                 formData.append("file", file);
             }
-            toast.success("Image Added successfully");
+
+            const res = await axios.put(`/api/orders/${orderItemCartId}/uploadOrderTrackingId`, formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+            console.log(res)
+
+            if (res.data.success === true) {
+                toast.success("Image Added successfully");
+            }
+            if (res.data.success === false) {
+                toast.error("Error");
+            }
+
         } catch (error) {
             setIsLoading(false)
             console.error("Error while a:", error);
@@ -151,7 +168,6 @@ const OrderDetailsPage = () => {
             </div>
         );
     }
-
 
 
     return (
@@ -185,13 +201,21 @@ const OrderDetailsPage = () => {
                     <h1 className="font-semibold text-[20px] md:text-[24px]">Add Tracking Order Id </h1>
                     <div className="flex flex-col gap-4">
                         <div className="flex px-5 items-center justify-center gap-3 w-full  ">
-                            {!slipURL && (
+                            {order.deliverySlipURL && (
+                                <div className="w-full flex flex-col items-center justify-center gap-2">
+                                    <Image src={order.deliverySlipURL} quality={100} alt="Cover" className="w-[290px] h-[290px] object-cover rounded-2xl" height={150} width={150} />
+                                    <button onClick={() => setSlipURL("")} className="bg-red-700 px-3 py-2 rounded-2xl text-white">
+                                        <MdDelete size={24} />
+                                    </button>
+                                </div>
+                            )}
+                            {!slipURL && !order?.deliverySlipURL && (
                                 <label htmlFor="coverImage" className="w-[290px] rounded-2xl border flex flex-col items-center justify-center h-[290px]">
                                     <span className="font-bold">Add Image</span>
                                     <CiSquarePlus size={24} />
                                 </label>
                             )}
-                            {slipURL && (
+                            {slipURL && !order.deliverySlipURL && (
                                 <div className="w-full flex flex-col items-center justify-center gap-2">
                                     <Image src={slipURL} alt="Cover" className="w-[290px] h-[290px] object-cover rounded-2xl" height={150} width={150} />
                                     <button onClick={() => setSlipURL("")} className="bg-red-700 px-3 py-2 rounded-2xl text-white">

@@ -52,6 +52,7 @@ export interface Cart {
     phoneNumber: string;
     whatsAppNumber: string;
     quantity: number;
+    deliverySlipURL: string;
     UpdatedAt: Date;
     createdAt: Date;
 }
