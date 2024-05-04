@@ -9,10 +9,10 @@ export async function PUT(req: NextRequest, { params }: any) {
 
         const userId = params.userId
 
-        const { name, email, phone, address }: any = await req.json()
+        const { name, email, phone, address, pincode }: any = await req.json()
 
 
-        console.log(name, email, phone, address)
+        console.log(name, email, phone, address, pincode)
 
         if (!userId) {
             console.log("user id not found")
@@ -24,7 +24,7 @@ export async function PUT(req: NextRequest, { params }: any) {
         if (name || email || phone || address) {
             let user = await userModel.findByIdAndUpdate(
                 { _id: userId },
-                { name, email, phone, address },
+                { name, email, phone, address, pincode },
                 { new: true }
             );
             console.log("User updated successfully:", user);

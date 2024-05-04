@@ -3,7 +3,6 @@ import Link from "next/link"
 import ClickAwayListener from 'react-click-away-listener'
 import { CiCirclePlus, CiCircleRemove, CiMenuBurger, CiShop, CiShoppingCart } from 'react-icons/ci'
 import { AiOutlineLogout } from 'react-icons/ai'
-import { RiAdminLine } from 'react-icons/ri'
 import { usePathname, useRouter } from 'next/navigation'
 import { useUser } from '@/context/useUser'
 import axios from 'axios'

@@ -13,6 +13,7 @@ interface userProps extends Document {
     whatsAppNumber: string;
     otp: number;
     otpExpire: Date;
+    pincode: number;
     isNumberVerified: boolean;
 }
 
@@ -25,6 +26,7 @@ const userSchema = new Schema<userProps>({
     isAdmin: { type: Boolean, default: false },
     numberVerified: { type: String },
     securityCode: { type: Number },
+    pincode: { type: Number },
     isNumberVerified: { type: Boolean, default: false },
     otp: { type: Number, expires: 600000 },
     otpExpire: { type: Date },

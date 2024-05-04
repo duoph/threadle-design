@@ -23,6 +23,7 @@ const UserProfile = () => {
         phone: '',
         whatsAppNumber: '',
         address: '',
+        pincode: '',
     });
 
     const pathname = usePathname()
@@ -38,6 +39,7 @@ const UserProfile = () => {
                     phone: res.data.user.phone,
                     whatsAppNumber: res?.data?.user?.whatsAppNumber,
                     address: res.data.user.address,
+                    pincode: res.data.user.pincode,
                 });
             }
 
@@ -114,7 +116,7 @@ const UserProfile = () => {
     return (
         <div className='flex flex-col items-center justify-start gap-3 py-5 px-5 min-h-[85vh]'>
             <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>Profile</h1>
-            <span className='text-xs font-light'>You can update you name and address</span>
+            <span className='text-xs font-light'>You can update you name,address and pincode from here</span>
             <div className="flex md:flex-row flex-col items-center justify-center w-full h-full gap-2">
                 <form onSubmit={handleSubmit} className='flex flex-col items-center justify-center gap-3 border px-5 py-8 rounded-2xl lg:w-1/2 w-full bg-slate-100'>
                     <div className='flex items-center justify-center gap-2 w-full'>
@@ -131,11 +133,11 @@ const UserProfile = () => {
                     </div>
                     <div className='flex items-start justify-center gap-2 w-full '>
                         <FaAddressCard size={30} />
-                        <textarea id="address" name="address" className='border px-5  py-2 w-full rounded-2xl bg-slate-200 min-h-[150px]' placeholder='Address' value={formData.address} onChange={handleChange} />
+                        <textarea id="address" name="address" className='border px-5  py-2 w-full rounded-2xl bg-slate-200 min-h-[100px]' placeholder='Address' value={formData.address} onChange={handleChange} />
                     </div>
                     <div className='flex items-center justify-center gap-2 w-full'>
                         <FaLocationDot size={30} />
-                        <input disabled={true} type="pincode" name="pincode" placeholder='Pincode' className='border px-5  w-full py-2 rounded-2xl bg-slate-200' />
+                        <input type="pincode" name="pincode" placeholder='Pincode' className='border px-5  w-full py-2 rounded-2xl bg-slate-200' value={formData.pincode} onChange={handleChange} />
                     </div>
                     <button className={`px-5 rounded-2xl py-3 border bg-td-secondary text-white font-bold`} type='submit'>{isSubmiting ? <PulseLoader color="white" size={9} /> : "Save"}</button>
                 </form>

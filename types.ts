@@ -63,6 +63,7 @@ export interface User {
     whatsAppNumber: string;
     address?: string;
     name: string;
+    pincode: number;
     wishListIds: [];
     createdAt: Date;
     UpdatedAt: Date;

@@ -199,6 +199,7 @@ const ProductPage = () => {
         title: product?.title,
         customerName: user?.name,
         toAddress: user?.address,
+        pincode: user?.pincode,
         razorpay_order_id: response.razorpay_order_id,
         razorpay_payment_id: response.razorpay_payment_id,
         razorpay_signature: response.razorpay_signature,
@@ -228,11 +229,15 @@ const ProductPage = () => {
 
       setIsLoading(true)
 
-      if (!selectedColor || !selectedSize || !user?.address || user?.address.length <= 10 || user?.address === "") {
+      if (!selectedColor || !selectedSize || !user?.address || user?.address.length <= 10 || user?.address === "" || !user?.pincode ) {
         if (!user?.address || user?.address === "" || user?.address.length <= 10) {
           toast.error("Add Address");
           return router.push(`/account/${currentUser?.userId}`);
-        } else {
+        } if (!user?.pincode) {
+          toast.error("Add Pincode");
+          return router.push(`/account/${currentUser?.userId}`);
+        }
+        if (!selectedColor || !selectedSize) {
           setIsLoading(false);
           return toast.error("Select Size and Color");
         }
@@ -287,7 +292,7 @@ const ProductPage = () => {
 
   };
 
-  // document.title = product?.title || "Shop Now"
+  document.title = product?.title || "Shop Now"
 
 
   const wpLink = `https://api.whatsapp.com/send?phone=919074063723&text=https%3A%2F%2Fthreadle-design.vercel.app%2Fshop%2F${product ? product._id : ''}%0AProductId%20%3A%20${product ? product._id : ''}%0ATitle%20%3A%20${product ? product.title : ''}${product && product.desc ? `%0ADesc%3A%20${product.desc}` : ''}`;
