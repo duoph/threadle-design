@@ -63,13 +63,12 @@ const CategoryPage = () => {
 
             {/* only visible in big screens */}
 
-            <div className='py-5 hidden md:flex '>
+            <div className='py-5 hidden md:flex flex-col items-center justify-center '>
                 {categories?.map((category, index) => (
                     <ProductContainerWithCategory setIsLoading={setIsLoading} key={index} category={category} mdHide={true} />
                 ))}
             </div>
-
-    </div>
+        </div>
     )
 }
 

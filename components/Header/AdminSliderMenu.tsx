@@ -83,14 +83,6 @@ const UserSliderMenu = () => {
                             </p>
                         </span>
                     </Link>
-                    <Link href="/admin-panel/create-admin" className={` w-full px-10 py-2 text-white text-center ${pathname?.startsWith("/admin-panel/create-admin") && "bg-td-primary"}`}>
-                        <span className="flex items-center justify-start gap-8">
-                            <RiAdminLine />
-                            <p>
-                                Create new Admin
-                            </p>
-                        </span>
-                    </Link>
                     <button className='bg-red-600 w-full px-10 py-2 text-white text-center flex items-center justify-center gap-3' onClick={handleLogout}> LogOut<AiOutlineLogout /></button>
                 </div>
             </ClickAwayListener>

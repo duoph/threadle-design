@@ -2,10 +2,20 @@
 
 
 import React, { useState } from 'react'
+import toast from 'react-hot-toast'
 
 const NewsLetterContainer = () => {
 
     const [phone, setPhone] = useState<string>()
+
+    const handleSubmit = () => {
+        try {
+            setPhone("")
+            toast.success("Succesfully subscribed to Newsletter")
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
 
     return (
@@ -17,11 +27,11 @@ const NewsLetterContainer = () => {
                 <div className='flex flex-col items-center justify-center gap-3 md:w-1/2'>
                     <input type="text"
                         value={phone}
+                        maxLength={10}
                         onChange={(e) => setPhone(e.target.value)}
                         className='rounded-2xl px-5 py-2 w-full'
                         placeholder='Enter your email address' />
-                    <button onClick={() =>
-                        setPhone("")} className='bg-white text-black px-5 py-2 rounded-2xl w-full font-bold'>Subscribe To Newsletter</button>
+                    <button onClick={handleSubmit} className='bg-white text-black px-5 py-2 rounded-2xl w-full font-bold'>Subscribe To Newsletter</button>
                 </div>
             </div>
         </div>

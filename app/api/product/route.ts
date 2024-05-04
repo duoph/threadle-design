@@ -16,6 +16,7 @@ export async function POST(req: NextRequest) {
         const categoryId = formData.get("categoryId");
         const categoryName = formData.get("categoryName");
         const isCustom = formData.get("isCustom");
+        const tags = formData.get("tags");
         const file = formData.get("coverImage") as Blob;
         const image1 = formData.get("image1") as Blob;
         const image2 = formData.get("image2") as Blob;
@@ -73,6 +74,7 @@ export async function POST(req: NextRequest) {
             categoryId,
             inStock: true,
             categoryName,
+            tags,
             isCustom: isCustom === "true" ? true : false,
             slugifyProductName,
             moreImagesURLs: imageUrls?.map((result: any) => result.s3Url),

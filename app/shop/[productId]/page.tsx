@@ -32,6 +32,10 @@ const ProductPage = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [user, setUser] = useState<User>();
 
+  const [isAddingToCart, setIsAddingToCart] = useState<boolean>();
+
+
+
 
   const { cartItemCountFetch, currentUser } = useUser()
 
@@ -125,9 +129,9 @@ const ProductPage = () => {
 
   const addToCart = async () => {
     try {
-
+      setIsAddingToCart(true)
       if (!selectedColor || !selectedSize) {
-        setIsLoading(false);
+        setIsAddingToCart(false)
         return toast.error("Select Size and Color");
       }
 
@@ -138,10 +142,10 @@ const ProductPage = () => {
         toast.success("Added to cart")
         cartItemCountFetch()
       }
-      // if (res.data.success === false) {
-      //   toast.error(res?.data?.message)
-      // }
+
+      setIsAddingToCart(false)
     } catch (error) {
+      setIsAddingToCart(false)
       console.log(error)
     }
   }
@@ -421,7 +425,7 @@ const ProductPage = () => {
                       <span className='cursor-pointer' onClick={() => handleQuantity("increment")}>+</span>
                     </span>
                     <div className='flex gap-3'>
-                      <button onClick={addToCart} className='w-1/2 py-2 bg-td-secondary rounded-2xl text-white'> Add to Cart </button>
+                      <button onClick={addToCart} className='w-1/2 py-2 bg-td-secondary rounded-2xl text-white'>  {isAddingToCart ? <PulseLoader color='white' /> : "Add to Cart"} </button>
                       <button onClick={handlePayment} className='w-1/2 py-2 bg-td-secondary rounded-2xl text-white flex items-center justify-center'>
 
                         {isLoading ? <PulseLoader color='white' /> : "Buy Now"}

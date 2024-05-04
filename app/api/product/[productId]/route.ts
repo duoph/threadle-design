@@ -43,6 +43,7 @@ export async function PUT(req: NextRequest, { params }: any) {
         const regularPrice = formData.get('regularPrice');
         const categoryId = formData.get('categoryId');
         const categoryName = formData.get('categoryName');
+        const tags = formData.get("tags");
         const inStock = formData.get('inStock');
         const colorCodesString: any = formData.get("colorCodes") || '';
 
@@ -58,17 +59,18 @@ export async function PUT(req: NextRequest, { params }: any) {
                 regularPrice,
                 categoryName,
                 categoryId,
-                colors:colorCodes,
+                tags,
+                colors: colorCodes,
                 inStock: inStock === "yes" ? true : false
             },
-    { new: true }
+            { new: true }
         );
 
-    return NextResponse.json({ message: "Product Updated", success: true, updatedProduct });
-} catch (error) {
-    console.error(error);
-    return NextResponse.json({ message: "Error while editing product", success: false });
-}
+        return NextResponse.json({ message: "Product Updated", success: true, updatedProduct });
+    } catch (error) {
+        console.error(error);
+        return NextResponse.json({ message: "Error while editing product", success: false });
+    }
 }
 
 

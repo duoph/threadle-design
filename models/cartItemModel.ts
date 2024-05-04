@@ -25,6 +25,7 @@ interface CartItemProps extends Document {
     customerName: string;
     isCancel: boolean;
     deliverySlipURL: string;
+    pincode: number;
 }
 
 const cartItemSchema = new Schema<CartItemProps>({
@@ -51,6 +52,7 @@ const cartItemSchema = new Schema<CartItemProps>({
     razorpay_order_id: { type: String, required: false, default: undefined },
     razorpay_payment_id: { type: String, required: false, default: undefined },
     razorpay_signature: { type: String, required: false, default: undefined },
+    pincode: { type: Number },
     deliverySlipURL: { type: String || undefined, required: false }
 }, { timestamps: true });
 

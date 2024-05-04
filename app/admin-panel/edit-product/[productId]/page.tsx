@@ -29,6 +29,7 @@ const EditProduct = () => {
     const [fetchedCategoryId, setFetchedCategoryId] = useState<string>("")
     const [fetchedCategoryName, setFetchedCategoryName] = useState<string>("")
     const [categoryName, setCategoryName] = useState<string>("")
+    const [tags, setTags] = useState<string>("")
 
     const [hexCode, setHexCode] = useState("")
     const [colorCodes, setColorCodes] = useState<string[]>([]);
@@ -40,7 +41,7 @@ const EditProduct = () => {
         try {
             const response = await axios.get(`/api/product/${productId}`)
             console.log(response.data.product)
-            const { title, desc, regularPrice, salePrice, inStock, categoryId, categoryName, colors } = response.data.product;
+            const { title, desc, regularPrice, salePrice, inStock, categoryId, categoryName, colors, tags } = response.data.product;
             setProductTitle(title);
             setProductDesc(desc);
             setRegularPrice(regularPrice);
@@ -49,6 +50,7 @@ const EditProduct = () => {
             setFetchedCategoryName(categoryName)
             setFetchedCategoryId(categoryId);
             setColorCodes(colors)
+            setTags(tags)
         } catch (error) {
             console.log(error)
         }
@@ -132,6 +134,7 @@ const EditProduct = () => {
             formData.append("regularPrice", regularPrice);
             formData.append("categoryId", categoryId);
             formData.append("regularPrice", categoryName);
+            formData.append("tags", tags);
             if (salePrice) {
                 formData.append("salePrice", salePrice);
             }
@@ -262,6 +265,11 @@ const EditProduct = () => {
                     />
                     <label htmlFor="inStock">Yes</label>
                 </div>
+            </div>
+
+            <div className="flex flex-col gap-1 w-full">
+                <label htmlFor="tags" className="font-semibold">Tags</label>
+                <input value={tags} onChange={(e) => setTags(e.target.value)} className="bg-gray-200 px-5 py-3 rounded-2xl" type="text" id="tags" />
             </div>
 
 

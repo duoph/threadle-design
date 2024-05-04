@@ -16,6 +16,7 @@ interface ProductDocument extends Document {
     isFeatured: boolean;
     colors: string;
     tags: string;
+
 }
 
 const productSchema = new Schema<ProductDocument>({

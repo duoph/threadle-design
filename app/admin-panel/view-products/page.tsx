@@ -35,7 +35,7 @@ const ViewAllProducts = () => {
     useEffect(() => {
         const filtered = products.filter((product: Product) =>
             product.title?.toLowerCase().includes(search.toLowerCase()) ||
-            product.desc?.toLowerCase().includes(search.toLowerCase())
+            product.desc?.toLowerCase().includes(search.toLowerCase()) || product?.tags?.toLowerCase().includes(search.toLowerCase())
         )
         setSearchResults(filtered)
         setCurrentPage(1)
@@ -82,7 +82,6 @@ const ViewAllProducts = () => {
                 <CiSearch className='rounded-2xl text-[30px] cursor-pointer text-white' />
             </div>
             <div className='min-h-[80vh] md:px-10 flex flex-col items-center justify-start gap-3'>
-
                 <div className='flex min-h-[60vh] items-start justify-center z-40 gap-[9px] flex-wrap md:gap-5'>
                     {currentProducts.map((product) => (
                         <ProductCard key={product._id} getProducts={fetchProducts} product={product} />

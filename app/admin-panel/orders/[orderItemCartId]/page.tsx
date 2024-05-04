@@ -6,6 +6,8 @@ import Image from "next/image"
 import { useParams } from "next/navigation"
 import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
+import { CiSquarePlus } from "react-icons/ci"
+import { MdDelete } from "react-icons/md"
 import { PulseLoader } from "react-spinners"
 
 const OrderDetailsPage = () => {
@@ -14,6 +16,7 @@ const OrderDetailsPage = () => {
 
     const [order, setOrder] = useState<Cart>()
     const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [slipURL, setSlipURL] = useState<string>()
 
 
     const fetchCartItem = async () => {
@@ -115,8 +118,17 @@ const OrderDetailsPage = () => {
         }
     }
 
+    const handleCoverImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (file) {
+            const imageUrl = URL.createObjectURL(file);
+            setSlipURL(imageUrl);
+        }
+    };
 
-    if (!order) { 
+
+
+    if (!order) {
         return (
             <div className='flex flex-col items-center py-5 px-3 gap-3 min-h-[85vh]'>
                 <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>Order Details</h1>
@@ -151,6 +163,38 @@ const OrderDetailsPage = () => {
                         <span>Phone: {order?.phoneNumber}</span>
                         <span>Whatsapp: {order?.whatsAppNumber}</span>
                         <span>Delivering Address: {order?.toAddress}</span>
+                        <span>Pincode: {order?.pincode}</span>
+                    </div>
+                </div>
+
+                {/* order tracking */}
+                <div className=" flex flex-col items-center justify-center p-5">
+                    <h1 className="font-semibold text-[20px] md:text-[24px]">Add Tracking Order Id </h1>
+                    <div className="flex flex-col gap-2 w-full">
+                        <div className="flex px-5 items-center justify-center gap-3  w-full  ">
+                            {!slipURL && (
+                                <label htmlFor="coverImage" className="w-[290px] rounded-2xl border flex flex-col items-center justify-center h-[290px]">
+                                    <span className="font-bold">Add Image</span>
+                                    <CiSquarePlus size={24} />
+                                </label>
+                            )}
+                            {slipURL && (
+                                <div className="w-full flex flex-col items-center justify-center gap-2">
+                                    <Image src={slipURL} alt="Cover" className="w-[290px] h-[290px] object-cover rounded-2xl" height={150} width={150} />
+                                    <button onClick={() => setSlipURL("")} className="bg-red-700 px-3 py-2 rounded-2xl text-white">
+                                        <MdDelete size={24} />
+                                    </button>
+                                </div>
+                            )}
+                            <input
+                                id="coverImage"
+                                type="file"
+                                onChange={handleCoverImageChange}
+                                className="hidden"
+                                accept="image/*"
+
+                            />
+                        </div>
                     </div>
                 </div>
 

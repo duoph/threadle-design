@@ -16,6 +16,7 @@ export interface Product {
     createdAt: Date;
     updatedAt: Date;
     title: string;
+    tags: string;
     regularPrice: number;
     salePrice?: number;
     desc: string
@@ -47,6 +48,7 @@ export interface Cart {
     price: number;
     totalPrice: number;
     title: string;
+    pincode: number;
     phoneNumber: string;
     whatsAppNumber: string;
     quantity: number;
