@@ -129,6 +129,7 @@ const EditProduct = () => {
             }
             const formData = new FormData();
             formData.append("title", productTitle);
+            formData.append("desc", productDesc);
             formData.append("categoryId", categoryId || fetchedCategoryId);
             formData.append("inStock", inStock);
             formData.append("regularPrice", regularPrice);

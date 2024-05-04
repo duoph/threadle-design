@@ -126,7 +126,20 @@ const OrderDetailsPage = () => {
         }
     };
 
-
+    const handleSubmit = async () => {
+        try {
+            const formData = new FormData();
+            if (slipURL) {
+                const file = await fetch(slipURL).then((res) => res.blob());
+                formData.append("file", file);
+            }
+            toast.success("Image Added successfully");
+        } catch (error) {
+            setIsLoading(false)
+            console.error("Error while a:", error);
+            toast.error("Failed to create category");
+        }
+    };
 
     if (!order) {
         return (
@@ -170,8 +183,8 @@ const OrderDetailsPage = () => {
                 {/* order tracking */}
                 <div className=" flex flex-col items-center justify-center p-5">
                     <h1 className="font-semibold text-[20px] md:text-[24px]">Add Tracking Order Id </h1>
-                    <div className="flex flex-col gap-2 w-full">
-                        <div className="flex px-5 items-center justify-center gap-3  w-full  ">
+                    <div className="flex flex-col gap-4">
+                        <div className="flex px-5 items-center justify-center gap-3 w-full  ">
                             {!slipURL && (
                                 <label htmlFor="coverImage" className="w-[290px] rounded-2xl border flex flex-col items-center justify-center h-[290px]">
                                     <span className="font-bold">Add Image</span>
@@ -195,46 +208,51 @@ const OrderDetailsPage = () => {
 
                             />
                         </div>
+                        <button className="bg-td-secondary px-3 py-3  text-white  rounded-2xl" onClick={handleSubmit}>Upload</button>
                     </div>
                 </div>
 
-                {!isLoading && (
-                    <>
-                        {order?.isShipped && order?.isPaid && !order?.isDelivered && (
-                            <div className="w-full">
-                                <button className="bg-red-600 px-3 py-3 text-white w-full md:w-[1/2] rounded-2xl" onClick={handleShippmentCancel}>Cancel Shipment</button>
-                            </div>
-                        )}
-                        {!order?.isShipped && !order?.isDelivered && (
-                            <div className="w-full">
-                                <button className="bg-td-secondary px-3 py-3 text-white w-full md:w-[1/2] rounded-2xl" onClick={handleShippmentConfirm}>Shipping Confirm</button>
-                            </div>
-                        )}
+                {
+                    !isLoading && (
+                        <>
+                            {order?.isShipped && order?.isPaid && !order?.isDelivered && (
+                                <div className="w-full">
+                                    <button className="bg-red-600 px-3 py-3 text-white w-full md:w-[1/2] rounded-2xl" onClick={handleShippmentCancel}>Cancel Shipment</button>
+                                </div>
+                            )}
+                            {!order?.isShipped && !order?.isDelivered && (
+                                <div className="w-full">
+                                    <button className="bg-td-secondary px-3 py-3 text-white w-full md:w-[1/2] rounded-2xl" onClick={handleShippmentConfirm}>Shipping Confirm</button>
+                                </div>
+                            )}
 
 
 
-                        {order?.isShipped && order?.isPaid && !order?.isDelivered && (
-                            <div className="w-full">
-                                <button className="bg-td-secondary  px-3 py-3 text-white w-full md:w-[1/2] rounded-2xl" onClick={handleDeliveredConfirm}>Confirm Delivery</button>
-                            </div>
-                        )}
-                        {order?.isShipped && order?.isPaid && order?.isDelivered && (
-                            <div className="w-full">
-                                <button className="bg-red-600 px-3 py-3 text-white w-full md:w-[1/2] rounded-2xl" onClick={handleDeliveredCancel}>Cancel Delivery</button>
-                            </div>
-                        )}
+                            {order?.isShipped && order?.isPaid && !order?.isDelivered && (
+                                <div className="w-full">
+                                    <button className="bg-td-secondary  px-3 py-3 text-white w-full md:w-[1/2] rounded-2xl" onClick={handleDeliveredConfirm}>Confirm Delivery</button>
+                                </div>
+                            )}
+                            {order?.isShipped && order?.isPaid && order?.isDelivered && (
+                                <div className="w-full">
+                                    <button className="bg-red-600 px-3 py-3 text-white w-full md:w-[1/2] rounded-2xl" onClick={handleDeliveredCancel}>Cancel Delivery</button>
+                                </div>
+                            )}
 
-                    </>
-                )}
+                        </>
+                    )
+                }
 
-                {isLoading && (<div className="w-full">
-                    <button className="bg-td-secondary px-3 py-3 text-white w-full md:w-[1/2] rounded-2xl">
-                        <PulseLoader color="white" />
-                    </button>
-                </div>)}
+                {
+                    isLoading && (<div className="w-full">
+                        <button className="bg-td-secondary px-3 py-3 text-white w-full md:w-[1/2] rounded-2xl">
+                            <PulseLoader color="white" />
+                        </button>
+                    </div>)
+                }
 
-            </div>
-        </div>
+            </div >
+        </div >
 
     )
 }

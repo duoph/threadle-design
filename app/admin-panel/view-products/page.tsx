@@ -81,7 +81,7 @@ const ViewAllProducts = () => {
                     onChange={(e) => setSearch(e.target.value)} />
                 <CiSearch className='rounded-2xl text-[30px] cursor-pointer text-white' />
             </div>
-            <div className='min-h-[80vh] md:px-10 flex flex-col items-center justify-start gap-3'>
+            <div className='min-h-[80vh] md:px-5 flex flex-col items-center justify-start gap-3'>
                 <div className='flex min-h-[60vh] items-start justify-center z-40 gap-[9px] flex-wrap md:gap-5'>
                     {currentProducts.map((product) => (
                         <ProductCard key={product._id} getProducts={fetchProducts} product={product} />

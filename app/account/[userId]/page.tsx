@@ -61,9 +61,15 @@ const UserProfile = () => {
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
-        setIsSubmiting(true)
-        try {
+        setIsSubmiting(true);
 
+        // Validate pincode
+        if (!/^\d{6}$/.test(formData.pincode)) {
+            setIsSubmiting(false);
+            return toast.error("Enter a valid pincode");
+        }
+
+        try {
             const res = await axios.put(`/api/user/${currentUser?.userId}`, formData);
 
             if (res.data?.success === true) {
@@ -75,16 +81,14 @@ const UserProfile = () => {
                 toast.error('Profile Updated Successfully');
             }
 
-            setIsSubmiting(false)
+            setIsSubmiting(false);
         } catch (error) {
-            setIsSubmiting(false)
+            setIsSubmiting(false);
             console.log(error);
             toast.error('Failed to update profile');
         }
-
-        fetchUser()
-
     };
+
 
 
 
@@ -116,7 +120,7 @@ const UserProfile = () => {
     return (
         <div className='flex flex-col items-center justify-start gap-3 py-5 px-5 min-h-[85vh]'>
             <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>Profile</h1>
-            <span className='text-xs font-light'>You can update you name,address and pincode from here</span>
+            <span className='text-xs font-light'>You can update you name,address and pincode </span>
             <div className="flex md:flex-row flex-col items-center justify-center w-full h-full gap-2">
                 <form onSubmit={handleSubmit} className='flex flex-col items-center justify-center gap-3 border px-5 py-8 rounded-2xl lg:w-1/2 w-full bg-slate-100'>
                     <div className='flex items-center justify-center gap-2 w-full'>

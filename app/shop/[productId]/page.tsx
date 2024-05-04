@@ -229,12 +229,13 @@ const ProductPage = () => {
 
       setIsLoading(true)
 
-      if (!selectedColor || !selectedSize || !user?.address || user?.address.length <= 10 || user?.address === "" || !user?.pincode ) {
+      if (!selectedColor || !selectedSize || !user?.address || user?.address.length <= 10 || user?.address === "" || !user?.pincode) {
         if (!user?.address || user?.address === "" || user?.address.length <= 10) {
           toast.error("Add Address");
           return router.push(`/account/${currentUser?.userId}`);
-        } if (!user?.pincode) {
-          toast.error("Add Pincode");
+        }
+        if (!user?.pincode) {
+          toast.error("Add a valid 6-digit Pincode");
           return router.push(`/account/${currentUser?.userId}`);
         }
         if (!selectedColor || !selectedSize) {
@@ -374,7 +375,7 @@ const ProductPage = () => {
                 </div>
               </div>
               <div className='flex flex-col gap-1'>
-                <span className='text-sm flex items-center justify-center gap-1'>All over india free delivery
+                <span className='text-sm flex items-center justify-center gap-1 font-light'>All over india free delivery
                   <div className='relative h-[14px] w-[14px] flex items-center justify-center'>
                     <Image priority={true}
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={"/india.png"} fill={true} alt="Indian flag" />
@@ -444,7 +445,7 @@ const ProductPage = () => {
 
               </div>
               <div className='mt-5 w-full'>
-                <p className='break-all w-full'>{product?.desc}</p>
+                <p className='break-all w-full font-light'>{product?.desc}</p>
               </div>
               <div className='py-3 w-full'>
                 {product._id && product.category && (
