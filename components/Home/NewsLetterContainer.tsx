@@ -30,7 +30,7 @@ const NewsLetterContainer = () => {
                         maxLength={10}
                         onChange={(e) => setPhone(e.target.value)}
                         className='rounded-2xl px-5 py-2 w-full'
-                        placeholder='Enter your email address' />
+                        placeholder='Enter Your Phone Number' />
                     <button onClick={handleSubmit} className='bg-white text-black px-5 py-2 rounded-2xl w-full font-bold'>Subscribe To Newsletter</button>
                 </div>
             </div>

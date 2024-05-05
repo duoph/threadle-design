@@ -315,15 +315,15 @@ const ProductPage = () => {
         id="razorpay-checkout-js"
         src="https://checkout.razorpay.com/v1/checkout.js"
       />
-      {product && (
-        <Head>
-          <title>{product.title || "Shop Now"}</title>
-          <meta property='og:title' content={product.title || "Shop Now"} />
-          <meta property="og:description" content={product.desc} />
-          <meta property="og:image" content={product.coverImageURL || "/greendress.png"} />
-          <meta property="og:url" content={`https://www.threadledesigns.com/shop/${productId}`} />
-        </Head>
-      )}
+
+      <Head>
+        <title>{product?.title || "Shop Now"}</title>
+        <meta property='og:title' content={product?.title || "Shop Now"} />
+        <meta property="og:description" content={product?.desc} />
+        <meta property="og:image" content={product?.coverImageURL || "/greendress.png"} />
+        <meta property="og:url" content={`https://www.threadledesigns.com/shop/${productId}`} />
+      </Head>
+
       {
         !product ? (
           <div className="w-full h-[70vh] flex items-center justify-center px-5 py-3 md:px-10 gap-3 mb-5 ">

@@ -40,7 +40,7 @@ const Orders = () => {
 
     useEffect(() => {
         userOrders()
-    }, [window.performance])
+    }, [])
 
 
     if (isLoading) {

@@ -19,7 +19,7 @@ export async function POST(req: NextRequest, params: any) {
             return NextResponse.json({ message: "error while fetching user orders no userID found", success: false })
         }
 
-        const userOrders = await CartModel.find({ userId: userId })
+        const userOrders = await CartModel.find({ userId: userId, isPaid: true })
 
 
         return NextResponse.json({ message: "Fetched user orders", success: true, userOrders })

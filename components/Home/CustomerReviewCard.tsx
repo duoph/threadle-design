@@ -13,7 +13,7 @@ const CustomerReviewCard = ({ item }: any) => {
                 <FaStar size={24} className='text-yellow-300' />
                 <FaStar size={24} className='text-yellow-300' />
             </span>
-            <p>{item?.review}</p>
+            <p className='font-light'>{item?.review}</p>
         </div>
     )
 }

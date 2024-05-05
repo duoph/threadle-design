@@ -53,7 +53,15 @@ const UserSliderMenu = () => {
                             </p>
                         </span>
                     </Link>
-                    <Link href="/category" className={` w-full px-10 py-2 text-white text-center ${pathname?.startsWith(`/category/`) && "bg-td-primary"}`}>
+                    <Link href={`/shop`} className={` w-full px-10 py-2 text-white  text-center ${pathname?.startsWith(`/shop`) && "bg-td-primary"}`}>
+                        <span className="flex items-center justify-start gap-8">
+                            <CiShop />
+                            <p className='text-start'>
+                                Shop
+                            </p>
+                        </span>
+                    </Link>
+                    <Link href="/category" className={` w-full px-10 py-2 text-white text-center ${pathname?.startsWith(`/category`) && "bg-td-primary"}`}>
                         <span className="flex items-center justify-start gap-8">
                             <CiShop />
                             <p>

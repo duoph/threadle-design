@@ -44,7 +44,7 @@ const OurHappyCustomers = () => {
     return (
         <div className=' flex flex-col items-center justify-center gap-3 w-full lg:px-10 px-5 mt-5 lg:mt-10 mb-10'>
             <div className='flex items-center justify-between w-full '>
-                <h1 className='lg:text-[40px] text-[20px] font-bold text-center'>Our Happy Customers</h1>
+                <h1 className='lg:text-[40px] text-[25px] font-bold text-center'>Our Happy Customers</h1>
                 <div className='flex items-center justify-center gap-5 px-10'>
                     <GoChevronLeft onClick={handleScrollLeft} className='hover:scale-110 z-10 bg-black text-white  rounded-full cursor-pointer' size={30} />
                     <GoChevronRight onClick={handleScrollRight} className='z-10  bg-black text-white rounded-full cursor-pointer hover:scale-110' size={30} />
