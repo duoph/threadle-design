@@ -23,6 +23,7 @@ const ProductPage = () => {
   const router = useRouter()
 
   const { productId } = useParams()
+
   const [product, setProduct] = useState<Product>()
   const [selectedSize, setSelectedSize] = useState<string>("")
   const [quantity, setQuantity] = useState<number>(1)
@@ -90,6 +91,7 @@ const ProductPage = () => {
     try {
       const res = await axios.put(`/api/wishlist/${productId}`)
       if (res.data.success === true) {
+        setWishListIds((prev) => prev.filter(id => id !== productId))
         toast.success("Removed from wishlist")
       }
       if (res.data.success === false) {
@@ -138,9 +140,16 @@ const ProductPage = () => {
       const res = await axios.post("/api/cart", {
         productId, color: selectedColor, size: selectedSize, quantity, price: product?.salePrice || product?.regularPrice, imageURL: product?.coverImageURL, title: product?.title
       })
+
+      console.log(res)
+
       if (res.data.success === true) {
-        toast.success("Added to cart")
+        toast.success(res.data.message)
         cartItemCountFetch()
+      }
+
+      if (res.data.success === false) {
+        toast.error(res.data.message)
       }
 
       setIsAddingToCart(false)

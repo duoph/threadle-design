@@ -23,13 +23,13 @@ export async function POST(req: NextRequest) {
         const totalPrice = quantity * price;
 
 
-        let existingCartItem = await CartModel.findOne({ userId, productId, size, color });
+        let existingCartItem = await CartModel.findOne({ userId, productId, size, color, isPaid: false });
 
         if (existingCartItem) {
             existingCartItem.quantity += quantity;
             existingCartItem.totalPrice += totalPrice;
             await existingCartItem.save();
-            return NextResponse.json({ message: "updated in cart", success: true, cart: existingCartItem });
+            return NextResponse.json({ message: "Updated in cart", success: true, cart: existingCartItem });
         } else {
             // If not exists, create a new cart item
             const cart = await CartModel.create({
@@ -48,13 +48,15 @@ export async function POST(req: NextRequest) {
                 whatsAppNumber: user.whatsAppNumber,
             });
 
-            return NextResponse.json({ message: "Cart created successfully", success: true, cart });
+            return NextResponse.json({ message: "Added to cart", success: true, cart });
         }
     } catch (error) {
         console.log(error);
-        return NextResponse.json({ message: "Error while creating/updating cart", success: false, error });
+        return NextResponse.json({ message: "Error while updating cart", success: false, error });
     }
 }
+
+
 
 
 
@@ -79,6 +81,9 @@ export async function GET(req: NextRequest) {
 }
 
 
+
+
+
 export async function PUT(req: NextRequest) {
     try {
         const { userId } = await getDataFromToken(req);
@@ -97,6 +102,7 @@ export async function PUT(req: NextRequest) {
             customerName: user.name,
             orderedDate: new Date(),
             toAddress: user.address,
+            pincode: user.pincode,
             phoneNumber: user.phone,
             whatsAppNumber: user.whatsAppNumber,
             razorpay_order_id,

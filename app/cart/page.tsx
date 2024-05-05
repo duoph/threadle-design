@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import CartProductCard from '@/components/CartProductCard';
-import { Cart } from '@/types';
+import { Cart, User } from '@/types';
 import axios from 'axios';
 import { FaLongArrowAltRight } from 'react-icons/fa';
 import { useUser } from '@/context/useUser';
@@ -18,6 +18,7 @@ const CartPage = () => {
   const [cart, setCart] = useState<any>()
   const [total, setTotal] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [user, setUser] = useState<User>();
 
 
   const router = useRouter()
@@ -25,6 +26,19 @@ const CartPage = () => {
 
   const { currentUser } = useUser()
 
+  const fetchUser = async () => {
+    try {
+      const res = await axios.get(`/api/user/${currentUser?.userId}`)
+      setUser(res?.data?.user);
+      console.log(res)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    fetchUser()
+  }, [])
 
 
   const cartFetch = async () => {
@@ -79,6 +93,22 @@ const CartPage = () => {
   const handleCheckout = async () => {
     try {
       setIsLoading(true)
+
+      if (!user?.address || user?.address.length <= 10 || user?.address === "" || !user?.pincode) {
+        if (!user?.address || user?.address === "" || user?.address.length <= 10) {
+          toast.error("Add Address");
+          setIsLoading(false)
+          router.push(`/account/${currentUser?.userId}`);
+
+        }
+        if (!user?.pincode) {
+          toast.error("Add a valid 6-digit Pincode");
+          setIsLoading(false)
+          router.push(`/account/${currentUser?.userId}`);
+        }
+      }
+
+
       const res = await axios.post("/api/razorpay", {
         totalAmount: total,
         notes: "Hello this is a test order"
