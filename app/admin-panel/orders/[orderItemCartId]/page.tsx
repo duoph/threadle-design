@@ -23,6 +23,9 @@ const OrderDetailsPage = () => {
         try {
             const res = await axios.get(`/api/orders/pending/${orderItemCartId}`)
             setOrder(res.data?.cartItem)
+            if (res.data.cartItem.deliverySlipURL) {
+                setSlipURL(res.data.cartItem.deliverySlipURL)
+            }
             console.log(res)
         } catch (error) {
             console.log(error)
@@ -158,6 +161,22 @@ const OrderDetailsPage = () => {
         }
     };
 
+
+    const handleDelete = async () => {
+        try {
+            const res = await axios.delete(`/api/orders/${orderItemCartId}/uploadOrderTrackingId`)
+            if (res.data.success === true) {
+                setSlipURL("")
+                toast.success(res.data.succes.message)
+            }
+            if (res.data.success === false) {
+                toast.error(res.data.succes.message)
+            }
+        } catch (error) {
+
+        }
+    }
+
     if (!order) {
         return (
             <div className='flex flex-col items-center py-5 px-3 gap-3 min-h-[85vh]'>
@@ -181,13 +200,13 @@ const OrderDetailsPage = () => {
                         <div className="relative flex items-center z-0 justify-center  min-h-[200px] w-full rounded-2xl">
                             <Image priority={true} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" quality={50} fill={true} style={{ objectFit: "contain" }} className="rounded-2xl  max-h-[200px]" src={order?.imageURL || '/noImage.jpg'} alt="orderImage" />
                         </div>
-                        <div className="flex flex-col">
+                        <div className="flex flex-col font-light">
                             <span className="text-center">&#8377;999 <span className="text-red-600">(Paid)</span></span>
                             <span className="text-center">Size :  <span className="text-red-600">{order?.size}</span></span>
                             <span className="text-center">Quantity: <span className="text-red-600">7</span></span>
                         </div>
                     </div>
-                    <div className="flex flex-col items-center justify-center md:w-1/2 text-center">
+                    <div className="flex flex-col items-center justify-center md:w-1/2 text-center font-light">
                         <span>Name:{order?.customerName}</span>
                         <span>Phone: {order?.phoneNumber}</span>
                         <span>Whatsapp: {order?.whatsAppNumber}</span>
@@ -197,42 +216,33 @@ const OrderDetailsPage = () => {
                 </div>
 
                 {/* order tracking */}
-                <div className=" flex flex-col items-center justify-center p-5">
-                    <h1 className="font-semibold text-[20px] md:text-[24px]">Add Tracking Order Id </h1>
+                <div className=" flex flex-col items-center justify-center p-5 gap-3">
+                    <h1 className="font-semibold text-[20px] md:text-[24px] ">Add Tracking Order Id</h1>
                     <div className="flex flex-col gap-4">
                         <div className="flex px-5 items-center justify-center gap-3 w-full  ">
-                            {order.deliverySlipURL && (
+                            {order.deliverySlipURL && slipURL && (
                                 <div className="w-full flex flex-col items-center justify-center gap-2">
-                                    <Image src={order.deliverySlipURL} quality={100} alt="Cover" className="w-[290px] h-[290px] object-cover rounded-2xl" height={150} width={150} />
-                                    <button onClick={() => setSlipURL("")} className="bg-red-700 px-3 py-2 rounded-2xl text-white">
+                                    <Image src={slipURL} quality={100} alt="Cover" className="w-[290px] h-[290px] object-cover rounded-2xl" height={150} width={150} />
+                                    <button onClick={handleDelete} className="bg-red-700 px-3 py-2 rounded-2xl text-white">
                                         <MdDelete size={24} />
                                     </button>
                                 </div>
                             )}
-                            {!slipURL && !order?.deliverySlipURL && (
-                                <label htmlFor="coverImage" className="w-[290px] rounded-2xl border flex flex-col items-center justify-center h-[290px]">
+                            {!slipURL && (
+                                <label htmlFor="slipImage" className="w-[290px] rounded-2xl border flex flex-col items-center justify-center h-[290px]">
                                     <span className="font-bold">Add Image</span>
                                     <CiSquarePlus size={24} />
                                 </label>
                             )}
-                            {slipURL && !order.deliverySlipURL && (
-                                <div className="w-full flex flex-col items-center justify-center gap-2">
-                                    <Image src={slipURL} alt="Cover" className="w-[290px] h-[290px] object-cover rounded-2xl" height={150} width={150} />
-                                    <button onClick={() => setSlipURL("")} className="bg-red-700 px-3 py-2 rounded-2xl text-white">
-                                        <MdDelete size={24} />
-                                    </button>
-                                </div>
-                            )}
                             <input
-                                id="coverImage"
+                                id="slipImage"
                                 type="file"
                                 onChange={handleCoverImageChange}
                                 className="hidden"
                                 accept="image/*"
-
                             />
                         </div>
-                        <button className="bg-td-secondary px-3 py-3  text-white  rounded-2xl" onClick={handleSubmit}>Upload</button>
+                        {slipURL && slipURL != order.deliverySlipURL && (<button className="bg-td-secondary px-3 py-3  text-white  rounded-2xl" onClick={handleSubmit}>Upload</button>)}
                     </div>
                 </div>
 
@@ -252,16 +262,17 @@ const OrderDetailsPage = () => {
 
 
 
+                            {/* 
                             {order?.isShipped && order?.isPaid && !order?.isDelivered && (
                                 <div className="w-full">
                                     <button className="bg-td-secondary  px-3 py-3 text-white w-full md:w-[1/2] rounded-2xl" onClick={handleDeliveredConfirm}>Confirm Delivery</button>
                                 </div>
-                            )}
-                            {order?.isShipped && order?.isPaid && order?.isDelivered && (
+                            )} */}
+                            {/* {order?.isShipped && order?.isPaid && order?.isDelivered && (
                                 <div className="w-full">
                                     <button className="bg-red-600 px-3 py-3 text-white w-full md:w-[1/2] rounded-2xl" onClick={handleDeliveredCancel}>Cancel Delivery</button>
                                 </div>
-                            )}
+                            )} */}
 
                         </>
                     )

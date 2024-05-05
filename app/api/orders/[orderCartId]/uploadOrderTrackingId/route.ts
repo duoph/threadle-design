@@ -33,3 +33,20 @@ export async function PUT(req: NextRequest, { params }: any) {
         return NextResponse.json({ error: 'Internal Server Error', success: false, message: error.message });
     }
 }
+
+
+
+// this is deleting the delivery slip image from the db
+
+export async function DELETE(req: NextRequest, { params }: any) {
+    try {
+        const orderCartId = params.orderCartId;
+
+        const deleteDeliverySlipURL = await CartModel.findByIdAndUpdate(orderCartId, {
+            deliverySlipURL: ""
+        }, { new: true });
+        return NextResponse.json({ message: 'Image Deleted', success: true, deleteDeliverySlipURL });
+    } catch (error) {
+        return NextResponse.json({ message: 'Error while deleting image', success: false });
+    }
+}
