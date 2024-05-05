@@ -74,7 +74,7 @@ const OrderDetailsPage = () => {
                 {/* order tracking */}
                 <div className="bg-red-50 flex flex-col items-center justify-center">
                     <h1 className="font-medium">Track Order</h1>
-                    <Image src={"/noImage.jpg"} alt="Image" height={200} width={200} />
+                    <Image src={order.deliverySlipURL} alt="Image" height={200} width={200} />
                 </div>
 
                 {order?.isShipped && !order?.isDelivered && (

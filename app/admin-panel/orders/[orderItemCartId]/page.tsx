@@ -83,43 +83,45 @@ const OrderDetailsPage = () => {
     }
 
 
-    const handleDeliveredConfirm = async () => {
-        setIsLoading(true)
-        try {
-            const res = await axios.post('/api/orders/delivered', {
-                cartId: order?._id
-            })
-            if (res.data?.success == true) {
-                toast.success("Marked as Shipped")
-                fetchCartItem()
-            }
-            console.log(res)
-            setIsLoading(false)
-        } catch (error) {
-            setIsLoading(false)
-            fetchCartItem()
-            console.log(error)
+    // const handleDeliveredConfirm = async () => {
+    //     setIsLoading(true)
+    //     try {
+    //         const res = await axios.post('/api/orders/delivered', {
+    //             cartId: order?._id
+    //         })
+    //         if (res.data?.success == true) {
+    //             toast.success("Marked as Shipped")
+    //             fetchCartItem()
+    //         }
+    //         console.log(res)
+    //         setIsLoading(false)
+    //     } catch (error) {
+    //         setIsLoading(false)
+    //         fetchCartItem()
+    //         console.log(error)
 
-        }
-    }
+    //     }
+    // }
 
-    const handleDeliveredCancel = async () => {
-        setIsLoading(true)
-        try {
-            const res = await axios.put('/api/orders/delivered', {
-                cartId: order?._id
-            })
-            console.log(res)
-            if (res.data?.success == true) {
-                toast.success("Canceled Shipping")
-                fetchCartItem()
-            }
-            setIsLoading(false)
-        } catch (error) {
-            setIsLoading(false)
-            console.log(error)
-        }
-    }
+    
+
+    // const handleDeliveredCancel = async () => {
+    //     setIsLoading(true)
+    //     try {
+    //         const res = await axios.put('/api/orders/delivered', {
+    //             cartId: order?._id
+    //         })
+    //         console.log(res)
+    //         if (res.data?.success == true) {
+    //             toast.success("Canceled Shipping")
+    //             fetchCartItem()
+    //         }
+    //         setIsLoading(false)
+    //     } catch (error) {
+    //         setIsLoading(false)
+    //         console.log(error)
+    //     }
+    // }
 
     const handleCoverImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
