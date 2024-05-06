@@ -74,8 +74,8 @@ const OrderDetailsPage = () => {
                             <span>Delivering Address : {order?.toAddress}</span>
                             <span>Pincode : {order?.pincode}</span>
                         </div>
-                        {order.deliverySlipURL && <button className="bg-td-secondary px-3 py-3 text-white rounded-2xl flex items-center justify-center gap-3">
-                            <span>Track Your Order</span>
+                        {order.deliverySlipURL && <button className="bg-td-secondary px-3 py-3 text-white rounded-2xl flex items-center justify-center gap-2">
+                            <span>Get Tracking Id</span>
                             <CiDeliveryTruck size={24} />
                         </button>}
 

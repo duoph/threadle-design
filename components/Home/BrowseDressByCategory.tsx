@@ -38,7 +38,7 @@ const BrowseDressByCategory = () => {
                 <div className='flex flex-wrap items-center justify-center w-full gap-2 font-medium text-sm'>
                     {categories?.slice(0, 6).map((category: Category, i) => (
                         <div key={i} onClick={() => router.push(`/category/${category._id}`)} className='bg-emerald-50 md:w-1/3 w-full  rounded-2xl py-2 flex items-center justify-center overflow-hidden cursor-pointer'>
-                            <h1 className=' text-[20px] text-center'>{category.categoryName}</h1>
+                            <h1 className=' text-[20px] font-normal text-center'>{category.categoryName}</h1>
                         </div>
                     ))}
                 </div>
