@@ -30,18 +30,19 @@ const UserSliderMenu = () => {
 
 
     return (
-        <div className="flex items-center justify-center">
-            {isMenu ? (
-                <button className=' rounded-2xl' onClick={() => setIsMenu(!isMenu)}>
-                    <CiMenuBurger className='cursor-pointer' size={24} />
-                </button>
-            ) : (
-                <button className=' rounded-2xl' onClick={() => setIsMenu(!isMenu)}>
-                    <CiCircleRemove className='cursor-pointer' size={24} />
-                </button>
-            )}
+        <ClickAwayListener onClickAway={() => setIsMenu(true)}>
+            <div className="flex  items-center justify-center">
+                {isMenu ? (
+                    <button className='w-[40px] rounded-2xl' onClick={() => setIsMenu(!isMenu)}>
+                        <CiMenuBurger className='cursor-pointer' size={24} />
+                    </button>
+                ) : (
+                    <button className='w-[40px] rounded-2xl' onClick={() => setIsMenu(!isMenu)}>
+                        <CiCircleRemove className='cursor-pointer' size={24} />
+                    </button>
+                )}
 
-            <ClickAwayListener onClickAway={() => setIsMenu(true)}>
+
                 <div onClick={() => setIsMenu(true)} className={`fixed top-[81px] h-full right-0 flex flex-col items-start justify-start z-50 shadow-2xl  bg-td-secondary md:w-[300px] w-full  translate-x-[0%]  transition-all duration-300 ease-in-out ${isMenu && 'translate-x-[100%]'}`}>
                     <Link href="/admin-panel/orders" className={` w-full px-10 py-2 text-white  text-center ${pathname?.startsWith("/admin-panel/orders") && "bg-td-primary"}`}>
                         <span className="flex items-center justify-start gap-8">
@@ -84,8 +85,8 @@ const UserSliderMenu = () => {
                     </Link>
                     <button className='bg-red-600 w-full px-10 py-2 text-white text-center flex items-center justify-center gap-3' onClick={handleLogout}> LogOut<AiOutlineLogout /></button>
                 </div>
-            </ClickAwayListener>
-        </div>
+            </div >
+        </ClickAwayListener>
     )
 }
 

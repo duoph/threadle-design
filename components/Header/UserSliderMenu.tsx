@@ -34,11 +34,11 @@ const UserSliderMenu = () => {
     return (
         <div className="flex items-center justify-center">
             {isMenuUser ? (
-                <button className=' rounded-2xl' onClick={() => setIsMenuUser(!isMenuUser)}>
+                <button className=' w-[40px] rounded-2xl' onClick={() => setIsMenuUser(!isMenuUser)}>
                     <CiMenuBurger className='cursor-pointer' size={24} />
                 </button>
             ) : (
-                <button className=' rounded-2xl' onClick={() => setIsMenuUser(!isMenuUser)}>
+                <button className=' w-[40px] rounded-2xl' onClick={() => setIsMenuUser(!isMenuUser)}>
                     <CiCircleRemove className='cursor-pointer' size={24} />
                 </button>
             )}
