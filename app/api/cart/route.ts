@@ -42,10 +42,6 @@ export async function POST(req: NextRequest) {
                 imageURL,
                 title,
                 totalPrice,
-                customerName: user.name,
-                toAddress: user.address,
-                phoneNumber: user.phone,
-                whatsAppNumber: user.whatsAppNumber,
             });
 
             return NextResponse.json({ message: "Added to cart", success: true, cart });
