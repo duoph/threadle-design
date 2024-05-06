@@ -33,7 +33,7 @@ const OrderDetailsPage = () => {
     }
 
     useEffect(() => {
-        fetchCartItem
+        fetchCartItem()
     }, [])
 
 
@@ -83,45 +83,45 @@ const OrderDetailsPage = () => {
     }
 
 
-    // const handleDeliveredConfirm = async () => {
-    //     setIsLoading(true)
-    //     try {
-    //         const res = await axios.post('/api/orders/delivered', {
-    //             cartId: order?._id
-    //         })
-    //         if (res.data?.success == true) {
-    //             toast.success("Marked as Shipped")
-    //             fetchCartItem()
-    //         }
-    //         console.log(res)
-    //         setIsLoading(false)
-    //     } catch (error) {
-    //         setIsLoading(false)
-    //         fetchCartItem()
-    //         console.log(error)
+    const handleDeliveredConfirm = async () => {
+        setIsLoading(true)
+        try {
+            const res = await axios.post('/api/orders/delivered', {
+                cartId: order?._id
+            })
+            if (res.data?.success == true) {
+                toast.success("Marked as Shipped")
+                fetchCartItem()
+            }
+            console.log(res)
+            setIsLoading(false)
+        } catch (error) {
+            setIsLoading(false)
+            fetchCartItem()
+            console.log(error)
 
-    //     }
-    // }
+        }
+    }
 
-    
 
-    // const handleDeliveredCancel = async () => {
-    //     setIsLoading(true)
-    //     try {
-    //         const res = await axios.put('/api/orders/delivered', {
-    //             cartId: order?._id
-    //         })
-    //         console.log(res)
-    //         if (res.data?.success == true) {
-    //             toast.success("Canceled Shipping")
-    //             fetchCartItem()
-    //         }
-    //         setIsLoading(false)
-    //     } catch (error) {
-    //         setIsLoading(false)
-    //         console.log(error)
-    //     }
-    // }
+
+    const handleDeliveredCancel = async () => {
+        setIsLoading(true)
+        try {
+            const res = await axios.put('/api/orders/delivered', {
+                cartId: order?._id
+            })
+            console.log(res)
+            if (res.data?.success == true) {
+                toast.success("Canceled Shipping")
+                fetchCartItem()
+            }
+            setIsLoading(false)
+        } catch (error) {
+            setIsLoading(false)
+            console.log(error)
+        }
+    }
 
     const handleCoverImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
@@ -199,8 +199,8 @@ const OrderDetailsPage = () => {
                 <div className="flex flex-col md:flex-row gap-3 w-full">
                     <div className="text-center flex gap-2 flex-col md:w-1/2">
                         <span className="font-medium text-center w-full">{order?.title}</span>
-                        <div className="relative flex items-center z-0 justify-center  min-h-[200px] w-full rounded-2xl">
-                            <Image priority={true} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" quality={50} fill={true} style={{ objectFit: "contain" }} className="rounded-2xl  max-h-[200px]" src={order?.imageURL || '/noImage.jpg'} alt="orderImage" />
+                        <div className="rounded-2xl flex items-center justify-center">
+                            <Image priority={true} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" quality={50} height={200} width={150} style={{ objectFit: "contain" }} className="rounded-2xl" src={order?.imageURL || '/noImage.jpg'} alt="orderImage" />
                         </div>
                         <div className="flex flex-col font-light">
                             <span className="text-center">&#8377;{order?.price} <span className="text-red-600">(Paid)</span></span>
@@ -222,7 +222,7 @@ const OrderDetailsPage = () => {
                     <h1 className="font-semibold text-[20px] md:text-[24px] ">Add Tracking Order Id</h1>
                     <div className="flex flex-col gap-4">
                         <div className="flex px-5 items-center justify-center gap-3 w-full  ">
-                            {order.deliverySlipURL && slipURL && (
+                            {order?.deliverySlipURL && slipURL && (
                                 <div className="w-full flex flex-col items-center justify-center gap-2">
                                     <Image src={slipURL} quality={100} alt="Cover" className="w-[290px] h-[290px] object-cover rounded-2xl" height={150} width={150} />
                                     <button onClick={handleDelete} className="bg-red-700 px-3 py-2 rounded-2xl text-white">
@@ -244,7 +244,7 @@ const OrderDetailsPage = () => {
                                 accept="image/*"
                             />
                         </div>
-                        {slipURL && slipURL != order.deliverySlipURL && (<button className="bg-td-secondary px-3 py-3  text-white  rounded-2xl" onClick={handleSubmit}>Upload</button>)}
+                        {slipURL && slipURL != order?.deliverySlipURL && (<button className="bg-td-secondary px-3 py-3  text-white  rounded-2xl" onClick={handleSubmit}>Upload</button>)}
                     </div>
                 </div>
 
@@ -264,17 +264,17 @@ const OrderDetailsPage = () => {
 
 
 
-                            {/* 
+
                             {order?.isShipped && order?.isPaid && !order?.isDelivered && (
                                 <div className="w-full">
                                     <button className="bg-td-secondary  px-3 py-3 text-white w-full md:w-[1/2] rounded-2xl" onClick={handleDeliveredConfirm}>Confirm Delivery</button>
                                 </div>
-                            )} */}
-                            {/* {order?.isShipped && order?.isPaid && order?.isDelivered && (
+                            )}
+                            {order?.isShipped && order?.isPaid && order?.isDelivered && (
                                 <div className="w-full">
                                     <button className="bg-red-600 px-3 py-3 text-white w-full md:w-[1/2] rounded-2xl" onClick={handleDeliveredCancel}>Cancel Delivery</button>
                                 </div>
-                            )} */}
+                            )}
 
                         </>
                     )
