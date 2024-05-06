@@ -49,8 +49,6 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
 
     const handleDislike = async () => {
         try {
-
-
             const res = await axios.put(`/api/wishlist/${product?._id}`)
 
             if (res.data.success === true) {
@@ -70,6 +68,10 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
 
     const handleLike = async () => {
         try {
+            if (!currentUser?.token) {
+                router.push('/account/login')
+                return toast.error("Login to your account");
+            }
             const res = await axios.post(`/api/wishlist/${product?._id}`)
             if (res.data.success === true) {
                 setWishListIds(prev => [...prev, product._id])

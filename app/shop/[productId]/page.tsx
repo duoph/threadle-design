@@ -105,7 +105,12 @@ const ProductPage = () => {
   }
 
   const handleLike = async () => {
+
     try {
+      if (!currentUser?.token) {
+        router.push('/account/login')
+        return toast.error("Login to your account");
+      }
       const res = await axios.post(`/api/wishlist/${productId}`)
       if (res.data.success === true) {
         toast.success("Added to wishlist")
@@ -132,6 +137,11 @@ const ProductPage = () => {
   const addToCart = async () => {
     try {
       setIsAddingToCart(true)
+      if (!currentUser?.token) {
+        setIsAddingToCart(false)
+        router.push('/account/login')
+        return toast.error("Login to your account");
+      }
       if (!selectedColor || !selectedSize) {
         setIsAddingToCart(false)
         return toast.error("Select Size and Color");
@@ -237,6 +247,11 @@ const ProductPage = () => {
     try {
 
       setIsLoading(true)
+
+      if (!currentUser?.token) {
+        router.push('/account/login')
+        return toast.error("Login to your account");
+      }
 
       if (!selectedColor || !selectedSize || !user?.address || user?.address.length <= 10 || user?.address === "" || !user?.pincode) {
         if (!user?.address || user?.address === "" || user?.address.length <= 10) {

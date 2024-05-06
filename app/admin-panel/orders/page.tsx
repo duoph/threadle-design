@@ -67,10 +67,10 @@ const Orders = () => {
 
     useEffect(() => {
         const sortedOrders = orderDisplay.slice().sort((a: any, b: any) => {
-            return new Date(b.orderedDate).getTime() - new Date(a.orderedDate).getTime();
+            return new Date(a.orderedDate).getTime() - new Date(b.orderedDate).getTime();
         });
         setOrderDisplay(sortedOrders);
-    }, []);
+    }, [fetchOrders]);
 
 
 
