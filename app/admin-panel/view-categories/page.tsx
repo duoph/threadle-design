@@ -13,7 +13,7 @@ const ViewAllCategories = () => {
     const [categories, setCategories] = useState<Category[]>([])
     const [deleteConfirm, setDeleteConfirm] = useState<boolean>(false)
     const [isLoading, setIsLoading] = useState<boolean>(false)
-    const [idToDelete, setIdToDelete] = useState<string | null>(null) // Changed to nullable type
+    const [idToDelete, setIdToDelete] = useState<string | null>(null) 
 
     const router = useRouter()
 
@@ -35,9 +35,7 @@ const ViewAllCategories = () => {
     const handleDelete = async () => {
         try {
             if (idToDelete) {
-                // Perform deletion
                 const res = await axios.delete(`/api/category/${idToDelete}`)
-                // Update categories after deletion
                 fetchCategory()
                 toast.success(res.data.message)
                 setDeleteConfirm(false)
@@ -45,7 +43,6 @@ const ViewAllCategories = () => {
             }
         } catch (error) {
             console.log(error)
-            // Handle error appropriately (e.g., show error message)
         }
     }
 
