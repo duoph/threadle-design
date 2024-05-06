@@ -8,9 +8,8 @@ const Hero = () => {
 
     const router = useRouter()
 
-
     return (
-        <div className=" w-full flex flex-col md:flex-row  items-center justify-center bg-gray-200">
+        <div className=" w-full flex flex-col md:flex-row  items-center justify-center bg-gray-200 min-h-[100vh] md:pb-10">
             <div className='md:w-1/2 w-full flex flex-col items-center justify-center md:py-10 pt-10 lg:px-10 px-5 gap-4 lg:gap-10'>
                 <div>
                     <h1 className='text-center font-extrabold text-td-secondary lg:text-[80px] text-[60px] leading-[60px] pb-6'>
@@ -29,10 +28,10 @@ const Hero = () => {
             </div>
             <div className='relative md:w-1/2 w-full flex flex-col gap-8 pb-10 items-center justify-center'>
                 <div className='relative flex items-center justify-center'>
-                    <Image priority={true} src={'/stars.svg'} className='absolute bottom-12 md:right-2 right-5' height={40} width={40} alt='Star' sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
+                    <Image priority={true} src={'/stars.svg'} className='absolute bottom-12 right-10' height={40} width={40} alt='Star' sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
                     <Image priority={true} src={'/stars.svg'} className='absolute top-12 left-20 ' height={40} width={40} alt='Star' sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
-                    <div className='relative w-[430px] min-h-[600px]'>
-                        <Image priority={true} src={"/greendress.png"} fill={true} alt='GreenDress' sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
+                    <div className='relative w-[400px] md:min-h-[600px] md:w-[450px]  min-h-[500px] mr-7'>
+                        <Image priority={true} src={"/greendress.png"} fill={true} alt='GreenDress' />
                     </div>
                 </div>
                 <div className='lg:hidden flex items-center justify-center gap-5 lg:text-[28px] md:text-[20px] text-[16px]'>
