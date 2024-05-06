@@ -43,7 +43,7 @@ export async function DELETE(req: NextRequest, { params }: any) {
         const orderCartId = params.orderCartId;
 
         const deleteDeliverySlipURL = await CartModel.findByIdAndUpdate(orderCartId, {
-            deliverySlipURL: ""
+            deliverySlipURL: null
         }, { new: true });
         return NextResponse.json({ message: 'Image Deleted', success: true, deleteDeliverySlipURL });
     } catch (error) {

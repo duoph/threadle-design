@@ -151,6 +151,7 @@ const OrderDetailsPage = () => {
 
             if (res.data.success === true) {
                 toast.success("Image Added successfully");
+                fetchCartItem()
             }
             if (res.data.success === false) {
                 toast.error("Error");
@@ -169,13 +170,14 @@ const OrderDetailsPage = () => {
             const res = await axios.delete(`/api/orders/${orderItemCartId}/uploadOrderTrackingId`)
             if (res.data.success === true) {
                 setSlipURL("")
-                toast.success(res.data.succes.message)
+                toast.success(res.data.success.message)
             }
             if (res.data.success === false) {
-                toast.error(res.data.succes.message)
+                toast.error(res.data.success.message)
             }
         } catch (error) {
-
+            console.error("Error while a:", error);
+            toast.error("Failed to create category")
         }
     }
 
@@ -192,10 +194,10 @@ const OrderDetailsPage = () => {
 
 
     return (
-        <div className=" py-3 px-3 flex flex-col gap-4 w-full min-h-[85vh]">
+        <div className=" py-3 px-3 flex flex-col w-full min-h-[85vh]">
             <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>Order Details</h1>
-            <div className="flex flex-col gap-3 border px-3 py-3 rounded-2xl bg-slate-100">
-                <h1 className="text-sm">Order Id: {order?._id}</h1>
+            <div className="flex flex-col gap-3 px-3 md:py-3 rounded-2xl">
+                <h1 className="text-sm"></h1>
                 <div className="flex flex-col md:flex-row gap-3 w-full">
                     <div className="text-center flex gap-2 flex-col md:w-1/2">
                         <span className="font-medium text-center w-full">{order?.title}</span>
@@ -209,11 +211,12 @@ const OrderDetailsPage = () => {
                         </div>
                     </div>
                     <div className="flex flex-col items-center justify-center md:w-1/2 text-center font-light">
-                        <span>Name:{order?.customerName}</span>
-                        <span>Phone: {order?.phoneNumber}</span>
-                        <span>Whatsapp: {order?.whatsAppNumber}</span>
-                        <span>Delivering Address: {order?.toAddress}</span>
-                        <span>Pincode: {order?.pincode}</span>
+                        <span>Order Id : {order?._id}</span>
+                        <span>Name : {order?.customerName}</span>
+                        <span>Phone : {order?.phoneNumber}</span>
+                        <span>Whatsapp : {order?.whatsAppNumber}</span>
+                        <span>Delivering Address : {order?.toAddress}</span>
+                        <span>Pincode : {order?.pincode}</span>
                     </div>
                 </div>
 
@@ -280,12 +283,11 @@ const OrderDetailsPage = () => {
                     )
                 }
 
-                {
-                    isLoading && (<div className="w-full">
-                        <button className="bg-td-secondary px-3 py-3 text-white w-full md:w-[1/2] rounded-2xl">
-                            <PulseLoader color="white" />
-                        </button>
-                    </div>)
+                {isLoading && (<div className="w-full">
+                    <button className="bg-td-secondary px-3 py-3 text-white w-full md:w-[1/2] rounded-2xl">
+                        <PulseLoader color="white" />
+                    </button>
+                </div>)
                 }
 
             </div >

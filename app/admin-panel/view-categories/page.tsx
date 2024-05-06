@@ -7,21 +7,25 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
+import { PulseLoader } from 'react-spinners'
 
 const ViewAllCategories = () => {
     const [categories, setCategories] = useState<Category[]>([])
     const [deleteConfirm, setDeleteConfirm] = useState<boolean>(false)
+    const [isLoading, setIsLoading] = useState<boolean>(false)
     const [idToDelete, setIdToDelete] = useState<string | null>(null) // Changed to nullable type
 
     const router = useRouter()
 
     const fetchCategory = async () => {
+        setIsLoading(true)
         try {
             const response = await axios.get('/api/category')
             setCategories(response?.data?.tdCategory)
         } catch (error) {
             console.log(error)
         }
+        setIsLoading(false)
     }
 
     useEffect(() => {
@@ -45,60 +49,60 @@ const ViewAllCategories = () => {
         }
     }
 
-    if (categories?.length === 0) {
+    if (isLoading) {
         return (
-            <div className='min-h-[80vh] w-full md:px-10 px-5 py-10 flex flex-col items-center justify-center gap-3'>
-                <div>
-                    <p className='font-medium'>No Categories Available</p>
+            <div className='flex flex-col items-center py-5 px-3 gap-3 min-h-[85vh] '>
+                <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>Categories</h1>
+                <div className=" absolute flex items-center justify-center flex-grow h-[65vh]">
+                    <PulseLoader />
                 </div>
             </div>
-        )
+        );
     }
 
     return (
-            <div className='min-h-screen w-full flex items-center justify-center md:px-10 px-5'>
-                {deleteConfirm && (
-                    <div className=' fixed top-0 bg-black bg-opacity-50 left-0 w-full h-full flex items-center justify-center  md:px-10 px-5'>
-                        <div className='bg-white p-6 rounded-md shadow-2xl py-10 px-10'>
-                            <h1 className='text-xl font-bold'>Are you sure?</h1>
-                            {/* <p className='text-gray-700'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae, vero.</p> */}
-                            <div className='mt-4 flex justify-center'>
-                                <button className='bg-red-600 text-white px-4 py-2 rounded-2xl mr-2' onClick={handleDelete}>Delete</button>
-                                <button className='bg-gray-300 text-gray-800 px-4 py-2 rounded-2xl' onClick={() => setDeleteConfirm(false)}>Cancel</button>
-                            </div>
+        <div className='min-h-screen w-full flex items-start justify-center md:px-5 '>
+            {deleteConfirm && (
+                <div className=' fixed top-0 bg-black bg-opacity-50 left-0 w-full h-full flex items-center justify-center  md:px-10 px-5 z-50'>
+                    <div className='bg-white p-6 rounded-md shadow-2xl py-10 px-10'>
+                        <h1 className='text-xl font-bold'>Are you sure?</h1>
+                        <div className='mt-4 flex justify-center'>
+                            <button className='bg-red-600 text-white px-4 py-2 rounded-2xl mr-2' onClick={handleDelete}>Delete</button>
+                            <button className='bg-gray-300 text-gray-800 px-4 py-2 rounded-2xl' onClick={() => setDeleteConfirm(false)}>Cancel</button>
                         </div>
                     </div>
-                )}
+                </div>
+            )}
 
-                <div className='min-h-[80vh] py-10 flex flex-col items-center justify-center gap-3 '>
-                    <div>
-                        <h1 className='text-[30px] font-bold text-td-secondary'>Categories</h1>
-                    </div>
+            <div className=' py-5 flex flex-col items-center justify-start gap-5 min-h-[85vh]'>
+                <div>
+                    <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>Categories</h1>
+                </div>
 
-                    <div className='flex flex-wrap items-center justify-center gap-5'>
-                        {categories.map((cat: Category, i) => (
-                            <div key={i} className='relative sm:w-[300px] w-[250px] shadow-2xl pb-10 flex flex-col bg-td-secondary rounded-2xl'>
-                                <Image
-                                    quality={50}
-                                    src={cat.imageURL || "/noImage.jpg"}
-                                    alt='Image'
-                                    className='rounded-2xl min-h-[300px] max-h-[300px]'
-                                    style={{ objectFit: "cover" }}
-                                    height={400}
-                                    width={400}
-                                    onClick={() => router.push(`/admin-panel/edit-category/${cat._id}`)}
-                                />
-                                <span className='w-full text-white px-5 py-5 text-center rounded-2xl cursor-pointer'>{cat.categoryName}</span>
-                                <div className='flex flex-col w-full gap-4 items-center justify-evenly text-white px-5'>
-                                    <button className='bg-td-primary w-full px-4 py-3 rounded-xl font-medium' onClick={() => router.push(`/admin-panel/edit-category/${cat._id}`)}>Edit</button>
-                                    <button onClick={() => router.push(`/admin-panel/view-products/${cat._id}`)} className='bg-td-primary w-full px-4 py-3 rounded-xl font-medium'>View Products</button>
-                                    <button onClick={() => { setDeleteConfirm(true); setIdToDelete(cat._id) }} className='bg-red-600 w-full px-4 py-3 rounded-xl font-medium'>Delete</button>
-                                </div>
+                <div className='flex flex-wrap items-center justify-center gap-5'>
+                    {categories.map((cat: Category, i) => (
+                        <div key={i} className='relative w-[calc(100vw-10px)] xs:w-[175px] md:w-[300px] shadow-2xl pb-10 flex flex-col bg-td-secondary rounded-2xl'>
+                            <Image
+                                quality={50}
+                                src={cat.imageURL || "/noImage.jpg"}
+                                alt='Image'
+                                className='rounded-2xl min-h-[300px] max-h-[300px]'
+                                style={{ objectFit: "cover" }}
+                                height={400}
+                                width={400}
+                                onClick={() => router.push(`/admin-panel/edit-category/${cat._id}`)}
+                            />
+                            <span className='w-full text-white px-5 py-5 text-center rounded-2xl cursor-pointer'>{cat.categoryName}</span>
+                            <div className='flex flex-col w-full gap-4 items-center justify-evenly text-white px-5'>
+                                <button className='bg-td-primary w-full px-4 py-3 rounded-xl font-medium' onClick={() => router.push(`/admin-panel/edit-category/${cat._id}`)}>Edit</button>
+                                <button onClick={() => router.push(`/admin-panel/view-products/${cat._id}`)} className='bg-td-primary w-full px-4 py-3 rounded-xl font-medium'>View Products</button>
+                                <button onClick={() => { setDeleteConfirm(true); setIdToDelete(cat._id) }} className='bg-red-600 w-full px-4 py-3 rounded-xl font-medium'>Delete</button>
                             </div>
-                        ))}
-                    </div>
+                        </div>
+                    ))}
                 </div>
             </div>
+        </div>
 
     )
 }
