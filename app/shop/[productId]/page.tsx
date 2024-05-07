@@ -224,12 +224,6 @@ const ProductPage = () => {
         razorpay_signature: response.razorpay_signature,
       });
 
-      await axios.post("/api/sms", {
-        phone: `+91${user?.phone}`,
-        message: `Threadle Designs : Your order for ${product?.title} is successfully Placed will notify you when it is shipped`
-      }
-      )
-
       if (res.data.success === true) {
         cartItemCountFetch();
       } else {

@@ -48,9 +48,6 @@ const EditProduct = () => {
             setCategoryName(categoryName)
             setCategoryId(categoryId);
             setColorCodes(colors)
-            if (!tags) {
-                setTags("")
-            }
             setTags(tags)
         } catch (error) {
             console.log(error)

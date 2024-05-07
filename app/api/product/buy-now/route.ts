@@ -1,3 +1,4 @@
+import { sendSMS } from "@/actions/actionSMS";
 import { getDataFromToken } from "@/helpers/getDataFromToken";
 import connectMongoDB from "@/libs/db";
 import CartModel from "@/models/cartItemModel";
@@ -48,6 +49,8 @@ export async function POST(req: NextRequest) {
             razorpay_order_id,
             razorpay_signature
         });
+
+        sendSMS(userId, `Threadles Designs : Your Order of ${title} Have Been Placed Succesfully we will inform you when its shipped`)
 
         // Return success response
         return NextResponse.json({ message: "Product Ordered Successfully", success: true, cart: { _id: cart._id } });

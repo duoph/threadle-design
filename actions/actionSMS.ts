@@ -39,7 +39,7 @@ export async function sendSMS(userId: string, message: string) {
 
         await client.messages.create({
             body: message,
-            from: "+14697950137",
+            from: "+12183955775",
             to: user.phone,
         });
 

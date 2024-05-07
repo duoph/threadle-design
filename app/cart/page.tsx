@@ -99,7 +99,6 @@ const CartPage = () => {
           toast.error("Add Address");
           setIsLoading(false)
           router.push(`/account/${currentUser?.userId}`);
-
         }
         if (!user?.pincode) {
           toast.error("Add a valid 6-digit Pincode");
