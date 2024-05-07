@@ -85,11 +85,9 @@ const OrderDetailsPage = () => {
 
                     {trackingImagePreview && (
                         <div className="fixed flex items-center justify-center z-50 bg-black bg-opacity-90 h-full w-full top-0 left-0">
-                            <ClickAwayListener onClickAway={() => setTrackingImagePreview(false)}>
-                                <div className="relative min-h-[250px] sm:min-h-[400px] w-full px-5 sm:w-[500px] md:w-[600px] md:min-h-[500px]">
-                                    <Image src={order.deliverySlipURL} alt="orderURL" fill={true} />
-                                </div>
-                            </ClickAwayListener>
+                            <div className="relative min-h-[250px] sm:min-h-[400px] w-full px-5 sm:w-[500px] md:w-[600px] md:min-h-[500px]">
+                                <Image src={order.deliverySlipURL} alt="orderURL" fill={true} />
+                            </div>
                             <div className="fixed cursor-pointer flex flex-col items-center justify-center bottom-32 sm:bottom-20 md:bottom-10" onClick={() => setTrackingImagePreview(false)}>
                                 <IoMdClose className="border text-white rounded-full p-1" size={24} />
                                 <span className="text-white">Close</span>
