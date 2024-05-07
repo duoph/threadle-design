@@ -99,25 +99,6 @@ const OrderDetailsPage = () => {
                 </div>
 
 
-                {/* order tracking */}
-                {/* <div className="flex flex-col items-center justify-center">
-                    <h1 className="font-medium">Track Order</h1>
-                    <Image src={order.deliverySlipURL} alt="Image" height={200} width={200} />
-                </div> */}
-
-
-                {/* {order?.isShipped && !order?.isDelivered && (
-                    <div className="w-full">
-                        <button className="bg-td-secondary px-3 py-3 text-white w-full md:w-[1/2] rounded-2xl">Your Order Has Been Shipped</button>
-                    </div>
-                )}
-
-                {order?.isShipped && order?.isDelivered && (
-                    <div className="w-full">
-                        <button className="bg-td-secondary px-3 py-3 text-white w-full md:w-[1/2] rounded-2xl">Your Order Delivered</button>
-                    </div>
-                )} */}
-
             </div>
         </div >
     )

@@ -26,8 +26,6 @@ const EditProduct = () => {
     const [productDesc, setProductDesc] = useState<string>("");
     const [fetchedCategory, setFetchedCategory] = useState<[] | undefined>([])
     const [categoryId, setCategoryId] = useState<string>("")
-    const [fetchedCategoryId, setFetchedCategoryId] = useState<string>("")
-    const [fetchedCategoryName, setFetchedCategoryName] = useState<string>("")
     const [categoryName, setCategoryName] = useState<string>("")
     const [tags, setTags] = useState<string>("")
 
@@ -47,9 +45,12 @@ const EditProduct = () => {
             setRegularPrice(regularPrice);
             setSalePrice(salePrice);
             setInStock(inStock === true ? 'yes' : 'no');
-            setFetchedCategoryName(categoryName)
-            setFetchedCategoryId(categoryId);
+            setCategoryName(categoryName)
+            setCategoryId(categoryId);
             setColorCodes(colors)
+            if (!tags) {
+                setTags("")
+            }
             setTags(tags)
         } catch (error) {
             console.log(error)
@@ -112,29 +113,38 @@ const EditProduct = () => {
     const handleSubmit = async () => {
         setIsLoading(true)
         try {
+
             if (!productTitle) {
                 toast.error("Please enter a category title");
                 setIsLoading(false)
                 return;
             }
-            if (!categoryId && !fetchedCategoryName) {
+
+            if (!categoryId || !categoryName) {
                 toast.error("Please select a category");
                 setIsLoading(false)
                 return;
             }
+
             if (!regularPrice) {
                 toast.error("Please add a regular Price");
                 setIsLoading(false)
                 return;
             }
+
+            if (!colorCodes) {
+                toast.error("Please add Colors");
+                setIsLoading(false)
+                return;
+            }
+
             const formData = new FormData();
             formData.append("title", productTitle);
             formData.append("desc", productDesc);
-            formData.append("categoryId", categoryId || fetchedCategoryId);
+            formData.append("categoryId", categoryId);
+            formData.append("categoryName", categoryName);
             formData.append("inStock", inStock);
             formData.append("regularPrice", regularPrice);
-            formData.append("categoryId", categoryId);
-            formData.append("regularPrice", categoryName);
             formData.append("tags", tags);
             if (salePrice) {
                 formData.append("salePrice", salePrice);
@@ -156,13 +166,13 @@ const EditProduct = () => {
                 formData.append("categoryName", "");
             }
 
-
             // Make a POST request to your backend endpoint
             const res = await axios.put(`/api/product/${productId}`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
             });
+
             console.log(res)
             setIsLoading(false)
             toast.success("Product updated successfully");
@@ -175,13 +185,19 @@ const EditProduct = () => {
     };
 
 
-
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const newValue = event.target.value;
         setCategoryId(newValue);
+        const selectedCategory: any = fetchedCategory?.find((category: any) => category._id === newValue);
+
+        const categoryName = selectedCategory ? selectedCategory.categoryName : newValue;
+        setCategoryName(categoryName);
+
+        console.log(selectedCategory, newValue);
+        console.log("newValue");
     };
 
-    console.log(inStock)
+
 
 
     return (
@@ -241,9 +257,8 @@ const EditProduct = () => {
             <div className="flex flex-col gap-1">
                 <label htmlFor="category" className="font-semibold">Category</label>
                 <select onChange={handleSelectChange} id="category" className="bg-gray-200 px-5 py-3 rounded-2xl text-black">
-                    {fetchedCategoryName && <option value={fetchedCategoryId}>{fetchedCategoryName}</option>}
                     {fetchedCategory && fetchedCategory.map((category: Category) => (
-                        <option key={category._id} value={category._id} selected={category._id === fetchedCategoryId}>
+                        <option key={category._id} value={category._id} selected={category._id === categoryId}>
                             {category.categoryName}
                         </option>
                     ))}
