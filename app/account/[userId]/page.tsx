@@ -70,9 +70,9 @@ const UserProfile = () => {
 
         try {
             const res = await axios.put(`/api/user/${currentUser?.userId}`, formData);
-
+            console.log(res)
             if (res.data?.success === true) {
-                const userData = res.data?.user;
+                // const userData = res.data?.user;
                 toast.success('Profile Updated Successfully');
             }
 
@@ -143,7 +143,7 @@ const UserProfile = () => {
                         <input type="pincode" name="pincode" placeholder='Pincode' className='border px-5  w-full py-2 rounded-2xl bg-slate-200' value={formData.pincode} onChange={handleChange} />
                     </div>
                 </form>
-                <button className={`px-5 rounded-2xl py-3 border bg-td-secondary text-white font-bold`} type='submit'>{isSubmiting ? <PulseLoader color="white" size={9} /> : "Save"}</button>
+                <button onClick={handleSubmit} className={`px-5 rounded-2xl py-3 border bg-td-secondary text-white font-bold`} type='submit'>{isSubmiting ? <PulseLoader color="white" size={9} /> : "Save"}</button>
             </div>
         </div>
     );
