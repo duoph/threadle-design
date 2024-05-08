@@ -80,8 +80,8 @@ const Shop = () => {
   }, [products]);
 
 
-  const indexOfLastProduct = currentPage * 18;
-  const indexOfFirstProduct = indexOfLastProduct - 18;
+  const indexOfLastProduct = currentPage * 20;
+  const indexOfFirstProduct = indexOfLastProduct - 20;
   const currentProducts = searchProducts.slice(indexOfFirstProduct, indexOfLastProduct);
 
   const nextPage = () => {
@@ -158,7 +158,7 @@ const Shop = () => {
               </div>
             )}
           </div>
-          {searchProducts.length > 18 && (
+          {searchProducts.length > 20 && (
             <ul className="flex items-center justify-evenly gap-7">
               <li className={`cursor-pointer page-item border flex items-center justify-center text-white rounded-md py-2 bg-td-secondary px-6  ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105 transition-all ease-in-out'}`}>
                 <button onClick={prevPage} disabled={currentPage === 1} className="flex items-center justify-center "> <MdNavigateBefore size={24} /> <span className='px-2'>Prev</span> </button>
