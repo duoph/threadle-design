@@ -361,15 +361,16 @@ const ProductPage = () => {
 
     // Validate pincode
 
-    if (formData.phone.length < 2) {
+    if (formData.name.length < 2) {
       setIsSubmiting(false);
       return toast.error("Enter a valid name");
     }
 
-    if (formData.phone.length < 10) {
+    if (formData.phone.length != 10) {
       setIsSubmiting(false);
       return toast.error("Enter a valid phone");
     }
+
 
     if (formData.address.length < 7) {
       setIsSubmiting(false);
@@ -381,6 +382,7 @@ const ProductPage = () => {
       setIsSubmiting(false);
       return toast.error("Enter a valid pincode");
     }
+
 
     try {
       const res = await axios.put(`/api/user/${currentUser?.userId}`, formData);

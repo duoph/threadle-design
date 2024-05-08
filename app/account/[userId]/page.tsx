@@ -62,7 +62,23 @@ const UserProfile = () => {
         e.preventDefault();
         setIsSubmiting(true);
 
-        // Validate pincode
+        if (formData.name.length < 2) {
+            setIsSubmiting(false);
+            return toast.error("Enter a valid name");
+        }
+
+        if (formData.phone.length != 10) {
+            setIsSubmiting(false);
+            return toast.error("Enter a valid phone");
+        }
+
+    
+        if (formData.address.length < 7) {
+            setIsSubmiting(false);
+            return toast.error("Enter a valid Address");
+        }
+
+
         if (!/^\d{6}$/.test(formData.pincode)) {
             setIsSubmiting(false);
             return toast.error("Enter a valid pincode");
@@ -126,11 +142,11 @@ const UserProfile = () => {
                     </div>
                     <div className='flex items-center justify-center gap-2 w-full'>
                         <FaPhoneAlt size={30} />
-                        <input disabled={true} type="phone" name="phone" placeholder='Phone' value={formData.phone} onChange={handleChange} className='border px-5  w-full py-2 rounded-md bg-slate-200' />
+                        <input type="phone" name="phone" placeholder='Phone' value={formData.phone} onChange={handleChange} className='border px-5  w-full py-2 rounded-md bg-slate-200' />
                     </div>
                     <div className='flex items-center justify-center gap-2 w-full'>
                         <FaSquareWhatsapp size={30} />
-                        <input disabled={true} type="whatsAppNumber" name="whatsAppNumber" placeholder='whatsApp Number' value={formData.whatsAppNumber || formData.phone} onChange={handleChange} className='border px-5  w-full py-2 rounded-md bg-slate-200' />
+                        <input type="whatsAppNumber" name="whatsAppNumber" placeholder='whatsApp Number' value={formData.whatsAppNumber || formData.phone} onChange={handleChange} className='border px-5  w-full py-2 rounded-md bg-slate-200' />
                     </div>
                     <div className='flex items-start justify-center gap-2 w-full '>
                         <FaAddressCard size={30} />
