@@ -13,7 +13,7 @@ const Footer = () => {
 
                 <div className='flex flex-col md:items-start items-center md:w-1/2 w-full gap-3'>
                     <div className="relative w-[100px] h-[100px]">
-                        <Image priority={true} src={'/td-green.png'} alt='Logo' fill={true} quality={50} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
+                        <Image priority={true} src={'/td-green.png'} alt='Logo' fill={true} quality={50} />
                     </div>
                     <p className='break-all'>We have clothes that suit your style and which you&apos;re proud to wear.</p>
                     <span className='flex gap-3'>

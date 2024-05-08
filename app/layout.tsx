@@ -28,8 +28,7 @@ export default function RootLayout({
           <Header />
           <Toaster
             position="top-center"
-            reverseOrder={false}
-          />
+            reverseOrder={false}/>
           <main style={{ paddingTop: '80px' }}>
             {children}
           </main>

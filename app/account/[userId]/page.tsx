@@ -130,7 +130,7 @@ const UserProfile = () => {
                     </div>
                     <div className='flex items-center justify-center gap-2 w-full'>
                         <FaSquareWhatsapp size={30} />
-                        <input disabled={true} type="phone" name="phone" placeholder='Phone' value={formData.phone || formData.phone} onChange={handleChange} className='border px-5  w-full py-2 rounded-2xl bg-slate-200' />
+                        <input disabled={true} type="whatsAppNumber" name="whatsAppNumber" placeholder='whatsApp Number' value={formData.whatsAppNumber || formData.phone} onChange={handleChange} className='border px-5  w-full py-2 rounded-2xl bg-slate-200' />
                     </div>
                     <div className='flex items-start justify-center gap-2 w-full '>
                         <FaAddressCard size={30} />

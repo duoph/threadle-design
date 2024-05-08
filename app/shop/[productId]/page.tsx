@@ -16,6 +16,9 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useUser } from '@/context/useUser'
 import Script from 'next/script'
+import { FaPhoneAlt, FaAddressCard } from 'react-icons/fa';
+import { FaLocationDot, FaSquareWhatsapp } from 'react-icons/fa6';
+import { RiAccountCircleFill } from 'react-icons/ri';
 
 
 const ProductPage = () => {
@@ -32,8 +35,18 @@ const ProductPage = () => {
   const [previewImage, setPreviewImage] = useState<string>()
   const [isLoading, setIsLoading] = useState(false)
   const [user, setUser] = useState<User>();
+  const [isDetails, setIsDetailsMenu] = useState<boolean>(false)
 
   const [isAddingToCart, setIsAddingToCart] = useState<boolean>();
+
+  const [isSubmiting, setIsSubmiting] = useState<boolean>()
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    whatsAppNumber: '',
+    address: '',
+    pincode: '',
+  });
 
 
 
@@ -58,7 +71,17 @@ const ProductPage = () => {
     try {
       setIsLoading(true)
       const res = await axios.get(`/api/user/${currentUser?.userId}`)
-      setUser(res?.data?.user);
+      console.log(res)
+      if (res?.data?.user) {
+        setUser(res?.data?.user);
+        setFormData({
+          name: res.data.user.name,
+          phone: res.data.user.phone,
+          whatsAppNumber: res?.data?.user?.whatsAppNumber,
+          address: res.data.user.address,
+          pincode: res.data.user.pincode,
+        });
+      }
       console.log(res)
       setIsLoading(false)
     } catch (error) {
@@ -73,6 +96,8 @@ const ProductPage = () => {
     userWishlist()
     fetchUser()
   }, [])
+
+
 
 
 
@@ -242,6 +267,8 @@ const ProductPage = () => {
 
       setIsLoading(true)
 
+      setIsDetailsMenu(false)
+
       if (!currentUser?.token) {
         router.push('/account/login')
         return toast.error("Login to your account");
@@ -265,9 +292,7 @@ const ProductPage = () => {
 
       const res = await axios.post("/api/razorpay", {
         totalAmount: product?.salePrice || product?.regularPrice,
-        notes: "Hello this is a test order"
       })
-
 
       console.log(res)
 
@@ -278,7 +303,6 @@ const ProductPage = () => {
         name: 'Threadles Design',
         image: "/td.png",
         theme: "green",
-        test: "fesmfserf",
         handler: function (response: any) {
           console.log(response);
           if (response.razorpay_payment_id) {
@@ -292,9 +316,9 @@ const ProductPage = () => {
           }
         },
         prefill: {
-          name: "John Doe",
+          name: formData.name,
           email: "jdoe@example.com",
-          contact: "9876543210", productName: "This a kurta for sale", MyName: "hadi Rasal"
+          contact: formData.phone,
         },
       };
       setIsLoading(false)
@@ -311,6 +335,67 @@ const ProductPage = () => {
 
   };
 
+  const handleBuyNow = async () => {
+    try {
+      fetchUser()
+      if (!selectedColor || !selectedSize) {
+        setIsLoading(false);
+        return toast.error("Select Size and Color");
+      }
+      setIsDetailsMenu(true)
+    } catch (error) {
+      setIsDetailsMenu(false)
+      console.log(error)
+    }
+
+  }
+
+  const handleChange = (e: any) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+
+  const handleSubmit = async () => {
+
+    setIsSubmiting(true);
+
+    // Validate pincode
+    if (formData.address.length < 10) {
+      setIsSubmiting(false);
+      return toast.error("Enter a valid Address");
+    }
+
+    if (!/^\d{6}$/.test(formData.pincode)) {
+      setIsSubmiting(false);
+      return toast.error("Enter a valid pincode");
+    }
+
+    try {
+      const res = await axios.put(`/api/user/${currentUser?.userId}`, formData);
+      console.log(res)
+      if (res.data?.success === true) {
+        // const userData = res.data?.user;
+        toast.success('Profile Updated Successfully');
+      }
+
+      if (res.data?.success === false) {
+        return toast.error('Error');
+      }
+
+      setIsSubmiting(false);
+      handlePayment()
+
+    } catch (error) {
+      setIsSubmiting(false);
+      console.log(error);
+      toast.error('Failed to update profile');
+    }
+  };
+
+
+
+
+
   document.title = product?.title || "Shop Now"
 
 
@@ -319,7 +404,7 @@ const ProductPage = () => {
 
 
   return (
-    <div className='w-full px-5 py-3 md:px-10 flex flex-col gap-3 mb-5 '>
+    <div className='w-full relative px-5 py-3 md:px-10 flex flex-col gap-3 mb-5 '>
       <Script
         id="razorpay-checkout-js"
         src="https://checkout.razorpay.com/v1/checkout.js"
@@ -450,7 +535,7 @@ const ProductPage = () => {
                     </span>
                     <div className='flex gap-3'>
                       <button onClick={addToCart} className='w-1/2 py-2 bg-td-secondary rounded-2xl text-white'>  {isAddingToCart ? <PulseLoader color='white' /> : "Add to Cart"} </button>
-                      <button onClick={handlePayment} className='w-1/2 py-2 bg-td-secondary rounded-2xl text-white flex items-center justify-center'>
+                      <button onClick={handleBuyNow} className='w-1/2 py-2 bg-td-secondary rounded-2xl text-white flex items-center justify-center'>
 
                         {isLoading ? <PulseLoader color='white' /> : "Buy Now"}
                       </button>
@@ -476,8 +561,44 @@ const ProductPage = () => {
       }
 
 
-    </div >
+      {/* The address and phone confirmation modal */}
+
+      {isDetails && (
+        <div className='fixed flex items-center justify-center bg-black bg-opacity-30 top-0 right-0 h-screen w-full z-[50]'>
+          <div className='bg-slate-100 rounded-2xl shadow-2xl px-5 py-5 flex flex-col items-center justify-center'>
+            <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>Confirm Address</h1>
+            <div className="flex  flex-col items-center justify-center w-full h-full gap-2">
+              <form onSubmit={handleSubmit} className='flex flex-col items-center justify-center gap-3  px-5 py-8 rounded-2xl w-full '>
+                <div className='flex items-center justify-center gap-2 w-full'>
+                  <RiAccountCircleFill size={30} />
+                  <input type="text" name="name" placeholder='Name' value={formData.name} onChange={handleChange} className='border px-5  py-2 rounded-2xl bg-slate-200 w-full' />
+                </div>
+                <div className='flex items-center justify-center gap-2 w-full'>
+                  <FaPhoneAlt size={30} />
+                  <input type="phone" name="phone" placeholder='Phone' value={formData.phone} onChange={handleChange} className='border px-5  w-full py-2 rounded-2xl bg-slate-200' />
+                </div>
+                <div className='flex items-center justify-center gap-2 w-full'>
+                  <FaSquareWhatsapp size={30} />
+                  <input type="whatsAppNumber" name="whatsAppNumber" placeholder='whatsApp Number' value={formData.phone || formData.phone} onChange={handleChange} className='border px-5  w-full py-2 rounded-2xl bg-slate-200' />
+                </div>
+                <div className='flex items-start justify-center gap-2 w-full '>
+                  <FaAddressCard size={30} />
+                  <textarea id="address" name="address" className='border px-5  py-2 w-full rounded-2xl bg-slate-200 min-h-[100px]' placeholder='Address' value={formData.address} onChange={handleChange} />
+                </div>
+                <div className='flex items-center justify-center gap-2 w-full'>
+                  <FaLocationDot size={30} />
+                  <input type="pincode" name="pincode" placeholder='Pincode' className='border px-5  w-full py-2 rounded-2xl bg-slate-200' value={formData.pincode} onChange={handleChange} />
+                </div>
+              </form>
+              <button onClick={handleSubmit} className={`px-5 rounded-2xl py-3 border bg-td-secondary text-white font-bold`} type='submit'>{isSubmiting ? <PulseLoader color="white" size={9} /> : "Next"}</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+
+    </div>
   )
 }
 
-export default ProductPage
+export default ProductPage;
