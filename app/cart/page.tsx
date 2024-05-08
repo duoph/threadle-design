@@ -117,6 +117,7 @@ const CartPage = () => {
   const Checkout = async () => {
     try {
       setIsLoading(true)
+      setIsSubmiting(false);
 
       if (!user?.address || user?.address.length <= 10 || user?.address === "" || !user?.pincode) {
         if (!user?.address || user?.address === "" || user?.address.length <= 10) {
@@ -246,8 +247,6 @@ const CartPage = () => {
   };
 
 
-
-
   if (!cart) {
     return (
       <div className='flex flex-col items-center py-5 px-3 gap-3 min-h-[85vh]'>
@@ -258,7 +257,6 @@ const CartPage = () => {
       </div>
     );
   }
-
 
 
   return (
