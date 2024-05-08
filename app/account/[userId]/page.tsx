@@ -117,7 +117,7 @@ const UserProfile = () => {
     return (
         <div className='flex flex-col items-center justify-start gap-3 py-5 px-5 min-h-[85vh]'>
             <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>Profile</h1>
-            <span className='text-xs font-light'>You can update you name,address and pincode </span>
+            <span className='text-xs font-light'>You can update your name,phone,address and pincode </span>
             <div className="flex  flex-col items-center justify-center w-full h-full gap-2">
                 <form onSubmit={handleSubmit} className='flex flex-col items-center justify-center gap-3  px-5 py-8 rounded-2xl lg:w-1/2 w-full '>
                     <div className='flex items-center justify-center gap-2 w-full'>

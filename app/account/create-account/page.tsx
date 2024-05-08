@@ -176,7 +176,7 @@ const CreateAccount = () => {
                             onChange={(e) => setShowWhatsApp(!showWhatsApp)}
                             placeholder='whatsAppCheck' className='border px-5 py-2 rounded-2xl bg-slate-200'
                         />
-                        <label htmlFor="whatsAppCheck" className='font-medium text-sm'>have a diffrent whatsapp number</label>
+                        <label htmlFor="whatsAppCheck" className='font-medium text-sm'>have a different whatsapp number</label>
                     </div>
                     <div className='flex items-center justify-center gap-2'>
                         <FaLock size={24} />
