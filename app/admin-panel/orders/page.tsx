@@ -91,7 +91,7 @@ const Orders = () => {
         <div className="flex flex-col items-center py-5 px-3 gap-3 w-full">
             <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>Order Dashboard</h1>
             {/* Total Orders */}
-            {/* <div className="flex items-center justify-center border bg-slate-200 rounded-2xl py-5 px-3 w-full">
+            {/* <div className="flex items-center justify-center border bg-slate-200 rounded-md py-5 px-3 w-full">
                 <div className="flex items-center justify-center flex-col md:flex-row flex-wrap gap-6 text-td-secondary font-bold text-xl">
                     <div className="flex flex-col items-center justify-center">
                         <h2>Total Orders</h2>
@@ -112,13 +112,13 @@ const Orders = () => {
                 </div>
             </div> */}
             {/* Order Type Buttons */}
-            <div className="flex items-center justify-center gap-2 md:gap-5 lg:gap-10 rounded-2xl py-5 px-5 md:px-10 w-full text-[15px] flex-wrap">
+            <div className="flex items-center justify-center gap-2 md:gap-5 lg:gap-10 rounded-md py-5 px-5 md:px-10 w-full text-[15px] flex-wrap">
                 <span
                     onClick={() => {
                         setSelectedOrderType('pending');
                         setOrderDisplay(pendingOrders)
                     }}
-                    className={`px-2 py-2 rounded-2xl cursor-pointer border ${selectedOrderType === 'pending' ? 'bg-td-secondary text-white' : ''}`}
+                    className={`px-2 py-2 rounded-md cursor-pointer border ${selectedOrderType === 'pending' ? 'bg-td-secondary text-white' : ''}`}
                 >
                     Pending Orders
                 </span>
@@ -127,7 +127,7 @@ const Orders = () => {
                         setSelectedOrderType('shipped');
                         setOrderDisplay(shippedOrders)
                     }}
-                    className={`px-3 py-2 rounded-2xl cursor-pointer border ${selectedOrderType === 'shipped' ? 'bg-td-secondary text-white' : ''}`}
+                    className={`px-3 py-2 rounded-md cursor-pointer border ${selectedOrderType === 'shipped' ? 'bg-td-secondary text-white' : ''}`}
                 >
                     Shipped Orders
                 </span>
@@ -137,7 +137,7 @@ const Orders = () => {
                         setOrderDisplay(deliveredOrders)
 
                     }}
-                    className={`px-3 py-2 rounded-2xl cursor-pointer border ${selectedOrderType === 'delivered' ? 'bg-td-secondary text-white' : ''}`}
+                    className={`px-3 py-2 rounded-md cursor-pointer border ${selectedOrderType === 'delivered' ? 'bg-td-secondary text-white' : ''}`}
                 >
                     Delivered Orders
                 </span>
@@ -147,14 +147,14 @@ const Orders = () => {
                         setOrderDisplay(cancelOrders)
 
                     }}
-                    className={`px-3 py-2 rounded-2xl cursor-pointer border ${selectedOrderType === 'cancel' ? 'bg-td-secondary text-white' : ''}`}
+                    className={`px-3 py-2 rounded-md cursor-pointer border ${selectedOrderType === 'cancel' ? 'bg-td-secondary text-white' : ''}`}
                 >
                     Cancelled Orders
                 </span> */}
             </div>
 
             {/* Order Display */}
-            <div className="flex flex-col border rounded-2xl py-5 px-3 w-full gap-[10px] min-h-[70vh]">
+            <div className="flex flex-col border rounded-md py-5 px-3 w-full gap-[10px] min-h-[70vh]">
                 <div className="flex items-center justify-between border-b-2 px-2">
                     <span className="w-2/6 text-center">Product Name</span>
                     <span className="w-2/6 text-center">Customer Name</span>

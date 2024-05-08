@@ -64,8 +64,8 @@ const ViewAllCategories = () => {
                     <div className='bg-white p-6 rounded-md shadow-2xl py-10 px-10'>
                         <h1 className='text-xl font-bold'>Are you sure?</h1>
                         <div className='mt-4 flex justify-center'>
-                            <button className='bg-red-600 text-white px-4 py-2 rounded-2xl mr-2' onClick={handleDelete}>Delete</button>
-                            <button className='bg-gray-300 text-gray-800 px-4 py-2 rounded-2xl' onClick={() => setDeleteConfirm(false)}>Cancel</button>
+                            <button className='bg-red-600 text-white px-4 py-2 rounded-md mr-2' onClick={handleDelete}>Delete</button>
+                            <button className='bg-gray-300 text-gray-800 px-4 py-2 rounded-md' onClick={() => setDeleteConfirm(false)}>Cancel</button>
                         </div>
                     </div>
                 </div>
@@ -78,18 +78,18 @@ const ViewAllCategories = () => {
 
                 <div className='flex flex-wrap items-center justify-center gap-5'>
                     {categories.map((cat: Category, i) => (
-                        <div key={i} className='relative w-[calc(100vw-10px)] xs:w-[175px] md:w-[300px] shadow-2xl pb-10 flex flex-col bg-td-secondary rounded-2xl'>
+                        <div key={i} className='relative w-[calc(100vw-10px)] xs:w-[175px] md:w-[300px] shadow-2xl pb-10 flex flex-col bg-td-secondary rounded-md'>
                             <Image
                                 quality={50}
                                 src={cat.imageURL || "/noImage.jpg"}
                                 alt='Image'
-                                className='rounded-2xl min-h-[300px] max-h-[300px]'
+                                className='rounded-md min-h-[300px] max-h-[300px]'
                                 style={{ objectFit: "cover" }}
                                 height={400}
                                 width={400}
                                 onClick={() => router.push(`/admin-panel/edit-category/${cat._id}`)}
                             />
-                            <span className='w-full text-white px-5 py-5 text-center rounded-2xl cursor-pointer'>{cat.categoryName}</span>
+                            <span className='w-full text-white px-5 py-5 text-center rounded-md cursor-pointer'>{cat.categoryName}</span>
                             <div className='flex flex-col w-full gap-4 items-center justify-evenly text-white px-5'>
                                 <button className='bg-td-primary w-full px-4 py-3 rounded-xl font-medium' onClick={() => router.push(`/admin-panel/edit-category/${cat._id}`)}>Edit</button>
                                 <button onClick={() => router.push(`/admin-panel/view-products/${cat._id}`)} className='bg-td-primary w-full px-4 py-3 rounded-xl font-medium'>View Products</button>

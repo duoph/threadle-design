@@ -33,11 +33,11 @@ const UserSliderMenu = () => {
         <ClickAwayListener onClickAway={() => setIsMenu(true)}>
             <div className="flex  items-center justify-center">
                 {isMenu ? (
-                    <button className=' rounded-2xl' onClick={() => setIsMenu(!isMenu)}>
+                    <button className=' rounded-md' onClick={() => setIsMenu(!isMenu)}>
                         <CiMenuBurger className='cursor-pointer' size={24} />
                     </button>
                 ) : (
-                    <button className='rounded-2xl' onClick={() => setIsMenu(!isMenu)}>
+                    <button className='rounded-md' onClick={() => setIsMenu(!isMenu)}>
                         <CiCircleRemove className='cursor-pointer' size={24} />
                     </button>
                 )}

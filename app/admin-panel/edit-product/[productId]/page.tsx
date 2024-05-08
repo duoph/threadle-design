@@ -208,12 +208,12 @@ const EditProduct = () => {
             <div className='flex flex-col w-full gap-4'>
                 <h1 className='text-[20px] font-bold'>Product Details</h1>
                 <h1 className="font-bold">Product Title</h1>
-                <input type="text" name='title' onChange={(e) => setProductTitle(e.target.value)} value={productTitle} placeholder="Title" className='bg-gray-200 rounded-2xl px-5 py-3' />
+                <input type="text" name='title' onChange={(e) => setProductTitle(e.target.value)} value={productTitle} placeholder="Title" className='bg-gray-200 rounded-md px-5 py-3' />
             </div>
 
             <div className="flex flex-col gap-1">
                 <label htmlFor="desc" className="font-semibold">Description</label>
-                <textarea value={productDesc} onChange={(e) => setProductDesc(e.target.value)} rows={6} className="bg-gray-200 px-5 py-3 rounded-2xl" id="desc" />
+                <textarea value={productDesc} onChange={(e) => setProductDesc(e.target.value)} rows={6} className="bg-gray-200 px-5 py-3 rounded-md" id="desc" />
             </div>
 
 
@@ -221,14 +221,14 @@ const EditProduct = () => {
 
             <div className="flex flex-col gap-1">
                 <label htmlFor="color" className="font-semibold">Color (enter color code )</label>
-                <div className="w-full flex bg-gray-200 rounded-2xl items-center justify-center">
+                <div className="w-full flex bg-gray-200 rounded-md items-center justify-center">
                     <input value={hexCode} onChange={(e) => setHexCode(e.target.value)} className="bg-gray-200 px-5 py-3 rounded-l-2xl w-full" type="text" id="color" placeholder="eg:#495D69" />
-                    <span onClick={handleColorCode} className="bg-td-secondary cursor-pointer px-5 py-3 rounded-2xl text-white">Add</span>
+                    <span onClick={handleColorCode} className="bg-td-secondary cursor-pointer px-5 py-3 rounded-md text-white">Add</span>
                 </div>
             </div>
 
             {colorCodes && (
-                <div className="flex flex-wrap items-center gap-3 bg-gray-200 px-4 py-3 rounded-2xl w-full">
+                <div className="flex flex-wrap items-center gap-3 bg-gray-200 px-4 py-3 rounded-md w-full">
                     <h1>Selected Colors :</h1>
                     {colorCodes.map((color, i) =>
                     (
@@ -243,17 +243,17 @@ const EditProduct = () => {
             <div className="flex flex-row gap-1 w-full">
                 <div className="flex flex-col w-1/2">
                     <label htmlFor="title" className="font-semibold">Regular Price</label>
-                    <input type="number" value={regularPrice} onChange={(e) => setRegularPrice(e.target.value)} className="bg-gray-200 px-5 py-3 rounded-2xl" id="title" />
+                    <input type="number" value={regularPrice} onChange={(e) => setRegularPrice(e.target.value)} className="bg-gray-200 px-5 py-3 rounded-md" id="title" />
                 </div>
                 <div className="flex flex-col w-1/2">
                     <label htmlFor="title" className="font-semibold">Sale Price(Optional)</label>
-                    <input type="number" value={salePrice} onChange={(e) => setSalePrice(e.target.value)} className="bg-gray-200 px-5 py-3 rounded-2xl" id="title" />
+                    <input type="number" value={salePrice} onChange={(e) => setSalePrice(e.target.value)} className="bg-gray-200 px-5 py-3 rounded-md" id="title" />
                 </div>
             </div>
 
             <div className="flex flex-col gap-1">
                 <label htmlFor="category" className="font-semibold">Category</label>
-                <select onChange={handleSelectChange} id="category" className="bg-gray-200 px-5 py-3 rounded-2xl text-black">
+                <select onChange={handleSelectChange} id="category" className="bg-gray-200 px-5 py-3 rounded-md text-black">
                     {fetchedCategory && fetchedCategory.map((category: Category) => (
                         <option key={category._id} value={category._id} selected={category._id === categoryId}>
                             {category.categoryName}
@@ -282,12 +282,12 @@ const EditProduct = () => {
 
             <div className="flex flex-col gap-1 w-full">
                 <label htmlFor="tags" className="font-semibold">Tags</label>
-                <input value={tags} onChange={(e) => setTags(e.target.value)} className="bg-gray-200 px-5 py-3 rounded-2xl" type="text" id="tags" />
+                <input value={tags} onChange={(e) => setTags(e.target.value)} className="bg-gray-200 px-5 py-3 rounded-md" type="text" id="tags" />
             </div>
 
 
             < div className="w-full flex items-center justify-center py-5" >
-                <button onClick={handleSubmit} className=" flex items-center justify-center h-10 px-5 py-3 bg-td-secondary hover:bg-td-primary text-white rounded-2xl font-semibold w-full">
+                <button onClick={handleSubmit} className=" flex items-center justify-center h-10 px-5 py-3 bg-td-secondary hover:bg-td-primary text-white rounded-md font-semibold w-full">
                     {isLoading && (
                         <PulseLoader color="#ffffff" size={15} />
                     )}

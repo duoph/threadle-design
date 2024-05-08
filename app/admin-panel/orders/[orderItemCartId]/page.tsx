@@ -196,13 +196,13 @@ const OrderDetailsPage = () => {
     return (
         <div className=" py-3 px-3 flex flex-col w-full min-h-[85vh]">
             <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>Order Details</h1>
-            <div className="flex flex-col gap-3 px-3 md:py-3 rounded-2xl">
+            <div className="flex flex-col gap-3 px-3 md:py-3 rounded-md">
                 <h1 className="text-sm"></h1>
                 <div className="flex flex-col md:flex-row gap-3 w-full">
                     <div className="text-center flex gap-2 flex-col md:w-1/2">
                         <span className="font-medium text-center w-full">{order?.title}</span>
-                        <div className="rounded-2xl flex items-center justify-center">
-                            <Image priority={true} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" quality={50} height={200} width={150} style={{ objectFit: "contain" }} className="rounded-2xl" src={order?.imageURL || '/noImage.jpg'} alt="orderImage" />
+                        <div className="rounded-md flex items-center justify-center">
+                            <Image priority={true} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" quality={50} height={200} width={150} style={{ objectFit: "contain" }} className="rounded-md" src={order?.imageURL || '/noImage.jpg'} alt="orderImage" />
                         </div>
                         <div className="flex flex-col font-light">
                             <span className="text-center">&#8377;{order?.price} <span className="text-red-600">(Paid)</span></span>
@@ -227,14 +227,14 @@ const OrderDetailsPage = () => {
                         <div className="flex px-5 items-center justify-center gap-3 w-full  ">
                             {order?.deliverySlipURL && slipURL && (
                                 <div className="w-full flex flex-col items-center justify-center gap-2">
-                                    <Image src={slipURL} quality={100} alt="Cover" className="w-[290px] h-[290px] object-cover rounded-2xl" height={150} width={150} />
-                                    <button onClick={handleDelete} className="bg-red-700 px-3 py-2 rounded-2xl text-white">
+                                    <Image src={slipURL} quality={100} alt="Cover" className="w-[290px] h-[290px] object-cover rounded-md" height={150} width={150} />
+                                    <button onClick={handleDelete} className="bg-red-700 px-3 py-2 rounded-md text-white">
                                         <MdDelete size={24} />
                                     </button>
                                 </div>
                             )}
                             {!slipURL && (
-                                <label htmlFor="slipImage" className="w-[290px] rounded-2xl border flex flex-col items-center justify-center h-[290px]">
+                                <label htmlFor="slipImage" className="w-[290px] rounded-md border flex flex-col items-center justify-center h-[290px]">
                                     <span className="font-bold">Add Image</span>
                                     <CiSquarePlus size={24} />
                                 </label>
@@ -247,7 +247,7 @@ const OrderDetailsPage = () => {
                                 accept="image/*"
                             />
                         </div>
-                        {slipURL && slipURL != order?.deliverySlipURL && (<button className="bg-td-secondary px-3 py-3  text-white  rounded-2xl" onClick={handleSubmit}>Upload</button>)}
+                        {slipURL && slipURL != order?.deliverySlipURL && (<button className="bg-td-secondary px-3 py-3  text-white  rounded-md" onClick={handleSubmit}>Upload</button>)}
                     </div>
                 </div>
 
@@ -256,12 +256,12 @@ const OrderDetailsPage = () => {
                         <>
                             {order?.isShipped && order?.isPaid && !order?.isDelivered && (
                                 <div className="w-full">
-                                    <button className="bg-red-600 px-3 py-3 text-white w-full md:w-[1/2] rounded-2xl" onClick={handleShippmentCancel}>Cancel Shipment</button>
+                                    <button className="bg-red-600 px-3 py-3 text-white w-full md:w-[1/2] rounded-md" onClick={handleShippmentCancel}>Cancel Shipment</button>
                                 </div>
                             )}
                             {!order?.isShipped && !order?.isDelivered && (
                                 <div className="w-full">
-                                    <button className="bg-td-secondary px-3 py-3 text-white w-full md:w-[1/2] rounded-2xl" onClick={handleShippmentConfirm}>Shipping Confirm</button>
+                                    <button className="bg-td-secondary px-3 py-3 text-white w-full md:w-[1/2] rounded-md" onClick={handleShippmentConfirm}>Shipping Confirm</button>
                                 </div>
                             )}
 
@@ -270,12 +270,12 @@ const OrderDetailsPage = () => {
 
                             {order?.isShipped && order?.isPaid && !order?.isDelivered && (
                                 <div className="w-full">
-                                    <button className="bg-td-secondary  px-3 py-3 text-white w-full md:w-[1/2] rounded-2xl" onClick={handleDeliveredConfirm}>Confirm Delivery</button>
+                                    <button className="bg-td-secondary  px-3 py-3 text-white w-full md:w-[1/2] rounded-md" onClick={handleDeliveredConfirm}>Confirm Delivery</button>
                                 </div>
                             )}
                             {order?.isShipped && order?.isPaid && order?.isDelivered && (
                                 <div className="w-full">
-                                    <button className="bg-red-600 px-3 py-3 text-white w-full md:w-[1/2] rounded-2xl" onClick={handleDeliveredCancel}>Cancel Delivery</button>
+                                    <button className="bg-red-600 px-3 py-3 text-white w-full md:w-[1/2] rounded-md" onClick={handleDeliveredCancel}>Cancel Delivery</button>
                                 </div>
                             )}
 
@@ -284,7 +284,7 @@ const OrderDetailsPage = () => {
                 }
 
                 {isLoading && (<div className="w-full">
-                    <button className="bg-td-secondary px-3 py-3 text-white w-full md:w-[1/2] rounded-2xl">
+                    <button className="bg-td-secondary px-3 py-3 text-white w-full md:w-[1/2] rounded-md">
                         <PulseLoader color="white" />
                     </button>
                 </div>)

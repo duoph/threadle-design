@@ -72,14 +72,14 @@ const ViewAllProducts = () => {
             <div>
                 <h1 className='text-[30px] font-bold text-td-secondary'>All Products</h1>
             </div>
-            <div className='rounded-2xl flex items-center justify-center cursor-pointer gap-3 bg-td-secondary pr-6 w-full'>
+            <div className='rounded-md flex items-center justify-center cursor-pointer gap-3 bg-td-secondary pr-6 w-full'>
                 <input
                     type='text'
                     placeholder='Search Product'
-                    className='border px-4 py-4 rounded-2xl w-full'
+                    className='border px-4 py-4 rounded-md w-full'
                     value={search}
                     onChange={(e) => setSearch(e.target.value)} />
-                <CiSearch className='rounded-2xl text-[30px] cursor-pointer text-white' />
+                <CiSearch className='rounded-md text-[30px] cursor-pointer text-white' />
             </div>
             <div className='min-h-[80vh] md:px-5 flex flex-col items-center justify-start gap-3'>
                 <div className='flex min-h-[60vh] items-start justify-center z-40 gap-[9px] flex-wrap md:gap-5'>
@@ -89,10 +89,10 @@ const ViewAllProducts = () => {
                 </div>
                 {searchResults.length > 20 && (
                     <ul className="flex items-center justify-evenly gap-7">
-                        <li className={`cursor-pointer page-item border flex items-center justify-center text-white rounded-2xl py-2 bg-td-secondary px-6  ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105 transition-all ease-in-out'}`}>
+                        <li className={`cursor-pointer page-item border flex items-center justify-center text-white rounded-md py-2 bg-td-secondary px-6  ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105 transition-all ease-in-out'}`}>
                             <button onClick={prevPage} disabled={currentPage === 1} className="flex items-center justify-center "> <MdNavigateBefore size={24} /> <span className='px-2'>Prev</span> </button>
                         </li>
-                        <li className={`cursor-pointer page-item border flex items-center justify-center text-white rounded-2xl py-2 bg-td-secondary px-6 ${indexOfLastProduct >= searchResults.length ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105 transition-all ease-in-out'}`}>
+                        <li className={`cursor-pointer page-item border flex items-center justify-center text-white rounded-md py-2 bg-td-secondary px-6 ${indexOfLastProduct >= searchResults.length ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105 transition-all ease-in-out'}`}>
                             <button onClick={nextPage} disabled={indexOfLastProduct >= searchResults.length} className="flex items-center justify-center"><span className='px-2'>Next</span> <MdNavigateNext size={24} /></button>
                         </li>
                     </ul>

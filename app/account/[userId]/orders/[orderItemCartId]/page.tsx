@@ -53,13 +53,13 @@ const OrderDetailsPage = () => {
             <h1 className="text-center font-bold text-[25px] md:text-[35px] text-td-secondary">Your Order Info</h1>
             {!order.deliverySlipURL && <span className="opacity-70 text-[14px] text-center">Order Will Be Shipping To Your Address Soon</span>}
 
-            <div className="flex flex-col  gap-3 px-3 md:py-5 pb-5 rounded-2xl">
+            <div className="flex flex-col  gap-3 px-3 md:py-5 pb-5 rounded-md">
                 {/* <h1 className="text-sm">Order Id : {order?._id}</h1> */}
                 <div className="flex flex-col md:flex-row gap-3 w-full">
                     <div className="text-center flex gap-2 flex-col md:w-1/2">
                         <span className="font-medium">{order?.title}</span>
-                        <div className="rounded-2xl flex items-center justify-center">
-                            <Image priority={true} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" quality={50} height={200} width={150} style={{ objectFit: "contain" }} className="rounded-2xl" src={order?.imageURL || '/noImage.jpg'} alt="orderImage" />
+                        <div className="rounded-md flex items-center justify-center">
+                            <Image priority={true} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" quality={50} height={200} width={150} style={{ objectFit: "contain" }} className="rounded-md" src={order?.imageURL || '/noImage.jpg'} alt="orderImage" />
                         </div>
                         <div className="flex flex-col font-light">
                             <span className="text-center">&#8377; {order.price} <span className="text-red-600">(Paid)</span></span>
@@ -76,7 +76,7 @@ const OrderDetailsPage = () => {
                             <span>Delivering Address : {order?.toAddress}</span>
                             <span>Pincode : {order?.pincode}</span>
                         </div>
-                        {order.deliverySlipURL && <button onClick={() => setTrackingImagePreview(true)} className="bg-td-secondary px-3 py-3 text-white rounded-2xl flex items-center justify-center gap-2">
+                        {order.deliverySlipURL && <button onClick={() => setTrackingImagePreview(true)} className="bg-td-secondary px-3 py-3 text-white rounded-md flex items-center justify-center gap-2">
                             <span>Get Tracking Id</span>
                             <CiDeliveryTruck size={24} />
                         </button>}

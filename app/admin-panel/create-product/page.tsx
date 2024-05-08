@@ -216,17 +216,17 @@ const CreateProduct = () => {
             <form onSubmit={handleSubmit} className="flex flex-col gap-3">
                 <div className="flex flex-col gap-1">
                     <label htmlFor="title" className="font-semibold">Title</label>
-                    <input value={title} onChange={(e) => setTitle(e.target.value)} className="bg-gray-200 px-5 py-3 rounded-2xl" type="text" id="title" />
+                    <input value={title} onChange={(e) => setTitle(e.target.value)} className="bg-gray-200 px-5 py-3 rounded-md" type="text" id="title" />
                 </div>
 
                 <div className="flex flex-col gap-1">
                     <label htmlFor="desc" className="font-semibold">Description</label>
-                    <textarea value={desc} onChange={(e) => setDesc(e.target.value)} rows={6} className="bg-gray-200 px-5 py-3 rounded-2xl" id="desc" />
+                    <textarea value={desc} onChange={(e) => setDesc(e.target.value)} rows={6} className="bg-gray-200 px-5 py-3 rounded-md" id="desc" />
                 </div>
                 <div className="flex flex-col gap-1">
                     <label htmlFor="category" className="font-semibold">Category</label>
 
-                    <select onChange={handleSelectChange} id="category" className="bg-gray-200 px-5 py-3 rounded-2xl text-black">
+                    <select onChange={handleSelectChange} id="category" className="bg-gray-200 px-5 py-3 rounded-md text-black">
                         <option className="px-5 py-3 " value={"default"}>Select category</option>
                         {fetchedCategory && fetchedCategory.map((category: Category, i) => (
                             <option key={i} value={category._id}>{category.categoryName}</option>
@@ -239,14 +239,14 @@ const CreateProduct = () => {
 
                 <div className="flex flex-col gap-1">
                     <label htmlFor="color" className="font-semibold">Color (enter color code )</label>
-                    <div className="w-full flex bg-gray-200 rounded-2xl items-center justify-center">
+                    <div className="w-full flex bg-gray-200 rounded-md items-center justify-center">
                         <input value={hexCode} onChange={(e) => setHexCode(e.target.value)} className="bg-gray-200 px-5 py-3 rounded-l-2xl w-full" type="text" id="color" placeholder="eg:#495D69" />
-                        <span onClick={handleColorCode} className="bg-td-secondary cursor-pointer px-5 py-3 rounded-2xl text-white">Add</span>
+                        <span onClick={handleColorCode} className="bg-td-secondary cursor-pointer px-5 py-3 rounded-md text-white">Add</span>
                     </div>
                 </div>
 
                 {colorCodes && (
-                    <div className="flex flex-wrap items-center gap-3 bg-gray-200 px-4 py-3 rounded-2xl w-full">
+                    <div className="flex flex-wrap items-center gap-3 bg-gray-200 px-4 py-3 rounded-md w-full">
                         <h1>Selected Colors :</h1>
                         {colorCodes.map((color, i) =>
                         (
@@ -277,11 +277,11 @@ const CreateProduct = () => {
                         <div className="flex flex-row gap-1 w-full">
                             <div className="flex flex-col w-1/2">
                                 <label htmlFor="title" className="font-medium">Regular Price</label>
-                                <input value={regularPrice} onChange={(e) => setRegularPrice(e.target.value)} className="bg-gray-200 px-5 py-3 rounded-2xl" id="title" />
+                                <input value={regularPrice} onChange={(e) => setRegularPrice(e.target.value)} className="bg-gray-200 px-5 py-3 rounded-md" id="title" />
                             </div>
                             <div className="flex flex-col w-1/2">
                                 <label htmlFor="title" className="font-medium">Offer Price</label>
-                                <input value={salePrice} onChange={(e) => setSalePrice(e.target.value)} className="bg-gray-200 px-5 py-3 rounded-2xl" id="title" />
+                                <input value={salePrice} onChange={(e) => setSalePrice(e.target.value)} className="bg-gray-200 px-5 py-3 rounded-md" id="title" />
                             </div>
                         </div>
                     )
@@ -289,7 +289,7 @@ const CreateProduct = () => {
 
                 <h1 className="text-[15px] font-semibold">Cover Image</h1>
                 <div className="flex flex-col gap-2 items-center justify-center ">
-                    <div className="relative flex flex-col items-center justify-center gap-1 border rounded-2xl w-[300px] h-[300px] overflow-hidden shadow-xl">
+                    <div className="relative flex flex-col items-center justify-center gap-1 border rounded-md w-[300px] h-[300px] overflow-hidden shadow-xl">
                         {!coverImage && (
                             <label htmlFor="coverImage" className="font-semibold w-full h-full flex flex-col items-center justify-center">
                                 <CiSquarePlus size={24} />
@@ -298,18 +298,18 @@ const CreateProduct = () => {
                         )}
                         {coverImage && (
 
-                            <Image className="rounded-2xl -z-10" src={coverImage} alt="Image" height={350} width={350} />
+                            <Image className="rounded-md -z-10" src={coverImage} alt="Image" height={350} width={350} />
 
                         )}
                         <input type="file" className="hidden" id="coverImage" onChange={(e) => handleDisplayImage(e, 0)} />
                         {coverImage && (
-                            <MdDelete onClick={() => setCoverImage("")} className="bg-red-500 rounded-2xl z-10 text-white cursor-pointer absolute bottom-3 w-[36px] h-[36px]" size={24} />
+                            <MdDelete onClick={() => setCoverImage("")} className="bg-red-500 rounded-md z-10 text-white cursor-pointer absolute bottom-3 w-[36px] h-[36px]" size={24} />
                         )}
                     </div>
                 </div>
                 <h1 className="text-[15px] font-semibold">More Images</h1>
                 <div className="flex md:flex-row flex-row flex-wrap items-center justify-center gap-2">
-                    <div className="relative flex flex-col items-center justify-center gap-1 border rounded-2xl w-[300px] h-[300px] overflow-hidden shadow-xl">
+                    <div className="relative flex flex-col items-center justify-center gap-1 border rounded-md w-[300px] h-[300px] overflow-hidden shadow-xl">
                         {!image1 && (
                             <label htmlFor="image1" className="font-semibold w-full h-full flex flex-col items-center justify-center cursor-pointer">
                                 <CiSquarePlus size={24} />
@@ -317,16 +317,16 @@ const CreateProduct = () => {
                             </label>
                         )}
                         {image1 && (
-                            <Image className="rounded-2xl" src={image1} alt="Image" height={350} width={350} />
+                            <Image className="rounded-md" src={image1} alt="Image" height={350} width={350} />
                         )}
                         <input type="file" className="hidden" id="image1" onChange={(e) => handleDisplayImage(e, 1)} />
                         {image1 && (
-                            <MdDelete onClick={() => setImage1("")} className="bg-red-500 rounded-2xl z-10 text-white cursor-pointer absolute bottom-3 w-[36px] h-[36px]" size={24} />
+                            <MdDelete onClick={() => setImage1("")} className="bg-red-500 rounded-md z-10 text-white cursor-pointer absolute bottom-3 w-[36px] h-[36px]" size={24} />
                         )}
                     </div>
 
                     {/* {image1 && ( */}
-                    <div className="relative flex flex-col items-center justify-center gap-1 border rounded-2xl w-[300px] h-[300px] overflow-hidden shadow-xl ">
+                    <div className="relative flex flex-col items-center justify-center gap-1 border rounded-md w-[300px] h-[300px] overflow-hidden shadow-xl ">
                         {!image2 && (
                             <label htmlFor="image2" className="font-semibold w-full h-full flex flex-col items-center justify-center cursor-pointer">
                                 <CiSquarePlus size={24} />
@@ -334,15 +334,15 @@ const CreateProduct = () => {
                             </label>
                         )}
                         {image2 && (
-                            <Image className="rounded-2xl" src={image2} alt="Image" height={350} width={350} />
+                            <Image className="rounded-md" src={image2} alt="Image" height={350} width={350} />
                         )}
                         <input type="file" className="hidden" id="image2" onChange={(e) => handleDisplayImage(e, 2)} />
                         {image2 && (
-                            <MdDelete onClick={() => setImage2("")} className="bg-red-500 rounded-2xl z-10 text-white cursor-pointer absolute bottom-3 w-[36px] h-[36px]" size={24} />
+                            <MdDelete onClick={() => setImage2("")} className="bg-red-500 rounded-md z-10 text-white cursor-pointer absolute bottom-3 w-[36px] h-[36px]" size={24} />
                         )}
                     </div>
 
-                    <div className="relative flex flex-col items-center justify-center gap-1 border rounded-2xl w-[300px] h-[300px] overflow-hidden shadow-xl">
+                    <div className="relative flex flex-col items-center justify-center gap-1 border rounded-md w-[300px] h-[300px] overflow-hidden shadow-xl">
                         {!image3 && (
                             <label htmlFor="image3" className="font-semibold w-full h-full flex flex-col items-center justify-center cursor-pointer">
                                 <CiSquarePlus size={24} />
@@ -350,15 +350,15 @@ const CreateProduct = () => {
                             </label>
                         )}
                         {image3 && (
-                            <Image className="rounded-2xl" src={image3} alt="Image" height={350} width={350} />
+                            <Image className="rounded-md" src={image3} alt="Image" height={350} width={350} />
                         )}
                         <input type="file" className="hidden" id="image3" onChange={(e) => handleDisplayImage(e, 3)} />
                         {image3 && (
-                            <MdDelete onClick={() => setImage3("")} className="bg-red-500 rounded-2xl z-10 text-white cursor-pointer absolute bottom-3 w-[36px] h-[36px]" size={24} />
+                            <MdDelete onClick={() => setImage3("")} className="bg-red-500 rounded-md z-10 text-white cursor-pointer absolute bottom-3 w-[36px] h-[36px]" size={24} />
                         )}
                     </div>
 
-                    <div className="relative flex flex-col items-center justify-center gap-1 border rounded-2xl w-[300px] h-[300px] overflow-hidden shadow-xl">
+                    <div className="relative flex flex-col items-center justify-center gap-1 border rounded-md w-[300px] h-[300px] overflow-hidden shadow-xl">
                         {!image4 && (
                             <label htmlFor="image4" className="font-semibold w-full h-full flex flex-col items-center justify-center cursor-pointer ">
                                 <CiSquarePlus size={24} />
@@ -366,22 +366,22 @@ const CreateProduct = () => {
                             </label>
                         )}
                         {image4 && (
-                            <Image className="rounded-2xl" src={image4} alt="Image" height={350} width={350} />
+                            <Image className="rounded-md" src={image4} alt="Image" height={350} width={350} />
                         )}
                         <input type="file" className="hidden" id="image4" onChange={(e) => handleDisplayImage(e, 4)} />
                         {image4 && (
-                            <MdDelete onClick={() => setImage4("")} className="bg-red-500 rounded-2xl z-10 text-white cursor-pointer absolute bottom-3 w-[36px] h-[36px]" size={24} />
+                            <MdDelete onClick={() => setImage4("")} className="bg-red-500 rounded-md z-10 text-white cursor-pointer absolute bottom-3 w-[36px] h-[36px]" size={24} />
                         )}
                     </div>
                     <div className="flex flex-col gap-1 w-full">
                         <label htmlFor="tags" className="font-semibold">Tags</label>
-                        <input value={tags} onChange={(e) => setTags(e.target.value)} className="bg-gray-200 px-5 py-3 rounded-2xl" type="text" id="tags" />
+                        <input value={tags} onChange={(e) => setTags(e.target.value)} className="bg-gray-200 px-5 py-3 rounded-md" type="text" id="tags" />
                     </div>
                 </div>
                 <div>
 
                 </div>
-                <button className=" flex items-center justify-center h-10 px-5 py-3 bg-td-secondary text-white rounded-2xl font-semibold w-full">
+                <button className=" flex items-center justify-center h-10 px-5 py-3 bg-td-secondary text-white rounded-md font-semibold w-full">
                     {isLoading && (
                         <PulseLoader color="#ffffff" size={15} />
                     )}
