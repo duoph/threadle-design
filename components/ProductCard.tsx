@@ -94,17 +94,17 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
 
 
     return (
-        <div className='relative border flex gap-2 flex-col items-center justify-between  w-[calc(100vw-10px)] xs:w-[175px] md:w-[300px]  cursor-pointer rounded-lg  transition-all ease-in-out duration-700 bg-gray-200 '>
+        <div className='relative border flex gap-2 flex-col items-center justify-between  w-[calc(100vw-10px)] xs:w-[175px] md:w-[300px] rounded-md  cursor-pointer  transition-all ease-in-out duration-700 bg-gray-200 '>
             <div onClick={() => router.push(`/shop/${product._id}`)} className='w-full'>
                 <div className='relative flex items-center justify-center h-[200px] md:h-[250px] w-full'>
-                    {!product.inStock && <div className='absolute top-0 z-10 right-0 w-full h-full bg-black bg-opacity-50 rounded-lg flex items-center justify-center'>
+                    {!product.inStock && <div className='absolute top-0 z-10 right-0 w-full h-full bg-black bg-opacity-50 rounded-md flex items-center justify-center'>
                         <span className='text-white'>Out of stock</span>
                     </div>}
                     {!product?.coverImageURL && (
-                        <Image priority={true} src={"/noImage.jpg"} style={{ objectFit: "cover" }} alt='Image' className='rounded-lg' quality={50} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
+                        <Image priority={true} src={"/noImage.jpg"} style={{ objectFit: "cover" }} alt='Image' className='rounded-sm' quality={50} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
                     )}
                     {product?.coverImageURL && (
-                        <Image priority={true} src={product?.coverImageURL} style={{ objectFit: "cover" }} className='rounded-lg' quality={50} fill alt='Red-Dress' sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
+                        <Image priority={true} src={product?.coverImageURL} style={{ objectFit: "cover" }} className='rounded-sm' quality={50} fill alt='Red-Dress' sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
                     )}
                 </div>
                 <div className='w-full px-3 py-2 flex flex-col gap-2  '>
@@ -146,10 +146,10 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
             {
                 currentUser?.isAdmin && (
                     <div className="flex items-center justify-center w-full gap-1 p-1">
-                        <button onClick={() => router.push(`/admin-panel/edit-product/${product._id}`)} className='flex w-full border rounded-2xl py-3 items-center justify-center bg-gray-600'>
+                        <button onClick={() => router.push(`/admin-panel/edit-product/${product._id}`)} className='flex w-full border rounded-md py-3 items-center justify-center bg-gray-600'>
                             <MdEdit className='text-center w-full text-white hover:scale-110 cursor-pointer' size={24} />
                         </button>
-                        <button onClick={() => setDeleteConfirm(true)} className='flex w-full border rounded-2xl py-3 items-center justify-center bg-red-600'>
+                        <button onClick={() => setDeleteConfirm(true)} className='flex w-full border rounded-md py-3 items-center justify-center bg-red-600'>
                             <MdDelete className='text-center w-full text-white hover:scale-110 cursor-pointer' size={24} />
                         </button>
                     </div>
@@ -163,8 +163,8 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
                             <h1 className='text-xl font-bold'>Are you sure?</h1>
                             {/* <p className='text-gray-700'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae, vero.</p> */}
                             <div className='mt-4 flex justify-center'>
-                                <button className='bg-red-600 text-white px-4 py-2 rounded-2xl mr-2' onClick={handleDelete}>Delete</button>
-                                <button className='bg-gray-300 text-gray-800 px-4 py-2 rounded-2xl' onClick={() => setDeleteConfirm(false)}>Cancel</button>
+                                <button className='bg-red-600 text-white px-4 py-2 rounded-md mr-2' onClick={handleDelete}>Delete</button>
+                                <button className='bg-gray-300 text-gray-800 px-4 py-2 rounded-md' onClick={() => setDeleteConfirm(false)}>Cancel</button>
                             </div>
                         </div>
                     </div>

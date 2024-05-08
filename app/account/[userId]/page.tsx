@@ -119,29 +119,29 @@ const UserProfile = () => {
             <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>Profile</h1>
             <span className='text-xs font-light'>You can update your name,phone,address and pincode </span>
             <div className="flex  flex-col items-center justify-center w-full h-full gap-2">
-                <form onSubmit={handleSubmit} className='flex flex-col items-center justify-center gap-3  px-5 py-8 rounded-2xl lg:w-1/2 w-full '>
+                <form onSubmit={handleSubmit} className='flex flex-col items-center justify-center gap-3  px-5 py-8 rounded-md lg:w-1/2 w-full '>
                     <div className='flex items-center justify-center gap-2 w-full'>
                         <RiAccountCircleFill size={30} />
-                        <input type="text" name="name" placeholder='Name' value={formData.name} onChange={handleChange} className='border px-5  py-2 rounded-2xl bg-slate-200 w-full' />
+                        <input type="text" name="name" placeholder='Name' value={formData.name} onChange={handleChange} className='border px-5  py-2 rounded-md bg-slate-200 w-full' />
                     </div>
                     <div className='flex items-center justify-center gap-2 w-full'>
                         <FaPhoneAlt size={30} />
-                        <input disabled={true} type="phone" name="phone" placeholder='Phone' value={formData.phone} onChange={handleChange} className='border px-5  w-full py-2 rounded-2xl bg-slate-200' />
+                        <input disabled={true} type="phone" name="phone" placeholder='Phone' value={formData.phone} onChange={handleChange} className='border px-5  w-full py-2 rounded-md bg-slate-200' />
                     </div>
                     <div className='flex items-center justify-center gap-2 w-full'>
                         <FaSquareWhatsapp size={30} />
-                        <input disabled={true} type="whatsAppNumber" name="whatsAppNumber" placeholder='whatsApp Number' value={formData.whatsAppNumber || formData.phone} onChange={handleChange} className='border px-5  w-full py-2 rounded-2xl bg-slate-200' />
+                        <input disabled={true} type="whatsAppNumber" name="whatsAppNumber" placeholder='whatsApp Number' value={formData.whatsAppNumber || formData.phone} onChange={handleChange} className='border px-5  w-full py-2 rounded-md bg-slate-200' />
                     </div>
                     <div className='flex items-start justify-center gap-2 w-full '>
                         <FaAddressCard size={30} />
-                        <textarea id="address" name="address" className='border px-5  py-2 w-full rounded-2xl bg-slate-200 min-h-[100px]' placeholder='Address' value={formData.address} onChange={handleChange} />
+                        <textarea id="address" name="address" className='border px-5  py-2 w-full rounded-md bg-slate-200 min-h-[100px]' placeholder='Address' value={formData.address} onChange={handleChange} />
                     </div>
                     <div className='flex items-center justify-center gap-2 w-full'>
                         <FaLocationDot size={30} />
-                        <input type="pincode" name="pincode" placeholder='Pincode' className='border px-5  w-full py-2 rounded-2xl bg-slate-200' value={formData.pincode} onChange={handleChange} />
+                        <input type="pincode" name="pincode" placeholder='Pincode' className='border px-5  w-full py-2 rounded-md bg-slate-200' value={formData.pincode} onChange={handleChange} />
                     </div>
                 </form>
-                <button onClick={handleSubmit} className={`px-5 rounded-2xl py-3 border bg-td-secondary text-white font-bold`} type='submit'>{isSubmiting ? <PulseLoader color="white" size={9} /> : "Save"}</button>
+                <button onClick={handleSubmit} className={`px-5 rounded-md py-3 border bg-td-secondary text-white font-bold`} type='submit'>{isSubmiting ? <PulseLoader color="white" size={9} /> : "Save"}</button>
             </div>
         </div>
     );

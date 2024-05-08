@@ -106,7 +106,7 @@ export async function PUT(req: NextRequest) {
             razorpay_signature
         });
 
-        sendSMS(userId, "Threadles Designs : Your Order Have Been Placed Succesfully we will inform you when its shipped")
+        sendSMS(userId, "Threadles Designs : Your Order Have Been Placed Succesfully")
 
 
         return NextResponse.json({ message: "Marked all cart items as paid", success: true, cartItem });

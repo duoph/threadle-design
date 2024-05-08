@@ -179,7 +179,7 @@ const CartPage = () => {
           <h1 className='text-[30px] font-bold text-td-secondary'>My Cart</h1>
         </div>
         <div className='flex gap-5 md:flex-row flex-col w-full'>
-          <div className=' w-full flex flex-col items-center justify-center border rounded-2xl min-h-[100px]'>
+          <div className=' w-full flex flex-col items-center justify-center border rounded-md min-h-[100px]'>
             {!cart[0]?._id && <span className='font-light'>Your cart is empty</span>}
             {cart?.map((item: Cart) => (
               <React.Fragment key={item._id}>
@@ -188,7 +188,7 @@ const CartPage = () => {
               </React.Fragment>
             ))}
           </div>
-          <div className='flex flex-col items-center justify-around  w-full border rounded-2xl p-5'>
+          <div className='flex flex-col items-center justify-around  w-full border rounded-md p-5'>
             <div className='flex flex-col items-center justify-center'>
               <span className='text-[18px] font-medium'>Order Summary</span>
               <span>Sub Total : <span className='text-red-600'> &#8377;{total}</span></span>
@@ -198,7 +198,7 @@ const CartPage = () => {
               </div>
               <span className='border-b-8 flex h-2'></span>
             </div>
-            <button onClick={handleCheckout} className='flex items-center justify-center gap-3 w-2/3 rounded-2xl px-3 py-3 text-white bg-td-secondary hover:scale-95 transition-all duration-300 ease-in-out'>
+            <button onClick={handleCheckout} className='flex items-center justify-center gap-3 w-2/3 rounded-md px-3 py-3 text-white bg-td-secondary hover:scale-95 transition-all duration-300 ease-in-out'>
               {!isLoading ? (
                 <>
                   <span>CheckOut</span> <FaLongArrowAltRight color='white' size={20} />

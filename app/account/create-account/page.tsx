@@ -106,7 +106,7 @@ const CreateAccount = () => {
 
             <div className='flex items-center justify-center pb-10 w-full'>
 
-                <form onSubmit={handleSubmit} className='rounded-2xl bg-white flex flex-col gap-3 md:w-[400px] w-full md:px-10 py-8 px-5 '>
+                <form onSubmit={handleSubmit} className='rounded-md bg-white flex flex-col gap-3 md:w-[400px] w-full md:px-10 py-8 px-5 '>
                     <div className='h-[10vh] flex flex-col items-center justify-start'>
                         <h1 className='text-center font-bold text-td-secondary text-[30px]'>Create Account</h1>
                         {!passwordsMatch() && confirmPass && <span className='text-red-600 text-center transition-all ease-in-out duration-300 '>Password doesn&#39;t match</span>}
@@ -120,14 +120,14 @@ const CreateAccount = () => {
                             name="name"
                             value={formData.name}
                             onChange={handleChange}
-                            placeholder='Name' className='border px-5 py-2 rounded-2xl bg-slate-200 w-full'
+                            placeholder='Name' className='border px-5 py-2 rounded-md bg-slate-200 w-full'
                         />
                     </div>
 
 
                     <div className='flex items-center justify-center gap-2'>
                         <FaPhone size={24} />
-                        <div className='flex items-center justify-center rounded-2xl bg-slate-200 w-full'>
+                        <div className='flex items-center justify-center rounded-md bg-slate-200 w-full'>
                             <span className='pl-2'>+91</span>
                             <input
                                 type="string"
@@ -138,7 +138,7 @@ const CreateAccount = () => {
                                 value={formData.phone}
                                 onChange={handleChange}
                                 placeholder='Phone'
-                                className='border px-3 py-2 rounded-2xl bg-slate-200 w-full'
+                                className='border px-3 py-2 rounded-md bg-slate-200 w-full'
                             />
 
                         </div>
@@ -149,7 +149,7 @@ const CreateAccount = () => {
                     {showWhatsApp && (
                         <div className='flex items-center justify-center gap-2'>
                             <FaSquareWhatsapp size={24} />
-                            <div className='flex items-center justify-center rounded-2xl bg-slate-200 w-full'>
+                            <div className='flex items-center justify-center rounded-md bg-slate-200 w-full'>
                                 <span className='pl-2'>+91</span>
                                 <input
                                     type="number"
@@ -158,7 +158,7 @@ const CreateAccount = () => {
                                     maxLength={10}
                                     value={formData.whatsApp}
                                     onChange={handleChange}
-                                    placeholder='whatsApp' className='border px-3 py-2 rounded-2xl bg-slate-200 w-full'
+                                    placeholder='whatsApp' className='border px-3 py-2 rounded-md bg-slate-200 w-full'
                                 />
 
                             </div>
@@ -174,7 +174,7 @@ const CreateAccount = () => {
                             name="whatsAppCheck"
                             checked={showWhatsApp}
                             onChange={(e) => setShowWhatsApp(!showWhatsApp)}
-                            placeholder='whatsAppCheck' className='border px-5 py-2 rounded-2xl bg-slate-200'
+                            placeholder='whatsAppCheck' className='border px-5 py-2 rounded-md bg-slate-200'
                         />
                         <label htmlFor="whatsAppCheck" className='font-medium text-sm'>have a different whatsapp number</label>
                     </div>
@@ -187,7 +187,7 @@ const CreateAccount = () => {
                             value={formData.password}
                             onChange={handleChange}
                             placeholder='Password'
-                            className='border px-5 py-2 rounded-2xl bg-slate-200 w-full'
+                            className='border px-5 py-2 rounded-md bg-slate-200 w-full'
                         />
                     </div>
                     <div className={`flex items-center justify-center gap-2 ${!passwordsMatch() && 'border-red-600 focus:border-red-500'}`}>
@@ -199,10 +199,10 @@ const CreateAccount = () => {
                             value={confirmPass}
                             onChange={isMatchCheck}
                             placeholder='Confirm Password'
-                            className='border px-5 py-2 rounded-2xl bg-slate-200 w-full'
+                            className='border px-5 py-2 rounded-md bg-slate-200 w-full'
                         />
                     </div>
-                    <button type="submit" className='bg-td-secondary h-12  text-white px-5 py-3 rounded-2xl mt-4 w-full'>
+                    <button type="submit" className='bg-td-secondary h-12  text-white px-5 py-3 rounded-md mt-4 w-full'>
                         {isLoading && (
                             <PulseLoader color="#ffffff" size={15} />
                         )}

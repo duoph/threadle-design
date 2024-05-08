@@ -19,7 +19,7 @@ export async function sendOTP(userId: string) {
 
         await client.messages.create({
             body: `Your Threadle Designs OTP code is: ${otpCode}`,
-            from: "+14697950137",
+            from: "+12183955775",
             to: user.phone,
         });
 

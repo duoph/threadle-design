@@ -44,11 +44,11 @@ const MapContainer = () => {
     }
 
     return (
-        <div className=' lg:px-10 rounded-2xl px-5 mt-5 lg:mt-10 mb-10 flex flex-col gap-2 items-center justify-center'>
+        <div className=' lg:px-10 rounded-md px-5 mt-5 lg:mt-10 mb-10 flex flex-col gap-2 items-center justify-center'>
             <h1 className='lg:text-[40px] text-[25px]  text-start font-bold'>Locate Our Store</h1>
             <div className='w-full h-full'>
                 <GoogleMap
-                    mapContainerStyle={{ height: '50vh', borderRadius: "1rem" }}
+                    mapContainerStyle={{ height: '50vh', borderRadius: "0.375rem" }}
                     zoom={20}
                     center={center}
                 >

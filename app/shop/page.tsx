@@ -96,15 +96,15 @@ const Shop = () => {
   if (products?.length === 0) {
     return (
       <div className='flex flex-col items-center py-5 px-3 gap-3 min-h-[85vh]'>
-        <div className='rounded-2xl flex items-center justify-center cursor-pointer gap-3 bg-td-secondary pr-6 w-full'>
+        <div className='rounded-md flex items-center justify-center cursor-pointer gap-3 bg-td-secondary pr-6 w-full'>
           <input
             type='text'
             placeholder='Search Product'
-            className='border px-4 py-4 rounded-2xl w-full'
+            className='border px-4 py-4 rounded-md w-full'
             value={search}
             onChange={onSearch}
           />
-          <CiSearch className='rounded-2xl text-[30px] cursor-pointer text-white' />
+          <CiSearch className='rounded-md text-[30px] cursor-pointer text-white' />
         </div>
         <div className=' h-[60vh] flex items-center justify-center'>
           <PulseLoader />
@@ -117,15 +117,15 @@ const Shop = () => {
 
   return (
     <div className='flex flex-col gap-5 items-center justify-start px-2 lg:px-3 py-5 min-h-[85vh]'>
-      <div className='rounded-2xl flex items-center justify-center cursor-pointer gap-3 bg-td-secondary pr-6 w-full'>
+      <div className='rounded-md flex items-center justify-center cursor-pointer gap-3 bg-td-secondary pr-6 w-full'>
         <input
           type='text'
           placeholder='Search Product'
-          className='border px-4 py-4 rounded-2xl w-full'
+          className='border px-4 py-4 rounded-md w-full'
           value={search}
           onChange={onSearch}
         />
-        <CiSearch className='rounded-2xl text-[30px] cursor-pointer text-white' />
+        <CiSearch className='rounded-md text-[30px] cursor-pointer text-white' />
       </div>
       {isLoading ? (
         <div className="w-full h-full flex items-center justify-center min-h-[60vh]">
@@ -138,7 +138,7 @@ const Shop = () => {
               Showing {Math.min(currentProducts.length, 20)} of {searchProducts.length} Products
             </span>
             <select
-              className='rounded-2xl text-gray-400 font-light text-[12px] md:text-[15px] px-2 py-2'
+              className='rounded-md text-gray-400 font-light text-[12px] md:text-[15px] px-2 py-2'
               onChange={(e) => handleSort(e.target.value)}
             >
               <option value="newAdded">Sort by</option>
@@ -160,10 +160,10 @@ const Shop = () => {
           </div>
           {searchProducts.length > 18 && (
             <ul className="flex items-center justify-evenly gap-7">
-              <li className={`cursor-pointer page-item border flex items-center justify-center text-white rounded-2xl py-2 bg-td-secondary px-6  ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105 transition-all ease-in-out'}`}>
+              <li className={`cursor-pointer page-item border flex items-center justify-center text-white rounded-md py-2 bg-td-secondary px-6  ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105 transition-all ease-in-out'}`}>
                 <button onClick={prevPage} disabled={currentPage === 1} className="flex items-center justify-center "> <MdNavigateBefore size={24} /> <span className='px-2'>Prev</span> </button>
               </li>
-              <li className={`cursor-pointer page-item border flex items-center justify-center text-white rounded-2xl py-2 bg-td-secondary px-6 ${indexOfLastProduct >= searchProducts.length ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105 transition-all ease-in-out'}`}>
+              <li className={`cursor-pointer page-item border flex items-center justify-center text-white rounded-md py-2 bg-td-secondary px-6 ${indexOfLastProduct >= searchProducts.length ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105 transition-all ease-in-out'}`}>
                 <button onClick={nextPage} disabled={indexOfLastProduct >= searchProducts.length} className="flex items-center justify-center"><span className='px-2'>Next</span> <MdNavigateNext size={24} /></button>
               </li>
             </ul>

@@ -15,10 +15,10 @@ const Hero = () => {
                     <h1 className='text-center font-extrabold text-td-secondary lg:text-[80px] text-[60px] leading-[60px] pb-6'>
                         Threadle Designs
                     </h1>
-                    <p className='text-black font-light break-all text-center px-4 pb-2'>Browse through our diverse range of meticulously crafted garments, designed to bring out your individuality and cater to your sense of style.</p>
+                    <p className='text-black font-light break-all  px-4 pb-2'>Browse through our diverse range of meticulously crafted garments, designed to bring out your individuality and cater to your sense of style.</p>
                 </div>
                 <div>
-                    <button onClick={() => router.push('/shop')} className='py-3 px-4 rounded-2xl bg-td-secondary text-[18px] text-white font-semibold md:hover:scale-105 transition-all ease-in-out duration-300' >Shop Now</button>
+                    <button onClick={() => router.push('/shop')} className='py-3 px-4 rounded-md bg-td-secondary text-[18px] text-white font-semibold md:hover:scale-105 transition-all ease-in-out duration-300' >Shop Now</button>
                 </div>
                 <div className='hidden lg:flex items-center justify-center gap-5 lg:text-[28px] md:text-[20px] text-[16px]'>
                     <p className='flex flex-col items-center justify-center font-semibold '>2000+<span className='font-light'>Products</span></p>
