@@ -290,13 +290,9 @@ const CartPage = () => {
               <span className='border-b-8 flex h-2'></span>
             </div>
             <button onClick={handleCheckoutbtn} className='flex items-center justify-center gap-3 w-2/3 rounded-md px-3 py-3 text-white bg-td-secondary hover:scale-95 transition-all duration-300 ease-in-out'>
-              {!isLoading ? (
-                <>
-                  <span>CheckOut</span> <FaLongArrowAltRight color='white' size={20} />
-                </>
-              ) : (
-                <PulseLoader color={'white'} size={10} />
-              )}
+
+              <span>CheckOut</span> <FaLongArrowAltRight color='white' size={20} />
+
             </button>
 
             <span className='opacity-40 text-sm'>Placed orders can&#39;t be cancelled</span>
@@ -327,7 +323,7 @@ const CartPage = () => {
                     <input type="pincode" name="pincode" placeholder='Pincode' className='border px-5  w-full py-2 rounded-2xl bg-slate-200' value={formData.pincode} onChange={handleChange} />
                   </div>
                 </form>
-                <button onClick={handleSubmit} className={`px-5 rounded-2xl py-3 border bg-td-secondary text-white font-bold`} type='submit'>{isSubmiting ? <PulseLoader color="white" size={9} /> : "Next"}</button>
+                <button onClick={handleSubmit} className={`px-5 rounded-2xl py-3 border bg-td-secondary text-white font-bold`} type='submit'>{isSubmiting || isLoading ? <PulseLoader color="white" size={9} /> : "Next"}</button>
               </div>
             </div>
           </div>
