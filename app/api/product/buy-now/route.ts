@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
             razorpay_signature
         });
 
-        sendSMS(userId, `Threadles Designs : Your Order of ${title} Have Been Placed Succesfully we will inform you when its shipped`)
+        sendSMS(userId, `Threadles Designs : Your Order of ${title} Have Been Placed Succesfully`)
 
         // Return success response
         return NextResponse.json({ message: "Product Ordered Successfully", success: true, cart: { _id: cart._id } });

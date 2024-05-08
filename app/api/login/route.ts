@@ -3,14 +3,12 @@ import connectMongoDB from "@/libs/db";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import JWT from "jsonwebtoken";
-import { sendOTP } from '@/actions/actionSMS';
+
 
 export async function POST(req: NextRequest) {
     try {
         await connectMongoDB();
         const { phone, password } = await req.json();
-
-
 
 
         // Check if email or phone and password are provided
@@ -23,18 +21,13 @@ export async function POST(req: NextRequest) {
         const user = await userModel.findOne({ phone: "+91" + phone });
 
         if (!user) {
-            return NextResponse.json({ message: 'User not found', success: false });
+            return NextResponse.json({ message: 'Enter valid credentials', success: false });
         }
 
         const passCompare = await bcrypt.compare(password, user.password);
 
         if (!passCompare) {
             return NextResponse.json({ message: 'Invalid password', success: false });
-        }
-
-        if (user.isNumberVerified === false) {
-            sendOTP(user._id)
-            return NextResponse.json({ message: 'User is not verified', isNumberVerified: false, userId: user._id });
         }
 
         // Generate JWT token
@@ -54,7 +47,6 @@ export async function POST(req: NextRequest) {
             userId: user._id,
             phone: user.phone,
             address: user.address,
-            isVeridied: user.isVerified,
             isAdmin: user.isAdmin,
         };
 

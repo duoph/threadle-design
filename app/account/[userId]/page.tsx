@@ -89,8 +89,6 @@ const UserProfile = () => {
     };
 
 
-
-
     if (!currentUser?.token) {
         router.push('/account/login');
         return null;

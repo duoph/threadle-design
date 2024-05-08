@@ -32,8 +32,6 @@ export async function POST(req: NextRequest) {
             whatsAppNumber: "+91" + whatsApp
         });
 
-        sendOTP(user._id)
-
         // Return success response
         return NextResponse.json({ message: "Account created successfully", success: true, user });
     } catch (error) {

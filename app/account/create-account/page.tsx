@@ -82,7 +82,7 @@ const CreateAccount = () => {
 
             if (response.data.success === true) {
                 toast.success("Account created successfully")
-                router.push(`/account/create-account/otp-verification/${response.data.user._id}`)
+                router.push(`/account/login`)
                 setIsLoading(false)
             }
 

@@ -33,11 +33,11 @@ const LoginPageAdmin = () => {
 
       setIsLoading(false);
 
-      if (response.data.isNumberVerified === false) {
-        toast.error(response.data.message);
-        router.push(`/account/create-account/otp-verification/${response.data.userId}`);
-        return;
-      }
+      // if (response.data.isNumberVerified === false) {
+      //   toast.error(response.data.message);
+      //   router.push(`/account/create-account/otp-verification/${response.data.userId}`);
+      //   return;
+      // }
 
       if (response.data.success === false) {
         toast.error(response.data.message);
@@ -103,10 +103,11 @@ const LoginPageAdmin = () => {
           </button>
           <div className='flex flex-col items-center justify-center'>
             <span className='text-center text-sm'>Don&apos;t have an account?<span className='cursor-pointer text-blue-900 underline' onClick={() => router.push('/account/create-account')}>Create Account</span></span>
+            <span className='text-center text-sm cursor-pointer text-blue-900 underline' onClick={() => router.push('/account/forgot-pass')}>forgot password?</span>
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 
