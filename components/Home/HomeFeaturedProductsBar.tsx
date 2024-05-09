@@ -7,7 +7,7 @@ import ProductCard from '../ProductCard'; // Check import path
 import { GoChevronLeft, GoChevronRight } from "react-icons/go";
 import Link from "next/link";
 
-const FeaturedProducts = () => {
+const HomeFeaturedProductsBar = () => {
 
 
     const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -55,7 +55,7 @@ const FeaturedProducts = () => {
             console.error('Error scrolling:', error);
         }
     };
-    
+
 
     const mdHide = false
 
@@ -79,7 +79,7 @@ const FeaturedProducts = () => {
                     </div>
                 </div>
                 <div className='px-5 w-full flex items-center justify-center'>
-                    <Link href={`/featuredProducts`} className='text-lg text-center border md:w-auto w-full rounded-2xl px-5 py-2'>
+                    <Link href={`/featured-products`} className='text-lg text-center border md:w-auto w-full rounded-2xl px-5 py-2'>
                         View All
                     </Link>
                 </div>
@@ -88,4 +88,4 @@ const FeaturedProducts = () => {
     );
 };
 
-export default FeaturedProducts;
+export default HomeFeaturedProductsBar;

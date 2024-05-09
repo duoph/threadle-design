@@ -70,9 +70,15 @@ const WishList = () => {
                 <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>Wishlist</h1>
             </div>
             <div className="flex items-center h-full justify-center  gap-[9px] flex-wrap md:gap-5">
-                {currentProducts?.map((product) => (
-                    <ProductCard getProducts={fetchWishlistedProducts} key={product._id} product={product} />
-                ))}
+                {currentProducts.length > 0 && isLoading === false ? (
+                    currentProducts.map((product) => (
+                product.inStock && <ProductCard getProducts={fetchWishlistedProducts} key={product._id} product={product} />
+                ))
+                ) : (
+                <div className='flex items-center justify-center h-full w-full'>
+                    <span className=''>No Products Available</span>
+                </div>
+                )}
 
             </div>
             {products.length > 20 && (
