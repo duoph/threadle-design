@@ -72,7 +72,12 @@ const UserProfile = () => {
             return toast.error("Enter a valid phone");
         }
 
-    
+        if (formData.whatsAppNumber.length != 10) {
+            setIsSubmiting(false);
+            return toast.error("Enter a valid whatsApp Number");
+        }
+
+
         if (formData.address.length < 7) {
             setIsSubmiting(false);
             return toast.error("Enter a valid Address");
@@ -89,11 +94,11 @@ const UserProfile = () => {
             console.log(res)
             if (res.data?.success === true) {
                 // const userData = res.data?.user;
-                toast.success('Profile Updated Successfully');
+                toast.success(res.data.message);
             }
 
             if (res.data?.success === false) {
-                toast.error('Profile Updated Successfully');
+                toast.error(res.data.message);
             }
 
             setIsSubmiting(false);
@@ -146,7 +151,7 @@ const UserProfile = () => {
                     </div>
                     <div className='flex items-center justify-center gap-2 w-full'>
                         <FaSquareWhatsapp size={30} />
-                        <input type="whatsAppNumber" name="whatsAppNumber" placeholder='whatsApp Number' value={formData.whatsAppNumber || formData.phone} onChange={handleChange} className='border px-5  w-full py-2 rounded-md bg-slate-200' />
+                        <input type="whatsAppNumber" name="whatsAppNumber" placeholder='whatsApp Number' value={formData.whatsAppNumber} onChange={handleChange} className='border px-5  w-full py-2 rounded-md bg-slate-200' />
                     </div>
                     <div className='flex items-start justify-center gap-2 w-full '>
                         <FaAddressCard size={30} />

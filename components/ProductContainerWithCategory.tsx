@@ -73,7 +73,7 @@ const ProductContainerWithCategory = ({ category, categoryId, title, productNotT
     return (
         <>
             {!products ? null : (
-                <div className='flex flex-col items-center justify-center w-full mb-5'>
+                <div className='flex flex-col gap-3 items-center justify-center w-full mb-5'>
                     <h1 className='text-td-secondary text-[24px] md:text-[30px] font-bold'>{title || category?.categoryName}</h1>
                     <div className='relative w-full px-2'>
                         {mdHide !== true && (

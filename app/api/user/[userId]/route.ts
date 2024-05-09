@@ -1,6 +1,7 @@
 import { getDataFromToken } from "@/helpers/getDataFromToken";
 import connectMongoDB from "@/libs/db";
 import userModel from "@/models/userModel";
+import { User } from "@/types";
 import { NextRequest, NextResponse } from "next/server";
 
 
@@ -9,10 +10,18 @@ export async function PUT(req: NextRequest, { params }: any) {
 
         const userId = params.userId
 
-        const { name, email, phone, address, pincode }: any = await req.json()
+        const { name, email, phone, address, pincode, whatsAppNumber }: any = await req.json()
 
 
         console.log(name, email, phone, address, pincode)
+
+        const phoneExist: any = await userModel.find({ phone: phone })
+
+        console.log(phoneExist)
+
+        if (phoneExist.phone && phoneExist._id !== userId) {
+            return NextResponse.json({ message: "Phone already in use", success: false });
+        }
 
         if (!userId) {
             console.log("user id not found")
@@ -21,19 +30,19 @@ export async function PUT(req: NextRequest, { params }: any) {
 
         let user;
 
-        if (name || email || phone || address) {
+        if (name || email || phone || address || whatsAppNumber) {
             let user = await userModel.findByIdAndUpdate(
                 { _id: userId },
-                { name, email, phone, address, pincode },
+                { name, email, phone: phone, address, pincode, whatsAppNumber: whatsAppNumber || phone },
                 { new: true }
             );
             console.log("User updated successfully:", user);
         }
 
-        return NextResponse.json({ message: "User updated successfully", success: true, user });
+        return NextResponse.json({ message: "Profile updated successfully", success: true, user });
     } catch (error) {
         console.error(error);
-        return NextResponse.json({ message: "Error while updating user", success: false });
+        return NextResponse.json({ message: "Error while updating profile", success: false });
     }
 }
 
