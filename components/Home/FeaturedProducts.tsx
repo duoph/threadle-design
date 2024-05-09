@@ -55,6 +55,7 @@ const FeaturedProducts = () => {
             console.error('Error scrolling:', error);
         }
     };
+    
 
     const mdHide = false
 

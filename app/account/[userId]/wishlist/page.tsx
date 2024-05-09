@@ -6,13 +6,18 @@ import { Product } from '@/types';
 import axios from 'axios';
 import { useParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
+import { MdNavigateBefore, MdNavigateNext } from 'react-icons/md';
 import { PulseLoader } from 'react-spinners';
 
 const WishList = () => {
     const { userId } = useParams()
 
     const [products, setProducts] = useState<Product[]>([]);
+    // const [currentProducts, setCurrentProducts] = useState<Product[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>();
+    const [currentPage, setCurrentPage] = useState<number>(1);
+
+
 
     const fetchWishlistedProducts = async () => {
         try {
@@ -21,6 +26,7 @@ const WishList = () => {
             setProducts(res.data?.wishListItems);
             console.log(res?.data);
             setIsLoading(false)
+
 
         } catch (error) {
             setIsLoading(false)
@@ -33,6 +39,19 @@ const WishList = () => {
         fetchWishlistedProducts();
     }, []);
 
+
+    const indexOfLastProduct = currentPage * 20;
+    const indexOfFirstProduct = indexOfLastProduct - 20;
+    const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+
+    const nextPage = () => {
+        window.scrollTo(0, 0)
+        setCurrentPage(currentPage + 1)
+    }
+    const prevPage = () => {
+        window.scrollTo(0, 0)
+        setCurrentPage(currentPage - 1)
+    }
 
     if (products?.length === 0 && isLoading) { // Check for both products and loading state
         return (
@@ -51,11 +70,21 @@ const WishList = () => {
                 <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>Wishlist</h1>
             </div>
             <div className="flex items-center h-full justify-center  gap-[9px] flex-wrap md:gap-5">
-                {products?.map((product) => (
+                {currentProducts?.map((product) => (
                     <ProductCard getProducts={fetchWishlistedProducts} key={product._id} product={product} />
                 ))}
-                {/* {products?.length === 0 && <span>No products in Wishlist</span>} */}
+
             </div>
+            {products.length > 20 && (
+                <ul className="flex items-center justify-evenly gap-7">
+                    <li className={`cursor-pointer page-item border flex items-center justify-center text-white rounded-md py-2 bg-td-secondary px-6  ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105 transition-all ease-in-out'}`}>
+                        <button onClick={prevPage} disabled={currentPage === 1} className="flex items-center justify-center "> <MdNavigateBefore size={24} /> <span className='px-2'>Prev</span> </button>
+                    </li>
+                    <li className={`cursor-pointer page-item border flex items-center justify-center text-white rounded-md py-2 bg-td-secondary px-6 ${indexOfLastProduct >= currentProducts.length ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105 transition-all ease-in-out'}`}>
+                        <button onClick={nextPage} disabled={indexOfLastProduct >= currentProducts.length} className="flex items-center justify-center"><span className='px-2'>Next</span> <MdNavigateNext size={24} /></button>
+                    </li>
+                </ul>
+            )}
         </div>
     );
 };
