@@ -444,7 +444,7 @@ const ProductPage = () => {
                 <Image priority={true} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" style={{ objectFit: "contain" }} src={previewImage || product?.coverImageURL || product?.moreImagesURLs[0] || product?.moreImagesURLs[1] || product?.moreImagesURLs[2] || product?.moreImagesURLs[3] || "/noImage.jpg"} alt='greenDress' className='h-[350px]' fill={true} />
               </div>
 
-              {product?.moreImagesURLs?.length !== 0 && <div className='h-[5rem] bg-gray-300 w-full flex items-center justify-center gap-1'>
+              {product?.moreImagesURLs?.length !== 0 && <div className='h-[5rem] bg-gray-200 w-full flex items-center justify-center gap-1'>
                 {product?.moreImagesURLs?.map((imageUrl, index) => (
                   imageUrl && (
                     <div key={index} className='relative h-[70px] w-[55px]'>

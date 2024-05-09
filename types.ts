@@ -1,10 +1,11 @@
 export interface Category {
+    _id: string
     categoryName: string;
-    imageURL: string;
+    imageURLs?: string;
     slugifyName: string;
-    _id: string;
+    name: string;
+    UpdatedAt: Date;
     createdAt: Date;
-    updatedAt: Date;
 }
 
 export interface Product {
@@ -22,17 +23,10 @@ export interface Product {
     desc: string
     isCustom: boolean
     colors: string[]
+    isFeatured: boolean;
 }
 
-export interface Category {
-    _id: string
-    categoryName: string;
-    imageURLs?: string;
-    slugifyName: string;
-    name: string;
-    UpdatedAt: Date;
-    createdAt: Date;
-}
+
 
 export interface Cart {
     _id: string;

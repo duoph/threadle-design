@@ -17,6 +17,7 @@ export async function POST(req: NextRequest) {
         const categoryName = formData.get("categoryName");
         const isCustom = formData.get("isCustom");
         const tags = formData.get("tags");
+        const isFeatured = formData.get('isFeatured');
         const file = formData.get("coverImage") as Blob;
         const image1 = formData.get("image1") as Blob;
         const image2 = formData.get("image2") as Blob;
@@ -76,6 +77,7 @@ export async function POST(req: NextRequest) {
             categoryName,
             tags,
             isCustom: isCustom === "true" ? true : false,
+            isFeatured: isFeatured === "true" ? true : false,
             slugifyProductName,
             moreImagesURLs: imageUrls?.map((result: any) => result.s3Url),
             colors: colorCodes || []

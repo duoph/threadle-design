@@ -1,5 +1,5 @@
 import BrowseDressByCategory from "@/components/Home/BrowseDressByCategory";
-import FeaturedCatergory from "@/components/Home/FeaturedCatergory";
+import FeaturedProducts from "@/components/Home/FeaturedProducts";
 import Hero from "@/components/Home/Hero";
 import MapContainer from "@/components/Home/MapContainer";
 import NewsLetterContainer from "@/components/Home/NewsLetterContainer";
@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <div className="h-full w-full">
       <Hero />
-      <FeaturedCatergory />
+      <FeaturedProducts />
       <BrowseDressByCategory />
       <OurHappyCustomers />
       <MapContainer />

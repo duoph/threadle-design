@@ -45,6 +45,7 @@ export async function PUT(req: NextRequest, { params }: any) {
         const categoryName = formData.get('categoryName');
         const tags = formData.get("tags");
         const inStock = formData.get('inStock');
+        const isFeatured = formData.get('isFeatured');
         const colorCodesString: any = formData.get("colorCodes") || '';
 
         const colorCodes = colorCodesString.split(',');
@@ -61,7 +62,8 @@ export async function PUT(req: NextRequest, { params }: any) {
                 categoryId,
                 tags,
                 colors: colorCodes,
-                inStock: inStock === "yes" ? true : false
+                inStock: inStock === "yes" ? true : false,
+                isFeatured: isFeatured === "yes" ? true : false
             },
             { new: true }
         );

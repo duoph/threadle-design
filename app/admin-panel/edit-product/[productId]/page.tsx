@@ -20,6 +20,7 @@ const EditProduct = () => {
 
     // const [fetchedImageURL, setFetchedImageURL] = useState<string | null>(null);
     const [inStock, setInStock] = useState("");
+    const [isFeatured, setIsFeatured] = useState("");
     const [regularPrice, setRegularPrice] = useState<string>("");
     const [salePrice, setSalePrice] = useState<string>("");
     const [productTitle, setProductTitle] = useState<string>("");
@@ -39,12 +40,13 @@ const EditProduct = () => {
         try {
             const response = await axios.get(`/api/product/${productId}`)
             console.log(response.data.product)
-            const { title, desc, regularPrice, salePrice, inStock, categoryId, categoryName, colors, tags } = response.data.product;
+            const { title, desc, regularPrice, salePrice, inStock, categoryId, categoryName, colors, tags, isFeatured } = response.data.product;
             setProductTitle(title);
             setProductDesc(desc);
             setRegularPrice(regularPrice);
             setSalePrice(salePrice);
             setInStock(inStock === true ? 'yes' : 'no');
+            setIsFeatured(isFeatured === true ? 'yes' : 'no');
             setCategoryName(categoryName)
             setCategoryId(categoryId);
             setColorCodes(colors)
@@ -142,6 +144,7 @@ const EditProduct = () => {
             formData.append("categoryName", categoryName);
             formData.append("inStock", inStock);
             formData.append("regularPrice", regularPrice);
+            formData.append("isFeatured", isFeatured);
             formData.append("tags", tags);
             if (salePrice) {
                 formData.append("salePrice", salePrice);
@@ -277,6 +280,22 @@ const EditProduct = () => {
                         className="mr-2"
                     />
                     <label htmlFor="inStock">Yes</label>
+                </div>
+            </div>
+
+            <div className="flex flex-col gap-1">
+                <label htmlFor="isFeatured" className="font-semibold">Display on featured</label>
+                <div className="flex items-center">
+                    <input
+                        type="checkbox"
+                        id="isFeatured"
+                        checked={isFeatured === 'yes'}
+                        onChange={(e) => {
+                            setIsFeatured(e.target.checked ? 'yes' : 'no')
+                        }}
+                        className="mr-2"
+                    />
+                    <label htmlFor="isFeatured">Yes</label>
                 </div>
             </div>
 

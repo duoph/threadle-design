@@ -24,7 +24,7 @@ const productSchema = new Schema<ProductDocument>({
     inStock: { type: Boolean, required: true },
     categoryId: { type: mongoose.Types.ObjectId, ref: 'category', required: true },
     categoryName: { type: String, required: true },
-    desc: { type: String, required: true },
+    desc: { type: String, required: true, default: "" },
     coverImageURL: { type: String || undefined, required: false },
     slugifyProductName: { type: String, required: true },
     isCustom: { type: Boolean },
