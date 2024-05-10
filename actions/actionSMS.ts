@@ -9,7 +9,7 @@ export async function sendOTP(userId: string) {
     try {
         const otpCode = Math.floor(100000 + Math.random() * 900000);
         const otpExpire = new Date();
-        otpExpire.setMinutes(otpExpire.getMinutes() + 10); // Add 10 minutes to current time
+        otpExpire.setMinutes(otpExpire.getMinutes() + 10);
 
         const user = await userModel.findOneAndUpdate(
             { _id: userId },
@@ -20,7 +20,7 @@ export async function sendOTP(userId: string) {
         await client.messages.create({
             body: `Your Threadle Designs OTP code is: ${otpCode}`,
             from: "+12183955775",
-            to: user.phone,
+            to: "+91" + user.phone,
         });
 
         return { message: "OTP sent successfully", success: true };
@@ -40,7 +40,7 @@ export async function sendSMS(userId: string, message: string) {
         await client.messages.create({
             body: message,
             from: "+12183955775",
-            to: user.phone,
+            to: "+91" + user.phone,
         });
 
         return { message: "OTP sent successfully", success: true };

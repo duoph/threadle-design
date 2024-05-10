@@ -57,11 +57,11 @@ export async function POST(req: NextRequest) {
 
         // Set JWT token in cookie
         response.cookies.set('token', token, {
-            httpOnly: true,
+            // httpOnly: true,
             expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days
         })
         response.cookies.set('isAdmin', user.isAdmin ? "1" : "0", {
-            httpOnly: true,
+            // httpOnly: true,
             expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days
         })
         return response;

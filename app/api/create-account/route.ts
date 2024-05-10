@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
         const whatsApp = formData?.get("whatsApp") as string | undefined;
         const password = formData?.get("password") as string | undefined;
 
-        const numberInUse = await userModel.findOne({ phone: "+91" + phone });
+        const numberInUse = await userModel.findOne({ phone: phone });
 
         if (numberInUse) {
             return NextResponse.json({ message: "Phone is linked with another account", success: false });
@@ -27,9 +27,9 @@ export async function POST(req: NextRequest) {
         // Create a new user in the database
         const user = await userModel.create({
             name,
-            phone: "+91" + phone,
+            phone: phone,
             password: hashedPassword,
-            whatsAppNumber: "+91" + whatsApp
+            whatsAppNumber: whatsApp
         });
 
         // Return success response

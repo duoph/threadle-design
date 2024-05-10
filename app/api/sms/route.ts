@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
 
         const result = await client.messages.create({
             body: message,
-            from: "+14697950137", 
+            from: "+12183955775",
             to: phone,
         });
 

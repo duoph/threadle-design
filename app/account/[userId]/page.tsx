@@ -6,7 +6,7 @@ import axios from 'axios';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
-import { FaPhoneAlt, FaAddressCard } from 'react-icons/fa';
+import { FaPhoneAlt, FaAddressCard, FaPhone } from 'react-icons/fa';
 import { FaLocationDot, FaSquareWhatsapp } from 'react-icons/fa6';
 import { RiAccountCircleFill } from 'react-icons/ri';
 import { PulseLoader } from 'react-spinners';
@@ -145,13 +145,35 @@ const UserProfile = () => {
                         <RiAccountCircleFill size={30} />
                         <input type="text" name="name" placeholder='Name' value={formData.name} onChange={handleChange} className='border px-5  py-2 rounded-md bg-slate-200 w-full' />
                     </div>
-                    <div className='flex items-center justify-center gap-2 w-full'>
-                        <FaPhoneAlt size={30} />
-                        <input type="phone" name="phone" placeholder='Phone' value={formData.phone} onChange={handleChange} className='border px-5  w-full py-2 rounded-md bg-slate-200' />
+                    <div className='flex items-center w-full justify-center gap-3'>
+                        <FaPhone size={24} />
+                        <div className='flex items-center justify-center rounded-md bg-slate-200 w-full'>
+                            <span className='pl-2'>+91</span>
+                            <input
+                                type="string"
+                                // pattern='0-9'
+                                id="phone"
+                                name="phone"
+                                maxLength={10}
+                                value={formData.phone}
+                                onChange={handleChange}
+                                placeholder='Phone'
+                                className='border px-5  w-full py-2 rounded-md bg-slate-200' />
+                        </div>
                     </div>
-                    <div className='flex items-center justify-center gap-2 w-full'>
-                        <FaSquareWhatsapp size={30} />
-                        <input type="whatsAppNumber" name="whatsAppNumber" placeholder='whatsApp Number' value={formData.whatsAppNumber} onChange={handleChange} className='border px-5  w-full py-2 rounded-md bg-slate-200' />
+                    <div className='flex items-center w-full justify-center gap-3'>
+                        <FaSquareWhatsapp size={24} />
+                        <div className='flex items-center justify-center rounded-md bg-slate-200 w-full'>
+                            <span className='pl-2'>+91</span>
+                            <input
+                                type="whatsAppNumber"
+                                name="whatsAppNumber"
+                                placeholder='whatsApp Number'
+                                value={formData.whatsAppNumber}
+                                onChange={handleChange}
+                                maxLength={10}
+                                className='border px-5  w-full py-2 rounded-md bg-slate-200' />
+                        </div>
                     </div>
                     <div className='flex items-start justify-center gap-2 w-full '>
                         <FaAddressCard size={30} />
