@@ -310,9 +310,21 @@ const CartPage = () => {
                     <RiAccountCircleFill size={30} />
                     <input type="text" name="name" placeholder='Name' value={formData.name} onChange={handleChange} className='border px-5  py-2 rounded-2xl bg-slate-200 w-full' />
                   </div>
-                  <div className='flex items-center justify-center gap-2 w-full'>
-                    <FaPhoneAlt size={30} />
-                    <input type="phone" name="phone" placeholder='Phone' value={formData.phone} onChange={handleChange} className='border px-5  w-full py-2 rounded-2xl bg-slate-200' />
+                  <div className='flex items-center w-full justify-center gap-3'>
+                    <FaPhoneAlt size={24} />
+                    <div className='flex items-center justify-center rounded-md bg-slate-200 w-full'>
+                      <span className='pl-2'>+91</span>
+                      <input
+                        type="string"
+                        // pattern='0-9'
+                        id="phone"
+                        name="phone"
+                        maxLength={10}
+                        value={formData.phone}
+                        onChange={handleChange}
+                        placeholder='Phone'
+                        className='border px-5  w-full py-2 rounded-md bg-slate-200' />
+                    </div>
                   </div>
                   <div className='flex items-start justify-center gap-2 w-full '>
                     <FaAddressCard size={30} />
