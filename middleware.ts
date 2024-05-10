@@ -20,8 +20,6 @@ export function middleware(request: NextRequest) {
     }
 
 
-
-
     if (path.startsWith("/admin-panel/")) {
         if (!token) {
             return NextResponse.redirect(new URL('/login', request.url))
@@ -68,6 +66,7 @@ export function middleware(request: NextRequest) {
     }
 
 }
+
 
 export const config = {
     matcher: ['/admin-panel/:path*', '/account/[userId]', "/account/login", "/account", "/account/create-account", "/shop", "/cart", "/", "/account/forgot-password", "/account/create-account/otp-verification/[userId]"]

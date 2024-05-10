@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { CiSearch, CiShoppingCart } from "react-icons/ci";
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useUser } from '@/context/useUser';
 
 import UserSliderMenu from './Header/UserSliderMenu';

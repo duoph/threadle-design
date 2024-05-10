@@ -65,7 +65,7 @@ const WishList = () => {
     }
 
     return (
-        <div className="px-3 lg:px-10 flex flex-col gap-3 min-h-[85vh] py-5">
+        <div className="lg:px-5 flex flex-col gap-3 min-h-[85vh] py-5">
             <div className="flex items-center justify-center">
                 <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>Wishlist</h1>
             </div>

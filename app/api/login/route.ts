@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
 
 
 
-        const user = await userModel.findOne({ phone: "+91" + phone });
+        const user = await userModel.findOne({ phone: phone });
 
         if (!user) {
             return NextResponse.json({ message: 'Enter valid credentials', success: false });
@@ -35,7 +35,6 @@ export async function POST(req: NextRequest) {
             userId: user._id,
             phone: user.phone,
             isAdmin: user.isAdmin,
-            isVeridied: user.isVerified,
         }
 
         const token = JWT.sign(tokenData, process.env.NEXT_PUBLIC_JWT_SECRET as string, { expiresIn: '7d' });
