@@ -62,19 +62,13 @@ const Orders = () => {
         const intervalId = setInterval(fetchOrders, 60000); // Fetch orders every 5 seconds
 
         return () => clearInterval(intervalId); // Cleanup interval on unmount
-    }, []); // Fetch orders when selectedOrderType changes
-
-
-    useEffect(() => {
-        const sortedOrders = orderDisplay.slice().sort((a: any, b: any) => {
-            return new Date(a.orderedDate).getTime() - new Date(b.orderedDate).getTime();
-        });
-        setOrderDisplay(sortedOrders);
-    }, [fetchOrders]);
+    }, [selectedOrderType]); // Fetch orders when selectedOrderType changes
 
 
 
-    if (isLoading) {
+
+
+    if (isLoading && shippedOrders.length === 0 && pendingOrders.length === 0 && deliveredOrders.length === 0) {
         return (
             <div className='flex flex-col items-center py-5 px-3 gap-3 min-h-[85vh]'>
                 <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>Order Dashboard</h1>

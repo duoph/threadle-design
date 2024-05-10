@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ message: "Unauthenticated Access Error while fetching the cart items", success: false });
         }
 
-        const cartItems = await CartModel.findByIdAndUpdate({ _id: cartId }, { isDelivered: true });
+        const cartItems = await CartModel.findByIdAndUpdate({ _id: cartId }, { isDelivered: true }).sort({ orderedDate: -1 })
 
         return NextResponse.json({ message: "Marked all cart items as paid", success: true, cartItems });
 

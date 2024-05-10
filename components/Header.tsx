@@ -19,7 +19,7 @@ import jwt from 'jsonwebtoken';
 
 const Header = () => {
 
-    const { LogOut, currentUser, cartItemCountFetch, cartCount } = useUser();
+    const { cartItemCountFetch, cartCount } = useUser();
 
     const router = useRouter();
 
@@ -27,11 +27,7 @@ const Header = () => {
 
     const token = getCookie("token") || ""
     const isAdmin = getCookie("isAdmin") || "0"
-    // const data = getDataFromToken(token)
 
-    // const decodedToken = jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET!);
-
-    // console.log(decodedToken)
 
     useEffect(() => {
         cartItemCountFetch();
@@ -45,7 +41,7 @@ const Header = () => {
             </Link>
             <div className='flex items-center justify-center gap-2'>
 
-                {token && (
+                {token && isAdmin === "0" &&(
                     <div className='cursor-pointer text-white flex items-center justify-center gap-3'>
                         <div className='relative  cursor-pointer'>
                             <span className='absolute p-1 px-2 text-xs bg-red-800 rounded-full -right-2 -top-2 text-white'>{cartCount || "0"}</span>
