@@ -47,11 +47,7 @@ const OrderDetailsPage = () => {
                 toast.success("Marked as Shipped")
                 fetchCartItem()
             }
-            await axios.post("/api/sms", {
-                phone: `+919074063723`,
-                message: `Threadle Designs : Your order ${order?.title} is successfully Shipped to your address will reach you within 2 day`
-            }
-            )
+
             console.log(res)
             setIsLoading(false)
         } catch (error) {

@@ -135,7 +135,7 @@ const Orders = () => {
                 >
                     Delivered Orders
                 </span>
-                {/* <span
+                <span
                     onClick={() => {
                         setSelectedOrderType('cancel');
                         setOrderDisplay(cancelOrders)
@@ -144,14 +144,14 @@ const Orders = () => {
                     className={`px-3 py-2 rounded-md cursor-pointer border ${selectedOrderType === 'cancel' ? 'bg-td-secondary text-white' : ''}`}
                 >
                     Cancelled Orders
-                </span> */}
+                </span>
             </div>
 
             {/* Order Display */}
             <div className="flex flex-col border rounded-md py-5 px-3 w-full gap-[10px] min-h-[70vh]">
                 <div className="flex items-center justify-between border-b-2 px-2">
                     <span className="w-2/6 text-center">Product Name</span>
-                    <span className="w-2/6 text-center">Customer Name</span>
+                    <span className="w-2/6 text-center">Customer</span>
                 </div>
                 {orderDisplay?.length === 0 ? (
                     <div className="flex items-center justify-center w-full h-full">No Orders Available</div>
