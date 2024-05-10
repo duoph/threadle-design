@@ -1,3 +1,4 @@
+import { sendSMS } from "@/actions/actionSMS";
 import { getDataFromToken } from "@/helpers/getDataFromToken";
 import CartModel from "@/models/cartItemModel";
 import { NextRequest, NextResponse } from "next/server";
@@ -13,7 +14,7 @@ export async function GET() {
 }
 
 
-
+// mark as shipped
 export async function POST(req: NextRequest) {
     try {
 
@@ -25,6 +26,9 @@ export async function POST(req: NextRequest) {
 
         const cartItem = await CartModel.findByIdAndUpdate({ _id: cartId }, { isShipped: true, shippedDate: Date.now() }).sort({ orderedDate: -1 })
 
+        sendSMS(cartItem.userId, `Threadle Designs: Your order "${cartItem?.title}" has been successfully shipped to your address. It will reach you within 2 days. Thank you for choosing Threadle Designs! `)
+
+
         return NextResponse.json({ message: "Marked all cart items as paid", success: true, cartItem });
 
     } catch (error) {
@@ -34,6 +38,7 @@ export async function POST(req: NextRequest) {
 }
 
 
+// cancel shipping
 export async function PUT(req: NextRequest) {
     try {
 
