@@ -82,17 +82,21 @@ const EditProduct = () => {
         try {
             const hexRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
             if (hexRegex.test(hexCode)) {
-                toast.success("Color Added");
-                setColorCodes(prevColorCodes => [...prevColorCodes, hexCode]);
-                setHexCode(""); // Clear the hexCode if it's valid
+                if (colorCodes.includes(hexCode)) {
+                    toast.error("Color already exists");
+                } else {
+                    toast.success("Color Added");
+                    setColorCodes(prevColorCodes => [...prevColorCodes, hexCode]);
+                    setHexCode(""); // Clear the hexCode if it's valid
+                }
             } else {
-                toast.error("Invalid hex code")
-                // Handle invalid hex code here (e.g., show error message)
+                toast.error("Invalid hex code");
             }
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     }
+
 
 
     const handleRemoveColor = (color: string) => {

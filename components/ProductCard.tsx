@@ -129,9 +129,7 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
             </div>
 
             {!currentUser?.isAdmin && (
-
                 <div className='absolute w-[42px] flex z-20 gap-2 top-2 right-2'>
-
                     {wishlistIds?.includes(product?._id) ? (
                         <button onClick={handleDislike} className='flex border rounded-full py-2 items-center justify-center px-2 bg-white text-white '>
                             <FaHeart className='text-center w-full text-td-secondary hover:scale-110' size={20} />
