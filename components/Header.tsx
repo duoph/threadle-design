@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { CiSearch, CiShoppingCart } from "react-icons/ci";
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useUser } from '@/context/useUser';
 
 import UserSliderMenu from './Header/UserSliderMenu';
@@ -17,17 +17,18 @@ import { getCookie } from 'cookies-next';
 
 const Header = () => {
 
-    const { currentUser, cartItemCountFetch, cartCount } = useUser();
+    const { cartItemCountFetch, cartCount } = useUser();
 
     const router = useRouter();
 
-    const pathname = usePathname()
+
+    const token = getCookie("token") || ""
+    const isAdmin = getCookie("isAdmin") || "0"
 
 
     useEffect(() => {
         cartItemCountFetch();
     }, []);
-
 
 
     return (
@@ -36,7 +37,8 @@ const Header = () => {
                 <Image priority={true} src={'/td-white.png'} alt='Threadle Design' fill={true} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
             </Link>
             <div className='flex items-center justify-center gap-2'>
-                {currentUser?.token && currentUser?.isAdmin !== true && (
+
+                {token && isAdmin === "0" && (
                     <div className='cursor-pointer text-white flex items-center justify-center gap-3'>
                         <div className='relative  cursor-pointer'>
                             <span className='absolute p-1 px-2 text-xs bg-red-800 rounded-full -right-2 -top-2 text-white'>{cartCount || "0"}</span>
@@ -50,7 +52,7 @@ const Header = () => {
                 )}
 
 
-                {!currentUser?.token && pathname != "/account/create-account/otp-verification" && (
+                {!token && (
                     <div className='cursor-pointer flex items-center justify-center gap-2 '>
                         <CiSearch onClick={() => router.push('/shop')} className='text-white cursor-pointer' size={24} />
                         <h1 onClick={() => router.push("/account/login")} className="text-white font-medium">Login/Register</h1>
@@ -58,11 +60,13 @@ const Header = () => {
                 )}
 
 
-                {currentUser?.isAdmin === true && (
+                {isAdmin === "1" && token && (
                     <div className='text-white flex items-center justify-center'>
                         <AdminSliderMenu />
                     </div>
                 )}
+
+
 
             </div >
         </div >

@@ -49,21 +49,15 @@ export function middleware(request: NextRequest) {
     }
 
 
-    // if (path === "/account/profile'") {
-    //     if (token && isAdmin === "0") {
-    //         return NextResponse.redirect(new URL('/account/login', request.url))
-    //     }
-    // }
 
-
-
-    // if (path === "/account/login" || path === "/account/create-account") {
-    //     if (token && isAdmin === "0") {
-    //         return NextResponse.redirect(new URL('/account/profile', request.url))
-    //     } else if (token && isAdmin === "1") {
-    //         return NextResponse.redirect(new URL('/admin-panel/orders', request.url))
-    //     }
-    // }
+    if (path === "/account/login" || path === "/account/create-account") {
+        if (token && isAdmin === "0") {
+            return NextResponse.redirect(new URL('/shop', request.url))
+        }
+        if (token && isAdmin === "1") {
+            return NextResponse.redirect(new URL('/admin-panel/orders', request.url))
+        }
+    }
 
 }
 

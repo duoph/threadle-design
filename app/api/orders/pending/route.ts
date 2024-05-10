@@ -28,34 +28,34 @@ export async function GET() {
 
 
 // this is not in use 
-export async function POST(req: NextRequest) {
-    try {
+// export async function POST(req: NextRequest) {
+//     try {
 
-        connectMongoDB()
+//         connectMongoDB()
 
-        const { userId } = getDataFromToken(req)
+//         const { userId } = getDataFromToken(req)
 
-        const { cartId, razorpay_order_id, razorpay_payment_id, razorpay_signature } = await req.json()
+//         const { cartId, razorpay_order_id, razorpay_payment_id, razorpay_signature } = await req.json()
 
-        if (!cartId) {
-            return NextResponse.json({ message: "Unauthenticated Access Error while marking is shipped", success: false });
-        }
+//         if (!cartId) {
+//             return NextResponse.json({ message: "Unauthenticated Access Error while marking is shipped", success: false });
+//         }
 
-        const user = await userModel.findById(userId)
+//         const user = await userModel.findById(userId)
 
-        const cartItem = await CartModel.updateMany({ isPaid: false }, {
-            isPaid: true,
-            customerName: user.name,
-            toAddress: user.address,
-            phoneNumber: user.phone,
-            whatsAppNumber: user.whatsAppNumber,
-            razorpay_order_id,
-            razorpay_payment_id,
-            razorpay_signature
-        });
-        return NextResponse.json({ message: "Marked as shipped", success: true, cartItem });
-    } catch (error) {
-        console.log(error);
-        return NextResponse.json({ message: "Error while marking is shipped", success: false, error });
-    }
-}
+//         const cartItem = await CartModel.updateMany({ isPaid: false }, {
+//             isPaid: true,
+//             customerName: user.name,
+//             toAddress: user.address,
+//             phoneNumber: user.phone,
+//             whatsAppNumber: user.whatsAppNumber,
+//             razorpay_order_id,
+//             razorpay_payment_id,
+//             razorpay_signature
+//         });
+//         return NextResponse.json({ message: "Marked as shipped", success: true, cartItem });
+//     } catch (error) {
+//         console.log(error);
+//         return NextResponse.json({ message: "Error while marking is shipped", success: false, error });
+//     }
+// }
