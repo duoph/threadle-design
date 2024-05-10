@@ -11,8 +11,6 @@ import { useUser } from '@/context/useUser';
 import UserSliderMenu from './Header/UserSliderMenu';
 import AdminSliderMenu from './Header/AdminSliderMenu';
 
-import { getCookie } from 'cookies-next';
-
 
 
 const Header = () => {
