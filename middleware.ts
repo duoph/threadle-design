@@ -24,7 +24,7 @@ export function middleware(request: NextRequest) {
         if (!token) {
             return NextResponse.redirect(new URL('/login', request.url))
         }
-        
+
         if (token && isAdmin === "0") {
             return NextResponse.redirect(new URL('/shop', request.url))
         }
@@ -51,7 +51,7 @@ export function middleware(request: NextRequest) {
 
     if (path === "/account/profile'") {
         if (token && isAdmin === "0") {
-            return NextResponse.redirect(new URL('/shop', request.url))
+            return NextResponse.redirect(new URL('/account/login', request.url))
         }
     }
 
