@@ -269,25 +269,21 @@ const ProductPage = () => {
 
       setIsDetailsMenu(false)
 
-      if (!currentUser?.token) {
-        router.push('/account/login')
-        return toast.error("Login to your account");
-      }
 
-      if (!selectedColor || !selectedSize || !user?.address || user?.address.length <= 10 || user?.address === "" || !user?.pincode) {
-        if (!user?.address || user?.address === "" || user?.address.length <= 10) {
-          toast.error("Add Address");
-          return router.push(`/account/${currentUser?.userId}`);
-        }
-        if (!user?.pincode) {
-          toast.error("Add a valid 6-digit Pincode");
-          return router.push(`/account/${currentUser?.userId}`);
-        }
-        if (!selectedColor || !selectedSize) {
-          setIsLoading(false);
-          return toast.error("Select Size and Color");
-        }
-      }
+      // if (!selectedColor || !selectedSize || !user?.address || user?.address.length <= 10 || user?.address === "" || !user?.pincode) {
+      //   if (!user?.address || user?.address === "" || user?.address.length <= 10) {
+      //     toast.error("Add Address");
+      //     return router.push(`/account/${currentUser?.userId}`);
+      //   }
+      //   if (!user?.pincode) {
+      //     toast.error("Add a valid 6-digit Pincode");
+      //     return router.push(`/account/${currentUser?.userId}`);
+      //   }
+      //   if (!selectedColor || !selectedSize) {
+      //     setIsLoading(false);
+      //     return toast.error("Select Size and Color");
+      //   }
+      // }
 
 
       const res = await axios.post("/api/razorpay", {
@@ -361,6 +357,12 @@ const ProductPage = () => {
     setIsSubmiting(true);
 
     // Validate pincode
+
+    if (!currentUser?.token) {
+      router.push('/account/login')
+      return toast.error("Login to your account");
+    }
+
 
     if (formData.name.length < 2) {
       setIsSubmiting(false);
