@@ -63,7 +63,7 @@ const CreateCategory = () => {
             <div className='flex flex-col gap-3 py-5 md:px-10 px-5 w-full'>
                 <div className='flex gap-2 items-center justify-start'>
                     <IoMdArrowBack className="cursor-pointer hover:scale-110" onClick={() => router.back()} size={24} />
-                    <h1 className='font-bold text-[30px]'>Create new Category</h1>
+                    <h1 className=' text-center text-[25px] md:text-[35px] font-bold text-3xl'>Create new Category</h1>
                 </div>
 
                 {/* Product Details */}

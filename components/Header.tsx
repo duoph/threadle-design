@@ -12,8 +12,6 @@ import UserSliderMenu from './Header/UserSliderMenu';
 import AdminSliderMenu from './Header/AdminSliderMenu';
 
 import { getCookie } from 'cookies-next';
-import { getDataFromToken } from '@/helpers/getDataFromToken';
-import jwt from 'jsonwebtoken';
 
 
 
@@ -23,7 +21,6 @@ const Header = () => {
 
     const router = useRouter();
 
-    const pathname = usePathname()
 
     const token = getCookie("token") || ""
     const isAdmin = getCookie("isAdmin") || "0"
@@ -41,7 +38,7 @@ const Header = () => {
             </Link>
             <div className='flex items-center justify-center gap-2'>
 
-                {token && isAdmin === "0" &&(
+                {token && isAdmin === "0" && (
                     <div className='cursor-pointer text-white flex items-center justify-center gap-3'>
                         <div className='relative  cursor-pointer'>
                             <span className='absolute p-1 px-2 text-xs bg-red-800 rounded-full -right-2 -top-2 text-white'>{cartCount || "0"}</span>
@@ -63,7 +60,7 @@ const Header = () => {
                 )}
 
 
-                {isAdmin === "1" && (
+                {isAdmin === "1" && token && (
                     <div className='text-white flex items-center justify-center'>
                         <AdminSliderMenu />
                     </div>
