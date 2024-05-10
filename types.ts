@@ -1,7 +1,7 @@
 export interface Category {
     _id: string
     categoryName: string;
-    imageURLs?: string;
+    imageURL?: string;
     slugifyName: string;
     name: string;
     UpdatedAt: Date;
