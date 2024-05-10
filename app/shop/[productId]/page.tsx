@@ -415,7 +415,7 @@ const ProductPage = () => {
   document.title = product?.title || "Shop Now"
 
 
-  const wpLink = `https://api.whatsapp.com/send?phone=919074063723&text=https%3A%2F%2Fthreadle-design.vercel.app%2Fshop%2F${product ? product._id : ''}%0AProductId%20%3A%20${product ? product._id : ''}%0ATitle%20%3A%20${product ? product.title : ''}${product && product.desc ? `%0ADesc%3A%20${product.desc}` : ''}`;
+  const wpLink = `https://api.whatsapp.com/send?phone=919074063723&text=https%3A%2F%2Fwww.threadledesigns.com/%2Fshop%2F${product ? product._id : ''}%0AProductId%20%3A%20${product ? product._id : ''}%0ATitle%20%3A%20${product ? product.title : ''}${product && product.desc ? `%0ADesc%3A%20${product.desc}` : ''}`;
 
 
 
@@ -501,7 +501,7 @@ const ProductPage = () => {
                   </div>
                 </span>
                 {product?.isCustom && (<div>
-                  <Link target='_blank' href={wpLink} className='bg-black px-3 py-2 rounded-full flex gap-2'>
+                  <Link target='_blank' href={wpLink} className='bg-black px-3 py-2 rounded-md flex gap-2'>
                     <FaWhatsappSquare className='text-green-500' size={24} />
                     <p className='text-white'>Contact us for pricing</p>
                   </Link>
@@ -537,21 +537,21 @@ const ProductPage = () => {
                   <p>{!product?.isCustom ? "Select Size" : "Available Size's"}</p>
                   <div className='flex gap-2 flex-wrap font-light'>
                     {sizes.map((size, i) => (
-                      <button key={i} onClick={() => handleSize(size)} className={`px-4 py-2 rounded-2xl ${selectedSize === size ? "bg-td-primary text-white" : "bg-gray-200"}`}>{size}</button>
+                      <button key={i} onClick={() => handleSize(size)} className={`px-4 py-2 rounded-md ${selectedSize === size ? "bg-td-primary text-white" : "bg-gray-200"}`}>{size}</button>
                     ))}
                   </div>
                 </div>
 
                 {!product?.isCustom && product?.inStock ? (
                   <div className='flex flex-col gap-3 font-semibold w-full'>
-                    <span className='bg-gray-200 flex items-center justify-between gap-4 px-8 py-2 rounded-2xl w-1/2'>
+                    <span className='bg-gray-200 flex items-center justify-between gap-4 px-8 py-2 rounded-md w-1/2'>
                       <span className='cursor-pointer' onClick={() => handleQuantity("decrement")}>-</span>
                       <span>{quantity}</span>
                       <span className='cursor-pointer' onClick={() => handleQuantity("increment")}>+</span>
                     </span>
                     <div className='flex gap-3'>
-                      <button onClick={addToCart} className='w-1/2 py-2 bg-td-secondary rounded-2xl text-white'>  {isAddingToCart ? <PulseLoader color='white' /> : "Add to Cart"} </button>
-                      <button onClick={handleBuyNow} className='w-1/2 py-2 bg-td-secondary rounded-2xl text-white flex items-center justify-center'>
+                      <button onClick={addToCart} className='w-1/2 py-2 bg-td-secondary rounded-md text-white'>  {isAddingToCart ? <PulseLoader color='white' /> : "Add to Cart"} </button>
+                      <button onClick={handleBuyNow} className='w-1/2 py-2 bg-td-secondary rounded-md text-white flex items-center justify-center'>
 
                         {isLoading ? <PulseLoader color='white' /> : "Buy Now"}
                       </button>
@@ -581,14 +581,14 @@ const ProductPage = () => {
 
       {isDetails && (
         <div className='fixed flex items-center justify-center bg-black bg-opacity-30 top-0 right-0 min-h-screen w-full z-[50] pb-10'>
-          <div className='bg-slate-100 relative rounded-2xl shadow-2xl px-5 py-5 flex flex-col items-center justify-center'>
+          <div className='bg-slate-100 relative rounded-md shadow-2xl px-5 py-5 flex flex-col items-center justify-center'>
             <IoMdClose onClick={() => setIsDetailsMenu(false)} className="absolute top-6 right-5 cursor-pointer text-td-secondary  rounded-full p-1" size={30} />
             <h1 className='text-td-secondary text-center text-[25px]  font-bold text-3xl'>Confirm Address</h1>
             <div className="flex  flex-col items-center justify-center w-full min-h-full gap-2">
-              <form onSubmit={handleSubmit} className='flex flex-col items-center justify-center gap-3  px-5 py-8 rounded-2xl w-full '>
+              <form onSubmit={handleSubmit} className='flex flex-col items-center justify-center gap-3  px-5 py-8 rounded-md w-full '>
                 <div className='flex items-center justify-center gap-2 w-full'>
                   <RiAccountCircleFill size={30} />
-                  <input type="text" name="name" placeholder='Name' value={formData.name} onChange={handleChange} className='border px-5  py-2 rounded-2xl bg-slate-200 w-full' />
+                  <input type="text" name="name" placeholder='Name' value={formData.name} onChange={handleChange} className='border px-5  py-2 rounded-md bg-slate-200 w-full' />
                 </div>
                 <div className='flex items-center w-full justify-center gap-3'>
                   <FaPhoneAlt size={24} />
@@ -608,14 +608,14 @@ const ProductPage = () => {
                 </div>
                 <div className='flex items-start justify-center gap-2 w-full '>
                   <FaAddressCard size={30} />
-                  <textarea id="address" name="address" className='border px-5  py-2 w-full rounded-2xl bg-slate-200 min-h-[100px]' placeholder='Address' value={formData.address} onChange={handleChange} />
+                  <textarea id="address" name="address" className='border px-5  py-2 w-full rounded-md bg-slate-200 min-h-[100px]' placeholder='Address' value={formData.address} onChange={handleChange} />
                 </div>
                 <div className='flex items-center justify-center gap-2 w-full'>
                   <FaLocationDot size={30} />
-                  <input type="pincode" name="pincode" placeholder='Pincode' className='border px-5  w-full py-2 rounded-2xl bg-slate-200' value={formData.pincode} onChange={handleChange} />
+                  <input type="pincode" name="pincode" placeholder='Pincode' className='border px-5  w-full py-2 rounded-md bg-slate-200' value={formData.pincode} onChange={handleChange} />
                 </div>
               </form>
-              <button onClick={handleSubmit} className={`px-5 rounded-2xl py-3 border bg-td-secondary text-white font-bold`} type='submit'>{isLoading && isSubmiting ? <PulseLoader color="white" size={9} /> : "Next"}</button>
+              <button onClick={handleSubmit} className={`px-5 rounded-md py-3 border bg-td-secondary text-white font-bold`} type='submit'>{isLoading && isSubmiting ? <PulseLoader color="white" size={9} /> : "Next"}</button>
             </div>
           </div>
         </div>
