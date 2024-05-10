@@ -110,16 +110,16 @@ const UserProfile = () => {
     };
 
 
-    if (!currentUser?.token) {
-        router.push('/account/login');
-        return null;
-    }
+    // if (!currentUser?.token) {
+    //     router.push('/account/login');
+    //     return null;
+    // }
 
 
-    if (pathname === "/account/profile") {
-        router.push('/shop');
-        return null;
-    }
+    // if (pathname === "/account/profile") {
+    //     router.push('/shop');
+    //     return null;
+    // }
 
 
 
