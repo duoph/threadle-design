@@ -13,7 +13,6 @@ const WishList = () => {
     const { userId } = useParams()
 
     const [products, setProducts] = useState<Product[]>([]);
-    // const [currentProducts, setCurrentProducts] = useState<Product[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>();
     const [currentPage, setCurrentPage] = useState<number>(1);
 
