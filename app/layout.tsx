@@ -9,8 +9,8 @@ import { UserProvider } from "@/context/useUser";
 
 const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
-  title: "Threadles Design",
-  description: "Welcome to Threadle Designs, your premier destination for exquisite womens fashion in Malappuram, Kerala! Discover our diverse range of customizable clothing and accessories, thoughtfully crafted to reflect your unique taste and personality. With nationwide delivery across India, experience the convenience of shopping from anywhere. Elevate your wardrobe with our exclusive designs and enjoy unparalleled style, only at Threadle Designs.",
+  title: "Threadle Design",
+  description: "At Threadle Designs, we blend the artistry of bespoke tailoring with the convenience of ready-made fashion to cater to the diverse needs of modern women. Our boutique offers a seamless fusion of customization and curated collections, ensuring every customer finds their perfect ensemble, whether they seek a uniquely crafted garment or a ready-to-wear masterpiece.",
 };
 
 export default function RootLayout({
@@ -28,7 +28,7 @@ export default function RootLayout({
           <Header />
           <Toaster
             position="top-center"
-            reverseOrder={false}/>
+            reverseOrder={false} />
           <main style={{ paddingTop: '80px' }}>
             {children}
           </main>
