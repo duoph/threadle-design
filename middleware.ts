@@ -49,8 +49,16 @@ export function middleware(request: NextRequest) {
     }
 
 
+    if (path === "/account/login") {
+        if (token && isAdmin === "0") {
+            return NextResponse.redirect(new URL('/shop', request.url))
+        }
+        if (token && isAdmin === "1") {
+            return NextResponse.redirect(new URL('/admin-panel/orders', request.url))
+        }
+    }
 
-    if (path === "/account/login" || path === "/account/create-account") {
+    if (path === "/account/create-account") {
         if (token && isAdmin === "0") {
             return NextResponse.redirect(new URL('/shop', request.url))
         }

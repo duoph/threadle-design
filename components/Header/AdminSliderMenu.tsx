@@ -21,9 +21,11 @@ const UserSliderMenu = () => {
         try {
             const res = await axios.get('/api/logout');
             console.log(res)
-            LogOut();
-            toast.success('Logout Success');
-            router.push('/account/login');
+            if (res.data.success === true) {
+                LogOut();
+                toast.success(res.data.message);
+                router.push('/account/login');
+            }
         } catch (error) {
             console.log(error);
         }
