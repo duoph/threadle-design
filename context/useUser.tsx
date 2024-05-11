@@ -2,6 +2,7 @@
 
 import axios from 'axios';
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import { deleteCookie } from 'cookies-next';
 
 interface User {
   name: string;
@@ -55,6 +56,8 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const LogOut = () => {
     localStorage.removeItem('currentUser');
+    deleteCookie('isAdmin');
+    deleteCookie('token');
     setCurrentUser(null);
     setIsLoading(false);
   };

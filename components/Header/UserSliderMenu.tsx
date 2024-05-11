@@ -18,18 +18,16 @@ const UserSliderMenu = () => {
 
     const pathname = usePathname()
 
-
     const handleLogout = async () => {
         try {
-            await axios.get('/api/logout');
             LogOut();
-            toast.success('Logout Success');
+            toast.success("LogOut Successfully");
             router.push('/account/login');
         } catch (error) {
             console.log(error);
         }
-
     }
+
 
     return (
         <ClickAwayListener onClickAway={() => setIsMenuUser(true)}>
