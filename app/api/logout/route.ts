@@ -5,8 +5,8 @@ export async function GET() {
     try {
         const response =  NextResponse.json( { message: "LogOut successful", success: true });
 
-        response.cookies.set("token", "", { expires: new Date(0) });
-        response.cookies.set("isAdmin", "", { expires: new Date(0) });
+        response.cookies.delete("token");
+        response.cookies.delete("isAdmin");
 
         return response;
 
