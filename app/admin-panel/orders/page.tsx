@@ -7,7 +7,7 @@ import OrderDisplayCard from '@/components/OrderDisplayCard';
 import { Cart } from '@/types';
 import { PulseLoader } from 'react-spinners';
 
-export const revalidate = 1000
+//export const revalidate = 1000
 
 
 const Orders = () => {
