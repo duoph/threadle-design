@@ -10,6 +10,7 @@ import { useUser } from '@/context/useUser';
 
 import UserSliderMenu from './Header/UserSliderMenu';
 import AdminSliderMenu from './Header/AdminSliderMenu';
+import { getCookie } from 'cookies-next';
 
 
 
@@ -21,6 +22,10 @@ const Header = () => {
 
 
     const pathname = usePathname()
+
+    const token = getCookie("token") || ""
+    const isAdmin = getCookie("isAdmin") || "0"
+
 
     useEffect(() => {
         cartItemCountFetch();
@@ -34,7 +39,7 @@ const Header = () => {
             </Link>
             <div className='flex items-center justify-center gap-2'>
 
-                {currentUser?.token && currentUser?.isAdmin !== true && (
+                {(currentUser?.token && currentUser?.isAdmin !== true) || (token && isAdmin !== "1") && (
                     <div className='cursor-pointer text-white flex items-center justify-center gap-3'>
                         <div className='relative  cursor-pointer'>
                             <span className='absolute p-1 px-2 text-xs bg-red-800 rounded-full -right-2 -top-2 text-white'>{cartCount || "0"}</span>
@@ -48,7 +53,7 @@ const Header = () => {
                 )}
 
 
-                {!currentUser?.token && pathname != "/account/create-account/otp-verification" && (
+                {!currentUser?.token || !token && (
                     <div className='cursor-pointer flex items-center justify-center gap-2 '>
                         <CiSearch onClick={() => router.push('/shop')} className='text-white cursor-pointer' size={24} />
                         <h1 onClick={() => router.push("/account/login")} className="text-white font-medium">Login/Register</h1>
@@ -56,7 +61,7 @@ const Header = () => {
                 )}
 
 
-                {currentUser?.isAdmin === true && (
+                {currentUser?.isAdmin === true || isAdmin === "1" && (
                     <div className='text-white flex items-center justify-center'>
                         <AdminSliderMenu />
                     </div>
