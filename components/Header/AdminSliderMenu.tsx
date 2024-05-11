@@ -19,7 +19,8 @@ const UserSliderMenu = () => {
 
     const handleLogout = async () => {
         try {
-            await axios.get('/api/logout');
+            const res = await axios.get('/api/logout');
+            console.log(res)
             LogOut();
             toast.success('Logout Success');
             router.push('/account/login');
