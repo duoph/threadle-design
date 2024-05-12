@@ -136,11 +136,7 @@ const Orders = () => {
                     Delivered Orders
                 </span>
                 <span
-                    onClick={() => {
-                        setSelectedOrderType('cancel');
-                        setOrderDisplay(cancelOrders)
-
-                    }}
+                   
                     className={`px-3 py-2 rounded-md cursor-pointer border ${selectedOrderType === 'cancel' ? 'bg-td-secondary text-white' : ''}`}
                 >
                     Cancelled Orders
