@@ -5,7 +5,6 @@ import { CiCircleRemove, CiHeart, CiMenuBurger, CiShop, CiShoppingCart } from 'r
 import { AiOutlineLogout } from 'react-icons/ai'
 import { usePathname, useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
-import axios from 'axios'
 import { useUser } from '@/context/useUser'
 import { FaUserCircle } from 'react-icons/fa'
 
