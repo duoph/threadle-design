@@ -42,7 +42,7 @@ export function middleware(request: NextRequest) {
     }
 
 
-    if (path.startsWith("/ shop")) {
+    if (path.startsWith("/shop")) {
         if (token && isAdmin === "1") {
             return NextResponse.redirect(new URL('/admin-panel/orders', request.url))
         }
