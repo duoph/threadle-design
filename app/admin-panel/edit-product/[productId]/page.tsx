@@ -129,11 +129,6 @@ const EditProduct = () => {
                 return;
             }
 
-            if (!regularPrice) {
-                toast.error("Please add a regular Price");
-                setIsLoading(false)
-                return;
-            }
 
             if (!colorCodes) {
                 toast.error("Please add Colors");
