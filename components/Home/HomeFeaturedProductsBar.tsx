@@ -56,9 +56,6 @@ const HomeFeaturedProductsBar = () => {
         }
     };
 
-
-    const mdHide = false
-
     return (
         <div className="flex flex-col gap-3 items-center justify-center mt-10 mb-10 px-1">
             <div className='flex flex-col gap-3 items-center justify-center w-full mb-5'>
