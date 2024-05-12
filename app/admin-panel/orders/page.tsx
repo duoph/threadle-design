@@ -7,7 +7,7 @@ import OrderDisplayCard from '@/components/OrderDisplayCard';
 import { Cart } from '@/types';
 import { PulseLoader } from 'react-spinners';
 
-export const revalidate = 1000
+//export const revalidate = 1000
 
 
 const Orders = () => {
@@ -136,11 +136,7 @@ const Orders = () => {
                     Delivered Orders
                 </span>
                 <span
-                    onClick={() => {
-                        setSelectedOrderType('cancel');
-                        setOrderDisplay(cancelOrders)
-
-                    }}
+                   
                     className={`px-3 py-2 rounded-md cursor-pointer border ${selectedOrderType === 'cancel' ? 'bg-td-secondary text-white' : ''}`}
                 >
                     Cancelled Orders
