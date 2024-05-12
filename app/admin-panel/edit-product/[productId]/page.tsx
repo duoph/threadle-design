@@ -43,14 +43,19 @@ const EditProduct = () => {
             const { title, desc, regularPrice, salePrice, inStock, categoryId, categoryName, colors, tags, isFeatured } = response.data.product;
             setProductTitle(title);
             setProductDesc(desc);
-            setRegularPrice(regularPrice);
-            setSalePrice(salePrice);
+
             setInStock(inStock === true ? 'yes' : 'no');
             setIsFeatured(isFeatured === true ? 'yes' : 'no');
             setCategoryName(categoryName)
             setCategoryId(categoryId);
             setColorCodes(colors)
             setTags(tags)
+            if (regularPrice) {
+                setRegularPrice(regularPrice);
+            }
+            if (salePrice) {
+                setSalePrice(salePrice)
+            }
         } catch (error) {
             console.log(error)
         }
@@ -145,6 +150,7 @@ const EditProduct = () => {
             formData.append("regularPrice", regularPrice);
             formData.append("isFeatured", isFeatured);
             formData.append("tags", tags);
+
             if (salePrice) {
                 formData.append("salePrice", salePrice);
             }
@@ -172,10 +178,16 @@ const EditProduct = () => {
                 },
             });
 
-            console.log(res)
+
             setIsLoading(false)
-            toast.success("Product updated successfully");
-            router.push("/admin-panel/view-products");
+            if (res.data.success === true) {
+                toast.success("Product updated successfully");
+                router.push("/admin-panel/view-products");
+            }
+            if (res.data.success === false) {
+                toast.error(res.data.message);
+            }
+
         } catch (error) {
             setIsLoading(false)
             console.error("Error updating category:", error);
@@ -210,7 +222,7 @@ const EditProduct = () => {
             <div className='flex flex-col w-full gap-4'>
                 <h1 className='text-[20px] font-bold'>Product Details</h1>
                 <h1 className="font-bold">Product Title</h1>
-                <input type="text" name='title' onChange={(e) => setProductTitle(e.target.value)} value={productTitle} placeholder="Title" className='bg-gray-200 rounded-md px-5 py-3' />
+                <input type="text" name='title' onChange={(e) => setProductTitle(e.target.value)} value={productTitle} className='bg-gray-200 rounded-md px-5 py-3' />
             </div>
 
             <div className="flex flex-col gap-1">

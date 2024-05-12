@@ -9,7 +9,7 @@ interface ProductDocument extends Document {
     coverImageURL: string | undefined;
     categoryName: string;
     isCustom: boolean;
-    regularPrice: number;
+    regularPrice: number | undefined;
     salePrice: number | undefined;
     slugifyProductName: string;
     moreImagesURLs: string[];
@@ -28,7 +28,7 @@ const productSchema = new Schema<ProductDocument>({
     coverImageURL: { type: String || undefined, required: false },
     slugifyProductName: { type: String, required: true },
     isCustom: { type: Boolean },
-    regularPrice: { type: Number },
+    regularPrice: { type: Number || undefined },
     salePrice: { type: Number || undefined },
     moreImagesURLs: [{ type: String }],
     colors: [{ type: String }],

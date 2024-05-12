@@ -125,6 +125,7 @@ const CartPage = () => {
           setIsLoading(false)
           router.push(`/account/${currentUser?.userId}`);
         }
+
         if (!user?.pincode) {
           toast.error("Add a valid 6-digit Pincode");
           setIsLoading(false)
@@ -191,7 +192,6 @@ const CartPage = () => {
   }
 
 
-
   const handleChange = (e: any) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -228,13 +228,9 @@ const CartPage = () => {
     try {
       const res = await axios.put(`/api/user/${currentUser?.userId}`, formData);
       console.log(res)
-      if (res.data?.success === true) {
-        // const userData = res.data?.user;
-        toast.success('Profile Updated Successfully');
-      }
 
       if (res.data?.success === false) {
-        return toast.error('Error');
+        return toast.error(res.data.message);
       }
 
       setIsSubmiting(false);
@@ -316,7 +312,6 @@ const CartPage = () => {
                       <span className='pl-2'>+91</span>
                       <input
                         type="string"
-                        // pattern='0-9'
                         id="phone"
                         name="phone"
                         maxLength={10}

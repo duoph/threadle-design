@@ -18,8 +18,8 @@ export interface Product {
     updatedAt: Date;
     title: string;
     tags: string;
-    regularPrice: number;
-    salePrice?: number;
+    regularPrice: number | undefined;
+    salePrice?: number | undefined;
     desc: string
     isCustom: boolean
     colors: string[]

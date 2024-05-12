@@ -70,7 +70,7 @@ const ViewAllProducts = () => {
     return (
         <div className='md:px-10  w-full flex flex-col flex-wrap items-center justify-center gap-3 px-2 lg:px-3 py-5 min-h-[85vh]'>
             <div>
-                <h1 className='text-[30px] font-bold text-td-secondary'>All Products</h1>
+                <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>All Products</h1>
             </div>
             <div className='rounded-md flex items-center justify-center cursor-pointer gap-3 bg-td-secondary pr-6 w-full'>
                 <input

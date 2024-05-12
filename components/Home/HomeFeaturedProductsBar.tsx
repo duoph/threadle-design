@@ -73,7 +73,7 @@ const HomeFeaturedProductsBar = () => {
                     <div ref={scrollContainerRef} className={`flex justify-start items-center gap-2 min-h-[300px] overflow-x-scroll hideScrollBar`}>
                         {products?.map((product) => (
                             <div key={product._id}>
-                                <ProductCard getProducts={fetchFeatured} product={product} />
+                                {product.inStock && <ProductCard getProducts={fetchFeatured} key={product._id} product={product} />}
                             </div>
                         ))}
                     </div>

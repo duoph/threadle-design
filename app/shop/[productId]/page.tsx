@@ -270,22 +270,6 @@ const ProductPage = () => {
       setIsDetailsMenu(false)
 
 
-      // if (!selectedColor || !selectedSize || !user?.address || user?.address.length <= 10 || user?.address === "" || !user?.pincode) {
-      //   if (!user?.address || user?.address === "" || user?.address.length <= 10) {
-      //     toast.error("Add Address");
-      //     return router.push(`/account/${currentUser?.userId}`);
-      //   }
-      //   if (!user?.pincode) {
-      //     toast.error("Add a valid 6-digit Pincode");
-      //     return router.push(`/account/${currentUser?.userId}`);
-      //   }
-      //   if (!selectedColor || !selectedSize) {
-      //     setIsLoading(false);
-      //     return toast.error("Select Size and Color");
-      //   }
-      // }
-
-
       const res = await axios.post("/api/razorpay", {
         totalAmount: product?.salePrice || product?.regularPrice,
       })
@@ -303,12 +287,10 @@ const ProductPage = () => {
         handler: function (response: any) {
           console.log(response);
           if (response.razorpay_payment_id) {
-            // Payment successful
             toast.success("Payment successful!");
             productPaid(response);
             router.push(`/account/${currentUser?.userId}/orders`)
           } else {
-            // Payment failed
             toast.error("Payment failed. Please try again.");
           }
         },
@@ -357,7 +339,6 @@ const ProductPage = () => {
     setIsSubmiting(true);
 
     // Validate pincode
-
     if (!currentUser?.token) {
       router.push('/account/login')
       return toast.error("Login to your account");
@@ -390,10 +371,6 @@ const ProductPage = () => {
     try {
       const res = await axios.put(`/api/user/${currentUser?.userId}`, formData);
       console.log(res)
-      // if (res.data?.success === true) {
-      //   // const userData = res.data?.user;
-      //   toast.success('Profile Updated Successfully');
-      // }
 
       if (res.data?.success === false) {
         return toast.error(res.data.message);
@@ -430,7 +407,7 @@ const ProductPage = () => {
         <title>{product?.title || "Shop Now"}</title>
         <meta property='og:title' content={product?.title || "Shop Now"} />
         <meta property="og:description" content={product?.desc} />
-        {/* <meta property="og:image" content={product?.coverImageURL || "/greendress.png"} /> */}
+        <meta property="og:image" content={product?.coverImageURL || "/greendress.png"} />
         <meta property="og:url" content={`https://www.threadledesigns.com/shop/${productId}`} />
       </Head>
 
@@ -556,7 +533,6 @@ const ProductPage = () => {
                         {isLoading ? <PulseLoader color='white' /> : "Buy Now"}
                       </button>
                     </div>
-
                   </div>
                 ) : (
                   null
