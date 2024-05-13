@@ -6,6 +6,7 @@ import { Product } from '@/types';
 import axios from 'axios';
 import Image from 'next/image'
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 import { CiHeart } from 'react-icons/ci'
@@ -95,7 +96,7 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
 
     return (
         <div className='relative border flex gap-2 flex-col items-center justify-between  w-[calc(100vw-10px)] xs:w-[175px] md:w-[300px] rounded-md  cursor-pointer  transition-all ease-in-out duration-700 bg-gray-200 '>
-            <div onClick={() => router.push(`/shop/${product._id}`)} className='w-full'>
+            <Link href={`/shop/${product._id}`} className='w-full'>
                 <div className='relative flex items-center justify-center h-[200px] md:h-[250px] w-full'>
                     {!product.inStock && <div className='absolute top-0 z-10 right-0 w-full h-full bg-black bg-opacity-50 rounded-md flex items-center justify-center'>
                         <span className='text-white'>Out of stock</span>
@@ -126,19 +127,20 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
                         )}
                     </div>
                 </div>
-            </div>
+            </Link>
 
-            {!currentUser?.isAdmin && (
-                <div className='absolute w-[42px] flex z-20 gap-2 top-2 right-2'>
-                    {wishlistIds?.includes(product?._id) ? (
-                        <button onClick={handleDislike} className='flex border rounded-full py-2 items-center justify-center px-2 bg-white text-white '>
-                            <FaHeart className='text-center w-full text-td-secondary hover:scale-110' size={20} />
-                        </button>
-                    ) : (<button onClick={handleLike} className='flex border rounded-full py-2 items-center justify-center px-2 bg-white text-white '>
-                        <CiHeart className='text-center w-full text-td-secondary hover:scale-110' size={20} />
-                    </button>)}
-                </div>
-            )
+            {
+                !currentUser?.isAdmin && (
+                    <div className='absolute w-[42px] flex z-20 gap-2 top-2 right-2'>
+                        {wishlistIds?.includes(product?._id) ? (
+                            <button onClick={handleDislike} className='flex border rounded-full py-2 items-center justify-center px-2 bg-white text-white '>
+                                <FaHeart className='text-center w-full text-td-secondary hover:scale-110' size={20} />
+                            </button>
+                        ) : (<button onClick={handleLike} className='flex border rounded-full py-2 items-center justify-center px-2 bg-white text-white '>
+                            <CiHeart className='text-center w-full text-td-secondary hover:scale-110' size={20} />
+                        </button>)}
+                    </div>
+                )
             }
 
             {
