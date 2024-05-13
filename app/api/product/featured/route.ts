@@ -8,7 +8,7 @@ export async function GET(req: NextRequest) {
 
         connectMongoDB();
 
-        const featuredProducts = await ProductModel.find({ isFeatured: true })
+        const featuredProducts = await ProductModel.find({ isFeatured: true }).sort({ updatedAt: -1 })
 
         return NextResponse.json({ featuredProducts, success: true, message: "fetched featured products" });
     } catch (error) {
