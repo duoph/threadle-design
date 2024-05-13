@@ -28,9 +28,9 @@ const Footer = () => {
                 <div className='flex flex-col md:items-end items-center md:w-1/2 w-full gap-3'>
                     <span className='font-semibold text-[20px] underline'>Quick Links</span>
                     <Link href={'/about'}>About</Link>
-                    <Link href={'/contact'}>Contact</Link>
-                    <Link href={'/terms&condition'}>Terms &amp; Conditions</Link>
-                    <Link href={'/privacy-policy'}>Privacy Policy</Link>
+                    <Link target="_blank" href={'https://api.whatsapp.com/send?phone=917902676696'}>Contact</Link>
+                    <Link href={'/'}>Terms &amp; Conditions</Link>
+                    <Link href={'/'}>Privacy Policy</Link>
                 </div>
             </div>
             <hr className='h-[1px] bg-gray-300 border-none' />

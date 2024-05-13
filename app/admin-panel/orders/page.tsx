@@ -38,9 +38,7 @@ const Orders = () => {
             setShippedOrders(shippedRes.data?.shippedOrders)
             setDeliveredOrders(deliveredRes.data?.deliveredOrders)
             setCancelOrders(deliveredRes.data?.cancelOrders)
-
             
-
             switch (selectedOrderType) {
                 case 'pending':
                     setOrderDisplay(pendingRes.data?.pendingOrders);
@@ -54,13 +52,14 @@ const Orders = () => {
                 default:
                     break;
             }
+
             setIsLoading(false)
         } catch (error) {
             setIsLoading(false)
-
             console.log(error);
         }
-    };
+
+    }
 
     useEffect(() => {
         fetchOrders(); // Fetch orders initially
