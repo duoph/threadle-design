@@ -207,7 +207,7 @@ const OrderDetailsPage = () => {
                         </div>
                     </div>
                     <div className="flex flex-col items-center justify-center md:w-1/2 text-center font-light">
-                        <span>Order Id : {order?._id}</span>
+                        <span>Order Id : {order?.razorpay_order_id}</span>
                         <span>Name : {order?.customerName}</span>
                         <span>Phone : {order?.phoneNumber}</span>
                         <span>Whatsapp : {order?.whatsAppNumber}</span>

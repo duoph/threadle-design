@@ -62,14 +62,14 @@ const OrderDetailsPage = () => {
                             <Image priority={true} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" quality={50} height={200} width={150} style={{ objectFit: "contain" }} className="rounded-md" src={order?.imageURL || '/noImage.jpg'} alt="orderImage" />
                         </div>
                         <div className="flex flex-col font-light">
-                            <span className="text-center">&#8377; {order.totalPrice} <span className="text-red-600">(Paid)</span></span>
+                            <span className="text-center">&#8377; {order.totalPrice} <span className="text-red-600">(Paid)</span></span> 
                             <span className="text-center">Size :  <span className="text-red-600">{order?.size}</span></span>
                             <span className="text-center">Quantity: <span className="text-red-600">{order.quantity}</span></span>
                         </div>
                     </div>
                     <div className="flex flex-col gap-3 items-center justify-center md:w-1/2 text-center font-light">
                         <div className="flex flex-col gap-1">
-                            <span>Order Id : {order?._id}</span>
+                            <span>Order Id : {order?.razorpay_order_id}</span>
                             <span>Name : {order?.customerName}</span>
                             <span>Phone : {order?.phoneNumber}</span>
                             <span>Whatsapp : {order?.whatsAppNumber}</span>

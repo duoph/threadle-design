@@ -168,6 +168,8 @@ const CartPage = () => {
       setIsLoading(false)
       const paymentObject = new (window as any).Razorpay(options);
       paymentObject.open();
+      setIsSubmiting(false);
+      setIsDetailsMenu(false)
 
       paymentObject.on("payment.failed", function (response: any) {
         alert("Payment failed. Please try again. Contact support for help");
@@ -233,7 +235,7 @@ const CartPage = () => {
         return toast.error(res.data.message);
       }
 
-      setIsSubmiting(false);
+
       Checkout()
     } catch (error) {
       setIsSubmiting(false);
@@ -285,7 +287,7 @@ const CartPage = () => {
               </div>
               <span className='border-b-8 flex h-2'></span>
             </div>
-            <button onClick={handleCheckoutbtn} className='flex items-center justify-center gap-3 w-2/3 rounded-md px-3 py-3 text-white bg-td-secondary hover:scale-95 transition-all duration-300 ease-in-out'>
+            <button onClick={handleCheckoutbtn} className='flex items-center justify-center gap-3 w-2/3 rounded-md px-3 py-3 text-white bg-td-secondary  transition-all duration-300 ease-in-out'>
 
               <span>CheckOut</span> <FaLongArrowAltRight color='white' size={20} />
 
@@ -327,10 +329,12 @@ const CartPage = () => {
                   </div>
                   <div className='flex items-center justify-center gap-2 w-full'>
                     <FaLocationDot size={30} />
-                    <input type="pincode" name="pincode" placeholder='Pincode' className='border px-5  w-full py-2 rounded-2xl bg-slate-200' value={formData.pincode} onChange={handleChange} />
+                    <input type="pincode" name="pincode" placeholder='Pincode' className='border px-5  w-full py-2 rounded-m bg-slate-200' value={formData.pincode} onChange={handleChange} />
                   </div>
                 </form>
-                <button onClick={handleSubmit} className={`px-5 rounded-2xl py-3 border bg-td-secondary text-white font-bold`} type='submit'>{isSubmiting || isLoading ? <PulseLoader color="white" size={9} /> : "Next"}</button>
+
+                {user && (<button onClick={handleSubmit} className={`px-5 rounded-2xl py-3 border bg-td-secondary text-white font-bold`} type='submit'>{isSubmiting || isLoading ? <PulseLoader color="white" size={9} /> : "Next"}</button>)}
+                
               </div>
             </div>
           </div>

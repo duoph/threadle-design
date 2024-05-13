@@ -267,7 +267,6 @@ const ProductPage = () => {
 
       setIsLoading(true)
 
-      setIsDetailsMenu(false)
 
 
       const res = await axios.post("/api/razorpay", {
@@ -301,9 +300,11 @@ const ProductPage = () => {
         },
       };
       setIsLoading(false)
+
       const paymentObject = new (window as any).Razorpay(options);
       paymentObject.open();
-
+      setIsSubmiting(false);
+      setIsDetailsMenu(false)
       paymentObject.on("payment.failed", function (response: any) {
         alert("Payment failed. Please try again. Contact support for help");
       });
@@ -377,7 +378,6 @@ const ProductPage = () => {
       }
 
       handlePayment()
-
     } catch (error) {
       setIsSubmiting(false);
       console.log(error);
@@ -529,8 +529,7 @@ const ProductPage = () => {
                     <div className='flex gap-3'>
                       <button onClick={addToCart} className='w-1/2 py-2 bg-td-secondary rounded-md text-white'>  {isAddingToCart ? <PulseLoader color='white' /> : "Add to Cart"} </button>
                       <button onClick={handleBuyNow} className='w-1/2 py-2 bg-td-secondary rounded-md text-white flex items-center justify-center'>
-
-                        {isLoading ? <PulseLoader color='white' /> : "Buy Now"}
+                        Buy Now
                       </button>
                     </div>
                   </div>
@@ -591,7 +590,7 @@ const ProductPage = () => {
                   <input type="pincode" name="pincode" placeholder='Pincode' className='border px-5  w-full py-2 rounded-md bg-slate-200' value={formData.pincode} onChange={handleChange} />
                 </div>
               </form>
-              <button onClick={handleSubmit} className={`px-5 rounded-md py-3 border bg-td-secondary text-white font-bold`} type='submit'>{isLoading && isSubmiting ? <PulseLoader color="white" size={9} /> : "Next"}</button>
+              {user && (<button onClick={handleSubmit} className={`px-5 rounded-md py-3 border bg-td-secondary text-white font-bold`} type='submit'>{isSubmiting ? <PulseLoader color="white" size={9} /> : "Next"}</button>)}
             </div>
           </div>
         </div>
