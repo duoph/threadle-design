@@ -388,7 +388,6 @@ const ProductPage = () => {
 
 
 
-
   document.title = product?.title || "Shop Now"
 
 

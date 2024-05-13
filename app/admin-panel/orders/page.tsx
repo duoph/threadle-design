@@ -25,17 +25,21 @@ const Orders = () => {
     const fetchOrders = async () => {
         try {
             setIsLoading(true)
+
             const pendingRes = await axios.get('/api/orders/pending');
             const shippedRes = await axios.get('/api/orders/shipped');
             const deliveredRes = await axios.get('/api/orders/delivered');
             const cancelRes = await axios.get('/api/orders/cancel');
 
-            setPendingOrders(pendingRes.data?.pendingOrders);
-            setShippedOrders(shippedRes.data?.shippedOrders);
-            setDeliveredOrders(deliveredRes.data?.deliveredOrders);
-            setCancelOrders(deliveredRes.data?.cancelOrders);
 
-            setIsLoading(false)
+            console.log(pendingRes,shippedRes,deliveredRes)
+
+            setPendingOrders(pendingRes.data?.pendingOrders)
+            setShippedOrders(shippedRes.data?.shippedOrders)
+            setDeliveredOrders(deliveredRes.data?.deliveredOrders)
+            setCancelOrders(deliveredRes.data?.cancelOrders)
+
+            
 
             switch (selectedOrderType) {
                 case 'pending':
@@ -50,6 +54,7 @@ const Orders = () => {
                 default:
                     break;
             }
+            setIsLoading(false)
         } catch (error) {
             setIsLoading(false)
 
@@ -136,7 +141,7 @@ const Orders = () => {
                     Delivered Orders
                 </span>
                 <span
-                   
+
                     className={`px-3 py-2 rounded-md cursor-pointer border ${selectedOrderType === 'cancel' ? 'bg-td-secondary text-white' : ''}`}
                 >
                     Cancelled Orders
