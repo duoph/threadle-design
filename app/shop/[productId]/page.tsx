@@ -392,7 +392,7 @@ const ProductPage = () => {
   document.title = product?.title || "Shop Now"
 
 
-  const wpLink = `https://api.whatsapp.com/send?phone=919074063723&text=https%3A%2F%2Fwww.threadledesigns.com%2Fshop%2F${product ? product._id : ''}%0AProductId%20%3A%20${product ? product._id : ''}%0ATitle%20%3A%20${product ? product.title : ''}`;
+  const wpLink = `https://api.whatsapp.com/send?phone=919074063723&text=%F0%9F%8C%9F%20I%27m%20interested%20in%20learning%20more%20about%20your%20product%20or%20pricing.%20%F0%9F%8C%9F%0Ahttps%3A%2F%2Fwww.threadledesigns.com%2Fshop%2F${productId}`;
 
 
 
