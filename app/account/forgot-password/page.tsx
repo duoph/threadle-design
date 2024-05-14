@@ -176,7 +176,7 @@ const ForgotPassword = () => {
                     <div className='flex flex-col items-center justify-center'>
                         <h1 className='font-bold text-[30px] text-td-secondary'>Enter New Password</h1>
                         <span className={`font-light md:text-md text-sm text-red-600 ${confirmPassword && confirmPassword.length > 1 && confirmPassword !== password ? "opacity-100" : "opacity-10"}`}>
-                            Password doesn't match
+                            Password doesn&#39;t match
                         </span>
                     </div>
 
