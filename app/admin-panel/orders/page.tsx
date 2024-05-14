@@ -14,7 +14,6 @@ const Orders = () => {
     const [isLoading, setIsLoading] = useState<boolean>(true); // Initially set loading to true
     const [search, setSearch] = useState<string>('');
 
-    const router = useRouter();
 
     const fetchOrders = async () => {
         try {

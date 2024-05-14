@@ -26,7 +26,7 @@ const OrderDisplayCard = ({ order }: any) => {
     const formattedDate = formatDistanceToNow(new Date(order.orderedDate));
 
     return (
-        <div key={order._id} className='cursor-pointer flex items-center  justify-between border rounded-2xl overflow-hidden pr-3 h-[60px]' >
+        <div key={order._id} className='cursor-pointer flex items-center  justify-between border rounded-md overflow-hidden pr-3 h-[60px]' >
             <Link href={`/admin-panel/orders/${order._id}`} className='flex items-center gap-1 md:w-2/3 w-2/4'>
                 <div className='relative h-[70px] min-w-[55px]'>
                     <Image style={{ objectFit: 'cover' }} src={order?.imageURL || "/noImage.jpg"} alt='no Image' fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" priority={true} />

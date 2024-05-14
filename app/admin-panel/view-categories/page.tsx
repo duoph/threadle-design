@@ -4,6 +4,7 @@
 import { Category } from '@/types'
 import axios from 'axios'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -13,7 +14,7 @@ const ViewAllCategories = () => {
     const [categories, setCategories] = useState<Category[]>([])
     const [deleteConfirm, setDeleteConfirm] = useState<boolean>(false)
     const [isLoading, setIsLoading] = useState<boolean>(false)
-    const [idToDelete, setIdToDelete] = useState<string | null>(null) 
+    const [idToDelete, setIdToDelete] = useState<string | null>(null)
 
     const router = useRouter()
 
@@ -76,7 +77,7 @@ const ViewAllCategories = () => {
                     <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>Categories</h1>
                 </div>
 
-                <div className='flex flex-wrap items-center justify-center gap-5'>
+                <div className='flex flex-wrap items-center justify-center gap-4'>
                     {categories.map((cat: Category, i) => (
                         <div key={i} className='relative w-[calc(100vw-10px)] xs:w-[175px] md:w-[300px] shadow-2xl pb-10 flex flex-col bg-td-secondary rounded-md'>
                             <Image
@@ -89,17 +90,17 @@ const ViewAllCategories = () => {
                                 width={400}
                                 onClick={() => router.push(`/admin-panel/edit-category/${cat._id}`)}
                             />
-                            <span className='w-full text-white px-5 py-5 text-center rounded-md cursor-pointer'>{cat.categoryName}</span>
+                            <span className='w-full text-white px-5 py-3 text-center rounded-md cursor-pointer font-medium'>{cat.categoryName}</span>
                             <div className='flex flex-col w-full gap-4 items-center justify-evenly text-white px-5'>
-                                <button className='bg-td-primary w-full px-4 py-3 rounded-xl font-medium' onClick={() => router.push(`/admin-panel/edit-category/${cat._id}`)}>Edit</button>
-                                <button onClick={() => router.push(`/admin-panel/view-products/${cat._id}`)} className='bg-td-primary w-full px-4 py-3 rounded-xl font-medium'>View Products</button>
-                                <button onClick={() => { setDeleteConfirm(true); setIdToDelete(cat._id) }} className='bg-red-600 w-full px-4 py-3 rounded-xl font-medium'>Delete</button>
+                                <Link href={`/admin-panel/edit-category/${cat._id}`} className='bg-td-primary w-full px-2 py-2 rounded-md text-center font-light' >Edit</Link>
+                                <Link href={`/admin-panel/view-products/${cat._id}`} className='bg-td-primary w-full px-4 py-3 rounded-md text-center font-light'>View Products</Link>
+                                <button onClick={() => { setDeleteConfirm(true); setIdToDelete(cat._id) }} className='bg-red-600 w-full px-4 py-3 rounded-md font-light'>Delete</button>
                             </div>
                         </div>
                     ))}
                 </div>
             </div>
-        </div>
+        </div >
 
     )
 }
