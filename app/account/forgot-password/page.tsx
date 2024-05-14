@@ -11,27 +11,13 @@ import { PulseLoader } from 'react-spinners';
 const ForgotPassword = () => {
     const [securityCode, setSecurityCode] = useState<string>('')
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [verified, setVerified] = useState<boolean>(false)
     const [password, setPassword] = useState<string>('')
     const [confirmedPassword, setConfirmedPassword] = useState<string>('')
 
-    const { currentUser } = useUser()
-
     const router = useRouter();
 
-    const generateSecurityCode = async () => {
-        try {
-            await axios.post('/api/forgot-password/', {
-                userId: currentUser?.userId
-            })
-        } catch (error) {
-            console.log(error)
-        }
-
-    }
 
     useEffect(() => {
-        generateSecurityCode()
     }, [])
 
     const handleResend = async () => {
@@ -45,7 +31,7 @@ const ForgotPassword = () => {
 
 
     const handleVerify = async () => {
-        setVerified(true)
+
         try {
             // const res = await 
         } catch (error) {
@@ -84,7 +70,7 @@ const ForgotPassword = () => {
     return (
         <div className='bg-td-secondary py-[50px] flex items-center justify-center px-5 h-[70vh]'>
             <div className='flex bg-white items-center justify-center w-full md:w-[400px] md:px-10 py-10 px-5 rounded-2xl'>
-                {!verified && (<div className='flex flex-col items-center justify-normal w-full gap-3'>
+                {(<div className='flex flex-col items-center justify-normal w-full gap-3'>
                     <div className='flex flex-col items-center justify-center'>
                         <h1 className='font-bold  text-[22px] sm:text-[35px]  text-td-secondary'>Verify</h1>
                         <div className='flex font-semibold text-sm gap-1'>
@@ -108,7 +94,7 @@ const ForgotPassword = () => {
                 </div>
                 )}
 
-                {verified && (<div className='flex flex-col items-center justify-normal w-full gap-3'>
+                {(<div className='flex flex-col items-center justify-normal w-full gap-3'>
                     <div className='flex flex-col items-center justify-center'>
                         <h1 className='font-bold  text-[22px] sm:text-[35px]  text-td-secondary'>New Password</h1>
                     </div>

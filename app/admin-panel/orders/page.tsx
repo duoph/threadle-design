@@ -9,9 +9,10 @@ import { PulseLoader } from 'react-spinners';
 import { CiSearch } from 'react-icons/ci';
 
 const Orders = () => {
+
     const [selectedOrderType, setSelectedOrderType] = useState<string>('pending');
     const [orders, setOrders] = useState<Cart[]>([]);
-    const [isLoading, setIsLoading] = useState<boolean>(true); // Initially set loading to true
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     const [search, setSearch] = useState<string>('');
 
 
@@ -73,7 +74,7 @@ const Orders = () => {
             <div className='rounded-md flex items-center justify-center cursor-pointer gap-3 bg-td-secondary pr-3 w-full'>
                 <input
                     type='text'
-                    placeholder='Name,Phone,Order Id'
+                    placeholder='Name,Phone,Order Id,Product'
                     className='border px-4 py-4 rounded-md w-full'
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}

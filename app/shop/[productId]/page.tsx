@@ -207,7 +207,7 @@ const ProductPage = () => {
 
   const handleSize = (size: string) => {
     try {
-      if (!product?.isCustom) {
+      if (!product?.isCustom && !currentUser?.isAdmin) {
         setSelectedSize(size)
       } else {
         setSelectedSize("")
@@ -219,7 +219,7 @@ const ProductPage = () => {
 
   const handleColor = (color: string) => {
     try {
-      if (!product?.isCustom) {
+      if (!product?.isCustom && !currentUser?.isAdmin) {
         setSelectedColor(color);
       }
     } catch (error) {
@@ -266,7 +266,6 @@ const ProductPage = () => {
     try {
 
       setIsLoading(true)
-
 
 
       const res = await axios.post("/api/razorpay", {
@@ -317,6 +316,11 @@ const ProductPage = () => {
 
   const handleBuyNow = async () => {
     try {
+      if (!currentUser?.token) {
+        setIsAddingToCart(false)
+        router.push('/account/login')
+        return toast.error("Login to your account");
+      }
       fetchUser()
       if (!selectedColor || !selectedSize) {
         setIsLoading(false);
@@ -458,8 +462,7 @@ const ProductPage = () => {
                   )}
                 </div>
 
-
-                <div>
+                {!currentUser?.isAdmin && (<div>
                   {wishlistIds?.includes(`${productId}`) ? (
                     <button onClick={handleDislike} className='flex  w-[43px] border rounded-full py-2 items-center justify-center px-2 bg-white text-white '>
                       <FaHeart className='text-center   text-td-secondary hover:scale-110' size={24} />
@@ -467,7 +470,8 @@ const ProductPage = () => {
                   ) : (<button onClick={handleLike} className='flex  w-[43px] border rounded-full py-2 items-center justify-center px-2 bg-white text-white '>
                     <CiHeart className='text-center   text-td-secondary hover:scale-110' size={24} />
                   </button>)}
-                </div>
+                </div>)}
+
               </div>
               <div className='flex flex-col gap-1'>
                 <span className='text-sm flex items-center justify-center gap-1 font-light'>All over india free delivery
@@ -518,7 +522,7 @@ const ProductPage = () => {
                   </div>
                 </div>
 
-                {!product?.isCustom && product?.inStock ? (
+                {!product?.isCustom && product?.inStock && !currentUser?.isAdmin ? (
                   <div className='flex flex-col gap-3 font-semibold w-full'>
                     <span className='bg-gray-200 flex items-center justify-between gap-4 px-8 py-2 rounded-md w-1/2'>
                       <span className='cursor-pointer' onClick={() => handleQuantity("decrement")}>-</span>

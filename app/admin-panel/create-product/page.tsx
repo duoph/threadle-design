@@ -29,6 +29,8 @@ const CreateProduct = () => {
     const [image4, setImage4] = useState<string | null>("");
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [moreImages, setMoreImages] = useState([]);
+    const [inStock, setInStock] = useState("");
+    const [isFeatured, setIsFeatured] = useState("");
 
     const [hexCode, setHexCode] = useState("")
     const [colorCodes, setColorCodes] = useState<string[]>([]);
@@ -149,6 +151,8 @@ const CreateProduct = () => {
             formData.append("regularPrice", regularPrice);
             formData.append("isCustom", isCustom ? "true" : "false");
             formData.append("tags", tags);
+            formData.append("inStock", inStock);
+            formData.append("isFeatured", isFeatured);
 
             if (colorCodes) {
                 const colorCodesString = colorCodes.join(',');
@@ -290,6 +294,38 @@ const CreateProduct = () => {
                         </div>
                     )
                 }
+
+                <div className="flex flex-col gap-1">
+                    <label htmlFor="inStock" className="font-semibold">In Stock</label>
+                    <div className="flex items-center">
+                        <input
+                            type="checkbox"
+                            id="inStock"
+                            checked={inStock === 'yes'}
+                            onChange={(e) => {
+                                setInStock(e.target.checked ? 'yes' : 'no')
+                            }}
+                            className="mr-2"
+                        />
+                        <label htmlFor="inStock">Yes</label>
+                    </div>
+                </div>
+
+                <div className="flex flex-col gap-1">
+                    <label htmlFor="isFeatured" className="font-semibold">Display on featured</label>
+                    <div className="flex items-center">
+                        <input
+                            type="checkbox"
+                            id="isFeatured"
+                            checked={isFeatured === 'yes'}
+                            onChange={(e) => {
+                                setIsFeatured(e.target.checked ? 'yes' : 'no')
+                            }}
+                            className="mr-2"
+                        />
+                        <label htmlFor="isFeatured">Yes</label>
+                    </div>
+                </div>
 
                 <h1 className="text-[15px] font-semibold">Cover Image</h1>
                 <div className="flex flex-col gap-2 items-center justify-center ">

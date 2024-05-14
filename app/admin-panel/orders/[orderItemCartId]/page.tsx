@@ -255,7 +255,7 @@ const OrderDetailsPage = () => {
                 </div>
 
                 {/* order tracking */}
-                <div className=" flex flex-col items-center justify-center p-5 gap-3">
+                {order?.isCancel && (<div className=" flex flex-col items-center justify-center p-5 gap-3">
                     <h1 className="font-semibold text-[20px] md:text-[24px] ">Add Tracking Order Id</h1>
                     <div className="flex flex-col gap-4">
                         <div className="flex px-5 items-center justify-center gap-3 w-full  ">
@@ -283,8 +283,8 @@ const OrderDetailsPage = () => {
                         </div>
                         {slipURL && slipURL != order?.deliverySlipURL && (<button className="bg-td-secondary px-3 py-3  text-white  rounded-md" onClick={handleSubmit}>Upload</button>)}
                     </div>
-                </div>
-
+                </div>)
+                }
                 {
                     !isLoading && (
                         <div className="font-light flex flex-col md:flex-row gap-2">
