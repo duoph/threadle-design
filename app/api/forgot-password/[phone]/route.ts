@@ -1,4 +1,4 @@
-import { getDataFromToken } from "@/helpers/getDataFromToken";
+import bcrypt from "bcrypt";
 import { NextRequest, NextResponse } from "next/server";
 import userModel from "@/models/userModel";
 import { sendSMS } from "@/actions/actionSMS";
@@ -11,23 +11,34 @@ function generateRandomCode(): string {
 }
 
 
+
+// sending otp
 export async function GET(req: NextRequest, { params }: any) {
     try {
         const phone = params.phone;
 
+        const user = await userModel.findOne({ phone: phone });
+
+        if (user) {
+            const otpCreateDate = user.otpCreatedDate;
+            const currentTime = new Date();
+            const minutesDifference = differenceInMinutes(currentTime, otpCreateDate);
+
+            if (minutesDifference < 5) {
+                const timeLeft = 5 - minutesDifference;
+                return NextResponse.json({ message: `Please wait ${timeLeft} more minutes before requesting a new OTP`, success: true });
+            }
+        }
+
         const securityCode = generateRandomCode();
 
-        const user = await userModel.findOneAndUpdate(
+        await userModel.findOneAndUpdate(
             { phone: phone },
             { otp: securityCode, otpCreatedDate: Date.now() },
             { new: true }
         );
 
         sendSMS(user._id, "Threadle Designs: Your OTP Is " + securityCode);
-
-        if (!user) {
-            return NextResponse.json({ message: "Account not found", success: false });
-        }
 
         return NextResponse.json({ message: "OTP has been sent to your number", success: true });
 
@@ -38,38 +49,66 @@ export async function GET(req: NextRequest, { params }: any) {
 }
 
 
-export async function PUT(req: NextRequest, { params, body }: any) {
+// otp verify
+export async function POST(req: NextRequest, { params }: any) {
     try {
         const phone = params.phone;
-        const otp = body.otp;
+        const { otp } = await req.json();
 
         const user = await userModel.findOne({ phone: phone });
 
-        if (!user) {
-            return NextResponse.json({ message: "Invalid OTP" }, { status: 400 });
+        console.log(user)
+        console.log(user.otp)
+        console.log(otp)
+
+        const otpCreateDate = user.otpCreatedDate;
+        const currentTime = new Date();
+        const minutesDifference = differenceInMinutes(currentTime, otpCreateDate);
+
+
+        if (minutesDifference > 5) {
+            return NextResponse.json({ message: "OTP Expired", success: false });
         }
 
         // Check if OTP exists and matches
         if (user.otp !== otp) {
-            return NextResponse.json({ message: "Invalid OTP" }, { status: 400 });
+            return NextResponse.json({ message: "Invalid OTP", success: false, user });
         }
 
-        // Check if OTP is expired (more than 5 minutes old)
-        const otpCreateDate = user.otpCreateDate;
-        const currentTime = new Date();
-        const minutesDifference = differenceInMinutes(currentTime, otpCreateDate);
-
-        if (minutesDifference > 5) {
-            return NextResponse.json({ message: "Expired OTP" }, { status: 400 });
+        if (user.otp === otp && minutesDifference < 5) {
+            return NextResponse.json({ message: "OTP verified successfully", success: true });
         }
-
-        // Here you can add additional logic to handle successful OTP verification,
-        // such as resetting the OTP or updating other user data.
-
-        return NextResponse.json({ message: "OTP verified successfully" });
 
     } catch (error) {
         console.error(error);
-        return NextResponse.json({ message: "Error while verifying OTP", error }, { status: 500 });
+        return NextResponse.json({ message: "Error while verifying OTP", success: false });
     }
 }
+
+
+
+// change password
+export async function PUT(req: NextRequest, { params }: any) {
+    try {
+        const phone = params.phone;
+        const { password } = await req.json();
+
+        const hashedPassword = await bcrypt.hash(password as string, 10);
+
+        await userModel.findOneAndUpdate(
+            { phone: phone },
+            { password: hashedPassword },
+            { new: true }
+        );
+
+        return NextResponse.json({
+            message: "Password Updated", success: true
+        });
+
+    } catch (error) {
+        console.error(error);
+        return NextResponse.json({ message: "Error while Password Updating", success: false });
+    }
+
+}
+
