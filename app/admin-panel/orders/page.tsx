@@ -4,11 +4,9 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import OrderDisplayCard from '@/components/OrderDisplayCard';
-import { Cart } from '@/types';
+import { Cart, Product } from '@/types';
 import { PulseLoader } from 'react-spinners';
-
-//export const revalidate = 1000
-
+import { CiSearch } from 'react-icons/ci';
 
 const Orders = () => {
     const [selectedOrderType, setSelectedOrderType] = useState<string>('pending');
@@ -17,49 +15,48 @@ const Orders = () => {
     const [deliveredOrders, setDeliveredOrders] = useState<Cart[]>([]);
     const [cancelOrders, setCancelOrders] = useState<Cart[]>([]);
     const [orderDisplay, setOrderDisplay] = useState<Cart[]>([]);
-    const [isLoading, setIsLoading] = useState<boolean>()
-
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [search, setSearch] = useState<string>('');
 
     const router = useRouter();
 
     const fetchOrders = async () => {
         try {
-            setIsLoading(true)
+            setIsLoading(true);
 
             const pendingRes = await axios.get('/api/orders/pending');
             const shippedRes = await axios.get('/api/orders/shipped');
             const deliveredRes = await axios.get('/api/orders/delivered');
             const cancelRes = await axios.get('/api/orders/cancel');
 
+            setPendingOrders(pendingRes.data?.pendingOrders || []);
+            setShippedOrders(shippedRes.data?.shippedOrders || []);
+            setDeliveredOrders(deliveredRes.data?.deliveredOrders || []);
+            setCancelOrders(cancelRes.data?.cancelOrders || []);
 
-            console.log(pendingRes,shippedRes,deliveredRes)
-
-            setPendingOrders(pendingRes.data?.pendingOrders)
-            setShippedOrders(shippedRes.data?.shippedOrders)
-            setDeliveredOrders(deliveredRes.data?.deliveredOrders)
-            setCancelOrders(deliveredRes.data?.cancelOrders)
-            
             switch (selectedOrderType) {
                 case 'pending':
-                    setOrderDisplay(pendingRes.data?.pendingOrders);
+                    setOrderDisplay(pendingRes.data?.pendingOrders || []);
                     break;
                 case 'shipped':
-                    setOrderDisplay(shippedRes.data?.shippedOrders);
+                    setOrderDisplay(shippedRes.data?.shippedOrders || []);
                     break;
                 case 'delivered':
-                    setOrderDisplay(deliveredRes.data?.deliveredOrders);
+                    setOrderDisplay(deliveredRes.data?.deliveredOrders || []);
+                    break;
+                case 'cancel':
+                    setOrderDisplay(cancelRes.data?.cancelOrders || []);
                     break;
                 default:
                     break;
             }
 
-            setIsLoading(false)
+            setIsLoading(false);
         } catch (error) {
-            setIsLoading(false)
+            setIsLoading(false);
             console.log(error);
         }
-
-    }
+    };
 
     useEffect(() => {
         fetchOrders(); // Fetch orders initially
@@ -68,9 +65,13 @@ const Orders = () => {
         return () => clearInterval(intervalId); // Cleanup interval on unmount
     }, [selectedOrderType]); // Fetch orders when selectedOrderType changes
 
-
-
-
+    useEffect(() => {
+        const filtered = orderDisplay.filter((order: Cart) =>
+            order.customerName?.toLowerCase().includes(search.toLowerCase()) ||
+            order.title?.toLowerCase().includes(search.toLowerCase()) || order.phoneNumber?.toLowerCase().includes(search.toLowerCase()) || order.whatsAppNumber?.toLowerCase().includes(search.toLowerCase()) || order.razorpay_order_id?.toLowerCase().includes(search.toLowerCase())
+        );
+        setOrderDisplay(filtered);
+    }, [search, orderDisplay]);
 
     if (isLoading && shippedOrders.length === 0 && pendingOrders.length === 0 && deliveredOrders.length === 0) {
         return (
@@ -83,38 +84,14 @@ const Orders = () => {
         );
     }
 
-
-
     return (
-        <div className="flex flex-col items-center py-5 px-3 gap-3 w-full">
+        <div className="flex flex-col items-center py-5 px-3 gap-2 w-full">
             <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>Order Dashboard</h1>
-            {/* Total Orders */}
-            {/* <div className="flex items-center justify-center border bg-slate-200 rounded-md py-5 px-3 w-full">
-                <div className="flex items-center justify-center flex-col md:flex-row flex-wrap gap-6 text-td-secondary font-bold text-xl">
-                    <div className="flex flex-col items-center justify-center">
-                        <h2>Total Orders</h2>
-                        <span>{pendingOrders.length + shippedOrders.length}</span>
-                    </div>
-                    <div className="flex flex-col items-center justify-center">
-                        <h2>Paid Orders</h2>
-                        <span>{pendingOrders.length}</span>
-                    </div>
-                    <div className="flex flex-col items-center justify-center">
-                        <h2>Shipped Orders</h2>
-                        <span>{shippedOrders.length}</span>
-                    </div>
-                    <div className="flex flex-col items-center justify-center">
-                        <h2>Delivered Orders</h2>
-                        <span>{deliveredOrders.length}</span>
-                    </div>
-                </div>
-            </div> */}
-            {/* Order Type Buttons */}
             <div className="flex items-center justify-center gap-2 md:gap-5 lg:gap-10 rounded-md py-5 px-5 md:px-10 w-full text-[15px] flex-wrap">
                 <span
                     onClick={() => {
                         setSelectedOrderType('pending');
-                        setOrderDisplay(pendingOrders)
+                        setOrderDisplay(pendingOrders);
                     }}
                     className={`px-2 py-2 rounded-md cursor-pointer border ${selectedOrderType === 'pending' ? 'bg-td-secondary text-white' : ''}`}
                 >
@@ -123,7 +100,7 @@ const Orders = () => {
                 <span
                     onClick={() => {
                         setSelectedOrderType('shipped');
-                        setOrderDisplay(shippedOrders)
+                        setOrderDisplay(shippedOrders);
                     }}
                     className={`px-3 py-2 rounded-md cursor-pointer border ${selectedOrderType === 'shipped' ? 'bg-td-secondary text-white' : ''}`}
                 >
@@ -132,22 +109,34 @@ const Orders = () => {
                 <span
                     onClick={() => {
                         setSelectedOrderType('delivered');
-                        setOrderDisplay(deliveredOrders)
-
+                        setOrderDisplay(deliveredOrders);
                     }}
                     className={`px-3 py-2 rounded-md cursor-pointer border ${selectedOrderType === 'delivered' ? 'bg-td-secondary text-white' : ''}`}
                 >
                     Delivered Orders
                 </span>
                 <span
-
+                    onClick={() => {
+                        setSelectedOrderType('cancel');
+                        setOrderDisplay(cancelOrders);
+                    }}
                     className={`px-3 py-2 rounded-md cursor-pointer border ${selectedOrderType === 'cancel' ? 'bg-td-secondary text-white' : ''}`}
                 >
                     Cancelled Orders
                 </span>
             </div>
 
-            {/* Order Display */}
+            <div className='rounded-md flex items-center justify-center cursor-pointer gap-3 bg-td-secondary pr-3 w-full'>
+                <input
+                    type='text'
+                    placeholder='Name,Phone,Order Id'
+                    className='border px-4 py-4 rounded-md w-full'
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                />
+                <CiSearch className='rounded-md text-[30px] cursor-pointer text-white' />
+            </div>
+
             <div className="flex flex-col border rounded-md py-5 px-3 w-full gap-[10px] min-h-[70vh]">
                 <div className="flex items-center justify-between border-b-2 px-2">
                     <span className="w-2/6 text-center">Product Name</span>

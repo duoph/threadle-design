@@ -119,6 +119,43 @@ const OrderDetailsPage = () => {
         }
     }
 
+    const handleOrderCancel = async () => {
+        setIsLoading(true)
+        try {
+            const res = await axios.post('/api/orders/cancel', {
+                cartId: order?._id
+            })
+            console.log(res)
+            if (res.data?.success == true) {
+                toast.success(res.data.message)
+                fetchCartItem()
+            }
+            setIsLoading(false)
+        } catch (error) {
+            setIsLoading(false)
+            console.log(error)
+        }
+    }
+
+    const handleOrderUncancel = async () => {
+        setIsLoading(true)
+        try {
+            const res = await axios.post('/api/orders/cancel', {
+                cartId: order?._id
+            })
+            console.log(res)
+            if (res.data?.success == true) {
+                toast.success(res.data.message)
+                fetchCartItem()
+            }
+            setIsLoading(false)
+        } catch (error) {
+            setIsLoading(false)
+            console.log(error)
+        }
+    }
+    
+
     const handleCoverImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
         if (file) {

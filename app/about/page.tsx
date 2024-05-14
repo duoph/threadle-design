@@ -1,6 +1,13 @@
+import { Metadata } from 'next';
 import React from 'react';
 
+export const metadata: Metadata = {
+    title: "Threadle Design - About",
+    description: "At Threadle Designs, we blend the artistry of bespoke tailoring with the convenience of ready-made fashion to cater to the diverse needs of modern women. Our boutique offers a seamless fusion of customization and curated collections, ensuring every customer finds their perfect ensemble, whether they seek a uniquely crafted garment or a ready-to-wear masterpiece.",
+};
 const About = () => {
+
+
     return (
         <div className='flex flex-col gap-5 md:gap-10 px-5 md:px-10 py-8'>
 
