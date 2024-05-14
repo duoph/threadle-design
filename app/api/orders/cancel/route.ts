@@ -6,7 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET() {
     try {
-        const cancelOrders = await CartModel.find({ isPaid: true, isCancel: true })
+        const cancelOrders = await CartModel.find({ isCancel: true })
         return NextResponse.json({ message: " fetched the cancelled orders", cancelOrders });
 
     } catch (error) {
@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ message: "Unauthenticated Access Error while fetching the cart items", success: false });
         }
 
-        const cartItems = await CartModel.findByIdAndUpdate({ _id: cartId }, { isCancel: true });
+        const cartItems = await CartModel.findByIdAndUpdate({ _id: cartId }, { isCancel: true, isDelivered: false, isPaid: false, isShipped: false });
 
         return NextResponse.json({ message: "Marked the product order as  cancelled", success: true, cartItems });
 

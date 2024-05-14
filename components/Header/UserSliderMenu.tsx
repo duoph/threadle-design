@@ -31,7 +31,7 @@ const UserSliderMenu = () => {
     return (
         <ClickAwayListener onClickAway={() => setIsMenuUser(true)}>
 
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center font-light">
                 {isMenuUser ? (
                     <button className=' w-[40px] rounded-md' onClick={() => setIsMenuUser(!isMenuUser)}>
                         <CiMenuBurger className='cursor-pointer' size={24} />

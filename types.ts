@@ -39,6 +39,7 @@ export interface Cart {
     isShipped: boolean;
     isPaid: boolean;
     isDelivered: boolean;
+    isCancel: boolean;
     price: number;
     totalPrice: number;
     title: string;
