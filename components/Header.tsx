@@ -43,7 +43,7 @@ const Header = () => {
                                 <Link href={"/cart"} >
                                     <span className='absolute p-1 px-2 text-xs bg-red-800 rounded-full -right-2 -top-2 text-white'>{cartCount || "0"}</span>
                                     <CiShoppingCart className='text-white ' size={24} />
-                                </Link>
+                                </Link> 
 
                             </div>
                             <Link href={"/shop"} >
