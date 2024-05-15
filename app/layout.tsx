@@ -11,9 +11,12 @@ import ProgressBar from "@/components/ProgressBar";
 
 const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
-  title: "Threadle Design",
+  title: "Threadle Designs",
+  viewport: "width=device-width, initial-scale=1.0",
+  keywords: "Threadle Designs, bespoke tailoring, ready-made fashion, modern women's fashion, customization, curated collections, unique garments, ready-to-wear fashion, online boutique, fashion store, Malappuram, Kerala, best online selling store, women's clothing, fashion trends, style and convenience, tailored ensembles, fashion-forward designs, online shopping experience, quality craftsmanship, fashion enthusiasts, trendsetting styles",
   description: "At Threadle Designs, we blend the artistry of bespoke tailoring with the convenience of ready-made fashion to cater to the diverse needs of modern women. Our boutique offers a seamless fusion of customization and curated collections, ensuring every customer finds their perfect ensemble, whether they seek a uniquely crafted garment or a ready-to-wear masterpiece.",
 };
+
 
 export default function RootLayout({
   children,
