@@ -299,14 +299,14 @@ const CartPage = () => {
 
         {isDetails && (
           <div className='fixed flex items-center justify-center bg-black bg-opacity-30 top-0 right-0 min-h-screen w-full z-[50] pb-10'>
-            <div className='bg-slate-100 relative rounded-2xl shadow-2xl px-5 py-5 flex flex-col items-center justify-center'>
+            <div className='bg-slate-100 relative rounded-md shadow-2xl px-5 py-5 flex flex-col items-center justify-center'>
               <IoMdClose onClick={() => setIsDetailsMenu(false)} className="absolute top-6 right-5 cursor-pointer text-td-secondary  rounded-full p-1" size={30} />
               <h1 className='text-td-secondary text-center text-[25px]  font-bold text-3xl'>Confirm Address</h1>
               <div className="flex  flex-col items-center justify-center w-full min-h-full gap-2">
-                <form onSubmit={handleSubmit} className='flex flex-col items-center justify-center gap-3  px-5 py-8 rounded-2xl w-full '>
+                <form onSubmit={handleSubmit} className='flex flex-col items-center justify-center gap-3  px-5 py-8 rounded-md w-full '>
                   <div className='flex items-center justify-center gap-2 w-full'>
                     <RiAccountCircleFill size={30} />
-                    <input type="text" name="name" placeholder='Name' value={formData.name} onChange={handleChange} className='border px-5  py-2 rounded-2xl bg-slate-200 w-full' />
+                    <input type="text" name="name" placeholder='Name' value={formData.name} onChange={handleChange} className='border px-5  py-2 rounded-md bg-slate-200 w-full' />
                   </div>
                   <div className='flex items-center w-full justify-center gap-3'>
                     <FaPhoneAlt size={24} />
@@ -325,7 +325,7 @@ const CartPage = () => {
                   </div>
                   <div className='flex items-start justify-center gap-2 w-full '>
                     <FaAddressCard size={30} />
-                    <textarea id="address" name="address" className='border px-5  py-2 w-full rounded-2xl bg-slate-200 min-h-[100px]' placeholder='Address' value={formData.address} onChange={handleChange} />
+                    <textarea id="address" name="address" className='border px-5  py-2 w-full rounded-md bg-slate-200 min-h-[100px]' placeholder='Address' value={formData.address} onChange={handleChange} />
                   </div>
                   <div className='flex items-center justify-center gap-2 w-full'>
                     <FaLocationDot size={30} />
@@ -333,7 +333,7 @@ const CartPage = () => {
                   </div>
                 </form>
 
-                {user && (<button onClick={handleSubmit} className={`px-5 rounded-2xl py-3 border bg-td-secondary text-white font-bold`} type='submit'>{isSubmiting || isLoading ? <PulseLoader color="white" size={9} /> : "Next"}</button>)}
+                {user && (<button onClick={handleSubmit} className={`px-5 rounded-md py-3 border bg-td-secondary text-white font-bold`} type='submit'>{isSubmiting || isLoading ? <PulseLoader color="white" size={9} /> : "Next"}</button>)}
                 
               </div>
             </div>
