@@ -333,7 +333,7 @@ const CartPage = () => {
                   </div>
                 </form>
 
-                {user && (<button onClick={handleSubmit} className={`px-5 rounded-md py-3 border bg-td-secondary text-white font-bold`} type='submit'>{isSubmiting || isLoading ? <PulseLoader color="white" size={9} /> : "Next"}</button>)}
+                {user && (<button onClick={handleSubmit} className={`px-5 rounded-md py-3 border bg-td-secondary text-white font-bold`} type='submit'>{isSubmiting ? <PulseLoader color="white" size={9} /> : "Next"}</button>)}
                 
               </div>
             </div>
