@@ -5,13 +5,22 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
     try {
-        const pendingOrders = await CartModel.find({
-            isPaid: true,
-            isShipped: false,
-            isDelivered: false,
-            isCancel: false
-        }).sort({ orderDate: -1 });
-
+        const pendingOrders = await CartModel.aggregate([
+            {
+                $match: {
+                    isPaid: true,
+                    isShipped: false,
+                    isDelivered: false,
+                    isCancel: false
+                }
+            },
+            {
+                $sort: {
+                    orderDate: -1,
+                    userId: 1,
+                }
+            }
+        ]);
         return NextResponse.json({ message: "Fetched the shipped orders", pendingOrders });
     } catch (error) {
         console.error(error);

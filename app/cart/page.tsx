@@ -183,6 +183,9 @@ const CartPage = () => {
 
 
   const handleCheckoutbtn = async () => {
+    if (cart.length === 0) {
+      return;
+    }
     try {
       fetchUser()
       setIsDetailsMenu(true)
@@ -277,6 +280,7 @@ const CartPage = () => {
               </React.Fragment>
             ))}
           </div>
+
           <div className='flex flex-col items-center justify-around  w-full border rounded-md p-5'>
             <div className='flex flex-col items-center justify-center'>
               <span className='text-[18px] font-medium'>Order Summary</span>
@@ -287,14 +291,17 @@ const CartPage = () => {
               </div>
               <span className='border-b-8 flex h-2'></span>
             </div>
+
             <button onClick={handleCheckoutbtn} className='flex items-center justify-center gap-3 w-2/3 rounded-md px-3 py-3 text-white bg-td-secondary  transition-all duration-300 ease-in-out'>
 
               <span>CheckOut</span> <FaLongArrowAltRight color='white' size={20} />
 
             </button>
 
+
             <span className='opacity-40 text-sm'>Placed orders can&#39;t be cancelled</span>
           </div>
+
         </div>
 
         {isDetails && (
@@ -334,7 +341,7 @@ const CartPage = () => {
                 </form>
 
                 {user && (<button onClick={handleSubmit} className={`px-5 rounded-md py-3 border bg-td-secondary text-white font-bold`} type='submit'>{isSubmiting ? <PulseLoader color="white" size={9} /> : "Next"}</button>)}
-                
+
               </div>
             </div>
           </div>
