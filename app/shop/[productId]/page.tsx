@@ -401,10 +401,13 @@ const ProductPage = () => {
 
   return (
     <div className='w-full relative px-5 py-3 md:px-10 flex flex-col gap-3 mb-5 '>
+
       <Script
         id="razorpay-checkout-js"
         src="https://checkout.razorpay.com/v1/checkout.js"
       />
+
+
 
       <Head>
         <title>{product?.title || "Shop Now"}</title>
@@ -413,6 +416,7 @@ const ProductPage = () => {
         <meta property="og:image" content={product?.coverImageURL || "/greendress.png"} />
         <meta property="og:url" content={`https://www.threadledesigns.com/shop/${productId}`} />
       </Head>
+
 
       {
         !product ? (
@@ -462,15 +466,17 @@ const ProductPage = () => {
                   )}
                 </div>
 
-                {!currentUser?.isAdmin && (<div>
-                  {wishlistIds?.includes(`${productId}`) ? (
-                    <button onClick={handleDislike} className='flex  w-[43px] border rounded-full py-2 items-center justify-center px-2 bg-white text-white '>
-                      <FaHeart className='text-center   text-td-secondary hover:scale-110' size={24} />
-                    </button>
-                  ) : (<button onClick={handleLike} className='flex  w-[43px] border rounded-full py-2 items-center justify-center px-2 bg-white text-white '>
-                    <CiHeart className='text-center   text-td-secondary hover:scale-110' size={24} />
-                  </button>)}
-                </div>)}
+                {!currentUser?.isAdmin && (
+                  <div>
+                    {wishlistIds?.includes(`${productId}`) ? (
+                      <button onClick={handleDislike} className='flex  w-[43px] border rounded-full py-2 items-center justify-center px-2 bg-white text-white '>
+                        <FaHeart className='text-center   text-td-secondary hover:scale-110' size={24} />
+                      </button>
+                    ) : (<button onClick={handleLike} className='flex  w-[43px] border rounded-full py-2 items-center justify-center px-2 bg-white text-white '>
+                      <CiHeart className='text-center   text-td-secondary hover:scale-110' size={24} />
+                    </button>)}
+                  </div>
+                )}
 
               </div>
               <div className='flex flex-col gap-1'>

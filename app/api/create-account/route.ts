@@ -7,7 +7,7 @@ import { sendOTP } from "@/actions/actionSMS";
 export async function POST(req: NextRequest) {
     try {
 
-        await connectMongoDB();
+        connectMongoDB();
 
         const formData = await req.formData();
         const name = formData?.get("name") as string | undefined;
