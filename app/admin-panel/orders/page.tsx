@@ -18,20 +18,19 @@ const Orders = () => {
     const fetchOrders = async () => {
         try {
             setIsLoading(true);
-
             const response = await axios.get(`/api/orders/${selectedOrderType}`);
-            setOrders(response.data[selectedOrderType + 'Orders'] || []);
-            setIsLoading(false);
+            const fetchedOrders = response.data[selectedOrderType + 'Orders'] || [];
+            setOrders(fetchedOrders);
         } catch (error) {
+            console.error("Error fetching orders:", error);
+        } finally {
             setIsLoading(false);
-            console.log(error);
         }
     };
 
     useEffect(() => {
         fetchOrders();
     }, [selectedOrderType]);
-
     const filteredOrders = orders.filter(order =>
         order.customerName?.toLowerCase().includes(search.toLowerCase()) ||
         order.title?.toLowerCase().includes(search.toLowerCase()) ||

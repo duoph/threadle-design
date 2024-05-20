@@ -23,7 +23,7 @@ const OrderDisplayCardUser = ({ order }: any) => {
                 </div>
             </div>
             <span className='w-1/3 break-all flex items-center justify-center text-td-secondary'>
-                {!order.isShipped && !order.delivered && (<span className='flex flex-col items-center justify-center text-gray-600'>Pending <CiClock1 size={24} /></span>)}
+                {!order.isShipped && !order.delivered && order.isCancel && (<span className='flex flex-col items-center justify-center text-gray-600'>Pending <CiClock1 size={24} /></span>)}
                 {order.isShipped && !order.delivered && !order.isCancel && (<span className='flex flex-col items-center justify-center text-yellow-500'>Shipped <CiClock1 size={24} /></span>)}
                 {order.delivered && order.isShipped && !order.isCancel && (<span className='flex flex-col items-center justify-center'>Delivered<CiCircleCheck size={24} /></span>)}
                 {order.isCancel && (<span className='flex flex-col items-center justify-center text-red-700'>Cancelled <IoMdCloseCircleOutline size={24} /></span>)}
