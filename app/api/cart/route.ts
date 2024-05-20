@@ -64,7 +64,7 @@ export async function GET(req: NextRequest) {
             return NextResponse.json({ message: "Unauthenticated Access Error while fetching the cart items", success: false });
         }
 
-        const cartItems = await CartModel.find({ userId, isPaid: false });
+        const cartItems = await CartModel.find({ userId, isPaid: false, isShipped: false, isDelivered: false, isCancel: false });
 
         let message = cartItems.length === 0 ? "Your cart is empty" : "Fetched cart items";
 

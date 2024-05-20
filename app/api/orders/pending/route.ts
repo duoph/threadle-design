@@ -11,7 +11,7 @@ export async function GET() {
 
         connectMongoDB()
 
-        const pendingOrders = await CartModel.find({ isPaid: true, isShipped: false, isCancel: false }).sort({ orderedAt: -1 })
+        const pendingOrders = await CartModel.find({ isPaid: true, isShipped: false, isDelivered: false, isCancel: false })
 
         if (pendingOrders) {
 

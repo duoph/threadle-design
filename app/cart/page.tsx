@@ -142,7 +142,7 @@ const CartPage = () => {
       const order = res.data.order
       const options = {
         order_id: order?.id,
-        name: 'Threadles Design',
+        name: 'Threadle Designs',
         description: ["fesf", "fesfsfa", "frafdg", "gararga"],
         image: "/td.png",
         theme: "#231f20",

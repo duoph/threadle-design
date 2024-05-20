@@ -279,7 +279,7 @@ const ProductPage = () => {
       const order = res.data.order
       const options = {
         order_id: order?.id,
-        name: 'Threadles Design',
+        name: 'Threadle Designs',
         image: "/td.png",
         theme: "green",
         handler: function (response: any) {
