@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useRouter } from 'next/navigation';
 import OrderDisplayCard from '@/components/OrderDisplayCard';
 import { Cart } from '@/types';
 import { PulseLoader } from 'react-spinners';
