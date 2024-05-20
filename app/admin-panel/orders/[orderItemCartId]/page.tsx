@@ -285,10 +285,13 @@ const OrderDetailsPage = () => {
                     </div>
                 </div>)
                 }
-                {
-                    !isLoading && (
-                        <div className="font-light flex flex-col md:flex-row gap-2">
-                            {/* {order?.isShipped && order?.isPaid && !order?.isDelivered && (
+
+                <div>
+
+                    {
+                        !isLoading && (
+                            <div className="font-light flex flex-col md:flex-row gap-2">
+                                {/* {order?.isShipped && order?.isPaid && !order?.isDelivered && (
                                 <div className="w-full">
                                     <button className="flex items-center justify-center gap-2 bg-red-600 px-3 py-3 text-white w-full md:w-[1/2] rounded-md" onClick={handleShippmentCancel}>
                                         Cancel Shipment
@@ -296,27 +299,27 @@ const OrderDetailsPage = () => {
                                     </button>
                                 </div>
                             )} */}
-                            {!order?.isShipped && !order?.isDelivered && !order?.isCancel && (
-                                <div className="w-full">
-                                    <button className="bg-td-secondary px-3 py-3 text-white w-full md:w-[1/2] rounded-md" onClick={handleShippmentConfirm}>
-                                        Shipping Confirm
-                                        <CiDeliveryTruck />
-                                    </button>
-                                </div>
-                            )}
+                                {!order?.isShipped && !order?.isDelivered && !order?.isCancel && (
+                                    <div className="w-full">
+                                        <button className="bg-td-secondary flex items-center justify-center gap-2  px-3 py-3 text-white w-full md:w-[1/2] rounded-md" onClick={handleShippmentConfirm}>
+                                            Shipping Confirm
+                                            <CiDeliveryTruck />
+                                        </button>
+                                    </div>
+                                )}
 
 
 
 
-                            {order?.isShipped && order?.isPaid && !order?.isDelivered && (
-                                <div className="w-full">
-                                    <button className="bg-td-secondary flex items-center justify-center gap-2  px-3 py-3 text-white w-full md:w-[1/2] rounded-md" onClick={handleDeliveredConfirm}>
-                                        Confirm Delivery
-                                        <PiPackageThin />
-                                    </button>
-                                </div>
-                            )}
-                            {/* {order?.isShipped && order?.isPaid && order?.isDelivered && (
+                                {order?.isShipped && order?.isPaid && !order?.isDelivered && (
+                                    <div className="w-full">
+                                        <button className="bg-td-secondary flex items-center justify-center gap-2  px-3 py-3 text-white w-full md:w-[1/2] rounded-md" onClick={handleDeliveredConfirm}>
+                                            Confirm Delivery
+                                            <PiPackageThin />
+                                        </button>
+                                    </div>
+                                )}
+                                {/* {order?.isShipped && order?.isPaid && order?.isDelivered && (
                                 <div className="w-full">
                                     <button className="flex items-center justify-center gap-2  bg-red-600 px-3 py-3 text-white w-full md:w-[1/2] rounded-md" onClick={handleDeliveredCancel}>
                                         Cancel Delivery
@@ -325,24 +328,26 @@ const OrderDetailsPage = () => {
                                 </div>
                             )} */}
 
-                            {!order?.isCancel && (
-                                <div className="w-full">
-                                    <button className="bg-red-600  px-3 py-3 text-white w-full md:w-[1/2] rounded-md flex items-center justify-center gap-2 " onClick={handleOrderCancel}>
-                                        Cancel Order
-                                        <CiShoppingCart />
-                                    </button>
-                                </div>
-                            )}
+                                {!order?.isCancel && (
+                                    <div className="w-full">
+                                        <button className="bg-red-600  px-3 py-3 text-white w-full md:w-[1/2] rounded-md flex items-center justify-center gap-2 " onClick={handleOrderCancel}>
+                                            Cancel Order
+                                            <CiShoppingCart />
+                                        </button>
+                                    </div>
+                                )}
 
-                            {/* {order?.isCancel === false && (
+                                {/* {order?.isCancel === false && (
                                 <div className="w-full">
                                     <button className="bg-red-600 px-3 py-3 text-white w-full md:w-[1/2] rounded-md" onClick={handleDeliveredCancel}>Ca</button>
                                 </div>
                             )} */}
 
-                        </div>
-                    )
-                }
+                            </div>
+                        )
+                    }
+                </div>
+
 
                 {isLoading && (<div className="w-full">
                     <button className="bg-td-secondary px-3 py-3 text-white w-full md:w-[1/2] rounded-md">
