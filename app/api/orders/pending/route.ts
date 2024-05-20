@@ -1,3 +1,4 @@
+import connectMongoDB from "@/libs/db";
 import CartModel from "@/models/cartItemModel";
 
 import { NextResponse } from "next/server";
@@ -5,6 +6,9 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
     try {
+
+        connectMongoDB()
+
         const pendingOrders = await CartModel.aggregate([
             {
                 $match: {
