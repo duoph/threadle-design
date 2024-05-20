@@ -1,9 +1,12 @@
 import { getDataFromToken } from "@/helpers/getDataFromToken";
+import connectMongoDB from "@/libs/db";
 import CartModel from "@/models/cartItemModel";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET() {
     try {
+        connectMongoDB()
+
         const deliveredOrders = await CartModel.find({ isPaid: true, isShipped: true, isDelivered: true })
         return NextResponse.json({ message: " fetched the delivered orders", deliveredOrders });
 
@@ -15,6 +18,7 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
     try {
+        connectMongoDB()
 
         const { cartId } = await req.json()
 

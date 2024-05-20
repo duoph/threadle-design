@@ -5,6 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function PUT(req: NextRequest, { params }: any) {
     try {
+        connectMongoDB()
 
         const userId = params.userId;
 

@@ -1,10 +1,13 @@
 import { sendSMS } from "@/actions/actionSMS";
 import { getDataFromToken } from "@/helpers/getDataFromToken";
+import connectMongoDB from "@/libs/db";
 import CartModel from "@/models/cartItemModel";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET() {
+
     try {
+        connectMongoDB()
         const shippedOrders = await CartModel.find({ isPaid: true, isShipped: true, isDelivered: false })
         return NextResponse.json({ message: " fetched the shipped orders", shippedOrders });
     } catch (error) {
@@ -17,6 +20,7 @@ export async function GET() {
 // mark as shipped
 export async function POST(req: NextRequest) {
     try {
+        connectMongoDB()
 
         const { cartId } = await req.json()
 
@@ -41,6 +45,7 @@ export async function POST(req: NextRequest) {
 // cancel shipping
 export async function PUT(req: NextRequest) {
     try {
+        connectMongoDB()
 
         const { cartId } = await req.json()
 
