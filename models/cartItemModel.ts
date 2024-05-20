@@ -56,6 +56,6 @@ const cartItemSchema = new Schema<CartItemProps>({
     deliverySlipURL: { type: String || undefined, required: false }
 }, { timestamps: true });
 
-const CartModel = mongoose.models.cart || mongoose.model<CartItemProps>('cart', cartItemSchema);
+const CartModel = mongoose.models.cart  || mongoose.model<CartItemProps>('cart', cartItemSchema);
 
 export default CartModel;

@@ -29,6 +29,7 @@ const EditProduct = () => {
     const [categoryId, setCategoryId] = useState<string>("")
     const [categoryName, setCategoryName] = useState<string>("")
     const [tags, setTags] = useState<string>("")
+    const [isCustomPrice, setIsCustomPrice] = useState<boolean>()
 
     const [hexCode, setHexCode] = useState("")
     const [colorCodes, setColorCodes] = useState<string[]>([]);
@@ -40,7 +41,7 @@ const EditProduct = () => {
         try {
             const response = await axios.get(`/api/product/${productId}`)
             console.log(response.data.product)
-            const { title, desc, regularPrice, salePrice, inStock, categoryId, categoryName, colors, tags, isFeatured } = response.data.product;
+            const { title, desc, regularPrice, salePrice, inStock, categoryId, categoryName, colors, tags, isFeatured, isCustom } = response.data.product;
             setProductTitle(title);
             setProductDesc(desc);
 
@@ -50,6 +51,7 @@ const EditProduct = () => {
             setCategoryId(categoryId);
             setColorCodes(colors)
             setTags(tags)
+            setIsCustomPrice(isCustom)
             if (regularPrice) {
                 setRegularPrice(regularPrice);
             }
@@ -254,7 +256,7 @@ const EditProduct = () => {
                 </div>
             )}
 
-            <div className="flex flex-row gap-1 w-full">
+            {!isCustomPrice && <div className="flex flex-row gap-1 w-full">
                 <div className="flex flex-col w-1/2">
                     <label htmlFor="title" className="font-semibold">Regular Price</label>
                     <input type="number" value={regularPrice} onChange={(e) => setRegularPrice(e.target.value)} className="bg-gray-200 px-5 py-3 rounded-md" id="title" />
@@ -263,7 +265,7 @@ const EditProduct = () => {
                     <label htmlFor="title" className="font-semibold">Sale Price(Optional)</label>
                     <input type="number" value={salePrice} onChange={(e) => setSalePrice(e.target.value)} className="bg-gray-200 px-5 py-3 rounded-md" id="title" />
                 </div>
-            </div>
+            </div>}
 
             <div className="flex flex-col gap-1">
                 <label htmlFor="category" className="font-semibold">Category</label>
@@ -293,6 +295,7 @@ const EditProduct = () => {
                     <label htmlFor="inStock">Yes</label>
                 </div>
             </div>
+            
 
             <div className="flex flex-col gap-1">
                 <label htmlFor="isFeatured" className="font-semibold">Display on featured</label>
