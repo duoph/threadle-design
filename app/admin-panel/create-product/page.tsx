@@ -29,7 +29,7 @@ const CreateProduct = () => {
     const [image4, setImage4] = useState<string | null>("");
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [moreImages, setMoreImages] = useState([]);
-    const [inStock, setInStock] = useState("");
+    const [inStock, setInStock] = useState("yes");
     const [isFeatured, setIsFeatured] = useState("");
 
     const [hexCode, setHexCode] = useState("")
