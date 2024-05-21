@@ -33,6 +33,7 @@ function generateUniqueFileName(originalFileName: string) {
     const timestamp = new Date().getTime();
     const randomString = Math.random().toString(36).substring(7);
     const sanitizedFileName = sanitizeFileName(originalFileName);
+    
     const uniqueFileName = `${timestamp}_${randomString}_${sanitizedFileName}`;
     return uniqueFileName;
 }
