@@ -24,7 +24,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
 
-  connectMongoDB()
 
   return (
     <html lang="en">

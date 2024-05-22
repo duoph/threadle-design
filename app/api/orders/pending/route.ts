@@ -21,7 +21,6 @@ export async function GET() {
             {
                 $sort: {
                     orderDate: -1,
-                    userId: 1,
                 }
             }
         ]);

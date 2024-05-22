@@ -22,12 +22,7 @@ const Orders = () => {
     const fetchOrders = async () => {
         try {
             setIsLoading(true);
-            const response = await axios.get(`/api/orders/${selectedOrderType}`, {
-                headers: {
-                    'Cache-Control': 'no-store',
-                },
-                withCredentials: true,
-            });
+            const response = await axios.get(`/api/orders/${selectedOrderType}`);
             const fetchedOrders = response.data[selectedOrderType + 'Orders'] || [];
             setOrders(fetchedOrders);
         } catch (error) {
