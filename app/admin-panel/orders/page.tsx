@@ -7,6 +7,9 @@ import { Cart } from '@/types';
 import { PulseLoader } from 'react-spinners';
 import { CiSearch } from 'react-icons/ci';
 
+
+const revalidate = 3000
+
 const Orders = () => {
 
     const [selectedOrderType, setSelectedOrderType] = useState<string>('pending');
@@ -22,7 +25,7 @@ const Orders = () => {
                 headers: {
                     'Cache-Control': 'no-store',
                 },
-                withCredentials: true, 
+                withCredentials: true,
             });
             const fetchedOrders = response.data[selectedOrderType + 'Orders'] || [];
             setOrders(fetchedOrders);

@@ -28,15 +28,3 @@ export async function POST(req: NextRequest) {
     }
 }
 
-
-
-
-// export async function POST(req: NextRequest) {
-//     try {
-//         const body = await req.json();
-//         return NextResponse.json({ msg: body });
-//     } catch (error) {
-//         console.error(error);
-//         return NextResponse.json(new Error("Failed to parse request body"));
-//     }
-// }
