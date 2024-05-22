@@ -7,23 +7,21 @@ import { Cart } from '@/types';
 import { PulseLoader } from 'react-spinners';
 import { CiSearch } from 'react-icons/ci';
 
-
-export const revalidate = 3000
-
-
 const Orders = () => {
-
     const [selectedOrderType, setSelectedOrderType] = useState<string>('pending');
     const [orders, setOrders] = useState<Cart[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [search, setSearch] = useState<string>('');
 
-
     const fetchOrders = async () => {
         try {
             setIsLoading(true);
-            const response = await axios.get(`/api/orders/${selectedOrderType}`);
-            const fetchedOrders = response.data[selectedOrderType + 'Orders'] || [];
+            const response = await axios.get(`/api/orders/${selectedOrderType}`, {
+                headers: {
+                    'Cache-Control': 'no-store',
+                },
+            });
+            const fetchedOrders = response.data.pendingOrders || [];
             setOrders(fetchedOrders);
         } catch (error) {
             console.error("Error fetching orders:", error);
@@ -35,6 +33,7 @@ const Orders = () => {
     useEffect(() => {
         fetchOrders();
     }, [selectedOrderType]);
+
     const filteredOrders = orders.filter(order =>
         order.customerName?.toLowerCase().includes(search.toLowerCase()) ||
         order.title?.toLowerCase().includes(search.toLowerCase()) ||
@@ -94,7 +93,6 @@ const Orders = () => {
                         <PulseLoader />
                     </div>
                 </div>
-
             ) : (
                 <div className="flex flex-col border rounded-md py-5 px-3 w-full gap-[10px] min-h-[70vh]">
                     <div className="flex items-center justify-between border-b-2 px-2">
@@ -104,7 +102,6 @@ const Orders = () => {
                     {filteredOrders.length === 0 && (
                         <div className="flex items-center justify-center w-full h-full">No Orders Available</div>
                     )}
-
                     {filteredOrders.map((order, i) => (
                         <OrderDisplayCard key={i} order={order} />
                     ))}
