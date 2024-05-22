@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import { Toaster } from "react-hot-toast";
 import { UserProvider } from "@/context/useUser";
 import ProgressBar from "@/components/ProgressBar";
+import connectMongoDB from "@/libs/db";
 
 
 
@@ -22,6 +23,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  connectMongoDB()
+
   return (
     <html lang="en">
       <head>
