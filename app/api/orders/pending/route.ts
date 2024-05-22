@@ -9,31 +9,11 @@ export async function GET() {
 
         connectMongoDB()
 
-        const pendingOrders = await CartModel.aggregate([
-            {
-                $match: {
-                    isPaid: true,
-                    isShipped: false,
-                    isDelivered: false,
-                    isCancel: false
-                }
-            },
-            {
-                $sort: {
-                    orderDate: -1,
-                }
-            }
-        ]);
+        const pendingOrders = await CartModel.find({ isPaid: true, isShipped: false, isCancel: false })
 
         return NextResponse.json({
             message: "Fetched the pending orders",
             pendingOrders,
-        }, {
-            headers: {
-                'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
-                'Pragma': 'no-cache',
-                'Expires': '0',
-            },
         });
 
     } catch (error) {
