@@ -30,6 +30,9 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
     const handleDelete = async () => {
         try {
             const res = await axios.delete(`/api/product/${product._id}`)
+            if (res.data.success === true) {
+                toast.success("Deleted")
+            }
         } catch (error) {
             console.log(error)
         }

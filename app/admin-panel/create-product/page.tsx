@@ -17,7 +17,7 @@ const CreateProduct = () => {
 
     const [title, setTitle] = useState<string>("")
     const [desc, setDesc] = useState<string>("")
-    const [isCustom, setIsCustom] = useState<boolean>(true)
+    const [isCustom, setIsCustom] = useState<boolean>(false)
     const [categoryId, setCategoryId] = useState<string>("")
     const [regularPrice, setRegularPrice] = useState<string>("")
     const [salePrice, setSalePrice] = useState<string>("")
@@ -156,24 +156,30 @@ const CreateProduct = () => {
 
 
 
-
-
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         try {
             e.preventDefault();
 
 
-            // if (!title || !desc || !regularPrice || !coverImage || !image1 || !image2 || !image3 || !image4) {
-            //     return toast.error("Some fields are missig");
-            // }
+
+
+            if (!title || !desc || !coverImage || isCustom === false && !regularPrice) {
+
+
+                if (isCustom === false && !regularPrice) {
+                    return toast.error("Add price");
+                }
+
+                if (!coverImage) {
+                    return toast.error("Add Cover Image");
+                }
+
+                return toast.error("Some fields are missig");
+            }
 
 
             setIsLoading(true)
             const formData = new FormData();
-
-            // Find the category based on categoryId
-
-
 
 
             formData.append("title", title);
@@ -393,7 +399,7 @@ const CreateProduct = () => {
                         {!image1 && (
                             <label htmlFor="image1" className="font-semibold w-full h-full flex flex-col items-center justify-center cursor-pointer">
                                 <CiSquarePlus size={20} />
-                                
+
                             </label>
                         )}
                         {image1 && (
@@ -426,7 +432,7 @@ const CreateProduct = () => {
                         {!image3 && (
                             <label htmlFor="image3" className="font-semibold w-full h-full flex flex-col items-center justify-center cursor-pointer">
                                 <CiSquarePlus size={20} />
-                                
+
                             </label>
                         )}
                         {image3 && (
@@ -442,7 +448,7 @@ const CreateProduct = () => {
                         {!image4 && (
                             <label htmlFor="image4" className="font-semibold w-full h-full flex flex-col items-center justify-center cursor-pointer ">
                                 <CiSquarePlus size={20} />
-                                
+
                             </label>
                         )}
                         {image4 && (
@@ -458,7 +464,7 @@ const CreateProduct = () => {
                         {!image5 && (
                             <label htmlFor="image5" className="font-semibold w-full h-full flex flex-col items-center justify-center cursor-pointer">
                                 <CiSquarePlus size={20} />
-                                
+
                             </label>
                         )}
                         {image5 && (
@@ -474,7 +480,7 @@ const CreateProduct = () => {
                         {!image6 && (
                             <label htmlFor="image6" className="font-semibold w-full h-full flex flex-col items-center justify-center cursor-pointer">
                                 <CiSquarePlus size={20} />
-                                
+
                             </label>
                         )}
                         {image6 && (
@@ -489,7 +495,7 @@ const CreateProduct = () => {
                         {!image7 && (
                             <label htmlFor="image7" className="font-semibold w-full h-full flex flex-col items-center justify-center cursor-pointer">
                                 <CiSquarePlus size={20} />
-                                
+
                             </label>
                         )}
                         {image7 && (
@@ -505,7 +511,7 @@ const CreateProduct = () => {
                         {!image8 && (
                             <label htmlFor="image8" className="font-semibold w-full h-full flex flex-col items-center justify-center cursor-pointer">
                                 <CiSquarePlus size={20} />
-                                
+
                             </label>
                         )}
                         {image8 && (
@@ -521,7 +527,7 @@ const CreateProduct = () => {
                         {!image9 && (
                             <label htmlFor="image9" className="font-semibold w-full h-full flex flex-col items-center justify-center cursor-pointer">
                                 <CiSquarePlus size={20} />
-                                
+
                             </label>
                         )}
                         {image9 && (
@@ -537,7 +543,7 @@ const CreateProduct = () => {
                         {!image10 && (
                             <label htmlFor="image10" className="font-semibold w-full h-full flex flex-col items-center justify-center cursor-pointer">
                                 <CiSquarePlus size={20} />
-                                
+
                             </label>
                         )}
                         {image10 && (
@@ -550,17 +556,17 @@ const CreateProduct = () => {
                     </div>
 
                 </div>
-                <div>
-
+                <div className="flex items-center justify-center flex-col py-5">
+                    <button disabled={isLoading} type="submit" className=" flex items-center justify-center h-10 px-5 py-3 bg-td-secondary text-white rounded-md font-semibold sm:w-[200px] w-full">
+                        {isLoading && (
+                            <PulseLoader color="white" className="text-white" />
+                        )}
+                        {!isLoading && (
+                            <span className="text-[15px] w-full">Create Product</span>
+                        )}
+                    </button>
                 </div>
-                <button type="submit" className=" flex items-center justify-center h-10 px-5 py-3 bg-td-secondary text-white rounded-md font-semibold w-full">
-                    {isLoading && (
-                        <PulseLoader color="#ffffff" size={15} />
-                    )}
-                    {!isLoading && (
-                        <span className="text-[15px] w-full">Create Product</span>
-                    )}
-                </button>
+
             </form >
         </div >
 

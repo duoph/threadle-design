@@ -24,6 +24,9 @@ const Header = () => {
 
     const pathname = usePathname()
 
+    const href = pathname === '/admin-panel/orders' ? pathname : '/';
+
+
     useEffect(() => {
         cartItemCountFetch();
     }, []);
@@ -32,18 +35,17 @@ const Header = () => {
     return (
         <>
             <div className='bg-td-secondary flex h-[80px] items-center justify-between px-3 lg:px-10 w-full fixed top-0 z-[500] shadow-xl'>
-                <Link href={"/"} className='relative w-[70px] h-[70px]' >
+                <Link href={href} className='relative w-[70px] h-[70px]'>
                     <Image priority={true} src={'/td-white.png'} alt='Threadle Design' fill={true} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
                 </Link>
                 <div className='flex items-center justify-center gap-2'>
-
                     {currentUser?.token && currentUser?.isAdmin !== true && (
                         <div className='cursor-pointer text-white flex items-center justify-center gap-3'>
                             <div className='relative  cursor-pointer'>
                                 <Link href={"/cart"} >
                                     <span className='absolute p-1 px-2 text-xs bg-red-800 rounded-full -right-2 -top-2 text-white'>{cartCount || "0"}</span>
                                     <CiShoppingCart className='text-white ' size={24} />
-                                </Link> 
+                                </Link>
 
                             </div>
                             <Link href={"/shop"} >
