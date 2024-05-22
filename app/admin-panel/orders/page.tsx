@@ -8,7 +8,8 @@ import { PulseLoader } from 'react-spinners';
 import { CiSearch } from 'react-icons/ci';
 
 
-const revalidate = 3000
+export const revalidate = 3000
+
 
 const Orders = () => {
 
