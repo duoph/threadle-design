@@ -24,6 +24,13 @@ export async function POST(req: NextRequest) {
         const image2 = formData.get("image2") as Blob;
         const image3 = formData.get("image3") as Blob;
         const image4 = formData.get("image4") as Blob;
+        const image5 = formData.get("image5") as Blob;
+        const image6 = formData.get("image6") as Blob;
+        const image7 = formData.get("image7") as Blob;
+        const image8 = formData.get("image8") as Blob;
+        const image9 = formData.get("image9") as Blob;
+        const image10 = formData.get("image10") as Blob;
+
         const salePrice = formData.get("salePrice") || undefined;
 
         const colorCodesString: any = formData.get("colorCodes") || '';
@@ -44,27 +51,19 @@ export async function POST(req: NextRequest) {
         const slugifyProductName = slugify(title as string, { lower: true });
 
         const imageUrls = [];
-        if (image1 instanceof Blob) { // Check if it's Blob
-            imageUrls.push(
-                await uploadFileToS3(Buffer.from(await image1.arrayBuffer()), slugifyProductName + "-image1")
-            );
-        }
-        if (image2 instanceof Blob) {
-            imageUrls.push(
-                await uploadFileToS3(Buffer.from(await image2.arrayBuffer()), slugifyProductName + "-image2")
-            );
-        }
-        if (image3 instanceof Blob) {
-            imageUrls.push(
-                await uploadFileToS3(Buffer.from(await image3.arrayBuffer()), slugifyProductName + "-image3")
-            );
-        }
-        if (image4 instanceof Blob) {
-            imageUrls.push(
-                await uploadFileToS3(Buffer.from(await image4.arrayBuffer()), slugifyProductName + "-image4")
-            );
+
+        const imageBlobs = [image1, image2, image3, image4, image5, image6, image7, image8, image9, image10];
+
+        for (let i = 0; i < imageBlobs.length; i++) {
+            const imageBlob = imageBlobs[i] as Blob;
+            if (imageBlob instanceof Blob) {
+                const imageBuffer = Buffer.from(await imageBlob.arrayBuffer());
+                const imageUrl: any = await uploadFileToS3(imageBuffer, `${slugifyProductName}-image${i + 1}`);
+                imageUrls.push(imageUrl.s3Url);
+            }
         }
 
+        console.log("Image URLs:", imageUrls);
 
 
         await ProductModel.create({
@@ -78,7 +77,7 @@ export async function POST(req: NextRequest) {
             tags,
             isCustom: isCustom === "true" ? true : false,
             slugifyProductName,
-            moreImagesURLs: imageUrls?.map((result: any) => result.s3Url),
+            moreImagesURLs: imageUrls?.map((result: any) => result),
             colors: colorCodes || [],
             inStock: inStock === "yes" ? true : false,
             isFeatured: isFeatured === "yes" ? true : false

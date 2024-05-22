@@ -23,10 +23,17 @@ const CreateProduct = () => {
     const [salePrice, setSalePrice] = useState<string>("")
     const [tags, setTags] = useState<string>("")
     const [coverImage, setCoverImage] = useState<string | null>(null);
-    const [image1, setImage1] = useState<string | null>("")
+    const [image1, setImage1] = useState<string | null>("");
     const [image2, setImage2] = useState<string | null>("");
     const [image3, setImage3] = useState<string | null>("");
     const [image4, setImage4] = useState<string | null>("");
+    const [image5, setImage5] = useState<string | null>("");
+    const [image6, setImage6] = useState<string | null>("");
+    const [image7, setImage7] = useState<string | null>("");
+    const [image8, setImage8] = useState<string | null>("");
+    const [image9, setImage9] = useState<string | null>("");
+    const [image10, setImage10] = useState<string | null>("");
+
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [moreImages, setMoreImages] = useState([]);
     const [inStock, setInStock] = useState("yes");
@@ -59,7 +66,7 @@ const CreateProduct = () => {
                 } else {
                     toast.success("Color Added");
                     setColorCodes(prevColorCodes => [...prevColorCodes, hexCode]);
-                    setHexCode(""); // Clear the hexCode if it's valid
+                    setHexCode("");
                 }
             } else {
                 toast.error("Invalid hex code");
@@ -107,6 +114,30 @@ const CreateProduct = () => {
                     break;
                 case 4:
                     setImage4(imageUrl);
+                    setMoreImages((prev) => ({ ...prev, imageUrl }));
+                    break;
+                case 5:
+                    setImage5(imageUrl);
+                    setMoreImages((prev) => ({ ...prev, imageUrl }));
+                    break;
+                case 6:
+                    setImage6(imageUrl);
+                    setMoreImages((prev) => ({ ...prev, imageUrl }));
+                    break;
+                case 7:
+                    setImage7(imageUrl);
+                    setMoreImages((prev) => ({ ...prev, imageUrl }));
+                    break;
+                case 8:
+                    setImage8(imageUrl);
+                    setMoreImages((prev) => ({ ...prev, imageUrl }));
+                    break;
+                case 9:
+                    setImage9(imageUrl);
+                    setMoreImages((prev) => ({ ...prev, imageUrl }));
+                    break;
+                case 10:
+                    setImage10(imageUrl);
                     setMoreImages((prev) => ({ ...prev, imageUrl }));
                     break;
                 default:
@@ -177,15 +208,17 @@ const CreateProduct = () => {
             }
 
             // Handle all images in a loop
-            const imageFields = ["coverImage", "image1", "image2", "image3", "image4"];
+            const imageFields = ["coverImage", "image1", "image2", "image3", "image4", "image5", "image6", "image7", "image8", "image9", "image10"];
+
             for (const fieldName of imageFields) {
-                const imageUrl = (fieldName === "coverImage") ? coverImage : (fieldName === "image1") ? image1 : (fieldName === "image2") ? image2 : (fieldName === "image3") ? image3 : image4;
+                const imageUrl = (fieldName === "coverImage") ? coverImage : (fieldName === "image1") ? image1 : (fieldName === "image2") ? image2 : (fieldName === "image3") ? image3 : (fieldName === "image4") ? image4 : (fieldName === "image5") ? image5 : (fieldName === "image6") ? image6 : (fieldName === "image7") ? image7 : (fieldName === "image8") ? image8 : (fieldName === "image9") ? image9 : image10;
 
                 if (imageUrl) {
                     const imageFile = await fetch(imageUrl).then((res) => res.blob());
                     formData.append(fieldName, imageFile);
                 }
             }
+
 
             const response = await axios.post('/api/product', formData);
 
@@ -217,7 +250,7 @@ const CreateProduct = () => {
 
         <div className='flex flex-col gap-3 py-5 md:px-10 px-5 w-full'>
             <div className='flex gap-2 items-center justify-start'>
-                <IoMdArrowBack className="cursor-pointer hover:scale-110" onClick={() => router.back()} size={24} />
+                <IoMdArrowBack className="cursor-pointer hover:scale-110" onClick={() => router.back()} size={20} />
                 <h1 className='text-center text-[25px] md:text-[35px] font-bold text-3xl'>Create new Product</h1>
             </div>
 
@@ -259,7 +292,7 @@ const CreateProduct = () => {
                         {colorCodes.map((color, i) =>
                         (
                             <span onClick={() => handleRemoveColor(color)} key={i} style={{ background: color }} className={`relative cursor-pointer h-[35px] w-[35px] rounded-[50%] flex items-center justify-center shadow-lg`}>
-                                {/* <IoMdClose size={24} /> */}
+                                {/* <IoMdClose size={20} /> */}
                             </span>
                         ))}
 
@@ -327,101 +360,200 @@ const CreateProduct = () => {
                     </div>
                 </div>
 
+                <div className="flex flex-col gap-1 w-full">
+                    <label htmlFor="tags" className="font-semibold">Tags</label>
+                    <input value={tags} onChange={(e) => setTags(e.target.value)} className="bg-gray-200 px-5 py-3 rounded-md" type="text" id="tags" />
+                </div>
+
+
                 <h1 className="text-[15px] font-semibold">Cover Image</h1>
                 <div className="flex flex-col gap-2 items-center justify-center ">
-                    <div className="relative flex flex-col items-center justify-center gap-1 border rounded-md w-[300px] h-[300px] overflow-hidden shadow-xl">
+                    <div className="relative flex flex-col items-center justify-center gap-1 border rounded-md w-[100px] h-[100px] overflow-hidden shadow-md">
                         {!coverImage && (
                             <label htmlFor="coverImage" className="font-semibold w-full h-full flex flex-col items-center justify-center">
-                                <CiSquarePlus size={24} />
-                                <span className="text-sm text-gray-500">Add Cover Image</span>
+                                <CiSquarePlus size={20} />
+                                <span className="text-sm text-gray-500">Cover Image</span>
                             </label>
                         )}
                         {coverImage && (
-
-                            <Image className="rounded-md -z-10" src={coverImage} alt="Image" height={350} width={350} />
-
+                            <Image className="rounded-md -z-10" src={coverImage} alt="Image" fill={true} />
                         )}
                         <input type="file" className="hidden" id="coverImage" onChange={(e) => handleDisplayImage(e, 0)} />
                         {coverImage && (
-                            <MdDelete onClick={() => setCoverImage("")} className="bg-red-500 rounded-md z-10 text-white cursor-pointer absolute bottom-3 w-[36px] h-[36px]" size={24} />
+                            <MdDelete onClick={() => setCoverImage("")} className="bg-red-500 rounded-md z-10 text-white cursor-pointer absolute bottom-3" size={20} />
                         )}
                     </div>
+
                 </div>
+
+
                 <h1 className="text-[15px] font-semibold">More Images</h1>
                 <div className="flex md:flex-row flex-row flex-wrap items-center justify-center gap-2">
-                    <div className="relative flex flex-col items-center justify-center gap-1 border rounded-md w-[300px] h-[300px] overflow-hidden shadow-xl">
+                    <div className="relative flex flex-col items-center justify-center gap-1 border rounded-md w-[100px] h-[100px] overflow-hidden shadow-md">
                         {!image1 && (
                             <label htmlFor="image1" className="font-semibold w-full h-full flex flex-col items-center justify-center cursor-pointer">
-                                <CiSquarePlus size={24} />
-                                <span className="text-sm text-gray-500">Add Image</span>
+                                <CiSquarePlus size={20} />
+                                
                             </label>
                         )}
                         {image1 && (
-                            <Image className="rounded-md" src={image1} alt="Image" height={350} width={350} />
+                            <Image className="rounded-md" src={image1} alt="Image" fill={true} />
                         )}
                         <input type="file" className="hidden" id="image1" onChange={(e) => handleDisplayImage(e, 1)} />
                         {image1 && (
-                            <MdDelete onClick={() => setImage1("")} className="bg-red-500 rounded-md z-10 text-white cursor-pointer absolute bottom-3 w-[36px] h-[36px]" size={24} />
+                            <MdDelete onClick={() => setImage1("")} className="bg-red-500 rounded-md z-10 text-white cursor-pointer absolute bottom-3 " size={20} />
                         )}
                     </div>
 
                     {/* {image1 && ( */}
-                    <div className="relative flex flex-col items-center justify-center gap-1 border rounded-md w-[300px] h-[300px] overflow-hidden shadow-xl ">
+                    <div className="relative flex flex-col items-center justify-center gap-1 border rounded-md w-[100px] h-[100px] overflow-hidden shadow-md ">
                         {!image2 && (
                             <label htmlFor="image2" className="font-semibold w-full h-full flex flex-col items-center justify-center cursor-pointer">
-                                <CiSquarePlus size={24} />
-                                <span className="text-sm text-gray-500">Add Image</span>
+                                <CiSquarePlus size={20} />
+                                <span className="text-sm text-gray-500"></span>
                             </label>
                         )}
                         {image2 && (
-                            <Image className="rounded-md" src={image2} alt="Image" height={350} width={350} />
+                            <Image className="rounded-md" src={image2} alt="Image" fill={true} />
                         )}
                         <input type="file" className="hidden" id="image2" onChange={(e) => handleDisplayImage(e, 2)} />
                         {image2 && (
-                            <MdDelete onClick={() => setImage2("")} className="bg-red-500 rounded-md z-10 text-white cursor-pointer absolute bottom-3 w-[36px] h-[36px]" size={24} />
+                            <MdDelete onClick={() => setImage2("")} className="bg-red-500 rounded-md z-10 text-white cursor-pointer absolute bottom-3 " size={20} />
                         )}
                     </div>
 
-                    <div className="relative flex flex-col items-center justify-center gap-1 border rounded-md w-[300px] h-[300px] overflow-hidden shadow-xl">
+                    <div className="relative flex flex-col items-center justify-center gap-1 border rounded-md w-[100px] h-[100px] overflow-hidden shadow-md">
                         {!image3 && (
                             <label htmlFor="image3" className="font-semibold w-full h-full flex flex-col items-center justify-center cursor-pointer">
-                                <CiSquarePlus size={24} />
-                                <span className="text-sm text-gray-500">Add Image</span>
+                                <CiSquarePlus size={20} />
+                                
                             </label>
                         )}
                         {image3 && (
-                            <Image className="rounded-md" src={image3} alt="Image" height={350} width={350} />
+                            <Image className="rounded-md" src={image3} alt="Image" fill={true} />
                         )}
                         <input type="file" className="hidden" id="image3" onChange={(e) => handleDisplayImage(e, 3)} />
                         {image3 && (
-                            <MdDelete onClick={() => setImage3("")} className="bg-red-500 rounded-md z-10 text-white cursor-pointer absolute bottom-3 w-[36px] h-[36px]" size={24} />
+                            <MdDelete onClick={() => setImage3("")} className="bg-red-500 rounded-md z-10 text-white cursor-pointer absolute bottom-3 " size={20} />
                         )}
                     </div>
 
-                    <div className="relative flex flex-col items-center justify-center gap-1 border rounded-md w-[300px] h-[300px] overflow-hidden shadow-xl">
+                    <div className="relative flex flex-col items-center justify-center gap-1 border rounded-md w-[100px] h-[100px] overflow-hidden shadow-md">
                         {!image4 && (
                             <label htmlFor="image4" className="font-semibold w-full h-full flex flex-col items-center justify-center cursor-pointer ">
-                                <CiSquarePlus size={24} />
-                                <span className="text-sm text-gray-500">Add Image</span>
+                                <CiSquarePlus size={20} />
+                                
                             </label>
                         )}
                         {image4 && (
-                            <Image className="rounded-md" src={image4} alt="Image" height={350} width={350} />
+                            <Image className="rounded-md" src={image4} alt="Image" fill={true} />
                         )}
                         <input type="file" className="hidden" id="image4" onChange={(e) => handleDisplayImage(e, 4)} />
                         {image4 && (
-                            <MdDelete onClick={() => setImage4("")} className="bg-red-500 rounded-md z-10 text-white cursor-pointer absolute bottom-3 w-[36px] h-[36px]" size={24} />
+                            <MdDelete onClick={() => setImage4("")} className="bg-red-500 rounded-md z-10 text-white cursor-pointer absolute bottom-3 " size={20} />
                         )}
                     </div>
-                    <div className="flex flex-col gap-1 w-full">
-                        <label htmlFor="tags" className="font-semibold">Tags</label>
-                        <input value={tags} onChange={(e) => setTags(e.target.value)} className="bg-gray-200 px-5 py-3 rounded-md" type="text" id="tags" />
+
+                    <div className="relative flex flex-col items-center justify-center gap-1 border rounded-md w-[100px] h-[100px] overflow-hidden shadow-md">
+                        {!image5 && (
+                            <label htmlFor="image5" className="font-semibold w-full h-full flex flex-col items-center justify-center cursor-pointer">
+                                <CiSquarePlus size={20} />
+                                
+                            </label>
+                        )}
+                        {image5 && (
+                            <Image className="rounded-md" src={image5} alt="Image" fill={true} />
+                        )}
+                        <input type="file" className="hidden" id="image5" onChange={(e) => handleDisplayImage(e, 5)} />
+                        {image5 && (
+                            <MdDelete onClick={() => setImage5("")} className="bg-red-500 rounded-md z-10 text-white cursor-pointer absolute bottom-3 " size={20} />
+                        )}
                     </div>
+
+                    <div className="relative flex flex-col items-center justify-center gap-1 border rounded-md w-[100px] h-[100px] overflow-hidden shadow-md">
+                        {!image6 && (
+                            <label htmlFor="image6" className="font-semibold w-full h-full flex flex-col items-center justify-center cursor-pointer">
+                                <CiSquarePlus size={20} />
+                                
+                            </label>
+                        )}
+                        {image6 && (
+                            <Image className="rounded-md" src={image6} alt="Image" fill={true} />
+                        )}
+                        <input type="file" className="hidden" id="image6" onChange={(e) => handleDisplayImage(e, 6)} />
+                        {image6 && (
+                            <MdDelete onClick={() => setImage6("")} className="bg-red-500 rounded-md z-10 text-white cursor-pointer absolute bottom-3 " size={20} />
+                        )}
+                    </div>
+                    <div className="relative flex flex-col items-center justify-center gap-1 border rounded-md w-[100px] h-[100px] overflow-hidden shadow-md">
+                        {!image7 && (
+                            <label htmlFor="image7" className="font-semibold w-full h-full flex flex-col items-center justify-center cursor-pointer">
+                                <CiSquarePlus size={20} />
+                                
+                            </label>
+                        )}
+                        {image7 && (
+                            <Image className="rounded-md" src={image7} alt="Image" fill={true} />
+                        )}
+                        <input type="file" className="hidden" id="image7" onChange={(e) => handleDisplayImage(e, 7)} />
+                        {image7 && (
+                            <MdDelete onClick={() => setImage7("")} className="bg-red-500 rounded-md z-10 text-white cursor-pointer absolute bottom-3 " size={20} />
+                        )}
+                    </div>
+
+                    <div className="relative flex flex-col items-center justify-center gap-1 border rounded-md w-[100px] h-[100px] overflow-hidden shadow-md">
+                        {!image8 && (
+                            <label htmlFor="image8" className="font-semibold w-full h-full flex flex-col items-center justify-center cursor-pointer">
+                                <CiSquarePlus size={20} />
+                                
+                            </label>
+                        )}
+                        {image8 && (
+                            <Image className="rounded-md" src={image8} alt="Image" fill={true} />
+                        )}
+                        <input type="file" className="hidden" id="image8" onChange={(e) => handleDisplayImage(e, 8)} />
+                        {image8 && (
+                            <MdDelete onClick={() => setImage8("")} className="bg-red-500 rounded-md z-10 text-white cursor-pointer absolute bottom-3 " size={20} />
+                        )}
+                    </div>
+
+                    <div className="relative flex flex-col items-center justify-center gap-1 border rounded-md w-[100px] h-[100px] overflow-hidden shadow-md">
+                        {!image9 && (
+                            <label htmlFor="image9" className="font-semibold w-full h-full flex flex-col items-center justify-center cursor-pointer">
+                                <CiSquarePlus size={20} />
+                                
+                            </label>
+                        )}
+                        {image9 && (
+                            <Image className="rounded-md" src={image9} alt="Image" fill={true} />
+                        )}
+                        <input type="file" className="hidden" id="image9" onChange={(e) => handleDisplayImage(e, 9)} />
+                        {image9 && (
+                            <MdDelete onClick={() => setImage9("")} className="bg-red-500 rounded-md z-10 text-white cursor-pointer absolute bottom-3 " size={20} />
+                        )}
+                    </div>
+
+                    <div className="relative flex flex-col items-center justify-center gap-1 border rounded-md w-[100px] h-[100px] overflow-hidden shadow-md">
+                        {!image10 && (
+                            <label htmlFor="image10" className="font-semibold w-full h-full flex flex-col items-center justify-center cursor-pointer">
+                                <CiSquarePlus size={20} />
+                                
+                            </label>
+                        )}
+                        {image10 && (
+                            <Image className="rounded-md" src={image10} alt="Image" fill={true} />
+                        )}
+                        <input type="file" className="hidden" id="image10" onChange={(e) => handleDisplayImage(e, 10)} />
+                        {image10 && (
+                            <MdDelete onClick={() => setImage10("")} className="bg-red-500 rounded-md z-10 text-white cursor-pointer absolute bottom-3 " size={20} />
+                        )}
+                    </div>
+
                 </div>
                 <div>
 
                 </div>
-                <button className=" flex items-center justify-center h-10 px-5 py-3 bg-td-secondary text-white rounded-md font-semibold w-full">
+                <button type="submit" className=" flex items-center justify-center h-10 px-5 py-3 bg-td-secondary text-white rounded-md font-semibold w-full">
                     {isLoading && (
                         <PulseLoader color="#ffffff" size={15} />
                     )}
