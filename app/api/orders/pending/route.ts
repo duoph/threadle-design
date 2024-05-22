@@ -25,7 +25,18 @@ export async function GET() {
                 }
             }
         ]);
-        return NextResponse.json({ message: "Fetched the shipped orders", pendingOrders });
+
+        return NextResponse.json({
+            message: "Fetched the pending orders",
+            pendingOrders,
+        }, {
+            headers: {
+                'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+                'Pragma': 'no-cache',
+                'Expires': '0',
+            },
+        });
+
     } catch (error) {
         console.error(error);
         return NextResponse.json(new Error("Error in fetching the shipped orders"));
