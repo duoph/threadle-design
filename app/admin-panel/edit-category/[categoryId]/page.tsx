@@ -138,8 +138,8 @@ const EditCategory = () => {
                 </div>
             </div>
             {/* Button */}
-            < div className="w-full flex items-center justify-center py-5" >
-                <button className=" flex items-center justify-center h-10 px-5 py-3 bg-td-secondary hover:bg-td-primary text-white rounded-2xl font-semibold w-full">
+            <div className="w-full flex items-center justify-center py-5" >
+                <button className=" flex items-center justify-center h-10 px-5 py-3 bg-td-secondary hover:bg-td-primary text-white rounded-2xl font-semibold sm:w-[200px] w-ful">
                     {isLoading && (
                         <PulseLoader color="#ffffff" size={15} />
                     )}
@@ -147,7 +147,7 @@ const EditCategory = () => {
                         <span onClick={handleSubmit} className="text-[15px] w-full">Update Category</span>
                     )}
                 </button>
-            </ div>
+            </div>
         </div >
     );
 }

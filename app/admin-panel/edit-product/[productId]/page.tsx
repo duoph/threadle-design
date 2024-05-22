@@ -320,7 +320,7 @@ const EditProduct = () => {
 
 
             < div className="w-full flex items-center justify-center py-5" >
-                <button onClick={handleSubmit} className=" flex items-center justify-center h-10 px-5 py-3 bg-td-secondary hover:bg-td-primary text-white rounded-md font-semibold w-full">
+                <button onClick={handleSubmit} className=" flex items-center justify-center h-10 px-5 py-3 bg-td-secondary hover:bg-td-primary text-white rounded-md font-semibold sm:w-[200px] w-ful">
                     {isLoading && (
                         <PulseLoader color="#ffffff" size={15} />
                     )}
