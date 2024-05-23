@@ -7,7 +7,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { MdDelete } from "react-icons/md";
 import toast from "react-hot-toast";
-import axios from "axios"; // Import Axios
+import axios from "axios";
 import { PulseLoader } from "react-spinners";
 import { Category } from "@/types";
 
@@ -198,13 +198,10 @@ const CreateProduct = () => {
 
             const selectedCategory = fetchedCategory?.find((category: any) => category._id === categoryId);
 
-            // Check if category is found
             if (selectedCategory) {
-                // If category is found, get categoryName
                 const { categoryName } = selectedCategory;
                 formData.append("categoryName", categoryName);
             } else {
-                // If category is not found, set categoryName as an empty string or handle it according to your requirement
                 formData.append("categoryName", "");
             }
 
@@ -231,10 +228,8 @@ const CreateProduct = () => {
 
             toast.success('Product created successfully!');
 
-            // Redirect to the product details page or any other desired page
             router.push(`/admin-panel/view-products`);
         } catch (error) {
-            // Handle error, show toast, or log the error
             console.error("Error creating product:", error);
             toast.error('Failed to create product. Please try again.');
         }

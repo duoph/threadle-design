@@ -13,7 +13,7 @@ export const revalidate = 3000
 
 const Orders = () => {
 
-    const [selectedOrderType, setSelectedOrderType] = useState<string>('pending');
+    const [selectedOrderType, setSelectedOrderType] = useState<string>('shipped');
     const [orders, setOrders] = useState<Cart[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [search, setSearch] = useState<string>('');
