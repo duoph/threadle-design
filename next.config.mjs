@@ -1,3 +1,5 @@
+// next.config.js
+
 /** @type {import('next').NextConfig} */
 module.exports = {
     images: {
@@ -7,7 +9,8 @@ module.exports = {
     async headers() {
         return [
             {
-                source: '/',
+                // Apply these headers to all routes (represented by the '*' wildcard)
+                source: '/(.*)',
                 headers: [
                     {
                         key: 'Cache-Control',
