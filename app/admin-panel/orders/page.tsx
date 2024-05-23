@@ -6,8 +6,8 @@ import OrderDisplayCard from '@/components/OrderDisplayCard';
 import { PulseLoader } from 'react-spinners';
 import { CiSearch } from 'react-icons/ci';
 
-export const fetchCache: string = 'force-no-store';
-export const revalidate: number = 100;
+export const fetchCache = 'force-no-store';
+export const revalidate = 100;
 
 type OrderStatus = 'pending' | 'shipped' | 'delivered' | 'cancel';
 
