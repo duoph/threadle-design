@@ -7,8 +7,8 @@ import { Cart } from '@/types';
 import { PulseLoader } from 'react-spinners';
 import { CiSearch } from 'react-icons/ci';
 
-// export const revalidate = 3000;
 export const fetchCache = 'force-no-store';
+export const revalidate = 1000;
 
 type OrderStatus = 'pending' | 'shipped' | 'delivered' | 'cancel';
 

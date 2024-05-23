@@ -13,7 +13,7 @@ import AdminSliderMenu from './Header/AdminSliderMenu';
 
 
 
-
+export const fetchCache = 'force-no-store';
 
 const Header = () => {
 
