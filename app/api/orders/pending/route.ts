@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
     try {
-        await connectMongoDB();
+        connectMongoDB();
         console.log('MongoDB connected');
 
         const pendingOrders = await CartModel.aggregate([
