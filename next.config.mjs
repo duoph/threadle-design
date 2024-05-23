@@ -1,23 +1,9 @@
-// next.config.js
-
 /** @type {import('next').NextConfig} */
-module.exports = {
+const nextConfig = {
     images: {
         domains: ["threadle-designs01.s3.amazonaws.com", "threadle-designs.s3.amazonaws.com"]
     },
-    reactStrictMode: true,
-    async headers() {
-        return [
-            {
-                // Apply these headers to all routes (represented by the '*' wildcard)
-                source: '/(.*)',
-                headers: [
-                    {
-                        key: 'Cache-Control',
-                        value: 's-maxage=1, stale-while-revalidate=59',
-                    },
-                ],
-            },
-        ];
-    },
+    generateEtags: false
 };
+
+export default nextConfig;
