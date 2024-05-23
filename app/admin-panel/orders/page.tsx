@@ -7,25 +7,47 @@ import { Cart } from '@/types';
 import { PulseLoader } from 'react-spinners';
 import { CiSearch } from 'react-icons/ci';
 
+export const revalidate = 3000;
 
-export const revalidate = 3000
-
+type OrderStatus = 'pending' | 'shipped' | 'delivered' | 'cancel';
 
 const Orders = () => {
-
-    const [selectedOrderType, setSelectedOrderType] = useState<string>('shipped');
-    const [orders, setOrders] = useState<Cart[]>([]);
+    const [selectedOrderType, setSelectedOrderType] = useState<OrderStatus>('pending');
+    const [orders, setOrders] = useState<{ [key in OrderStatus]: Cart[] }>({
+        pending: [],
+        shipped: [],
+        delivered: [],
+        cancel: [],
+    });
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [search, setSearch] = useState<string>('');
-
 
     const fetchOrders = async () => {
         try {
             setIsLoading(true);
-            const response = await axios.get(`/api/orders/${selectedOrderType}`);
-            console.log(response)
-            const fetchedOrders = response.data[selectedOrderType + 'Orders'] || [];
-            setOrders(fetchedOrders);
+            const response = await axios.get(`/api/orders`);
+            console.log(response);
+            const fetchedOrders: Cart[] = response.data.orders || [];
+            const categorizedOrders: { [key in OrderStatus]: Cart[] } = {
+                pending: [],
+                shipped: [],
+                delivered: [],
+                cancel: [],
+            };
+
+            fetchedOrders.forEach((order) => {
+                if (order.isPaid && !order.isShipped && !order.isDelivered && !order.isCancel) {
+                    categorizedOrders.pending.push(order);
+                } else if (order.isShipped && !order.isDelivered && !order.isCancel) {
+                    categorizedOrders.shipped.push(order);
+                } else if (order.isDelivered && !order.isCancel) {
+                    categorizedOrders.delivered.push(order);
+                } else if (order.isCancel) {
+                    categorizedOrders.cancel.push(order);
+                }
+            });
+
+            setOrders(categorizedOrders);
         } catch (error) {
             console.error("Error fetching orders:", error);
         } finally {
@@ -35,8 +57,9 @@ const Orders = () => {
 
     useEffect(() => {
         fetchOrders();
-    }, [selectedOrderType]);
-    const filteredOrders = orders.filter(order =>
+    }, []);
+
+    const filteredOrders = orders[selectedOrderType].filter(order =>
         order.customerName?.toLowerCase().includes(search.toLowerCase()) ||
         order.title?.toLowerCase().includes(search.toLowerCase()) ||
         order.phoneNumber?.toLowerCase().includes(search.toLowerCase()) ||
@@ -95,7 +118,6 @@ const Orders = () => {
                         <PulseLoader />
                     </div>
                 </div>
-
             ) : (
                 <div className="flex flex-col border rounded-md py-5 px-3 w-full gap-[10px] min-h-[70vh]">
                     <div className="flex items-center justify-between border-b-2 px-2">
