@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+module.exports = {
     images: {
         domains: ["threadle-designs01.s3.amazonaws.com", "threadle-designs.s3.amazonaws.com"]
     },
@@ -7,6 +7,7 @@ const nextConfig = {
     async headers() {
         return [
             {
+                source: '/',
                 headers: [
                     {
                         key: 'Cache-Control',
@@ -17,5 +18,3 @@ const nextConfig = {
         ];
     },
 };
-
-module.exports = nextConfig;
