@@ -9,7 +9,7 @@ export async function GET() {
         console.log('Orders fetched from DB:', orders); // Logging for debugging
 
         const response = NextResponse.json({ message: "Fetched all orders", orders });
-        response.headers.set('Cache-Control', 'no-store, max-age=0'); // Disable caching
+        response.headers.set('Cache-Control', 'force-no-store'); // Disable caching
         response.headers.set('Pragma', 'no-cache'); // Additional header for revalidation
         return response;
     } catch (error) {
