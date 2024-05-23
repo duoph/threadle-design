@@ -1,18 +1,15 @@
-"use client"
-
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import OrderDisplayCard from '@/components/OrderDisplayCard';
 import { Cart } from '@/types';
+import OrderDisplayCard from '@/components/OrderDisplayCard';
 import { PulseLoader } from 'react-spinners';
 import { CiSearch } from 'react-icons/ci';
 
-export const fetchCache = 'force-no-store';
-export const revalidate = 100
+export const fetchCache: string = 'force-no-store';
+export const revalidate: number = 100;
 
 type OrderStatus = 'pending' | 'shipped' | 'delivered' | 'cancel';
 
-const Orders = () => {
+const Orders: React.FC = () => {
     const [selectedOrderType, setSelectedOrderType] = useState<OrderStatus>('pending');
     const [orders, setOrders] = useState<{ [key in OrderStatus]: Cart[] }>({
         pending: [],
@@ -23,23 +20,23 @@ const Orders = () => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [search, setSearch] = useState<string>('');
 
-
     const fetchOrders = async () => {
         try {
             setIsLoading(true);
-            const response = await axios.get(`/api/orders`, {
+            const response = await fetch(`/api/orders`, {
                 headers: {
                     'Cache-Control': 'no-store',
                     'Pragma': 'no-cache',
                 },
             });
-            console.log(response);
-            const fetchedOrders: Cart[] = response.data.orders || [];
-            const categorizedOrders: { [key in OrderStatus]: Cart[] } = {
-                pending: [],
-                shipped: [],
-                delivered: [],
-                cancel: [],
+            const data = await response.json();
+            console.log(data);
+            const fetchedOrders: Cart[] = data.orders || []; // Use the Cart type
+            const categorizedOrders = {
+                pending: [] as Cart[],
+                shipped: [] as Cart[],
+                delivered: [] as Cart[],
+                cancel: [] as Cart[],
             };
 
             fetchedOrders.forEach((order) => {
@@ -61,8 +58,6 @@ const Orders = () => {
             setIsLoading(false);
         }
     };
-
-
 
     useEffect(() => {
         fetchOrders();
