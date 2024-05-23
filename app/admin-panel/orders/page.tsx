@@ -7,7 +7,7 @@ import { Cart } from '@/types';
 import { PulseLoader } from 'react-spinners';
 import { CiSearch } from 'react-icons/ci';
 
-export const revalidate = 3000;
+// export const revalidate = 3000;
 
 type OrderStatus = 'pending' | 'shipped' | 'delivered' | 'cancel';
 
@@ -28,8 +28,8 @@ const Orders = () => {
             setIsLoading(true);
             const response = await axios.get(`/api/orders`, {
                 headers: {
-                    'Cache-Control': 'no-cache', // Ensure no caching
-                    'Pragma': 'no-cache', // Additional header for revalidation
+                    'Cache-Control': 'no-cache', 
+                    'Pragma': 'no-cache', 
                 },
             });
             console.log(response);
