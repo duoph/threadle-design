@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
     try {
-        await connectMongoDB(); // Wait for MongoDB connection to be established
+        await connectMongoDB(); 
         const orders = await CartModel.find();
         console.log('Orders fetched from DB:', orders); // Logging for debugging
 
@@ -16,5 +16,5 @@ export async function GET() {
         console.error('Error in fetching all orders:', error);
         return NextResponse.json(new Error("Error in fetching all orders"));
     }
-    
+
 }
