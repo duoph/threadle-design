@@ -16,4 +16,5 @@ export async function GET() {
         console.error('Error in fetching all orders:', error);
         return NextResponse.json(new Error("Error in fetching all orders"));
     }
+    
 }
