@@ -22,10 +22,16 @@ const Orders = () => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [search, setSearch] = useState<string>('');
 
+
     const fetchOrders = async () => {
         try {
             setIsLoading(true);
-            const response = await axios.get(`/api/orders`);
+            const response = await axios.get(`/api/orders`, {
+                headers: {
+                    'Cache-Control': 'no-cache', // Ensure no caching
+                    'Pragma': 'no-cache', // Additional header for revalidation
+                },
+            });
             console.log(response);
             const fetchedOrders: Cart[] = response.data.orders || [];
             const categorizedOrders: { [key in OrderStatus]: Cart[] } = {
@@ -54,6 +60,8 @@ const Orders = () => {
             setIsLoading(false);
         }
     };
+
+
 
     useEffect(() => {
         fetchOrders();

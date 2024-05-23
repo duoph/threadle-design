@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 
 const connectMongoDB = async () => {
     try {
-        // Validate MongoDB URI
         const mongoURI = process.env.NEXT_PUBLIC_MONGO_URI;
         if (!mongoURI) {
             throw new Error("MongoDB URI is not provided. Please set NEXT_PUBLIC_MONGO_URI environment variable.");
