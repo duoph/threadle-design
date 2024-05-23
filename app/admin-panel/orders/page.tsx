@@ -23,6 +23,7 @@ const Orders = () => {
         try {
             setIsLoading(true);
             const response = await axios.get(`/api/orders/${selectedOrderType}`);
+            console.log(response)
             const fetchedOrders = response.data[selectedOrderType + 'Orders'] || [];
             setOrders(fetchedOrders);
         } catch (error) {
@@ -48,8 +49,8 @@ const Orders = () => {
             <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>Order Dashboard</h1>
             <div className="flex items-center justify-center gap-2 md:gap-5 lg:gap-10 rounded-md py-5 px-5 md:px-10 w-full text-[15px] flex-wrap">
                 <span
-                    onClick={() => setSelectedOrderType('pending')}
-                    className={`px-2 py-2 rounded-md cursor-pointer border ${selectedOrderType === 'pending' ? 'bg-td-secondary text-white' : ''}`}
+                    onClick={() => setSelectedOrderType('pendingg')}
+                    className={`px-2 py-2 rounded-md cursor-pointer border ${selectedOrderType === 'pendingg' ? 'bg-td-secondary text-white' : ''}`}
                 >
                     Pending Orders
                 </span>
