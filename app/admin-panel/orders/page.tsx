@@ -8,7 +8,7 @@ import { PulseLoader } from 'react-spinners';
 import { CiSearch } from 'react-icons/ci';
 
 export const fetchCache = 'force-no-store';
-export const revalidate = 1000;
+export const revalidate = 2000
 
 type OrderStatus = 'pending' | 'shipped' | 'delivered' | 'cancel';
 
@@ -29,7 +29,7 @@ const Orders = () => {
             setIsLoading(true);
             const response = await axios.get(`/api/orders`, {
                 headers: {
-                    'Cache-Control': 'force-no-store',
+                    'Cache-Control': 'no-store',
                     'Pragma': 'no-cache',
                 },
             });
