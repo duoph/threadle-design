@@ -8,7 +8,7 @@ import { PulseLoader } from 'react-spinners';
 import { CiSearch } from 'react-icons/ci';
 
 export const fetchCache = 'force-no-store';
-export const revalidate = 2000
+export const revalidate = 100
 
 type OrderStatus = 'pending' | 'shipped' | 'delivered' | 'cancel';
 

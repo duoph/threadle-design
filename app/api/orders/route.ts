@@ -2,6 +2,8 @@ import connectMongoDB from "@/libs/db";
 import CartModel from "@/models/cartItemModel";
 import { NextResponse } from "next/server";
 
+export const revalidate = 1000
+
 export async function GET() {
     try {
         await connectMongoDB();
