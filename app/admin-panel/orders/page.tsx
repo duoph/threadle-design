@@ -1,59 +1,32 @@
 "use client"
 
 import React, { useEffect, useState } from 'react';
-import { Cart } from '@/types';
+import axios from 'axios';
 import OrderDisplayCard from '@/components/OrderDisplayCard';
+import { Cart } from '@/types';
 import { PulseLoader } from 'react-spinners';
 import { CiSearch } from 'react-icons/ci';
 
 export const fetchCache = 'force-no-store';
 export const revalidate = 1000;
 
-type OrderStatus = 'pending' | 'shipped' | 'delivered' | 'cancel';
 
-const Orders: React.FC = () => {
-    const [selectedOrderType, setSelectedOrderType] = useState<OrderStatus>('pending');
-    const [orders, setOrders] = useState<{ [key in OrderStatus]: Cart[] }>({
-        pending: [],
-        shipped: [],
-        delivered: [],
-        cancel: [],
-    });
+const Orders = () => {
+    const [selectedOrderType, setSelectedOrderType] = useState<string>('pending');
+    const [orders, setOrders] = useState<Cart[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [search, setSearch] = useState<string>('');
 
     const fetchOrders = async () => {
         try {
             setIsLoading(true);
-            const response = await fetch(`/api/orders`, {
+            const response = await axios.get(`/api/orders/${selectedOrderType}`, {
                 headers: {
                     'Cache-Control': 'no-store',
-                    'Pragma': 'no-cache',
                 },
             });
-            const data = await response.json();
-            console.log(data);
-            const fetchedOrders: Cart[] = data.orders || []; // Use the Cart type
-            const categorizedOrders = {
-                pending: [] as Cart[],
-                shipped: [] as Cart[],
-                delivered: [] as Cart[],
-                cancel: [] as Cart[],
-            };
-
-            fetchedOrders.forEach((order) => {
-                if (order.isPaid && !order.isShipped && !order.isDelivered && !order.isCancel) {
-                    categorizedOrders.pending.push(order);
-                } else if (order.isShipped && !order.isDelivered && !order.isCancel) {
-                    categorizedOrders.shipped.push(order);
-                } else if (order.isDelivered && !order.isCancel) {
-                    categorizedOrders.delivered.push(order);
-                } else if (order.isCancel) {
-                    categorizedOrders.cancel.push(order);
-                }
-            });
-
-            setOrders(categorizedOrders);
+            const fetchedOrders = response.data.pendingOrders || [];
+            setOrders(fetchedOrders);
         } catch (error) {
             console.error("Error fetching orders:", error);
         } finally {
@@ -63,9 +36,9 @@ const Orders: React.FC = () => {
 
     useEffect(() => {
         fetchOrders();
-    }, []);
+    }, [selectedOrderType]);
 
-    const filteredOrders = orders[selectedOrderType].filter(order =>
+    const filteredOrders = orders.filter(order =>
         order.customerName?.toLowerCase().includes(search.toLowerCase()) ||
         order.title?.toLowerCase().includes(search.toLowerCase()) ||
         order.phoneNumber?.toLowerCase().includes(search.toLowerCase()) ||
@@ -133,7 +106,6 @@ const Orders: React.FC = () => {
                     {filteredOrders.length === 0 && (
                         <div className="flex items-center justify-center w-full h-full">No Orders Available</div>
                     )}
-
                     {filteredOrders.map((order, i) => (
                         <OrderDisplayCard key={i} order={order} />
                     ))}
