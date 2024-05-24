@@ -11,7 +11,19 @@ export async function GET() {
 
     try {
         connectMongoDB()
-        const shippedOrders = await CartModel.find({ isPaid: true, isShipped: true, isDelivered: false })
+        const shippedOrders = await CartModel.aggregate([
+            {
+                $match: {
+                    isPaid: true, isShipped: true, isDelivered: false, isCancel: false
+                },
+            },
+            {
+                $sort: {
+                    userId: 1,
+                    orderDate: -1,
+                },
+            },
+        ])
         return NextResponse.json({ message: " fetched the shipped orders", shippedOrders });
     } catch (error) {
         console.error(error);

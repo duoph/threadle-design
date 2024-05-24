@@ -1,13 +1,12 @@
 import connectMongoDB from "@/libs/db";
 import CartModel from "@/models/cartItemModel";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export const revalidate = 0;
 
-
-export async function GET() {
+export async function GET(req: NextRequest) {
     try {
-        connectMongoDB();
+        await connectMongoDB();
         console.log('MongoDB connected');
 
         const pendingOrders = await CartModel.aggregate([
@@ -21,6 +20,7 @@ export async function GET() {
             },
             {
                 $sort: {
+                    userId: 1,    
                     orderDate: -1,
                 },
             },
