@@ -414,7 +414,7 @@ const ProductPage = () => {
         <title>{product?.title || "Shop Now"}</title>
         <meta property='og:title' content={product?.title || "Shop Now"} />
         <meta property="og:description" content={product?.desc} />
-        <meta property="og:image" content={product?.coverImageURL || "/greendress.png"} />
+        <meta property="image" content={product?.coverImageURL || "/greendress.png"} />
         <meta property="og:url" content={`https://www.threadledesigns.com/shop/${productId}`} />
       </Head>
 
