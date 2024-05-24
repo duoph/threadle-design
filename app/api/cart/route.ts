@@ -5,6 +5,8 @@ import CartModel from "@/models/cartItemModel";
 import userModel from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 
+export const revalidate = 0;
+
 
 export async function POST(req: NextRequest) {
     try {

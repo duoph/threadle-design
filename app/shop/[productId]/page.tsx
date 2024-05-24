@@ -100,7 +100,6 @@ const ProductPage = () => {
 
 
 
-
   const userWishlist = async () => {
     const userId = currentUser?.userId
     try {
@@ -131,6 +130,7 @@ const ProductPage = () => {
 
   const handleLike = async () => {
 
+
     try {
       if (!currentUser?.token) {
         router.push('/account/login')
@@ -158,6 +158,7 @@ const ProductPage = () => {
       setQuantity(quantity - 1);
     }
   }
+
 
   const addToCart = async () => {
     try {

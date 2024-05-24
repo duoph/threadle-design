@@ -1,4 +1,3 @@
-import { getDataFromToken } from "@/helpers/getDataFromToken";
 import connectMongoDB from "@/libs/db";
 import CartModel from "@/models/cartItemModel";
 import { NextRequest, NextResponse } from "next/server";
@@ -24,6 +23,8 @@ export async function GET() {
                 },
             },
         ])
+
+
         return NextResponse.json({ message: " fetched the delivered orders", deliveredOrders });
 
     } catch (error) {

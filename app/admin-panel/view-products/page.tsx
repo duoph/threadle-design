@@ -55,6 +55,7 @@ const ViewAllProducts = () => {
         setCurrentPage(currentPage - 1)
     }
 
+
     if (products?.length === 0) {
         return (
             <div className='flex flex-col items-center py-5 px-3 gap-3 min-h-[85vh]'>
@@ -88,18 +89,17 @@ const ViewAllProducts = () => {
                     ))}
                 </div>
                 {searchResults.length > 20 && (
-                    <ul className="flex items-center justify-evenly gap-7">
-                        <li className={`cursor-pointer page-item border flex items-center justify-center text-white rounded-md py-2 bg-td-secondary px-6  ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105 transition-all ease-in-out'}`}>
+                    <ul className="flex items-center justify-between w-full md:px-16 lg:px-20 sm:px-10 px-5 ">
+                        <li className={`cursor-pointer page-item border flex items-center justify-center text-white rounded-md py-2 bg-td-secondary px-3  ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105 transition-all ease-in-out'}`}>
                             <button onClick={prevPage} disabled={currentPage === 1} className="flex items-center justify-center "> <MdNavigateBefore size={24} /> <span className='px-2'>Prev</span> </button>
                         </li>
-                        <li className={`cursor-pointer page-item border flex items-center justify-center text-white rounded-md py-2 bg-td-secondary px-6 ${indexOfLastProduct >= searchResults.length ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105 transition-all ease-in-out'}`}>
+                        <li className={`cursor-pointer page-item border flex items-center justify-center text-white rounded-md py-2 bg-td-secondary px-3 ${indexOfLastProduct >= searchResults.length ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105 transition-all ease-in-out'}`}>
                             <button onClick={nextPage} disabled={indexOfLastProduct >= searchResults.length} className="flex items-center justify-center"><span className='px-2'>Next</span> <MdNavigateNext size={24} /></button>
                         </li>
                     </ul>
                 )}
             </div>
         </div>
-
 
     )
 }

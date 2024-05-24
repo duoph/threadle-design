@@ -7,7 +7,7 @@ export const revalidate = 0;
 export async function GET(req: NextRequest) {
     try {
         await connectMongoDB();
-        console.log('MongoDB connected');
+
 
         const pendingOrders = await CartModel.aggregate([
             {
@@ -26,13 +26,13 @@ export async function GET(req: NextRequest) {
             },
         ]);
 
-        console.log('Pending orders fetched:', pendingOrders);
 
         return NextResponse.json({
             message: "Fetched the pending orders",
             success: true,
             pendingOrders,
         });
+
 
     } catch (error) {
         console.error('Error fetching pending orders:', error);
