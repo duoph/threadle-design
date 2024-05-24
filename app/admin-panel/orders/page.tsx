@@ -6,6 +6,7 @@ import OrderDisplayCard from '@/components/OrderDisplayCard';
 import { Cart } from '@/types';
 import { PulseLoader } from 'react-spinners';
 import { CiSearch } from 'react-icons/ci';
+import { IoIosRefresh } from 'react-icons/io';
 
 export const fetchCache = 'force-no-store';
 export const revalidate = 1000;
@@ -47,9 +48,9 @@ const Orders = () => {
     );
 
     return (
-        <div className="flex flex-col items-center py-5 px-3 gap-2 w-full">
+        <div className="relative flex flex-col items-center py-5 px-3 gap-[6px] w-full">
             <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>Order Dashboard</h1>
-            <div className="flex items-center justify-center gap-2 md:gap-5 lg:gap-10 rounded-md py-5 px-5 md:px-10 w-full text-[15px] flex-wrap">
+            <div className="flex items-center justify-center gap-2 md:gap-5 lg:gap-10 rounded-md pt-3 px-5 md:px-10 w-full text-[15px] flex-wrap">
                 <span
                     onClick={() => setSelectedOrderType('pending')}
                     className={`px-2 py-2 rounded-md cursor-pointer border ${selectedOrderType === 'pending' ? 'bg-td-secondary text-white' : ''}`}
@@ -87,31 +88,38 @@ const Orders = () => {
                 <CiSearch className='rounded-md text-[30px] cursor-pointer text-white' />
             </div>
 
-            {isLoading ? (
-                <div className="flex flex-col border rounded-md py-5 px-3 w-full gap-[10px] min-h-[70vh]">
-                    <div className="flex items-center justify-between border-b-2 px-2">
-                        <span className="w-2/6 text-center">Product Name</span>
-                        <span className="w-2/6 text-center">Customer</span>
+            {
+                isLoading ? (
+                    <div className="flex flex-col border rounded-md py-5 px-3 w-full gap-[10px] min-h-[100vh]">
+                        <div className="flex items-center justify-between border-b-2 px-2">
+                            <span className="w-2/6 text-center">Product Name</span>
+                            <span className="w-2/6 text-center">Customer</span>
+                        </div>
+                        <div className='flex flex-col items-center gap-3 py-10 min-h-[85vh]'>
+                            <PulseLoader />
+                        </div>
                     </div>
-                    <div className='flex flex-col items-center gap-3 py-10 min-h-[85vh]'>
-                        <PulseLoader />
+                ) : (
+                    <div className=" flex flex-col border rounded-md py-5 px-3 w-full gap-[10px] min-h-[70vh]">
+                        <div className="flex items-center justify-between border-b-2 px-2">
+                            <span className="w-2/6 text-center">Product Name</span>
+                            <span className="w-2/6 text-center">Customer</span>
+                        </div>
+                        {filteredOrders.length === 0 && (
+                            <div className="flex items-center justify-center w-full h-full">No Orders Available</div>
+                        )}
+                        {filteredOrders.map((order, i) => (
+                            <OrderDisplayCard key={i} order={order} />
+                        ))}
                     </div>
-                </div>
-            ) : (
-                <div className="flex flex-col border rounded-md py-5 px-3 w-full gap-[10px] min-h-[70vh]">
-                    <div className="flex items-center justify-between border-b-2 px-2">
-                        <span className="w-2/6 text-center">Product Name</span>
-                        <span className="w-2/6 text-center">Customer</span>
-                    </div>
-                    {filteredOrders.length === 0 && (
-                        <div className="flex items-center justify-center w-full h-full">No Orders Available</div>
-                    )}
-                    {filteredOrders.map((order, i) => (
-                        <OrderDisplayCard key={i} order={order} />
-                    ))}
-                </div>
-            )}
-        </div>
+                )
+            }
+
+            <div onClick={fetchOrders} className="fixed bottom-16 right-10 bg-td-secondary rounded-full p-3 cursor-pointer">
+                <IoIosRefresh color='white' size={24} />
+            </div>
+
+        </div >
     );
 };
 
