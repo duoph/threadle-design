@@ -4,14 +4,11 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import toast from 'react-hot-toast';
-import { FaUserCircle } from 'react-icons/fa';
-import { FaLock, FaPhone, FaSquareWhatsapp } from 'react-icons/fa6';
 import { PulseLoader } from 'react-spinners';
 
 interface FormData {
     phone: string;
     name: string;
-    email: string;
     password: string;
     whatsApp: string;
     confirmPassword: string;
@@ -25,7 +22,6 @@ const CreateAccount = () => {
         phone: '',
         whatsApp: '',
         name: '',
-        email: '',
         password: '',
         confirmPassword: ''
     });
@@ -34,20 +30,20 @@ const CreateAccount = () => {
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        setFormData({
-            ...formData,
+        setFormData((prevData) => ({
+            ...prevData,
             [name]: value,
-        });
+        }));
     };
 
-    const passwordsMatch = () => {
-        return formData.password === formData.confirmPassword;
-    };
+    const passwordsMatch = () => formData.password === formData.confirmPassword;
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
 
-        if (!formData.name || !formData.phone || !formData.email || !formData.password || (showWhatsApp && !formData.whatsApp)) {
+        console.log(formData.name, formData.phone)
+
+        if (!formData.name || !formData.phone) {
             toast.error("All fields are required");
             return;
         }
@@ -74,7 +70,7 @@ const CreateAccount = () => {
                 router.push(`/account/login`);
             } else {
                 toast.error(response.data.message);
-                console.log(response.data);
+                console.error(response.data);
             }
         } catch (error) {
             toast.error("Unable to create account");
@@ -90,7 +86,9 @@ const CreateAccount = () => {
                 <form onSubmit={handleSubmit} className='rounded-md bg-white flex flex-col gap-3 md:w-[400px] w-full md:px-10 py-8 px-5'>
                     <div className='flex flex-col items-center justify-start'>
                         <h1 className='text-center font-bold text-td-secondary text-[30px]'>Create Account</h1>
-                        {!passwordsMatch() && formData.confirmPassword && <span className='text-red-600 text-center transition-all ease-in-out duration-300'>Passwords do not match</span>}
+                        {!passwordsMatch() && formData.confirmPassword && (
+                            <span className='text-red-600 text-center transition-all ease-in-out duration-300'>Passwords do not match</span>
+                        )}
                     </div>
                     <div className='flex items-center justify-center gap-2 rounded-md border px-2'>
                         <input
