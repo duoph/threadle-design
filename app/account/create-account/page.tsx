@@ -41,7 +41,6 @@ const CreateAccount = () => {
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
 
-        console.log(formData.name, formData.phone)
 
         if (!formData.name || !formData.phone) {
             toast.error("All fields are required");
@@ -59,7 +58,6 @@ const CreateAccount = () => {
             const formDataToSend = new FormData();
             formDataToSend.append('name', formData.name);
             formDataToSend.append('phone', formData.phone);
-            formDataToSend.append('email', formData.email);
             formDataToSend.append('password', formData.password);
             formDataToSend.append('whatsApp', showWhatsApp ? formData.whatsApp : formData.phone);
 
@@ -81,7 +79,7 @@ const CreateAccount = () => {
     };
 
     return (
-        <div className='flex flex-col items-center justify-center gap-3 py-5 md:px-10 px-5 min-h-[90vh]'>
+        <div className='flex flex-col items-center justify-center gap-3 py-5 md:px-10 px-5 min-h-[calc(100vh-80px)]'>
             <div className='flex items-center justify-center pb-10 w-full'>
                 <form onSubmit={handleSubmit} className='rounded-md bg-white flex flex-col gap-3 md:w-[400px] w-full md:px-10 py-8 px-5'>
                     <div className='flex flex-col items-center justify-start'>

@@ -52,7 +52,7 @@ const LoginPageAdmin = () => {
   };
 
   return (
-    <div className='py-10 flex items-center justify-center px-5 min-h-[92vh]'>
+    <div className='flex items-center justify-center px-5 min-h-[calc(100vh-80px)]'>
       <div className='flex bg-white flex-col gap-5 items-center justify-center w-full md:w-[400px] md:px-10 py-10 px-5 rounded-md'>
         <div>
           <h1 className='font-bold text-[30px] text-td-secondary'>Login</h1>
