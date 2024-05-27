@@ -136,7 +136,7 @@ const CreateAccount = () => {
                             onChange={() => setShowWhatsApp(!showWhatsApp)}
                             className='border px-5 py-2 rounded-md'
                         />
-                        <label htmlFor="whatsAppCheck" className='font-medium text-sm'>Have a different WhatsApp number</label>
+                        <label htmlFor="whatsAppCheck" className='font-normal text-sm'>have a different WhatsApp number</label>
                     </div>
                     <div className='flex items-center justify-center gap-2 rounded-md border px-2'>
                         <input
