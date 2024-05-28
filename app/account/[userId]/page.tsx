@@ -25,7 +25,6 @@ const UserProfile = () => {
         pincode: '',
     });
 
-    const pathname = usePathname()
 
 
     const fetchUser = async () => {
@@ -51,8 +50,10 @@ const UserProfile = () => {
     }
 
     useEffect(() => {
-        fetchUser()
-    }, []);
+        if (currentUser) {
+            fetchUser();
+        }
+    }, [currentUser]);
 
     const handleChange = (e: any) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -143,11 +144,11 @@ const UserProfile = () => {
                 <form onSubmit={handleSubmit} className='flex flex-col items-center justify-center gap-3  px-5 py-8 rounded-md lg:w-1/2 w-full '>
                     <div className='flex items-center justify-center gap-2 w-full'>
                         <RiAccountCircleFill size={30} />
-                        <input type="text" name="name" placeholder='Name' value={formData.name} onChange={handleChange} className='border px-5  py-2 rounded-md bg-slate-200 w-full' />
+                        <input type="text" name="name" placeholder='Name' value={formData.name} onChange={handleChange} className='border px-5  py-2 rounded-md  w-full' />
                     </div>
                     <div className='flex items-center w-full justify-center gap-3'>
                         <FaPhone size={24} />
-                        <div className='flex items-center justify-center rounded-md bg-slate-200 w-full'>
+                        <div className='flex items-center justify-center border rounded-md w-full'>
                             <span className='pl-2'>+91</span>
                             <input
                                 type="string"
@@ -158,12 +159,12 @@ const UserProfile = () => {
                                 value={formData.phone}
                                 onChange={handleChange}
                                 placeholder='Phone'
-                                className='border px-5  w-full py-2 rounded-md bg-slate-200' />
+                                className='w-full px-3 py-3 focus:outline-none' />
                         </div>
                     </div>
                     <div className='flex items-center w-full justify-center gap-3'>
                         <FaSquareWhatsapp size={24} />
-                        <div className='flex items-center justify-center rounded-md bg-slate-200 w-full'>
+                        <div className='flex items-center justify-center border rounded-md  w-full'>
                             <span className='pl-2'>+91</span>
                             <input
                                 type="whatsAppNumber"
@@ -172,16 +173,16 @@ const UserProfile = () => {
                                 value={formData.whatsAppNumber}
                                 onChange={handleChange}
                                 maxLength={10}
-                                className='border px-5  w-full py-2 rounded-md bg-slate-200' />
+                                className='w-full px-3 py-3 focus:outline-none' />
                         </div>
                     </div>
                     <div className='flex items-start justify-center gap-2 w-full '>
                         <FaAddressCard size={30} />
-                        <textarea id="address" name="address" className='border px-5  py-2 w-full rounded-md bg-slate-200 min-h-[100px]' placeholder='Address' value={formData.address} onChange={handleChange} />
+                        <textarea id="address" name="address" className='border px-5  py-2 w-full rounded-md  min-h-[100px]' placeholder='Address' value={formData.address} onChange={handleChange} />
                     </div>
-                    <div className='flex items-center justify-center gap-2 w-full'>
+                    <div className='flex items-center  justify-center gap-2 w-full'>
                         <FaLocationDot size={30} />
-                        <input type="pincode" name="pincode" placeholder='Pincode' className='border px-5  w-full py-2 rounded-md bg-slate-200' value={formData.pincode} onChange={handleChange} />
+                        <input type="pincode" name="pincode" placeholder='Pincode' className='w-full px-3 py-3 border focus:outline-none' value={formData.pincode} onChange={handleChange} />
                     </div>
                 </form>
                 <button onClick={handleSubmit} className={`px-5 rounded-md py-3 border bg-td-secondary text-white font-bold`} type='submit'>{isSubmiting ? <PulseLoader color="white" size={9} /> : "Save"}</button>

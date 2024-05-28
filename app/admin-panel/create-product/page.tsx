@@ -370,7 +370,7 @@ const CreateProduct = () => {
                         {!coverImage && (
                             <label htmlFor="coverImage" className="font-semibold w-full h-full flex flex-col items-center justify-center">
                                 <CiSquarePlus size={20} />
-                                <span className="text-sm text-gray-500">Cover Image</span>
+                                <span className="text-sm text-gray-500">Cover</span>
                             </label>
                         )}
                         {coverImage && (

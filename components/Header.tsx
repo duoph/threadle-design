@@ -28,7 +28,9 @@ const Header = () => {
 
 
     useEffect(() => {
-        cartItemCountFetch();
+        if (currentUser) {
+            cartItemCountFetch();
+        }
     }, []);
 
 
