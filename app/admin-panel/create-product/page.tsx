@@ -226,13 +226,23 @@ const CreateProduct = () => {
             }
 
 
-            const response = await axios.post('/api/product', formData);
+            const res = await axios.post('/api/product', formData);
 
-            console.log(response)
+            console.log(res)
 
-            toast.success('Product created successfully!');
+            if (res.data.success === true) {
+                setIsLoading(false)
+                toast.success('Product created successfully!');
+                router.push(`/admin-panel/view-products`);
+            }
 
-            router.push(`/admin-panel/view-products`);
+            if (res.data.success === true) {
+                setIsLoading(false)
+                toast.success('Failed to create your product');
+            }
+
+
+
         } catch (error) {
             console.error("Error creating product:", error);
             toast.error('Failed to create product. Please try again.');

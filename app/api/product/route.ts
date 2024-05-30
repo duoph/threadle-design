@@ -86,7 +86,7 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ message: "Product created successfully", success: true });
     } catch (error) {
         console.error(error);
-        return NextResponse.json({ message: "Unknown error", error });
+        return NextResponse.json({ message: "Unknown error", error, success: false });
     }
 }
 
