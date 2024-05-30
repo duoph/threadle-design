@@ -236,7 +236,7 @@ const CreateProduct = () => {
                 router.push(`/admin-panel/view-products`);
             }
 
-            if (res.data.success === true) {
+            if (res.data.success === false) {
                 setIsLoading(false)
                 toast.success('Failed to create your product');
             }
