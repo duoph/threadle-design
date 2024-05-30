@@ -163,11 +163,15 @@ const CreateProduct = () => {
 
 
 
-            if (!title || !coverImage || isCustom === false && !regularPrice) {
+            if (!title || !desc || !coverImage || isCustom === false && !regularPrice) {
 
 
                 if (isCustom === false && !regularPrice) {
                     return toast.error("Add price");
+                }
+
+                if (!desc) {
+                    return toast.error("Add a description");
                 }
 
                 if (!coverImage) {
