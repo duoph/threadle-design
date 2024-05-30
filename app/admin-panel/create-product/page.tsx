@@ -244,6 +244,7 @@ const CreateProduct = () => {
 
 
         } catch (error) {
+            console.log(error)
             console.error("Error creating product:", error);
             toast.error('Failed to create product. Please try again.');
         }
@@ -390,7 +391,7 @@ const CreateProduct = () => {
                         {coverImage && (
                             <Image className="rounded-md -z-10" src={coverImage} alt="Image" fill={true} />
                         )}
-                        <input type="file" className="hidden" id="coverImage" onChange={(e) => handleDisplayImage(e, 0)} />
+                        <input type="file" accept="image/*" className="hidden" id="coverImage" onChange={(e) => handleDisplayImage(e, 0)} />
                         {coverImage && (
                             <MdDelete onClick={() => setCoverImage("")} className="bg-red-500 rounded-md z-10 text-white cursor-pointer absolute bottom-3" size={20} />
                         )}
@@ -411,7 +412,7 @@ const CreateProduct = () => {
                         {image1 && (
                             <Image className="rounded-md" src={image1} alt="Image" fill={true} />
                         )}
-                        <input type="file" className="hidden" id="image1" onChange={(e) => handleDisplayImage(e, 1)} />
+                        <input type="file" accept="image/*" className="hidden" id="image1" onChange={(e) => handleDisplayImage(e, 1)} />
                         {image1 && (
                             <MdDelete onClick={() => setImage1("")} className="bg-red-500 rounded-md z-10 text-white cursor-pointer absolute bottom-3 " size={20} />
                         )}
@@ -428,7 +429,7 @@ const CreateProduct = () => {
                         {image2 && (
                             <Image className="rounded-md" src={image2} alt="Image" fill={true} />
                         )}
-                        <input type="file" className="hidden" id="image2" onChange={(e) => handleDisplayImage(e, 2)} />
+                        <input type="file" accept="image/*" className="hidden" id="image2" onChange={(e) => handleDisplayImage(e, 2)} />
                         {image2 && (
                             <MdDelete onClick={() => setImage2("")} className="bg-red-500 rounded-md z-10 text-white cursor-pointer absolute bottom-3 " size={20} />
                         )}
@@ -444,7 +445,7 @@ const CreateProduct = () => {
                         {image3 && (
                             <Image className="rounded-md" src={image3} alt="Image" fill={true} />
                         )}
-                        <input type="file" className="hidden" id="image3" onChange={(e) => handleDisplayImage(e, 3)} />
+                        <input type="file" accept="image/*" className="hidden" id="image3" onChange={(e) => handleDisplayImage(e, 3)} />
                         {image3 && (
                             <MdDelete onClick={() => setImage3("")} className="bg-red-500 rounded-md z-10 text-white cursor-pointer absolute bottom-3 " size={20} />
                         )}
@@ -460,7 +461,7 @@ const CreateProduct = () => {
                         {image4 && (
                             <Image className="rounded-md" src={image4} alt="Image" fill={true} />
                         )}
-                        <input type="file" className="hidden" id="image4" onChange={(e) => handleDisplayImage(e, 4)} />
+                        <input type="file" accept="image/*" className="hidden" id="image4" onChange={(e) => handleDisplayImage(e, 4)} />
                         {image4 && (
                             <MdDelete onClick={() => setImage4("")} className="bg-red-500 rounded-md z-10 text-white cursor-pointer absolute bottom-3 " size={20} />
                         )}
@@ -476,7 +477,7 @@ const CreateProduct = () => {
                         {image5 && (
                             <Image className="rounded-md" src={image5} alt="Image" fill={true} />
                         )}
-                        <input type="file" className="hidden" id="image5" onChange={(e) => handleDisplayImage(e, 5)} />
+                        <input type="file" accept="image/*" className="hidden" id="image5" onChange={(e) => handleDisplayImage(e, 5)} />
                         {image5 && (
                             <MdDelete onClick={() => setImage5("")} className="bg-red-500 rounded-md z-10 text-white cursor-pointer absolute bottom-3 " size={20} />
                         )}
@@ -492,7 +493,7 @@ const CreateProduct = () => {
                         {image6 && (
                             <Image className="rounded-md" src={image6} alt="Image" fill={true} />
                         )}
-                        <input type="file" className="hidden" id="image6" onChange={(e) => handleDisplayImage(e, 6)} />
+                        <input type="file" accept="image/*" className="hidden" id="image6" onChange={(e) => handleDisplayImage(e, 6)} />
                         {image6 && (
                             <MdDelete onClick={() => setImage6("")} className="bg-red-500 rounded-md z-10 text-white cursor-pointer absolute bottom-3 " size={20} />
                         )}
@@ -507,7 +508,7 @@ const CreateProduct = () => {
                         {image7 && (
                             <Image className="rounded-md" src={image7} alt="Image" fill={true} />
                         )}
-                        <input type="file" className="hidden" id="image7" onChange={(e) => handleDisplayImage(e, 7)} />
+                        <input type="file" accept="image/*" className="hidden" id="image7" onChange={(e) => handleDisplayImage(e, 7)} />
                         {image7 && (
                             <MdDelete onClick={() => setImage7("")} className="bg-red-500 rounded-md z-10 text-white cursor-pointer absolute bottom-3 " size={20} />
                         )}
@@ -523,7 +524,7 @@ const CreateProduct = () => {
                         {image8 && (
                             <Image className="rounded-md" src={image8} alt="Image" fill={true} />
                         )}
-                        <input type="file" className="hidden" id="image8" onChange={(e) => handleDisplayImage(e, 8)} />
+                        <input type="file" accept="image/*" className="hidden" id="image8" onChange={(e) => handleDisplayImage(e, 8)} />
                         {image8 && (
                             <MdDelete onClick={() => setImage8("")} className="bg-red-500 rounded-md z-10 text-white cursor-pointer absolute bottom-3 " size={20} />
                         )}
@@ -539,7 +540,7 @@ const CreateProduct = () => {
                         {image9 && (
                             <Image className="rounded-md" src={image9} alt="Image" fill={true} />
                         )}
-                        <input type="file" className="hidden" id="image9" onChange={(e) => handleDisplayImage(e, 9)} />
+                        <input type="file" accept="image/*" className="hidden" id="image9" onChange={(e) => handleDisplayImage(e, 9)} />
                         {image9 && (
                             <MdDelete onClick={() => setImage9("")} className="bg-red-500 rounded-md z-10 text-white cursor-pointer absolute bottom-3 " size={20} />
                         )}
@@ -555,7 +556,7 @@ const CreateProduct = () => {
                         {image10 && (
                             <Image className="rounded-md" src={image10} alt="Image" fill={true} />
                         )}
-                        <input type="file" className="hidden" id="image10" onChange={(e) => handleDisplayImage(e, 10)} />
+                        <input type="file" accept="image/*" className="hidden" id="image10" onChange={(e) => handleDisplayImage(e, 10)} />
                         {image10 && (
                             <MdDelete onClick={() => setImage10("")} className="bg-red-500 rounded-md z-10 text-white cursor-pointer absolute bottom-3 " size={20} />
                         )}
