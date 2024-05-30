@@ -163,7 +163,7 @@ const CreateProduct = () => {
 
 
 
-            if (!title || !desc || !coverImage || isCustom === false && !regularPrice) {
+            if (!title || !coverImage || isCustom === false && !regularPrice) {
 
 
                 if (isCustom === false && !regularPrice) {
