@@ -123,7 +123,7 @@ const CartPage = () => {
         if (!user?.address || user?.address === "" || user?.address.length <= 10) {
           toast.error("Add Address");
           setIsLoading(false)
-          router.push(`/account/${currentUser?.userId}`);
+          return router.push(`/account/${currentUser?.userId}`);
         }
 
         if (!user?.pincode) {

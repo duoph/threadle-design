@@ -96,6 +96,7 @@ const UserProfile = () => {
             if (res.data?.success === true) {
                 // const userData = res.data?.user;
                 toast.success(res.data.message);
+                router.back()
             }
 
             if (res.data?.success === false) {

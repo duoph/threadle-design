@@ -22,7 +22,7 @@ export function middleware(request: NextRequest) {
 
     if (path.startsWith("/admin-panel/")) {
         if (!token) {
-            return NextResponse.redirect(new URL('/login', request.url))
+            return NextResponse.redirect(new URL('/account/login', request.url))
         }
 
         if (token && isAdmin === "0") {
