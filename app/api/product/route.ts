@@ -6,9 +6,11 @@ import slugify from "slugify";
 
 export async function POST(req: NextRequest) {
     try {
-        await connectMongoDB();
+        await connectMongoDB(); // Connect to MongoDB
 
-        const formData = await req.formData();
+        const formData = await req.formData(); // Parse form data
+
+        // Extract form data fields
         const title = formData.get("title")?.toString() || '';
         const desc = formData.get("desc")?.toString() || '';
         const regularPrice = formData.get("regularPrice")?.toString() || '';
@@ -22,6 +24,7 @@ export async function POST(req: NextRequest) {
         const colorCodesString = formData.get("colorCodes")?.toString() || '';
         const colorCodes = colorCodesString.split(',');
 
+        // Extract file and image blobs
         const file = formData.get("coverImage") as Blob;
         const imageBlobs: Blob[] = [
             formData.get("image1") as Blob,
@@ -36,15 +39,18 @@ export async function POST(req: NextRequest) {
             formData.get("image10") as Blob
         ];
 
+        // Upload cover image to S3 if file exists
         let aws;
         if (file instanceof Blob) {
             const fileBuffer = Buffer.from(await file.arrayBuffer());
             aws = await uploadFileToS3(fileBuffer, title);
         }
 
+        // Generate slug for product name
         const slugifyProductName = slugify(title, { lower: true });
-        const imageUrls: string[] = [];
 
+        // Upload each image blob to S3 and collect URLs
+        const imageUrls: string[] = [];
         for (let i = 0; i < imageBlobs.length; i++) {
             const imageBlob = imageBlobs[i];
             if (imageBlob instanceof Blob) {
@@ -56,6 +62,7 @@ export async function POST(req: NextRequest) {
             }
         }
 
+        // Create new product in MongoDB
         await ProductModel.create({
             title,
             desc,
@@ -73,12 +80,16 @@ export async function POST(req: NextRequest) {
             isFeatured: isFeatured === "yes"
         });
 
+        // Return success response to client
         return NextResponse.json({ message: "Product created successfully", success: true });
+
     } catch (error) {
+        // Handle errors
         console.error("Error creating product:", error);
         return NextResponse.json({ message: "Unknown error", error, success: false });
     }
 }
+
 
 
 
