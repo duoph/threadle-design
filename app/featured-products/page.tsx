@@ -51,7 +51,7 @@ const WishList = () => {
             <div className='flex flex-col items-center py-5 px-3 gap-3 min-h-[85vh]'>
                 <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>Featured Products</h1>
                 <div className=" absolute flex items-center justify-center flex-grow h-[65vh]">
-                    <PulseLoader />
+                    <PulseLoader color={"#014051"} />
                 </div>
             </div>
         );

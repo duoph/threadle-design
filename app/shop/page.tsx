@@ -107,7 +107,7 @@ const Shop = () => {
           <CiSearch className='rounded-md text-[30px] cursor-pointer text-white' />
         </div>
         <div className=' h-[60vh] flex items-center justify-center'>
-          <PulseLoader />
+          <PulseLoader color={"#014051"} />
         </div>
       </div>
     )

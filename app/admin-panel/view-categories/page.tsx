@@ -90,8 +90,8 @@ const ViewAllCategories = () => {
                                 width={400}
                                 onClick={() => router.push(`/admin-panel/edit-category/${cat._id}`)}
                             />
-                            <span className='w-full text-white px-5 py-3 text-center rounded-md cursor-pointer font-medium'>{cat.categoryName}</span>
-                            <div className='flex flex-col w-full gap-4 items-center justify-evenly text-white px-5'>
+                            <span className='w-full text-white px-2 py-3 text-center rounded-md cursor-pointer font-medium'>{cat.categoryName}</span>
+                            <div className='flex flex-col w-full gap-4 items-center justify-evenly text-white px-3'>
                                 <Link href={`/admin-panel/edit-category/${cat._id}`} className='bg-td-primary w-full px-2 py-2 rounded-md text-center font-light' >Edit</Link>
                                 <Link href={`/admin-panel/view-products/${cat._id}`} className='bg-td-primary w-full px-4 py-3 rounded-md text-center font-light'>View Products</Link>
                                 <button onClick={() => { setDeleteConfirm(true); setIdToDelete(cat._id) }} className='bg-red-600 w-full px-4 py-3 rounded-md font-light'>Delete</button>
