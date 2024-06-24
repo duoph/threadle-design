@@ -96,7 +96,7 @@ const Orders = () => {
                             <span className="w-2/6 text-center">Customer</span>
                         </div>
                         <div className='flex flex-col items-center gap-3 py-10 min-h-[85vh]'>
-                            <PulseLoader />
+                            <PulseLoader color={"#014051"} />
                         </div>
                     </div>
                 ) : (

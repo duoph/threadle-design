@@ -423,7 +423,7 @@ const ProductPage = () => {
       {
         !product ? (
           <div className="w-full h-[70vh] flex items-center justify-center px-5 py-3 md:px-10 gap-3 mb-5 ">
-            <PulseLoader />
+            <PulseLoader color={"#014051"} />
           </div>
         ) : (
           <div className='flex flex-col w-full gap-3'>

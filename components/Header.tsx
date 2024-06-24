@@ -36,7 +36,7 @@ const Header = () => {
 
     return (
         <>
-            <div className='bg-td-secondary flex h-[80px] items-center justify-between px-3 lg:px-10 w-full fixed top-0 z-[500] shadow-xl'>
+            <div className='bg-td-secondary flex h-[80px] items-center justify-between px-3 lg:pl-5 lg:pr-3 w-full fixed top-0 z-[500] shadow-xl'>
                 <Link href={href} className='relative w-[70px] h-[70px]'>
                     <Image priority={true} src={'/td-white.png'} alt='Threadle Design' fill={true} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
                 </Link>
