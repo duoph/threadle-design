@@ -242,7 +242,6 @@ const CreateProduct = () => {
             }
 
 
-
         } catch (error) {
             console.log(error)
             console.error("Error creating product:", error);

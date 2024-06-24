@@ -55,14 +55,13 @@ function getContentType(fileName: string) {
 
 export async function uploadFileToS3(file: Buffer, originalFileName: string) {
     try {
-        const fileBuffer = file;
         const uniqueFileName = generateUniqueFileName(originalFileName);
         const contentType = getContentType(originalFileName);
 
         const params = {
             Bucket: process.env.NEXT_PUBLIC_AWS_S3_BUCKET_NAME,
             Key: `images/${uniqueFileName}`,
-            Body: fileBuffer,
+            Body: file,
             ContentType: contentType
         };
 
@@ -74,7 +73,8 @@ export async function uploadFileToS3(file: Buffer, originalFileName: string) {
         console.log(s3Url);
 
         return { fileName: uniqueFileName, s3Url };
-    } catch (error) {
-        console.log(error);
+    } catch (error: any) {
+        console.error('Error uploading file to S3:', error);
+        throw new Error(`Failed to upload file to S3: ${error.message}`);
     }
 }
