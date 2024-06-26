@@ -17,7 +17,7 @@ import Link from 'next/link'
 import { useUser } from '@/context/useUser'
 import Script from 'next/script'
 import { FaPhoneAlt, FaAddressCard } from 'react-icons/fa';
-import { FaLocationDot, FaSquareWhatsapp } from 'react-icons/fa6';
+import { FaLocationDot } from 'react-icons/fa6';
 import { RiAccountCircleFill } from 'react-icons/ri';
 
 
@@ -50,11 +50,12 @@ const ProductPage = () => {
 
 
 
-
   const { cartItemCountFetch, currentUser } = useUser()
 
 
+
   const sizes = ["S", "M", "L", "XL", "2XL", "3XL"]
+
 
 
   const fetchProduct = async () => {
@@ -66,6 +67,7 @@ const ProductPage = () => {
       console.log(error)
     }
   }
+
 
   const fetchUser = async () => {
     try {
@@ -93,9 +95,13 @@ const ProductPage = () => {
 
   useEffect(() => {
     fetchProduct()
-    userWishlist()
     fetchUser()
   }, [])
+
+
+  useEffect(() => {
+    userWishlist()
+  }, [currentUser?.userId])
 
 
 
@@ -130,7 +136,6 @@ const ProductPage = () => {
 
   const handleLike = async () => {
 
-
     try {
       if (!currentUser?.token) {
         router.push('/account/login')
@@ -148,6 +153,7 @@ const ProductPage = () => {
     } catch (error) {
       console.log(error)
     }
+
   }
 
 
@@ -165,8 +171,8 @@ const ProductPage = () => {
       setIsAddingToCart(true)
       if (!currentUser?.token) {
         setIsAddingToCart(false)
-        router.push('/account/login')
-        return toast.error("Login to your account");
+        toast.error("Login to your account");
+        return router.push('/account/login')
       }
       if (!selectedColor || !selectedSize) {
         setIsAddingToCart(false)
@@ -230,6 +236,7 @@ const ProductPage = () => {
 
 
   const productPaid = async (response: any) => {
+
     try {
       const res = await axios.post("/api/product/buy-now", {
         productId,
@@ -255,10 +262,12 @@ const ProductPage = () => {
       } else {
         toast.error(res?.data?.message);
       }
+
     } catch (error) {
       console.error("Error adding product to cart:", error);
       toast.error("An error occurred while adding the product to cart");
     }
+
   }
 
 
@@ -267,7 +276,6 @@ const ProductPage = () => {
     try {
 
       setIsLoading(true)
-
 
       const res = await axios.post("/api/razorpay", {
         totalAmount: product?.salePrice || product?.regularPrice,
@@ -295,10 +303,11 @@ const ProductPage = () => {
         },
         prefill: {
           name: formData.name,
-          email: "jdoe@example.com",
+          email: "duophtechnologies@gmail.com",
           contact: formData.phone,
         },
       };
+
       setIsLoading(false)
 
       const paymentObject = new (window as any).Razorpay(options);
@@ -345,8 +354,10 @@ const ProductPage = () => {
     setIsSubmiting(true);
 
     // Validate pincode
+
     if (!currentUser?.token) {
       router.push('/account/login')
+      console.log('first')
       return toast.error("Login to your account");
     }
 
