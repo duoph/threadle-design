@@ -27,11 +27,7 @@ const Header = () => {
     const href = pathname === '/admin-panel/orders' ? pathname : '/';
 
 
-    useEffect(() => {
-        if (currentUser) {
-            cartItemCountFetch();
-        }
-    }, []);
+  
 
 
     return (

@@ -44,6 +44,10 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   }
 
   useEffect(() => {
+    cartItemCountFetch();
+  }, [currentUser?.token, cartCount]);
+
+  useEffect(() => {
     const storedUser = localStorage.getItem('currentUser');
     if (storedUser) {
       const parsedUser: User = JSON.parse(storedUser);
