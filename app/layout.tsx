@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import { Toaster } from "react-hot-toast";
 import { UserProvider } from "@/context/useUser";
 import ProgressBar from "@/components/ProgressBar";
+import AlertMessageSlider from "../components/AlertMessageSlider";
 
 
 
@@ -32,6 +33,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <UserProvider>
           <Header />
+          {/* <AlertMessageSlider/> */}
           <ProgressBar />
           <Toaster
             position="top-center"

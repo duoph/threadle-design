@@ -33,3 +33,18 @@ input[type=number]::-webkit-outer-spin-button {
     appearance: none;
     margin: 0;
 }
+
+@keyframes marquee {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.animate-marquee {
+    animation: marquee 10s linear infinite;
+    white-space: nowrap;
+}

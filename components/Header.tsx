@@ -1,7 +1,7 @@
 "use client"
 
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import { CiSearch, CiShoppingCart } from "react-icons/ci";
 import Link from 'next/link';
@@ -27,7 +27,7 @@ const Header = () => {
     const href = pathname === '/admin-panel/orders' ? pathname : '/';
 
 
-  
+
 
 
     return (
@@ -77,8 +77,8 @@ const Header = () => {
                 </div >
             </div >
 
-        </>
 
+        </>
     );
 };
 

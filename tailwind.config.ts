@@ -1,7 +1,5 @@
 import type { Config } from "tailwindcss";
 
-
-
 const config: Config = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -18,6 +16,15 @@ const config: Config = {
       '2xl': '1536px'
     },
     extend: {
+      animation: {
+        marquee: 'marquee 600s linear forwards', 
+      },
+      keyframes: {
+        marquee: {
+          '0%': { transform: 'translateX(100%)' },
+          '100%': { transform: 'translateX(-100%)' },
+        },
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
@@ -31,4 +38,5 @@ const config: Config = {
   },
   plugins: [],
 };
+
 export default config;
