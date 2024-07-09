@@ -1,13 +1,14 @@
 import React from 'react';
+import Marquee from 'react-fast-marquee';
 
 const AlertMessageSlider = () => {
     return (
-        <div className='py-1 w-full bg-red-500'>
-            <div className='animate-marquee whitespace-nowrap'>
-                <h1 className='inline-block text-sm text-white'>
-                    This website is still under development. The products listed are demo products. Follow us on Instagram <a target='_blank' href="https://www.instagram.com/threadle_designs/" className="text-blue-600 underline">@threadle_designs</a>
+        <div className='py-1 w-full bg-td-primary'>
+            <Marquee loop={0} pauseOnHover={true}>
+                <h1 className='text-slate-700 font-extralight'>
+                    This website is still under development. The products listed are demo products . Follow us on Instagram  <a target='_blank' href="https://www.instagram.com/threadle_designs/" className="underline"> @threadle_designs</a>
                 </h1>
-            </div>
+            </Marquee>
         </div>
     );
 }
