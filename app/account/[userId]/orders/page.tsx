@@ -3,7 +3,6 @@
 import OrderDisplayCardUser from '@/components/OrderDisplayCardUser';
 import { useUser } from '@/context/useUser';
 import axios from 'axios';
-import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { PulseLoader } from 'react-spinners';
@@ -29,7 +28,6 @@ const Orders = () => {
                     return dateB - dateA;
                 });
                 setOrderDisplay(sortedOrders);
-                console.log(res);
             }
             setIsLoading(false)
         } catch (error) {
@@ -47,8 +45,8 @@ const Orders = () => {
         return (
             <div className='flex flex-col items-center py-5 px-3 gap-3 min-h-[85vh]'>
                 <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>My Orders</h1>
-                <div className=" absolute flex items-center justify-center flex-grow h-[65vh]">
-                    <PulseLoader color={"#014051"}  />
+                <div className="absolute flex items-center justify-center flex-grow h-[65vh]">
+                    <PulseLoader color={"#014051"} />
                 </div>
             </div>
         );
@@ -56,22 +54,22 @@ const Orders = () => {
 
     return (
         <div className='flex flex-col items-center py-5 px-3 gap-3 min-h-[85vh]'>
-            <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>My Orders</h1>
-            <div className='flex flex-col border rounded-md py-5 px-3 w-full gap-[10px]  min-h-[70vh]'>
-                <div className='flex items-center justify-between border-b-2 px-2'>
-                    <span className='w-2/3 text-center'>Product Name</span>
-                    <span className='w-1/3 text-center'>Order Status</span>
-                </div>
+            <div className="max-w-6xl w-full">
+                <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl mb-5'>My Orders</h1>
+                <div className='flex flex-col border rounded-md py-5 px-3 w-full gap-[10px] min-h-[70vh]'>
+                    <div className='flex items-center justify-between border-b-2 px-2'>
+                        <span className='w-2/3 text-center'>Product Name</span>
+                        <span className='w-1/3 text-center'>Order Status</span>
+                    </div>
 
-                {orderDisplay?.length === 0 && (
-                    <div className='flex items-center justify-center w-full h-full'>No Orders Available</div>
-                )}
+                    {orderDisplay?.length === 0 && (
+                        <div className='flex items-center justify-center w-full h-full'>No Orders Available</div>
+                    )}
 
-                {orderDisplay?.map((order: any, i: number) => (
-                    <>
+                    {orderDisplay?.map((order: any, i: number) => (
                         <OrderDisplayCardUser key={i} order={order} />
-                    </>
-                ))}
+                    ))}
+                </div>
             </div>
         </div>
     );

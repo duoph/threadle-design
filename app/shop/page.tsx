@@ -129,7 +129,7 @@ const Shop = () => {
           </div>
         ) : (
           <>
-            <div className='w-full flex items-center justify-between mt-4'>
+            <div className='w-full flex items-center justify-between my-4'>
               <span className='text-gray-400 font-light text-[12px] md:text-[15px]'>
                 Showing {Math.min(currentProducts.length, 20)} of {searchProducts.length} Products
               </span>

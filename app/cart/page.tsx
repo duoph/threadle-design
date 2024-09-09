@@ -266,11 +266,11 @@ const CartPage = () => {
         id="razorpay-checkout-js"
         src="https://checkout.razorpay.com/v1/checkout.js"
       />
-      <div className="flex flex-col items-center justify-start lg:px-10 px-5 py-5  min-h-[85vh] ">
+      <div className="flex flex-col items-center justify-start lg:px-10 px-5 py-5  min-h-[85vh]  ">
         <div className='flex items-center justify-center pb-5'>
           <h1 className='text-[30px] font-bold text-td-secondary'>My Cart</h1>
         </div>
-        <div className='flex gap-5 md:flex-row flex-col w-full'>
+        <div className='flex gap-5 md:flex-row flex-col  max-w-6xl'>
           <div className=' w-full flex flex-col items-center justify-center border rounded-md min-h-[100px]'>
             {!cart[0]?._id && <span className='font-light'>Your cart is empty</span>}
             {cart?.map((item: Cart) => (
