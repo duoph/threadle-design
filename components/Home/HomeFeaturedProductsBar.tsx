@@ -58,13 +58,13 @@ const HomeFeaturedProductsBar = () => {
 
     return (
         <div className="flex flex-col gap-3 items-center justify-center mt-10 mb-10 px-1">
-            <div className='flex flex-col gap-3 items-center justify-center w-full mb-5'>
+            <div className='flex flex-col gap-3 items-center justify-center w-full mb-5 max-w-6xl '>
                 <h1 className='text-td-secondary text-[24px] md:text-[30px] font-bold'>Featured Products</h1>
                 <div className='relative w-full px-2'>
                     {/* {mdHide !== true && ( */}
                     <>
-                        <GoChevronLeft onClick={handleScrollLeft} className='md:hover:scale-110 z-10 absolute top-[130px] bg-black text-white  left-3 rounded-full cursor-pointer' size={30} />
-                        <GoChevronRight onClick={handleScrollRight} className='md:hover:scale-110 z-10 absolute top-[130px] bg-black text-white right-3 rounded-full cursor-pointer' size={30} />
+                        <GoChevronLeft onClick={handleScrollLeft} className='md:hover:scale-110 z-10 absolute top-[130px] bg-black text-white md:-left-10 left-3 rounded-full cursor-pointer' size={30} />
+                        <GoChevronRight onClick={handleScrollRight} className='md:hover:scale-110 z-10 absolute top-[130px] bg-black text-white md:-right-10  right-3 rounded-full cursor-pointer' size={30} />
                     </>
                     {/* )} */}
                     <div ref={scrollContainerRef} className={`flex justify-start items-center gap-2 min-h-[300px] overflow-x-scroll hideScrollBar`}>
