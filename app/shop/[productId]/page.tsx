@@ -542,7 +542,7 @@ const ProductPage = () => {
                 </div>
 
                 {!product?.isCustom && product?.inStock && !currentUser?.isAdmin ? (
-                  <div className='flex flex-col gap-3 font-semibold w-full'>
+                  <div className='flex flex-col gap-3 font-semibold max-w-2xl'>
                     <span className='bg-gray-200 flex items-center justify-between gap-4 px-8 py-2 rounded-md w-1/2'>
                       <span className='cursor-pointer' onClick={() => handleQuantity("decrement")}>-</span>
                       <span>{quantity}</span>
@@ -555,7 +555,7 @@ const ProductPage = () => {
                       </button>
                     </div>
                   </div>
-                ) : (
+                ) : ( 
                   null
                 )}
 
