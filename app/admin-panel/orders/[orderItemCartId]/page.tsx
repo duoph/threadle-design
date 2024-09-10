@@ -228,72 +228,73 @@ const OrderDetailsPage = () => {
 
 
     return (
-        <div className=" py-3 px-3 flex flex-col w-full min-h-[85vh]">
-            <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>Order Details</h1>
-            <div className="flex flex-col gap-3 px-3 md:py-3 rounded-md">
-                <h1 className="text-sm"></h1>
-                <div className="flex flex-col items-center justify-evenly md:flex-row gap-3 w-full">
-                    <div className="text-center flex gap-2 flex-col">
-                        <span className="font-medium text-center w-full">{order?.title}</span>
-                        <div className="rounded-md flex items-center justify-center">
-                            <Image priority={true} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" quality={50} height={200} width={150} style={{ objectFit: "contain" }} className="rounded-md" src={order?.imageURL || '/noImage.jpg'} alt="orderImage" />
-                        </div>
-                        <div className="flex flex-col font-light">
-                            <span className="text-center">&#8377;{order?.totalPrice} <span className="text-red-600">(Paid)</span></span>
-                            <span className="text-center">Size :  <span className="text-red-600">{order?.size}</span></span>
-                            <span className="text-center">Quantity: <span className="text-red-600">{order?.quantity}</span></span>
-                        </div>
-                    </div>
-                    <div className="flex flex-col items-center justify-center text-center font-light">
-                        <span>Order Id : {order?.razorpay_order_id}</span>
-                        <span>Name : {order?.customerName}</span>
-                        <span>Phone : {order?.phoneNumber}</span>
-                        <span>Whatsapp : {order?.whatsAppNumber}</span>
-                        <span>Delivering Address : {order?.toAddress}</span>
-                        <span>Pincode : {order?.pincode}</span>
-                    </div>
-
-                    {/* order tracking */}
-                    {!order?.isCancel && (<div className=" flex flex-col items-center justify-center p-5 gap-3">
-                        <h1 className="font-semibold text-[20px] md:text-[24px] ">Add Tracking Slip</h1>
-                        <div className="flex flex-col gap-4">
-                            <div className="flex px-5 items-center justify-center gap-3 w-full  ">
-                                {order?.deliverySlipURL && slipURL && (
-                                    <div className="relative flex flex-col items-center justify-center gap-1 border rounded-md w-[100px] h-[100px] overflow-hidden shadow-md">
-                                        <Image src={slipURL} quality={100} alt="Cover" className="w-full h-full object-cover rounded-md" height={150} width={150} />
-                                        <button onClick={handleDelete} className="bg-red-700 px-3 py-2 rounded-md text-white">
-                                            <MdDelete size={24} />
-                                        </button>
-                                    </div>
-                                )}
-                                {!slipURL && (
-                                    <label htmlFor="slipImage" className="relative flex flex-col items-center justify-center gap-1 border  rounded-md w-[100px] h-[100px] overflow-hidden shadow-sm">
-                                        <span className="font-light text-sm">Add Image</span>
-                                        <CiSquarePlus size={24} />
-                                    </label>
-                                )}
-                                <input
-                                    id="slipImage"
-                                    type="file"
-                                    onChange={handleCoverImageChange}
-                                    className="hidden"
-                                    accept="image/*"
-                                />
+        <div className=" py-3 px-3 flex flex-col items-center justify-center w-full min-h-[85vh]">
+            <div className=" py-3 px-3 flex flex-col max-w-6xl min-h-[85vh]">
+                <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>Order Details</h1>
+                <div className="flex flex-col gap-3 px-3 md:py-3 rounded-md">
+                    <h1 className="text-sm"></h1>
+                    <div className="flex flex-col items-center justify-evenly md:flex-row gap-3 w-full">
+                        <div className="text-center flex gap-2 flex-col">
+                            <span className="font-medium text-center w-full">{order?.title}</span>
+                            <div className="rounded-md flex items-center justify-center">
+                                <Image priority={true} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" quality={50} height={200} width={150} style={{ objectFit: "contain" }} className="rounded-md" src={order?.imageURL || '/noImage.jpg'} alt="orderImage" />
                             </div>
-                            {slipURL && slipURL != order?.deliverySlipURL && (<button className="bg-td-secondary px-3 py-3  text-white  rounded-md" onClick={handleSubmit}>Upload</button>)}
+                            <div className="flex flex-col font-light">
+                                <span className="text-center">&#8377;{order?.totalPrice} <span className="text-red-600">(Paid)</span></span>
+                                <span className="text-center">Size :  <span className="text-red-600">{order?.size}</span></span>
+                                <span className="text-center">Quantity: <span className="text-red-600">{order?.quantity}</span></span>
+                            </div>
                         </div>
-                    </div>)
-                    }
-                </div>
+                        <div className="flex flex-col items-center justify-center text-center font-light">
+                            <span>Order Id : {order?.razorpay_order_id}</span>
+                            <span>Name : {order?.customerName}</span>
+                            <span>Phone : {order?.phoneNumber}</span>
+                            <span>Whatsapp : {order?.whatsAppNumber}</span>
+                            <span>Delivering Address : {order?.toAddress}</span>
+                            <span>Pincode : {order?.pincode}</span>
+                        </div>
+
+                        {/* order tracking */}
+                        {!order?.isCancel && (<div className=" flex flex-col items-center justify-center p-5 gap-3">
+                            <h1 className="font-semibold text-[20px] md:text-[24px] ">Add Tracking Slip</h1>
+                            <div className="flex flex-col gap-4">
+                                <div className="flex px-5 items-center justify-center gap-3 w-full  ">
+                                    {order?.deliverySlipURL && slipURL && (
+                                        <div className="relative flex flex-col items-center justify-center gap-1 border rounded-md w-[100px] h-[100px] overflow-hidden shadow-md">
+                                            <Image src={slipURL} quality={100} alt="Cover" className="w-full h-full object-cover rounded-md" height={150} width={150} />
+                                            <button onClick={handleDelete} className="bg-red-700 px-3 py-2 rounded-md text-white">
+                                                <MdDelete size={24} />
+                                            </button>
+                                        </div>
+                                    )}
+                                    {!slipURL && (
+                                        <label htmlFor="slipImage" className="relative flex flex-col items-center justify-center gap-1 border  rounded-md w-[100px] h-[100px] overflow-hidden shadow-sm">
+                                            <span className="font-light text-sm">Add Image</span>
+                                            <CiSquarePlus size={24} />
+                                        </label>
+                                    )}
+                                    <input
+                                        id="slipImage"
+                                        type="file"
+                                        onChange={handleCoverImageChange}
+                                        className="hidden"
+                                        accept="image/*"
+                                    />
+                                </div>
+                                {slipURL && slipURL != order?.deliverySlipURL && (<button className="bg-td-secondary px-3 py-3  text-white  rounded-md" onClick={handleSubmit}>Upload</button>)}
+                            </div>
+                        </div>)
+                        }
+                    </div>
 
 
 
-                <div>
+                    <div>
 
-                    {
-                        !isLoading && (
-                            <div className="font-light flex flex-col md:flex-row gap-2">
-                                {/* {order?.isShipped && order?.isPaid && !order?.isDelivered && (
+                        {
+                            !isLoading && (
+                                <div className="font-light flex flex-col md:flex-row gap-2">
+                                    {/* {order?.isShipped && order?.isPaid && !order?.isDelivered && (
                                 <div className="w-full">
                                     <button className="flex items-center justify-center gap-2 bg-red-600 px-3 py-3 text-white w-full md:w-[1/2] rounded-md" onClick={handleShippmentCancel}>
                                         Cancel Shipment
@@ -301,27 +302,27 @@ const OrderDetailsPage = () => {
                                     </button>
                                 </div>
                             )} */}
-                                {!order?.isShipped && !order?.isDelivered && !order?.isCancel && (
-                                    <div className="w-full">
-                                        <button className="bg-td-secondary flex items-center justify-center gap-2  px-3 py-3 text-white w-full md:w-[1/2] rounded-md" onClick={handleShippmentConfirm}>
-                                            Shipping Confirm
-                                            <CiDeliveryTruck />
-                                        </button>
-                                    </div>
-                                )}
+                                    {!order?.isShipped && !order?.isDelivered && !order?.isCancel && (
+                                        <div className="w-full">
+                                            <button className="bg-td-secondary flex items-center justify-center gap-2  px-3 py-3 text-white w-full md:w-[1/2] rounded-md" onClick={handleShippmentConfirm}>
+                                                Shipping Confirm
+                                                <CiDeliveryTruck />
+                                            </button>
+                                        </div>
+                                    )}
 
 
 
 
-                                {order?.isShipped && order?.isPaid && !order?.isDelivered && (
-                                    <div className="w-full">
-                                        <button className="bg-td-secondary flex items-center justify-center gap-2  px-3 py-3 text-white w-full md:w-[1/2] rounded-md" onClick={handleDeliveredConfirm}>
-                                            Confirm Delivery
-                                            <PiPackageThin />
-                                        </button>
-                                    </div>
-                                )}
-                                {/* {order?.isShipped && order?.isPaid && order?.isDelivered && (
+                                    {order?.isShipped && order?.isPaid && !order?.isDelivered && (
+                                        <div className="w-full">
+                                            <button className="bg-td-secondary flex items-center justify-center gap-2  px-3 py-3 text-white w-full md:w-[1/2] rounded-md" onClick={handleDeliveredConfirm}>
+                                                Confirm Delivery
+                                                <PiPackageThin />
+                                            </button>
+                                        </div>
+                                    )}
+                                    {/* {order?.isShipped && order?.isPaid && order?.isDelivered && (
                                 <div className="w-full">
                                     <button className="flex items-center justify-center gap-2  bg-red-600 px-3 py-3 text-white w-full md:w-[1/2] rounded-md" onClick={handleDeliveredCancel}>
                                         Cancel Delivery
@@ -330,34 +331,35 @@ const OrderDetailsPage = () => {
                                 </div>
                             )} */}
 
-                                {!order?.isCancel && (
-                                    <div className="w-full">
-                                        <button className="bg-red-600  px-3 py-3 text-white w-full md:w-[1/2] rounded-md flex items-center justify-center gap-2 " onClick={handleOrderCancel}>
-                                            Cancel Order
-                                            <CiShoppingCart />
-                                        </button>
-                                    </div>
-                                )}
+                                    {!order?.isCancel && (
+                                        <div className="w-full">
+                                            <button className="bg-red-600  px-3 py-3 text-white w-full md:w-[1/2] rounded-md flex items-center justify-center gap-2 " onClick={handleOrderCancel}>
+                                                Cancel Order
+                                                <CiShoppingCart />
+                                            </button>
+                                        </div>
+                                    )}
 
-                                {/* {order?.isCancel === false && (
+                                    {/* {order?.isCancel === false && (
                                 <div className="w-full">
                                     <button className="bg-red-600 px-3 py-3 text-white w-full md:w-[1/2] rounded-md" onClick={handleDeliveredCancel}>Ca</button>
                                 </div>
                             )} */}
 
-                            </div>
-                        )
+                                </div>
+                            )
+                        }
+                    </div>
+
+
+                    {isLoading && (<div className="w-full">
+                        <button className="bg-td-secondary px-3 py-3 text-white w-full md:w-[1/2] rounded-md">
+                            <PulseLoader color="white" />
+                        </button>
+                    </div>)
                     }
-                </div>
 
-
-                {isLoading && (<div className="w-full">
-                    <button className="bg-td-secondary px-3 py-3 text-white w-full md:w-[1/2] rounded-md">
-                        <PulseLoader color="white" />
-                    </button>
-                </div>)
-                }
-
+                </div >
             </div >
         </div >
 
