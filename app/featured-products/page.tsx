@@ -58,8 +58,8 @@ const WishList = () => {
     }
 
     return (
-        <div className=" lg:px-5 flex flex-col items-center justify-center min-h-[85vh] py-5">
-            <div className="flex flex-col items-center justify-center max-w-6xl gap-2">
+        <div className=" lg:px-5 flex justify-center min-h-[85vh] py-5">
+            <div className="flex flex-col items-center justify-center max-w-6xl gap-5">
                 <div className="flex items-center justify-center">
                     <h1 className='text-td-secondary text-center text-[25px] md:text-[35px] font-bold text-3xl'>Featured Products</h1>
                 </div>
