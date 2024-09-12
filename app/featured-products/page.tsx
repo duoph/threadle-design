@@ -81,6 +81,7 @@ const WishList = () => {
                         </li>
                         <li className={`cursor-pointer page-item border flex items-center justify-center text-white rounded-md py-2 bg-td-secondary px-6 ${indexOfLastProduct >= products.length ? 'opacity-50 cursor-not-allowed' : ' transition-all ease-in-out'}`}>
                             <button onClick={nextPage} disabled={indexOfLastProduct >= products.length} className="flex items-center justify-center"><span className='px-2'>Next</span> <MdNavigateNext size={24} /></button>
+                        
                         </li>
                     </ul>
                 )}
